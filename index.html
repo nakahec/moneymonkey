@@ -174,6 +174,10 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .chip.sel{background:var(--accent);color:#fff}
 .chip.ghost{background:none;border:1.5px dashed var(--text-3);color:var(--text-3)}
 .chip.ghost:active{background:rgba(0,122,255,.05)}
+.detail-chip-title{font-size:13px;font-weight:700;color:var(--text-2);padding:12px 16px 0}
+#d-cat-chips,#d-paidby-chips,#d-usedby-chips,#d-from-chips,#d-to-chips{background:var(--surface-solid);padding-top:10px}
+#d-cat-chips .chip,#d-paidby-chips .chip,#d-usedby-chips .chip,#d-from-chips .chip,#d-to-chips .chip{font-weight:800;padding:9px 14px;border-radius:14px}
+#d-cat-chips .chip.sel,#d-paidby-chips .chip.sel,#d-usedby-chips .chip.sel,#d-from-chips .chip.sel,#d-to-chips .chip.sel{background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 16px rgba(10,132,255,.18)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SHEETS
@@ -536,27 +540,24 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
           <label class="form-label">項目</label>
           <input class="form-control left" id="d-name" placeholder="項目名稱" autocomplete="off">
         </div>
-        <div class="form-row" onclick="openPickerSheet('cat')" style="cursor:pointer">
-          <label class="form-label">種類</label>
-          <span class="form-value blue" id="d-cat-val">Select…</span>
-          <span class="form-arrow">›</span>
+        <div class="form-row">
+          <label class="form-label wide">種類</label>
         </div>
+        <div class="chip-wrap" id="d-cat-chips"></div>
         <div class="form-row">
           <label class="form-label">日期</label>
           <input type="date" class="form-control" id="d-date">
         </div>
       </div>
       <div class="sheet-inner">
-        <div class="form-row" onclick="openPickerSheet('paidby')" style="cursor:pointer">
-          <label class="form-label">付款人</label>
-          <span class="form-value blue" id="d-paidby-val">Select…</span>
-          <span class="form-arrow">›</span>
+        <div class="form-row">
+          <label class="form-label wide">付款人</label>
         </div>
-        <div class="form-row" onclick="openPickerSheet('usedby')" style="cursor:pointer">
-          <label class="form-label">使用者</label>
-          <span class="form-value blue" id="d-usedby-val">Select…</span>
-          <span class="form-arrow">›</span>
+        <div class="chip-wrap" id="d-paidby-chips"></div>
+        <div class="form-row">
+          <label class="form-label wide">使用者</label>
         </div>
+        <div class="chip-wrap" id="d-usedby-chips"></div>
       </div>
       <div class="sheet-inner">
         <div class="form-row">
@@ -606,16 +607,14 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
     <!-- Transfer fields -->
     <div id="transfer-fields" style="display:none">
       <div class="sheet-inner">
-        <div class="form-row" onclick="openPickerSheet('from')" style="cursor:pointer">
-          <label class="form-label">付款人</label>
-          <span class="form-value blue" id="d-from-val">Select…</span>
-          <span class="form-arrow">›</span>
+        <div class="form-row">
+          <label class="form-label wide">付款人</label>
         </div>
-        <div class="form-row" onclick="openPickerSheet('to')" style="cursor:pointer">
-          <label class="form-label">收款人</label>
-          <span class="form-value blue" id="d-to-val">Select…</span>
-          <span class="form-arrow">›</span>
+        <div class="chip-wrap" id="d-from-chips"></div>
+        <div class="form-row">
+          <label class="form-label wide">收款人</label>
         </div>
+        <div class="chip-wrap" id="d-to-chips"></div>
         <div class="form-row">
           <label class="form-label">日期</label>
           <input type="date" class="form-control" id="d-tr-date">
@@ -774,7 +773,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 <script type="module">
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import {
-  getFirestore, collection, doc, addDoc, setDoc, deleteDoc,
+  getFirestore, collection, doc, addDoc, setDoc, deleteDoc, getDoc,
   getDocs, onSnapshot, query, orderBy, where, writeBatch, serverTimestamp
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
@@ -936,6 +935,53 @@ let unsub=null;
 let txs=[];  // local mirror of current ledger's transactions
 
 function ledgerCol(){ return collection(db,'ledgers',SHARED_LEDGER_ID,'transactions'); }
+function ledgerDoc(txId){ return doc(db,'ledgers',SHARED_LEDGER_ID,'transactions',txId); }
+function sharedMetaDoc(){ return doc(db,'ledgers',SHARED_LEDGER_ID,'meta','config'); }
+
+function mergeById(localItems=[], remoteItems=[]){
+  const map=new Map();
+  [...remoteItems,...localItems].forEach(item=>{
+    if(item?.id) map.set(item.id,{...(map.get(item.id)||{}),...item});
+  });
+  return [...map.values()];
+}
+
+async function saveSharedMeta(){
+  if(!db) return;
+  await setDoc(sharedMetaDoc(),{
+    people: cfg.people||[],
+    categories: cfg.categories||[],
+    ledger: cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)||{
+      id: SHARED_LEDGER_ID,
+      name: SHARED_LEDGER_NAME,
+      baseCurrency: SHARED_LEDGER_BASE_CURRENCY
+    },
+    updatedAt: serverTimestamp()
+  },{merge:true});
+}
+
+async function syncSharedMeta(){
+  if(!db) return;
+  const ref=sharedMetaDoc();
+  const snap=await getDoc(ref);
+  if(snap.exists()){
+    const data=snap.data()||{};
+    cfg.people=mergeById(cfg.people||[],data.people||[]);
+    cfg.categories=mergeById(cfg.categories||[],data.categories||[]);
+    const remoteLedger=data.ledger||{};
+    const localLedger=cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)||{};
+    cfg.ledgers=[{
+      id: SHARED_LEDGER_ID,
+      name: remoteLedger.name||localLedger.name||SHARED_LEDGER_NAME,
+      baseCurrency: remoteLedger.baseCurrency||localLedger.baseCurrency||SHARED_LEDGER_BASE_CURRENCY
+    }];
+    cfg.currentLedgerId=SHARED_LEDGER_ID;
+    saveCfg();
+    await saveSharedMeta(); // uploads any old local random person/category IDs so other devices can resolve them
+  } else {
+    await saveSharedMeta();
+  }
+}
 
 async function initFb(config){
   try{
@@ -945,6 +991,7 @@ async function initFb(config){
     app=found||initializeApp(config,'splits');
     db=getFirestore(app);
     setSyncDot('pending');
+    await syncSharedMeta();
     await getDocs(query(ledgerCol()));
     setSyncDot('ok');
     subscribeToTx();
@@ -968,8 +1015,8 @@ function subscribeToTx(){
 }
 
 async function fbAdd(data){ if(!db){showToast('請先連接 Firebase');return false;} await addDoc(ledgerCol(),{...data,ledgerId:SHARED_LEDGER_ID,_created:serverTimestamp()}); return true; }
-async function fbSet(id,data){ if(!db) return; await setDoc(doc(db,'ledgers',SHARED_LEDGER_ID,'transactions',id),{...data,ledgerId:SHARED_LEDGER_ID,_updated:serverTimestamp()}); }
-async function fbDel(id){ if(!db) return; await deleteDoc(doc(db,'ledgers',SHARED_LEDGER_ID,'transactions',id)); }
+async function fbSet(id,data){ if(!db) return; await setDoc(ledgerDoc(id),{...data,ledgerId:SHARED_LEDGER_ID,_updated:serverTimestamp()}); }
+async function fbDel(id){ if(!db) return; await deleteDoc(ledgerDoc(id)); }
 
 window.connectFirebase=async function(){
   const raw=document.getElementById('fb-config-input').value.trim();
@@ -1091,7 +1138,7 @@ window.createLedger=function(){
   document.getElementById('nl-name').value='';
   document.getElementById('ledger-name-top').textContent=name;
   closeSheet('sheet-new-ledger');
-  if(db) subscribeToTx();
+  if(db){ saveSharedMeta().catch(console.error); subscribeToTx(); }
   renderSettings();
   showToast('共同帳薄已更新');
 };
@@ -1207,13 +1254,9 @@ function refreshDetailSheet(){
   document.getElementById('d-name').value=flowData.name||'';
   document.getElementById('d-date').value=flowData.date||isoDate();
   document.getElementById('d-remark').value=flowData.remark||'';
-  document.getElementById('d-cat-val').textContent=flowData.categoryId?catName(flowData.categoryId):'Select…';
-  document.getElementById('d-paidby-val').textContent=flowData.paidById?personName(flowData.paidById):'Select…';
-  document.getElementById('d-usedby-val').textContent=flowData.usedByIds?.length?flowData.usedByIds.map(personName).join(', '):'Select…';
+  renderDetailChips();
 
   // transfer fields
-  document.getElementById('d-from-val').textContent=flowData.fromId?personName(flowData.fromId):'Select…';
-  document.getElementById('d-to-val').textContent=flowData.toId?personName(flowData.toId):'Select…';
   document.getElementById('d-tr-date').value=flowData.date||isoDate();
   document.getElementById('d-tr-remark').value=flowData.remark||'';
 
@@ -1232,6 +1275,63 @@ function refreshDetailSheet(){
   // title
   document.getElementById('numpad-title').textContent=editTxId?'修改金額':'新增支出';
 }
+
+function chipBtn(label, selected, onclick){
+  return `<div class="chip${selected?' sel':''}" onclick="${onclick}">${label}</div>`;
+}
+
+function renderDetailChips(){
+  const catEl=document.getElementById('d-cat-chips');
+  if(catEl){
+    catEl.innerHTML=cfg.categories.map(c=>
+      chipBtn(c.name, flowData.categoryId===c.id, `selectDetailChip('cat','${c.id}')`)
+    ).join('');
+  }
+
+  const paidEl=document.getElementById('d-paidby-chips');
+  if(paidEl){
+    paidEl.innerHTML=cfg.people.map(p=>
+      chipBtn(p.name, flowData.paidById===p.id, `selectDetailChip('paidby','${p.id}')`)
+    ).join('');
+  }
+
+  const usedEl=document.getElementById('d-usedby-chips');
+  if(usedEl){
+    const selected=flowData.usedByIds||[];
+    usedEl.innerHTML=cfg.people.map(p=>
+      chipBtn(p.name, selected.includes(p.id), `selectDetailChip('usedby','${p.id}')`)
+    ).join('');
+  }
+
+  const fromEl=document.getElementById('d-from-chips');
+  if(fromEl){
+    fromEl.innerHTML=cfg.people.map(p=>
+      chipBtn(p.name, flowData.fromId===p.id, `selectDetailChip('from','${p.id}')`)
+    ).join('');
+  }
+
+  const toEl=document.getElementById('d-to-chips');
+  if(toEl){
+    toEl.innerHTML=cfg.people.map(p=>
+      chipBtn(p.name, flowData.toId===p.id, `selectDetailChip('to','${p.id}')`)
+    ).join('');
+  }
+}
+
+function selectDetailChip(ctx,id){
+  if(ctx==='cat') flowData.categoryId=id;
+  if(ctx==='paidby') flowData.paidById=id;
+  if(ctx==='usedby'){
+    const cur=flowData.usedByIds||[];
+    flowData.usedByIds=cur.includes(id)?cur.filter(x=>x!==id):[...cur,id];
+  }
+  if(ctx==='from') flowData.fromId=id;
+  if(ctx==='to') flowData.toId=id;
+  renderDetailChips();
+  if(navigator.vibrate) navigator.vibrate(5);
+}
+
+window.selectDetailChip=selectDetailChip;
 
 window.setTxType=function(type, silent=false){
   flowData.isTransfer=(type==='transfer');
@@ -1263,15 +1363,15 @@ window.renderRecurEndFields=function(){
 // ════════════════════════════════════════════════
 const pickerCfg={
   cat:{ title:'Category', multi:false, items:()=>cfg.categories.map(c=>({id:c.id,label:c.name})),
-        getVal:()=>flowData.categoryId, setVal:v=>{ flowData.categoryId=v; document.getElementById('d-cat-val').textContent=catName(v); closeSheet('sheet-picker'); } },
+        getVal:()=>flowData.categoryId, setVal:v=>{ flowData.categoryId=v; renderDetailChips(); closeSheet('sheet-picker'); } },
   paidby:{ title:'Paid By', multi:false, items:()=>cfg.people.map(p=>({id:p.id,label:p.name})),
-           getVal:()=>flowData.paidById, setVal:v=>{ flowData.paidById=v; document.getElementById('d-paidby-val').textContent=personName(v); closeSheet('sheet-picker'); } },
+           getVal:()=>flowData.paidById, setVal:v=>{ flowData.paidById=v; renderDetailChips(); closeSheet('sheet-picker'); } },
   usedby:{ title:'Used By', multi:true, items:()=>cfg.people.map(p=>({id:p.id,label:p.name})),
-           getVal:()=>flowData.usedByIds||[], setVal:ids=>{ flowData.usedByIds=ids; document.getElementById('d-usedby-val').textContent=ids.length?ids.map(personName).join(', '):'Select…'; } },
+           getVal:()=>flowData.usedByIds||[], setVal:ids=>{ flowData.usedByIds=ids; renderDetailChips(); } },
   from:{ title:'From', multi:false, items:()=>cfg.people.map(p=>({id:p.id,label:p.name})),
-         getVal:()=>flowData.fromId, setVal:v=>{ flowData.fromId=v; document.getElementById('d-from-val').textContent=personName(v); closeSheet('sheet-picker'); } },
+         getVal:()=>flowData.fromId, setVal:v=>{ flowData.fromId=v; renderDetailChips(); closeSheet('sheet-picker'); } },
   to:{ title:'To', multi:false, items:()=>cfg.people.map(p=>({id:p.id,label:p.name})),
-       getVal:()=>flowData.toId, setVal:v=>{ flowData.toId=v; document.getElementById('d-to-val').textContent=personName(v); closeSheet('sheet-picker'); } },
+       getVal:()=>flowData.toId, setVal:v=>{ flowData.toId=v; renderDetailChips(); closeSheet('sheet-picker'); } },
   'filter-cat':{ title:'Category', multi:false,
     items:()=>[{id:'',label:'All'},...cfg.categories.map(c=>({id:c.id,label:c.name}))],
     getVal:()=>filters.catId,
@@ -1741,20 +1841,20 @@ window.addEntity=function(){
   const name=document.getElementById('entity-input').value.trim(); if(!name) return;
   if(entityCtx==='person') cfg.people.push({id:uid(),name,color:COLORS[cfg.people.length%COLORS.length]});
   else cfg.categories.push({id:uid(),name});
-  saveCfg(); document.getElementById('entity-input').value='';
-  renderEntityList(); renderSettings(); showToast('已加入 '+name);
+  saveCfg(); if(db) saveSharedMeta().catch(console.error); document.getElementById('entity-input').value='';
+  renderEntityList(); renderSettings(); renderDetailChips(); showToast('已加入 '+name);
 };
 window.startRename=function(type,id){
   const arr=type==='person'?cfg.people:cfg.categories;
   const item=arr.find(e=>e.id===id); if(!item) return;
   const newName=prompt('將「'+item.name+'」改名為：',item.name);
   if(!newName||newName.trim()===item.name) return;
-  item.name=newName.trim(); saveCfg();
-  renderEntityList(); renderSettings(); renderSummary(); renderHistory(); renderSettle();
+  item.name=newName.trim(); saveCfg(); if(db) saveSharedMeta().catch(console.error);
+  renderEntityList(); renderSettings(); renderDetailChips(); renderSummary(); renderHistory(); renderSettle();
   showToast('已改名為 '+item.name);
 };
-window.removePerson=function(id){ if(!confirm('確定移除此人員？')) return; cfg.people=cfg.people.filter(p=>p.id!==id); saveCfg(); renderSettings(); };
-window.removeCategory=function(id){ if(!confirm('確定移除此種類？')) return; cfg.categories=cfg.categories.filter(c=>c.id!==id); saveCfg(); renderSettings(); };
+window.removePerson=function(id){ if(!confirm('確定移除此人員？')) return; cfg.people=cfg.people.filter(p=>p.id!==id); saveCfg(); if(db) saveSharedMeta().catch(console.error); renderSettings(); renderDetailChips(); };
+window.removeCategory=function(id){ if(!confirm('確定移除此種類？')) return; cfg.categories=cfg.categories.filter(c=>c.id!==id); saveCfg(); if(db) saveSharedMeta().catch(console.error); renderSettings(); renderDetailChips(); };
 
 // ════════════════════════════════════════════════
 // DATE FORMAT
@@ -1798,6 +1898,8 @@ Object.assign(window, {
   setTxType,
   toggleRecurring,
   renderRecurEndFields,
+  selectDetailChip,
+  renderDetailChips,
   openPickerSheet,
   pickerSingleSel,
   togglePickerChip,
@@ -1824,6 +1926,8 @@ Object.assign(window, {
   applyFilters,
   clearFilters,
   manualSync,
+  saveSharedMeta,
+  syncSharedMeta,
 });
 
 (async function init(){
