@@ -1904,7 +1904,7 @@ function renderSettings(){
     <div class="card">
       <div class="settings-row" onclick="openImportExcel()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯入交易 Excel / CSV</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="downloadSampleCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">下載 Sample CSV</span><span class="settings-arrow">›</span></div>
-      <div class="fx-status">支援欄位：日期、項目、金額、貨幣、付款人、使用者、種類、備註。人名/種類會按名稱 match，沒有就自動建立。</div>
+      <div class="fx-status">支援欄位：Year、Month、Day、項目、金額、貨幣、付款人、使用者、種類、備註。亦兼容舊 Date/日期 欄。人名/種類會按名稱 match，沒有就自動建立。</div>
     </div>
     <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
     <div class="sec-label">帳薄</div>
@@ -2001,10 +2001,10 @@ window.downloadSampleCsv=function(){
   const cat1=cats[0]?.name||'Food & Drink';
   const cat2=cats[1]?.name||'Transport';
   const rows=[
-    ['日期','類型','項目','金額','貨幣','付款人','使用者','種類','備註','收款人'],
-    [isoDate(),'expense','午餐','25.50',bc,p1,`${p1}, ${p2}`,cat1,'sample expense',''],
-    [isoDate(),'expense','巴士','4.80',bc,p2,p2,cat2,'sample single user',''],
-    [isoDate(),'transfer','還錢','10.00',bc,p1,'','', 'sample transfer',p2]
+    ['Year','Month','Day','Type','Item','Amount','Currency','Paid By','Used By','Category','Remark','To'],
+    ['2026','06','29','expense','午餐','25.50',bc,p1,`${p1}, ${p2}`,cat1,'sample expense',''],
+    ['2026','07','01','expense','巴士','4.80',bc,p2,p2,cat2,'sample single user',''],
+    ['2026','07','02','transfer','還錢','10.00',bc,p1,'','', 'sample transfer',p2]
   ];
   const csv='\ufeff'+rows.map(r=>r.map(csvEscape).join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv;charset=utf-8'});
@@ -2051,6 +2051,23 @@ function parseImportDate(v){
   const d=new Date(s);
   return isNaN(d)?isoDate():isoDate(d);
 }
+function pad2(v){ return String(v??'').trim().padStart(2,'0'); }
+function parseImportDateFromRow(row){
+  // New preferred format: separate Year / Month / Day columns.
+  const y=normText(getRowVal(row,['year','年份','年','yyyy']));
+  const m=normText(getRowVal(row,['month','月份','月','mm']));
+  const d=normText(getRowVal(row,['day','日','日期日','dd']));
+  if(y && m && d){
+    const yy=String(Number(y));
+    const mm=pad2(Number(m));
+    const dd=pad2(Number(d));
+    if(/^\d{4}$/.test(yy) && /^\d{2}$/.test(mm) && /^\d{2}$/.test(dd)){
+      return `${yy}-${mm}-${dd}`;
+    }
+  }
+  // Backward compatibility: Date / 日期 column.
+  return parseImportDate(getRowVal(row,['date','日期','交易日期']));
+}
 function ensurePersonByName(name){
   const n=normText(name);
   if(!n) return '';
@@ -2083,7 +2100,7 @@ function normalizeImportRow(row){
   const currency=(normText(getRowVal(row,['currency','貨幣','幣種','cur']))||baseCur()).toUpperCase();
   const amount=Number(String(getRowVal(row,['amount','金額','價錢','total','總額'])).replace(/[, $HKDAUDJPYNTDUSDEURGBP號]/gi,''));
   if(!amount||amount<=0) return null;
-  const date=parseImportDate(getRowVal(row,['date','日期','交易日期']));
+  const date=parseImportDateFromRow(row);
   const remark=normText(getRowVal(row,['remark','備註','備注','notes','note','memo']));
   const rate=fxRateForDate(currency,date);
   if(isTransfer){
