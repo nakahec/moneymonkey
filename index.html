@@ -785,6 +785,27 @@ const CURRENCIES = ['AUD','HKD','JPY','NTD','USD','GBP','EUR','SGD','TWD','CNY']
 const DECIMAL = { AUD:2, HKD:1, JPY:0, NTD:0, USD:2, GBP:2, EUR:2, SGD:2, TWD:0, CNY:2 };
 const COLORS = ['#007aff','#34c759','#ff9500','#ff3b30','#bf5af2','#5ac8fa','#ff2d55','#ac8e68','#30b0c7','#34aadc'];
 
+// Force every device/user to read and write the same Firestore ledger.
+const SHARED_LEDGER_ID = 'shared-ledger';
+const SHARED_LEDGER_NAME = '共同帳薄';
+const SHARED_LEDGER_BASE_CURRENCY = 'AUD';
+
+// Stable default IDs so records created on one device display names correctly on another device.
+const DEFAULT_PEOPLE = [
+  {id:'person-charlie',name:'Charlie',color:COLORS[0]},
+  {id:'person-ivan',name:'Ivan',color:COLORS[1]},
+  {id:'person-yumi',name:'Yumi',color:COLORS[2]}
+];
+const DEFAULT_CATEGORIES = [
+  {id:'cat-food-drink',name:'Food & Drink'},
+  {id:'cat-transport',name:'Transport'},
+  {id:'cat-shopping',name:'Shopping'},
+  {id:'cat-entertainment',name:'Entertainment'},
+  {id:'cat-accommodation',name:'Accommodation'},
+  {id:'cat-health',name:'Health'},
+  {id:'cat-other',name:'Other'}
+];
+
 // ════════════════════════════════════════════════
 // LOCAL CONFIG (non-financial, localStorage)
 // ════════════════════════════════════════════════
@@ -802,29 +823,30 @@ function saveCfg(){ localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); }
 
 // Seed default people/cats if empty
 function seedDefaults(){
-  if(!cfg.people.length){
-    cfg.people=[
-      {id:uid(),name:'Charlie',color:COLORS[0]},
-      {id:uid(),name:'Ivan',   color:COLORS[1]},
-      {id:uid(),name:'Yumi',   color:COLORS[2]}
-    ];
+  // People/categories are still stored locally in this version, so give the built-in
+  // defaults stable IDs. This avoids records saved on mobile showing as '?' on desktop.
+  const defaultPeopleNames = ['Charlie','Ivan','Yumi'];
+  const existingPeopleNames = (cfg.people||[]).map(p=>p.name).sort().join('|');
+  if(!cfg.people?.length || existingPeopleNames === defaultPeopleNames.sort().join('|')){
+    cfg.people = DEFAULT_PEOPLE.map(p=>({...p}));
   }
-  if(!cfg.categories.length){
-    cfg.categories=[
-      {id:uid(),name:'Food & Drink'},
-      {id:uid(),name:'Transport'},
-      {id:uid(),name:'Shopping'},
-      {id:uid(),name:'Entertainment'},
-      {id:uid(),name:'Accommodation'},
-      {id:uid(),name:'Health'},
-      {id:uid(),name:'Other'}
-    ];
+
+  const defaultCatNames = DEFAULT_CATEGORIES.map(c=>c.name).sort().join('|');
+  const existingCatNames = (cfg.categories||[]).map(c=>c.name).sort().join('|');
+  if(!cfg.categories?.length || existingCatNames === defaultCatNames){
+    cfg.categories = DEFAULT_CATEGORIES.map(c=>({...c}));
   }
-  if(!cfg.ledgers.length){
-    const lid=uid();
-    cfg.ledgers=[{id:lid,name:'Daily',baseCurrency:'AUD'}];
-    cfg.currentLedgerId=lid;
-  }
+
+  // IMPORTANT: all devices/users must use the same ledger ID, otherwise Firestore path
+  // becomes /ledgers/<different-local-id>/transactions and records will not sync.
+  const existingShared = (cfg.ledgers||[]).find(l=>l.id===SHARED_LEDGER_ID);
+  const fallback = existingShared || (cfg.ledgers||[])[0] || {};
+  cfg.ledgers = [{
+    id: SHARED_LEDGER_ID,
+    name: fallback.name || SHARED_LEDGER_NAME,
+    baseCurrency: fallback.baseCurrency || SHARED_LEDGER_BASE_CURRENCY
+  }];
+  cfg.currentLedgerId = SHARED_LEDGER_ID;
   saveCfg();
 }
 
@@ -834,7 +856,7 @@ function seedDefaults(){
 function uid(){ return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)+Date.now().toString(36); }
 function fmt(n, cur){ const d=DECIMAL[cur]??2; return Number(n).toFixed(d); }
 function fmtBase(n){ return fmt(n, baseCur()); }
-function baseCur(){ return cfg.ledgers.find(l=>l.id===cfg.currentLedgerId)?.baseCurrency||'AUD'; }
+function baseCur(){ return cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)?.baseCurrency||SHARED_LEDGER_BASE_CURRENCY; }
 function personName(id){ return cfg.people.find(p=>p.id===id)?.name||'?'; }
 function personColor(id){ return cfg.people.find(p=>p.id===id)?.color||COLORS[0]; }
 function catName(id){ return cfg.categories.find(c=>c.id===id)?.name||'未分類'; }
@@ -907,11 +929,13 @@ async function downloadFxRates(){
 // ════════════════════════════════════════════════
 // FIREBASE
 // ════════════════════════════════════════════════
+// This version uses one shared Firestore path for everyone:
+// /ledgers/shared-ledger/transactions/{txId}
 let db=null;
 let unsub=null;
 let txs=[];  // local mirror of current ledger's transactions
 
-function ledgerCol(){ return collection(db,'ledgers',cfg.currentLedgerId,'transactions'); }
+function ledgerCol(){ return collection(db,'ledgers',SHARED_LEDGER_ID,'transactions'); }
 
 async function initFb(config){
   try{
@@ -943,9 +967,9 @@ function subscribeToTx(){
   }, err=>{ console.error(err); setSyncDot('err'); });
 }
 
-async function fbAdd(data){ if(!db){showToast('請先連接 Firebase');return false;} await addDoc(ledgerCol(),{...data,_created:serverTimestamp()}); return true; }
-async function fbSet(id,data){ if(!db) return; await setDoc(doc(db,'ledgers',cfg.currentLedgerId,'transactions',id),{...data,_updated:serverTimestamp()}); }
-async function fbDel(id){ if(!db) return; await deleteDoc(doc(db,'ledgers',cfg.currentLedgerId,'transactions',id)); }
+async function fbAdd(data){ if(!db){showToast('請先連接 Firebase');return false;} await addDoc(ledgerCol(),{...data,ledgerId:SHARED_LEDGER_ID,_created:serverTimestamp()}); return true; }
+async function fbSet(id,data){ if(!db) return; await setDoc(doc(db,'ledgers',SHARED_LEDGER_ID,'transactions',id),{...data,ledgerId:SHARED_LEDGER_ID,_updated:serverTimestamp()}); }
+async function fbDel(id){ if(!db) return; await deleteDoc(doc(db,'ledgers',SHARED_LEDGER_ID,'transactions',id)); }
 
 window.connectFirebase=async function(){
   const raw=document.getElementById('fb-config-input').value.trim();
@@ -1049,26 +1073,27 @@ function renderLedgerList(){
     </div>`).join('');
 }
 window.switchLedger=function(id){
-  cfg.currentLedgerId=id; saveCfg();
-  document.getElementById('ledger-name-top').textContent=cfg.ledgers.find(l=>l.id===id)?.name||'';
+  cfg.currentLedgerId=SHARED_LEDGER_ID; saveCfg();
+  document.getElementById('ledger-name-top').textContent=cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)?.name||'';
   closeSheet('sheet-ledger');
   npCur=baseCur();
   if(db) subscribeToTx();
   renderAll();
 };
-window.openNewLedgerSheet=function(){ closeSheet('sheet-ledger'); setBoxValue('nl-base-cur','AUD'); openSheet('sheet-new-ledger'); };
+window.openNewLedgerSheet=function(){ closeSheet('sheet-ledger'); setBoxValue('nl-base-cur',baseCur()); document.getElementById('nl-name').value=cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)?.name||SHARED_LEDGER_NAME; openSheet('sheet-new-ledger'); };
 window.createLedger=function(){
   const name=document.getElementById('nl-name').value.trim();
   if(!name) return showToast('請輸入名稱');
-  const id=uid();
-  const bc=selectedBoxValue('nl-base-cur')||'AUD';
-  cfg.ledgers.push({id,name,baseCurrency:bc});
-  cfg.currentLedgerId=id; saveCfg();
+  const bc=selectedBoxValue('nl-base-cur')||SHARED_LEDGER_BASE_CURRENCY;
+  cfg.ledgers=[{id:SHARED_LEDGER_ID,name,baseCurrency:bc}];
+  cfg.currentLedgerId=SHARED_LEDGER_ID;
+  saveCfg();
   document.getElementById('nl-name').value='';
   document.getElementById('ledger-name-top').textContent=name;
   closeSheet('sheet-new-ledger');
   if(db) subscribeToTx();
-  showToast('帳薄已建立');
+  renderSettings();
+  showToast('共同帳薄已更新');
 };
 
 // ════════════════════════════════════════════════
@@ -1320,7 +1345,7 @@ window.saveTx=async function(){
     if(flowData.fromId===flowData.toId) return showToast('付款人與收款人不能相同');
     data={
       type:'transfer',
-      ledgerId:cfg.currentLedgerId,
+      ledgerId:SHARED_LEDGER_ID,
       fromPersonId:flowData.fromId,
       toPersonId:flowData.toId,
       currency:npCur,
@@ -1340,7 +1365,7 @@ window.saveTx=async function(){
 
     data={
       type:'expense',
-      ledgerId:cfg.currentLedgerId,
+      ledgerId:SHARED_LEDGER_ID,
       itemName:name,
       categoryId:flowData.categoryId,
       paidByPersonId:flowData.paidById,
@@ -1419,7 +1444,7 @@ window.clearFilters=function(){
 function renderHistory(){
   const q=(document.getElementById('tx-search')?.value||'').trim().toLowerCase();
   const isFuture=txTab==='future';
-  let list=txs.filter(t=>t.ledgerId===cfg.currentLedgerId||(t.ledgerId==null));
+  let list=txs.filter(t=>t.ledgerId===SHARED_LEDGER_ID||(t.ledgerId==null));
   if(isFuture) list=list.filter(t=>t.status==='scheduled');
   else list=list.filter(t=>t.status!=='scheduled'&&t.status!=='cancelled');
   if(q) list=list.filter(t=>(t.itemName||'').toLowerCase().includes(q)||(t.remark||'').toLowerCase().includes(q));
@@ -1500,10 +1525,10 @@ function changePeriod(dir){
 window.changePeriod=changePeriod;
 
 function completedLedgerTxs(){
-  return txs.filter(t=>(t.ledgerId===cfg.currentLedgerId||!t.ledgerId)&&t.status==='completed'&&t.type==='expense');
+  return txs.filter(t=>(t.ledgerId===SHARED_LEDGER_ID||!t.ledgerId)&&t.status==='completed'&&t.type==='expense');
 }
 function allLedgerTxs(){
-  return txs.filter(t=>(t.ledgerId===cfg.currentLedgerId||!t.ledgerId)&&t.status==='completed');
+  return txs.filter(t=>(t.ledgerId===SHARED_LEDGER_ID||!t.ledgerId)&&t.status==='completed');
 }
 
 function renderSummary(){
@@ -1805,7 +1830,7 @@ Object.assign(window, {
   try{
     seedDefaults();
     document.getElementById('ledger-name-top').textContent=
-      cfg.ledgers.find(l=>l.id===cfg.currentLedgerId)?.name||'記帳';
+      cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)?.name||'記帳';
     npCur=baseCur();
     if(cfg.fbConfig){
       const ok=await initFb(cfg.fbConfig);
