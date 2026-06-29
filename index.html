@@ -213,6 +213,15 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
   transition:transform .1s,box-shadow .1s;
   display:flex;align-items:center;gap:12px;
 }
+.tx-cat-avatar{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  font-size:13px;font-weight:800;
+  background:var(--accent-light);color:var(--accent);
+  box-shadow:inset 0 0 0 1px rgba(10,132,255,.12);
+  text-transform:uppercase;
+}
 .tx-card:active{transform:scale(.985);box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .tx-card.expanded{border-radius:var(--radius) var(--radius) 0 0;box-shadow:none;background:var(--surface-solid)}
 .tx-card-main{flex:1;min-width:0}
@@ -560,7 +569,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
         <div class="chip-wrap" id="d-cat-chips"></div>
         <div class="form-row">
           <label class="form-label">日期</label>
-          <input type="date" class="form-control" id="d-date">
+          <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')">
         </div>
       </div>
       <div class="sheet-inner">
@@ -631,7 +640,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
         <div class="chip-wrap" id="d-to-chips"></div>
         <div class="form-row">
           <label class="form-label">日期</label>
-          <input type="date" class="form-control" id="d-tr-date">
+          <input type="date" class="form-control" id="d-tr-date" onchange="onTxDateChange('transfer')" oninput="onTxDateChange('transfer')">
         </div>
       </div>
       <div class="sheet-inner">
@@ -792,7 +801,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import {
   getFirestore, collection, doc, addDoc, setDoc, deleteDoc, getDoc,
-  getDocs, onSnapshot, query, orderBy, where, writeBatch, serverTimestamp
+  getDocs, onSnapshot, query, orderBy, where, writeBatch, serverTimestamp, limit, runTransaction
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ════════════════════════════════════════════════
@@ -807,21 +816,18 @@ const SHARED_LEDGER_ID = 'shared-ledger';
 const SHARED_LEDGER_NAME = '共同帳薄';
 const SHARED_LEDGER_BASE_CURRENCY = 'AUD';
 
-// Stable default IDs so records created on one device display names correctly on another device.
-const DEFAULT_PEOPLE = [
-  {id:'person-charlie',name:'Charlie',color:COLORS[0]},
-  {id:'person-ivan',name:'Ivan',color:COLORS[1]},
-  {id:'person-yumi',name:'Yumi',color:COLORS[2]}
-];
-const DEFAULT_CATEGORIES = [
-  {id:'cat-food-drink',name:'Food & Drink'},
-  {id:'cat-transport',name:'Transport'},
-  {id:'cat-shopping',name:'Shopping'},
-  {id:'cat-entertainment',name:'Entertainment'},
-  {id:'cat-accommodation',name:'Accommodation'},
-  {id:'cat-health',name:'Health'},
-  {id:'cat-other',name:'Other'}
-];
+// No default users/categories. They should be added by the user or imported from CSV/Excel.
+const REMOVED_DEFAULT_PEOPLE = new Set();
+const REMOVED_DEFAULT_CATEGORIES = new Set();
+const DEFAULT_PEOPLE = [];
+const DEFAULT_CATEGORIES = [];
+
+function stripOldDefaultEntities(){
+  // No-op: do not hide Firebase entities by hard-coded IDs.
+  // Names like Charlie/Ivan may be real shared users and must be shown if present in meta/config.
+  cfg.people = Array.isArray(cfg.people) ? cfg.people : [];
+  cfg.categories = Array.isArray(cfg.categories) ? cfg.categories : [];
+}
 
 // ════════════════════════════════════════════════
 // LOCAL CONFIG (non-financial, localStorage)
@@ -834,28 +840,24 @@ let cfg = JSON.parse(localStorage.getItem(CFG_KEY)||'null') || {
   people: [],      // [{id,name,color}]
   categories: [],  // [{id,name}]
   fxRates: {},     // {"YYYY-MM-DD":{"HKD":0.197,...}}
+  fxRateMeta: {},  // {"YYYY-MM-DD":{"HKD":{source,sourceDate}}}
   fxLastUpdated: null
 };
-function saveCfg(){ localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); }
+function saveCfg(){
+  // Firebase meta/config is the source of truth for people/categories.
+  // Keep them in memory for rendering, but do not persist IDs locally because
+  // stale local IDs can be merged back and create duplicate names on other devices.
+  const localCopy = { ...cfg, people: [], categories: [] };
+  localStorage.setItem(CFG_KEY, JSON.stringify(localCopy));
+}
 function saveCurrentLedgerState(){
   saveCfg();
   if(db) saveSharedMeta().catch(console.error);
 }
 
-// Seed default people/cats if empty
+// Initialize required ledger only. Do not auto-create people/categories.
 function seedDefaults(){
-  // People/categories use shared stable IDs and later sync to Firebase meta/config.
-  const defaultPeopleNames = ['Charlie','Ivan','Yumi'];
-  const existingPeopleNames = (cfg.people||[]).map(p=>p.name).sort().join('|');
-  if(!cfg.people?.length || existingPeopleNames === defaultPeopleNames.sort().join('|')){
-    cfg.people = DEFAULT_PEOPLE.map(p=>({...p}));
-  }
-
-  const defaultCatNames = DEFAULT_CATEGORIES.map(c=>c.name).sort().join('|');
-  const existingCatNames = (cfg.categories||[]).map(c=>c.name).sort().join('|');
-  if(!cfg.categories?.length || existingCatNames === defaultCatNames){
-    cfg.categories = DEFAULT_CATEGORIES.map(c=>({...c}));
-  }
+  stripOldDefaultEntities();
 
   // Keep all local ledgers instead of replacing them. Ensure the original shared ledger exists.
   cfg.ledgers = Array.isArray(cfg.ledgers) ? cfg.ledgers.filter(l=>l&&l.id) : [];
@@ -897,20 +899,122 @@ function isoDate(d=new Date()){
 // FX RATES
 // ════════════════════════════════════════════════
 function fxRateForDate(currency, date){
+  currency=(currency||baseCur()).toUpperCase();
+  date=date||isoDate();
   if(currency===baseCur()) return 1;
-  // find exact or most recent past trading day
-  const sorted=Object.keys(cfg.fxRates).filter(d=>d<=date).sort().reverse();
+
+  // Prefer exact transaction date if we have it.
+  if(cfg.fxRates?.[date]?.[currency]!=null) return cfg.fxRates[date][currency];
+
+  // Otherwise use the most recent previous market day already cached.
+  const sorted=Object.keys(cfg.fxRates||{}).filter(d=>d<=date).sort().reverse();
   for(const d of sorted){
     if(cfg.fxRates[d]?.[currency]!=null) return cfg.fxRates[d][currency];
   }
-  // fallback to any available
-  const any=Object.keys(cfg.fxRates).sort().reverse();
+
+  // Fallback to any cached date before using hardcoded estimate.
+  const any=Object.keys(cfg.fxRates||{}).sort().reverse();
   for(const d of any){
     if(cfg.fxRates[d]?.[currency]!=null) return cfg.fxRates[d][currency];
   }
-  // hardcoded defaults
+
+  // Last resort only; UI will try to fetch a dated rate in the background.
   const def={HKD:0.197,JPY:0.0099,NTD:0.047,USD:1.53,GBP:1.93,EUR:1.68,SGD:1.14,TWD:0.047,CNY:0.21};
   return def[currency]??1;
+}
+
+function fxMetaForDate(currency,date){
+  return cfg.fxRateMeta?.[date]?.[currency] || null;
+}
+
+function setFxRateForDate(currency,date,rate,meta={}){
+  currency=(currency||'').toUpperCase();
+  if(!currency||!date||!isFinite(rate)) return;
+  cfg.fxRates = cfg.fxRates || {};
+  cfg.fxRateMeta = cfg.fxRateMeta || {};
+  if(!cfg.fxRates[date]) cfg.fxRates[date]={};
+  if(!cfg.fxRateMeta[date]) cfg.fxRateMeta[date]={};
+  cfg.fxRates[date][currency]=Number(rate);
+  cfg.fxRateMeta[date][currency]={
+    source: meta.source || 'unknown',
+    sourceDate: meta.sourceDate || date,
+    updatedAt: new Date().toISOString()
+  };
+}
+
+function frankfurterSupported(c){
+  return ['AUD','HKD','JPY','USD','GBP','EUR','SGD','CNY'].includes((c||'').toUpperCase());
+}
+
+function yahooCurrency(c){
+  c=(c||'').toUpperCase();
+  return c==='NTD' ? 'TWD' : c;
+}
+
+async function fetchFxFrankfurter(currency,date){
+  const bc=baseCur().toUpperCase();
+  currency=currency.toUpperCase();
+  if(!frankfurterSupported(currency)||!frankfurterSupported(bc)) throw new Error('Frankfurter unsupported currency');
+  const r=await fetch(`https://api.frankfurter.app/${date}?from=${encodeURIComponent(currency)}&to=${encodeURIComponent(bc)}`);
+  if(!r.ok) throw new Error('Frankfurter HTTP '+r.status);
+  const j=await r.json();
+  const rate=j?.rates?.[bc];
+  if(rate==null||isNaN(rate)) throw new Error('Frankfurter missing rate');
+  return {rate:Number(rate), source:'frankfurter', sourceDate:j.date||date};
+}
+
+async function fetchFxYahoo(currency,date){
+  const bc=baseCur().toUpperCase();
+  currency=yahooCurrency(currency);
+  const start=new Date(date+'T00:00:00Z');
+  const end=new Date(start.getTime()+4*86400000); // include next market day if selected date is weekend/holiday
+  const p1=Math.floor(start.getTime()/1000);
+  const p2=Math.floor(end.getTime()/1000);
+  const pair=`${currency}${bc}=X`;
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${pair}?interval=1d&period1=${p1}&period2=${p2}`;
+
+  async function read(u, source){
+    const r=await fetch(u);
+    if(!r.ok) throw new Error(source+' HTTP '+r.status);
+    const j=await r.json();
+    const res=j?.chart?.result?.[0];
+    const ts=res?.timestamp||[];
+    const close=res?.indicators?.quote?.[0]?.close||[];
+    for(let i=0;i<ts.length;i++){
+      if(close[i]!=null&&!isNaN(close[i])){
+        return {rate:Number(close[i]), source, sourceDate:isoDate(new Date(ts[i]*1000))};
+      }
+    }
+    throw new Error(source+' missing rate');
+  }
+
+  try{
+    return await read(url,'yahoo');
+  }catch(e){
+    const proxy=`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+    return await read(proxy,'yahoo-proxy');
+  }
+}
+
+async function ensureFxRateForDate(currency,date,{force=false,quiet=true}={}){
+  currency=(currency||baseCur()).toUpperCase();
+  date=date||isoDate();
+  if(currency===baseCur()) return 1;
+  if(!force && cfg.fxRates?.[date]?.[currency]!=null) return cfg.fxRates[date][currency];
+
+  try{
+    let out;
+    try{ out=await fetchFxFrankfurter(currency,date); }
+    catch(e){ out=await fetchFxYahoo(currency,date); }
+    setFxRateForDate(currency,date,out.rate,out);
+    cfg.fxLastUpdated=isoDate();
+    saveCfg();
+    return out.rate;
+  }catch(e){
+    console.warn('Dated FX fetch failed',currency,date,e);
+    if(!quiet) showToast('匯率更新失敗，暫用已儲存匯率');
+    return fxRateForDate(currency,date);
+  }
 }
 
 function toBase(amount, currency, date){
@@ -921,8 +1025,8 @@ async function downloadFxRates(){
   setMsg('下載匯率中…');
   const bc=baseCur();
   const syms=CURRENCIES.filter(c=>c!==bc);
-  // Use allorigins to bypass CORS for Yahoo Finance
-  // Fetch last 2 years of daily rates
+  // Fetch last 2 years of daily rates. This is a bulk cache; individual transaction
+  // dates are also fetched on demand by ensureFxRateForDate().
   const to=isoDate();
   const from=isoDate(new Date(Date.now()-365*2*24*3600*1000));
   const p1=Math.floor(new Date(from).getTime()/1000);
@@ -931,7 +1035,7 @@ async function downloadFxRates(){
   let fetched=0;
   for(const sym of syms){
     try{
-      const pair=`${sym}${bc}=X`;
+      const pair=`${yahooCurrency(sym)}${bc}=X`;
       const url=`https://query1.finance.yahoo.com/v8/finance/chart/${pair}?interval=1d&period1=${p1}&period2=${p2}`;
       const proxy=`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
       const r=await fetch(proxy);
@@ -941,8 +1045,7 @@ async function downloadFxRates(){
       ts.forEach((t,i)=>{
         if(close[i]==null||isNaN(close[i])) return;
         const d=isoDate(new Date(t*1000));
-        if(!cfg.fxRates[d]) cfg.fxRates[d]={};
-        cfg.fxRates[d][sym]=close[i];
+        setFxRateForDate(sym,d,close[i],{source:'yahoo-bulk',sourceDate:d});
       });
       fetched++;
     }catch(e){ console.warn('FX fetch failed',sym,e); }
@@ -960,12 +1063,79 @@ async function downloadFxRates(){
 // This version syncs the ledger list in meta/config and stores transactions per selected shared ledger.
 let db=null;
 let unsub=null;
-let txs=[];  // local mirror of current ledger's transactions
+let metaUnsub=null;
+let txs=[];  // recent transactions for current ledger (limited to reduce Firestore reads)
+const TX_LIST_LIMIT = 150;
+let ledgerStats = {}; // aggregate summary cache from Firebase meta/config; keeps Summary accurate without reading every tx
 
 function ledgerCol(){ return collection(db,'ledgers',currentLedgerId(),'transactions'); }
 function ledgerDoc(txId){ return doc(db,'ledgers',currentLedgerId(),'transactions',txId); }
 function sharedMetaDoc(){ return doc(db,'ledgers',SHARED_LEDGER_ID,'meta','config'); }
 
+function normalizeEntityType(type){
+  return (type === 'person' || type === 'people') ? 'person' : 'category';
+}
+function entityField(type){
+  return normalizeEntityType(type) === 'person' ? 'people' : 'categories';
+}
+function entityLabel(type){
+  return normalizeEntityType(type) === 'person' ? '人員' : '種類';
+}
+function entityLocalArray(type){
+  return normalizeEntityType(type) === 'person' ? (cfg.people || []) : (cfg.categories || []);
+}
+function setEntityLocalArray(type, arr){
+  if(normalizeEntityType(type) === 'person') cfg.people = cleanMetaPeople(arr || []);
+  else cfg.categories = cleanMetaCategories(arr || []);
+}
+
+function normalizeEntityName(name){
+  return String(name||'').trim().replace(/\s+/g,' ').toLowerCase();
+}
+
+function dedupePeople(items=[]){
+  const seen=new Map();
+  const out=[];
+  (items||[]).forEach((p,idx)=>{
+    const name=String(p?.name||'').trim();
+    if(!name) return;
+    const key=normalizeEntityName(name);
+    if(seen.has(key)) return;
+    seen.set(key,true);
+    out.push({
+      id: p.id || slugId('person', name),
+      name,
+      color: p.color || COLORS[out.length % COLORS.length]
+    });
+  });
+  return out;
+}
+
+function dedupeCategories(items=[]){
+  const seen=new Map();
+  const out=[];
+  (items||[]).forEach(c=>{
+    const name=String(c?.name||'').trim();
+    if(!name) return;
+    const key=normalizeEntityName(name);
+    if(seen.has(key)) return;
+    seen.set(key,true);
+    out.push({ id: c.id || slugId('cat', name), name });
+  });
+  return out;
+}
+
+function findPersonByName(name){
+  const key=normalizeEntityName(name);
+  return (cfg.people||[]).find(p=>normalizeEntityName(p.name)===key);
+}
+
+function findCategoryByName(name){
+  const key=normalizeEntityName(name);
+  return (cfg.categories||[]).find(c=>normalizeEntityName(c.name)===key);
+}
+
+// Ledger merge can still use local + remote because ledger selection is user-facing app state.
 function mergeById(localItems=[], remoteItems=[]){
   const map=new Map();
   [...remoteItems,...localItems].forEach(item=>{
@@ -974,45 +1144,182 @@ function mergeById(localItems=[], remoteItems=[]){
   return [...map.values()];
 }
 
+function stripUndefined(value){
+  if(Array.isArray(value)) return value.map(stripUndefined).filter(v=>v!==undefined);
+  if(value && typeof value==='object'){
+    const out={};
+    Object.entries(value).forEach(([k,v])=>{
+      if(v===undefined) return;
+      out[k]=stripUndefined(v);
+    });
+    return out;
+  }
+  return value===undefined ? null : value;
+}
+function cleanMetaLedgers(ledgers=[]){
+  return (Array.isArray(ledgers)?ledgers:[])
+    .filter(l=>l&&l.id)
+    .map(l=>stripUndefined({
+      id: String(l.id),
+      name: l.name || '未命名帳薄',
+      baseCurrency: l.baseCurrency || SHARED_LEDGER_BASE_CURRENCY,
+      archived: !!l.archived,
+      archivedAt: l.archivedAt || null
+    }));
+}
+function cleanMetaPeople(people=[]){
+  return dedupePeople(people||[]).map((p,i)=>stripUndefined({
+    id: p.id || slugId('person', p.name || ('person-'+i)),
+    name: p.name || '',
+    color: p.color || COLORS[i%COLORS.length]
+  })).filter(p=>p.name);
+}
+function cleanMetaCategories(categories=[]){
+  return dedupeCategories(categories||[]).map((c,i)=>stripUndefined({
+    id: c.id || slugId('cat', c.name || ('category-'+i)),
+    name: c.name || ''
+  })).filter(c=>c.name);
+}
 async function saveSharedMeta(){
   if(!db) return;
-  await setDoc(sharedMetaDoc(),{
-    people: cfg.people||[],
-    categories: cfg.categories||[],
-    ledgers: cfg.ledgers||[],
+  // IMPORTANT: people/categories are managed only by the dedicated entity functions below.
+  // This function intentionally does NOT write people/categories, so ledger/stats saves
+  // cannot accidentally overwrite names with stale local memory.
+  cfg.ledgers = cleanMetaLedgers(cfg.ledgers||[]);
+  if(!cfg.ledgers.some(l=>l.id===SHARED_LEDGER_ID)){
+    cfg.ledgers.unshift({id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY,archived:false,archivedAt:null});
+  }
+  const currentLedger = cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID) || {
+    id: SHARED_LEDGER_ID,
+    name: SHARED_LEDGER_NAME,
+    baseCurrency: SHARED_LEDGER_BASE_CURRENCY,
+    archived: false,
+    archivedAt: null
+  };
+  const payload = stripUndefined({
+    ledgers: cfg.ledgers,
+    stats: ledgerStats||{},
     // Keep legacy field for older deployed builds.
-    ledger: cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)||{
-      id: SHARED_LEDGER_ID,
-      name: SHARED_LEDGER_NAME,
-      baseCurrency: SHARED_LEDGER_BASE_CURRENCY,
-      archived: false,
-      archivedAt: null
-    },
+    ledger: currentLedger,
     updatedAt: serverTimestamp()
-  },{merge:true});
+  });
+  await setDoc(sharedMetaDoc(), payload, {merge:true});
 }
+
+function applyRemoteMeta(data={}){
+  // Firebase meta/config is the only source of truth for people/categories.
+  cfg.people = cleanMetaPeople(Array.isArray(data.people) ? data.people : []);
+  cfg.categories = cleanMetaCategories(Array.isArray(data.categories) ? data.categories : []);
+  ledgerStats = data.stats || {};
+  stripOldDefaultEntities();
+
+  let remoteLedgers = Array.isArray(data.ledgers) ? data.ledgers.filter(l=>l&&l.id) : [];
+  if(!remoteLedgers.length && data.ledger?.id) remoteLedgers=[data.ledger];
+  cfg.ledgers = mergeById(cfg.ledgers||[], remoteLedgers);
+  if(!cfg.ledgers.some(l=>l.id===SHARED_LEDGER_ID)){
+    cfg.ledgers.unshift({id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY,archived:false,archivedAt:null});
+  }
+  if(!cfg.currentLedgerId || !cfg.ledgers.some(l=>l.id===cfg.currentLedgerId)) cfg.currentLedgerId=SHARED_LEDGER_ID;
+  saveCfg();
+}
+
 async function syncSharedMeta(){
   if(!db) return;
   const ref=sharedMetaDoc();
   const snap=await getDoc(ref);
   if(snap.exists()){
-    const data=snap.data()||{};
-    cfg.people=mergeById(cfg.people||[],data.people||[]);
-    cfg.categories=mergeById(cfg.categories||[],data.categories||[]);
-
-    let remoteLedgers = Array.isArray(data.ledgers) ? data.ledgers.filter(l=>l&&l.id) : [];
-    if(!remoteLedgers.length && data.ledger?.id) remoteLedgers=[data.ledger];
-    cfg.ledgers = mergeById(cfg.ledgers||[], remoteLedgers);
-    if(!cfg.ledgers.some(l=>l.id===SHARED_LEDGER_ID)){
-      cfg.ledgers.unshift({id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY,archived:false,archivedAt:null});
-    }
-    if(!cfg.currentLedgerId || !cfg.ledgers.some(l=>l.id===cfg.currentLedgerId)) cfg.currentLedgerId=SHARED_LEDGER_ID;
-    saveCfg();
-    await saveSharedMeta(); // uploads any old local random person/category IDs and ledgers so other devices can resolve them
+    applyRemoteMeta(snap.data()||{});
   } else {
-    await saveSharedMeta();
+    cfg.people = [];
+    cfg.categories = [];
+    await setDoc(ref, stripUndefined({
+      people: [],
+      categories: [],
+      ledgers: cleanMetaLedgers(cfg.ledgers||[]),
+      stats: ledgerStats||{},
+      ledger: currentLedger(),
+      updatedAt: serverTimestamp()
+    }), {merge:true});
   }
 }
+
+async function loadEntityStateFromFirebase(){
+  if(!db) return {people:[], categories:[]};
+  const snap = await getDoc(sharedMetaDoc());
+  const data = snap.exists() ? (snap.data()||{}) : {};
+  const people = cleanMetaPeople(Array.isArray(data.people) ? data.people : []);
+  const categories = cleanMetaCategories(Array.isArray(data.categories) ? data.categories : []);
+  cfg.people = people;
+  cfg.categories = categories;
+  saveCfg();
+  return {people, categories};
+}
+
+async function saveEntityArraysToFirebase(){
+  if(!db) return;
+  cfg.people = cleanMetaPeople(cfg.people || []);
+  cfg.categories = cleanMetaCategories(cfg.categories || []);
+  await setDoc(sharedMetaDoc(), stripUndefined({
+    people: cfg.people,
+    categories: cfg.categories,
+    updatedAt: serverTimestamp()
+  }), {merge:true});
+}
+
+async function mutateEntityList(type, mutator){
+  if(!db) throw new Error('Firebase not connected');
+  const field = entityField(type);
+  let nextPeople = cfg.people || [];
+  let nextCategories = cfg.categories || [];
+  let result;
+  await runTransaction(db, async (tx)=>{
+    const ref = sharedMetaDoc();
+    const snap = await tx.get(ref);
+    const data = snap.exists() ? (snap.data()||{}) : {};
+    let people = cleanMetaPeople(Array.isArray(data.people) ? data.people : []);
+    let categories = cleanMetaCategories(Array.isArray(data.categories) ? data.categories : []);
+    const list = field === 'people' ? [...people] : [...categories];
+    result = await mutator(list, {people, categories});
+    if(field === 'people') people = cleanMetaPeople(list);
+    else categories = cleanMetaCategories(list);
+    tx.set(ref, stripUndefined({
+      [field]: field === 'people' ? people : categories,
+      updatedAt: serverTimestamp()
+    }), {merge:true});
+    nextPeople = people;
+    nextCategories = categories;
+  });
+  cfg.people = nextPeople;
+  cfg.categories = nextCategories;
+  saveCfg();
+  return result;
+}
+
+function repaintAfterEntityChange(){
+  renderEntityList();
+  renderSettings();
+  renderDetailChips();
+  renderSummary();
+  renderHistory();
+  renderSettle();
+}
+
+function subscribeToMeta(){
+  if(metaUnsub) metaUnsub();
+  if(!db) return;
+  metaUnsub = onSnapshot(sharedMetaDoc(), snap=>{
+    if(snap.exists()){
+      applyRemoteMeta(snap.data()||{});
+      renderSettings();
+      renderDetailChips();
+      renderSummary();
+      renderHistory();
+      renderSettle();
+      document.getElementById('ledger-name-top').textContent=currentLedger().name||'記帳';
+    }
+  }, err=>{ console.error('Meta listener error:',err); });
+}
+
 async function initFb(config){
   try{
     let app;
@@ -1022,7 +1329,7 @@ async function initFb(config){
     db=getFirestore(app);
     setSyncDot('pending');
     await syncSharedMeta();
-    await getDocs(query(ledgerCol()));
+    subscribeToMeta();
     setSyncDot('ok');
     subscribeToTx();
     return true;
@@ -1036,7 +1343,7 @@ async function initFb(config){
 function subscribeToTx(){
   if(unsub) unsub();
   if(!db){ txs=[]; renderAll(); return; }
-  const q=query(ledgerCol(), orderBy('date','desc'));
+  const q=query(ledgerCol(), orderBy('date','desc'), limit(TX_LIST_LIMIT));
   unsub=onSnapshot(q, snap=>{
     txs=snap.docs.map(d=>({id:d.id,...d.data()}));
     renderAll();
@@ -1044,14 +1351,128 @@ function subscribeToTx(){
   }, err=>{ console.error(err); setSyncDot('err'); });
 }
 
+function makeEmptyStats(){ return { month:{}, year:{}, all:{ total:0, count:0, cats:{}, people:{} }, rebuiltAt:null }; }
+function statsForLedger(ledgerId=currentLedgerId()){
+  if(!ledgerStats[ledgerId]) ledgerStats[ledgerId]=makeEmptyStats();
+  if(!ledgerStats[ledgerId].month) ledgerStats[ledgerId].month={};
+  if(!ledgerStats[ledgerId].year) ledgerStats[ledgerId].year={};
+  if(!ledgerStats[ledgerId].all) ledgerStats[ledgerId].all={ total:0, count:0, cats:{}, people:{} };
+  return ledgerStats[ledgerId];
+}
+function periodKeysForTx(t){
+  const d=String(t?.date||'');
+  const m=d.match(/^(\d{4})-(\d{2})/);
+  if(!m) return null;
+  return {month:`${m[1]}-${m[2]}`, year:m[1]};
+}
+function addNum(obj,key,delta){ obj[key]=(Number(obj[key]||0)+delta); if(Math.abs(obj[key])<0.000001) delete obj[key]; }
+function personBucket(scope,pid){ if(!pid) return null; if(!scope.people) scope.people={}; if(!scope.people[pid]) scope.people[pid]={paid:0,used:0}; return scope.people[pid]; }
+function applyTxToStats(tx, sign=1, ledgerId=currentLedgerId()){
+  if(!tx || tx.status!=='completed') return;
+  const keys=periodKeysForTx(tx); if(!keys) return;
+  const st=statsForLedger(ledgerId);
+  const scopes=[st.all, st.year[keys.year]||(st.year[keys.year]={total:0,count:0,cats:{},people:{}}), st.month[keys.month]||(st.month[keys.month]={total:0,count:0,cats:{},people:{}})];
+  const amt=Number(tx.baseAmount||0)*sign;
+  scopes.forEach(scope=>{
+    if(tx.type==='expense'){
+      scope.total=Number(scope.total||0)+amt;
+      scope.count=Number(scope.count||0)+sign;
+      if(!scope.cats) scope.cats={};
+      if(tx.categoryId) addNum(scope.cats, tx.categoryId, amt);
+      const paid=personBucket(scope,tx.paidByPersonId); if(paid) paid.paid=Number(paid.paid||0)+amt;
+      const users=Array.isArray(tx.usedByPersonIds)?tx.usedByPersonIds:[];
+      const share=users.length?amt/users.length:0;
+      users.forEach(pid=>{ const b=personBucket(scope,pid); if(b) b.used=Number(b.used||0)+share; });
+    } else if(tx.type==='transfer'){
+      const from=personBucket(scope,tx.fromPersonId); if(from) from.paid=Number(from.paid||0)+amt;
+      const to=personBucket(scope,tx.toPersonId); if(to) to.used=Number(to.used||0)+amt;
+    }
+  });
+}
+function scopeForCurrentPeriod(){
+  const st=statsForLedger(currentLedgerId());
+  if(statsMode==='month'){
+    const key=`${statsPeriod.getFullYear()}-${String(statsPeriod.getMonth()+1).padStart(2,'0')}`;
+    return st.month?.[key] || {total:0,count:0,cats:{},people:{}};
+  }
+  return st.year?.[String(statsYear)] || {total:0,count:0,cats:{},people:{}};
+}
+function allScopeForCurrentLedger(){ return statsForLedger(currentLedgerId()).all || {total:0,count:0,cats:{},people:{}}; }
+
+// Overview spending policy: only Charlie and Ivan count as household members.
+// Other people are treated as guests and are excluded from the top "本期支出" total.
+const SUMMARY_MEMBER_NAMES = ['charlie','ivan'];
+function normNameForSummary(name){ return String(name||'').trim().toLowerCase(); }
+function isSummaryMemberId(pid){
+  const p = cfg.people.find(x=>x.id===pid);
+  return !!p && SUMMARY_MEMBER_NAMES.includes(normNameForSummary(p.name));
+}
+function summaryMemberUsedTotal(scope){
+  const pm = scope?.people || {};
+  return Object.entries(pm).reduce((sum,[pid,d])=>{
+    if(!isSummaryMemberId(pid)) return sum;
+    return sum + Number(d?.used || 0);
+  },0);
+}
+function summaryAllPeople(scope){
+  const pm = scope?.people || {};
+  const known = (cfg.people || []).map(p => [p.id, pm[p.id] || {paid:0, used:0}]);
+  const unknown = Object.entries(pm).filter(([pid]) => !(cfg.people || []).some(p => p.id === pid));
+  return [...known, ...unknown]
+    .map(([pid,d]) => [pid, { paid:Number(d?.paid||0), used:Number(d?.used||0) }])
+    .filter(([,d]) => Math.abs(d.paid) > 0.0001 || Math.abs(d.used) > 0.0001)
+    .sort((a,b) => (Number(b[1].paid||0)+Number(b[1].used||0)) - (Number(a[1].paid||0)+Number(a[1].used||0)));
+}
+function summaryMemberPeriodTotal(mode, year, monthIndex){
+  const st=statsForLedger(currentLedgerId());
+  if(mode==='month'){
+    const key=`${year}-${String(monthIndex+1).padStart(2,'0')}`;
+    return summaryMemberUsedTotal(st.month?.[key] || {people:{}});
+  }
+  return summaryMemberUsedTotal(st.year?.[String(year)] || {people:{}});
+}
+
+async function persistStats(){ if(db) await saveSharedMeta(); }
 async function fbAdd(data){
   if(!db){showToast('請先連接 Firebase');return false;}
   if(isLedgerArchived()){ showToast('帳薄已封存，不能新增交易'); return false; }
-  await addDoc(ledgerCol(),{...data,ledgerId:currentLedgerId(),_created:serverTimestamp()});
+  const saved={...data,ledgerId:currentLedgerId(),_created:serverTimestamp()};
+  await addDoc(ledgerCol(),saved);
+  applyTxToStats(saved,+1,currentLedgerId());
+  await persistStats();
   return true;
 }
-async function fbSet(id,data){ if(!db) return; await setDoc(ledgerDoc(id),{...data,ledgerId:currentLedgerId(),_updated:serverTimestamp()}); }
-async function fbDel(id){ if(!db) return; await deleteDoc(ledgerDoc(id)); }
+async function fbSet(id,data){
+  if(!db) return;
+  const old=txs.find(t=>t.id===id);
+  const saved={...data,ledgerId:currentLedgerId(),_updated:serverTimestamp()};
+  await setDoc(ledgerDoc(id),saved);
+  if(old) applyTxToStats(old,-1,currentLedgerId());
+  applyTxToStats(saved,+1,currentLedgerId());
+  await persistStats();
+}
+async function fbDel(id){
+  if(!db) return;
+  const old=txs.find(t=>t.id===id);
+  await deleteDoc(ledgerDoc(id));
+  if(old){ applyTxToStats(old,-1,currentLedgerId()); await persistStats(); }
+}
+async function rebuildLedgerStats(){
+  if(!db){ showToast('請先連接 Firebase'); return; }
+  if(!confirm('重建 Summary 會讀取目前帳薄所有交易一次。之後 Summary 會用快取，日常 reads 會大幅降低。繼續？')) return;
+  setSyncDot('pending');
+  try{
+    const snap=await getDocs(query(ledgerCol(), orderBy('date','desc')));
+    ledgerStats[currentLedgerId()]=makeEmptyStats();
+    snap.docs.forEach(d=>applyTxToStats({id:d.id,...d.data()},+1,currentLedgerId()));
+    ledgerStats[currentLedgerId()].rebuiltAt=isoDate();
+    await persistStats();
+    renderSummary(); renderSettle();
+    setSyncDot('ok');
+    showToast(`已重建 ${snap.size} 筆交易嘅 Summary`);
+  }catch(e){ console.error(e); setSyncDot('err'); showToast('重建失敗'); }
+}
+window.rebuildLedgerStats=rebuildLedgerStats;
 
 window.connectFirebase=async function(){
   const raw=document.getElementById('fb-config-input').value.trim();
@@ -1131,7 +1552,7 @@ async function refreshNow(showDone=true){
   try{
     setSyncDot('pending');
     await syncSharedMeta();
-    subscribeToTx();
+    if(!unsub) subscribeToTx();
     renderAll();
     setSyncDot('ok');
     if(showDone) showToast('已重新整理');
@@ -1283,7 +1704,7 @@ function refreshNumpad(){
   updateNpDisplay();
 }
 
-window.selectNpCur=function(c){ npCur=c; refreshNumpad(); };
+window.selectNpCur=function(c){ npCur=c; refreshNumpad(); updateFxForCurrentInput(); };
 
 function npTouch(el,k){ el.classList.add('pressed'); setTimeout(()=>el.classList.remove('pressed'),120); }
 window.npTouch=npTouch;
@@ -1294,10 +1715,23 @@ function updateNpDisplay(){
   span.innerHTML=`<span style="font-weight:${val?500:300};color:${val?'var(--text)':'var(--text-3)'}">${npVal}</span>`;
   const fxEl=document.getElementById('np-fx');
   if(npCur!==baseCur()&&val){
-    const rate=fxRateForDate(npCur,flowData.date||isoDate());
+    const date=flowData.date||isoDate();
+    const rate=fxRateForDate(npCur,date);
     const base=val*rate;
     fxEl.textContent=`≈ ${baseCur()} ${fmtBase(base)}`;
   } else { fxEl.textContent=''; }
+}
+
+let fxRefreshToken=0;
+async function updateFxForCurrentInput({force=false}={}){
+  const val=parseFloat(npVal)||0;
+  const date=flowData.date||isoDate();
+  if(npCur===baseCur()||!val) return;
+  const token=++fxRefreshToken;
+  await ensureFxRateForDate(npCur,date,{force,quiet:true});
+  if(token!==fxRefreshToken) return;
+  updateNpDisplay();
+  refreshDetailAmountOnly();
 }
 
 window.npKey=function(k){
@@ -1336,14 +1770,37 @@ window.backToNumpad=function(){
 // ════════════════════════════════════════════════
 let recurringOn=false;
 
-function refreshDetailSheet(){
+function refreshDetailAmountOnly(){
   const v=parseFloat(npVal)||0;
-  const rate=fxRateForDate(npCur,flowData.date||isoDate());
+  const date=flowData.date||isoDate();
+  const rate=fxRateForDate(npCur,date);
   const base=v*rate;
+  const amtEl=document.getElementById('d-amt-show');
+  const audEl=document.getElementById('d-aud-show');
+  if(amtEl) amtEl.textContent=`${npCur} ${fmt(v,npCur)}`;
+  if(audEl){
+    const meta=fxMetaForDate(npCur,date);
+    const srcDate=meta?.sourceDate && meta.sourceDate!==date ? ` · source ${meta.sourceDate}` : '';
+    audEl.textContent=npCur!==baseCur()?`≈ ${baseCur()} ${fmtBase(base)} · rate ${Number(rate).toFixed(4)} · ${date}${srcDate}`:'';
+  }
+}
+window.refreshDetailAmountOnly=refreshDetailAmountOnly;
 
-  // amount header
-  document.getElementById('d-amt-show').textContent=`${npCur} ${fmt(v,npCur)}`;
-  document.getElementById('d-aud-show').textContent=npCur!==baseCur()?`≈ ${baseCur()} ${fmtBase(base)}`:'';
+window.onTxDateChange=function(kind){
+  const id=kind==='transfer'?'d-tr-date':'d-date';
+  const el=document.getElementById(id);
+  if(!el||!el.value) return;
+  flowData.date=el.value;
+  const recurStart=document.getElementById('recur-start');
+  if(recurStart && kind!=='transfer') recurStart.value=el.value;
+  refreshDetailAmountOnly();
+  updateFxForCurrentInput({force:false});
+};
+
+function refreshDetailSheet(){
+  // amount header, including FX rate for the currently selected transaction date
+  refreshDetailAmountOnly();
+  updateFxForCurrentInput({force:false});
 
   // type toggle
   setTxType(flowData.isTransfer?'transfer':'expense', true);
@@ -1381,38 +1838,38 @@ function chipBtn(label, selected, onclick){
 function renderDetailChips(){
   const catEl=document.getElementById('d-cat-chips');
   if(catEl){
-    catEl.innerHTML=cfg.categories.map(c=>
+    catEl.innerHTML=cfg.categories.length ? cfg.categories.map(c=>
       chipBtn(c.name, flowData.categoryId===c.id, `selectDetailChip('cat','${c.id}')`)
-    ).join('');
+    ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有種類</div>';
   }
 
   const paidEl=document.getElementById('d-paidby-chips');
   if(paidEl){
-    paidEl.innerHTML=cfg.people.map(p=>
+    paidEl.innerHTML=cfg.people.length ? cfg.people.map(p=>
       chipBtn(p.name, flowData.paidById===p.id, `selectDetailChip('paidby','${p.id}')`)
-    ).join('');
+    ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有人員</div>';
   }
 
   const usedEl=document.getElementById('d-usedby-chips');
   if(usedEl){
     const selected=flowData.usedByIds||[];
-    usedEl.innerHTML=cfg.people.map(p=>
+    usedEl.innerHTML=cfg.people.length ? cfg.people.map(p=>
       chipBtn(p.name, selected.includes(p.id), `selectDetailChip('usedby','${p.id}')`)
-    ).join('');
+    ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有人員</div>';
   }
 
   const fromEl=document.getElementById('d-from-chips');
   if(fromEl){
-    fromEl.innerHTML=cfg.people.map(p=>
+    fromEl.innerHTML=cfg.people.length ? cfg.people.map(p=>
       chipBtn(p.name, flowData.fromId===p.id, `selectDetailChip('from','${p.id}')`)
-    ).join('');
+    ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有人員</div>';
   }
 
   const toEl=document.getElementById('d-to-chips');
   if(toEl){
-    toEl.innerHTML=cfg.people.map(p=>
+    toEl.innerHTML=cfg.people.length ? cfg.people.map(p=>
       chipBtn(p.name, flowData.toId===p.id, `selectDetailChip('to','${p.id}')`)
-    ).join('');
+    ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有人員</div>';
   }
 }
 
@@ -1534,7 +1991,8 @@ window.saveTx=async function(){
     document.getElementById('d-tr-date').value:
     document.getElementById('d-date').value;
   if(!date) return showToast('請選擇日期');
-  const rate=fxRateForDate(npCur,date);
+  flowData.date=date;
+  const rate=await ensureFxRateForDate(npCur,date,{force:false,quiet:false});
   const baseAmt=v*rate;
 
   let data;
@@ -1663,6 +2121,13 @@ function renderHistory(){
   }).join('');
 }
 
+function categoryInitial(catId){
+  const name=catName(catId);
+  const trimmed=String(name||'').trim();
+  if(!trimmed || trimmed==='未分類') return '?';
+  return trimmed.charAt(0).toUpperCase();
+}
+
 function renderTxCard(t){
   const isTransfer=t.type==='transfer';
   const expandId='exp-'+t.id;
@@ -1670,13 +2135,15 @@ function renderTxCard(t){
   const mainAmt=`${t.currency!==baseCur()?t.currency+' ':''}${fmt(t.amount,t.currency)}`;
   const fxHint=t.currency!==baseCur()?`<div class="tx-amt-fx">≈ ${fmtBase(t.baseAmount)}</div>`:'';
   let nameHtml='',subParts=[];
+  const avatarText=isTransfer?'↔':categoryInitial(t.categoryId);
+  const avatarClass=`tx-cat-avatar${isTransfer?' transfer':''}`;
   if(isTransfer){
     nameHtml=`<div class="tx-name">${personName(t.fromPersonId)} → ${personName(t.toPersonId)}</div>`;
     subParts.push('<span class="lbl-badge purple">轉帳</span>');
   } else {
     nameHtml=`<div class="tx-name">${t.itemName||'—'}</div>`;
     subParts.push(catName(t.categoryId));
-    subParts.push(personName(t.paidByPersonId));
+    subParts.push(`Paid by ${personName(t.paidByPersonId)}`);
     if(t.recurringRuleId) subParts.push('<span><span class="recur-dot"></span>定期</span>');
   }
   if(t.remark) subParts.push(`<span style="color:var(--text-3)">${t.remark}</span>`);
@@ -1692,6 +2159,7 @@ function renderTxCard(t){
     </div>
   </div>`;
   return `<div class="${cardClass}" onclick="toggleTxExpand('${t.id}')">
+    <div class="${avatarClass}">${avatarText}</div>
     <div class="tx-card-main">${nameHtml}<div class="tx-sub">${subHtml}</div></div>
     <div class="tx-amt"><div class="tx-amt-main">${mainAmt}</div>${fxHint}</div>
   </div>${detail}`;
@@ -1731,55 +2199,35 @@ function allLedgerTxs(){
 
 function renderSummary(){
   const bc=baseCur();
-  let label,filtered;
+  let label;
   if(statsMode==='month'){
-    const y=statsPeriod.getFullYear(), m=statsPeriod.getMonth();
+    const y=statsPeriod.getFullYear();
     label=`${statsPeriod.toLocaleString('default',{month:'long'})} ${y}`;
-    filtered=completedLedgerTxs().filter(t=>{ const d=new Date(t.date+'T00:00:00'); return d.getFullYear()===y&&d.getMonth()===m; });
   } else {
     label=String(statsYear);
-    filtered=completedLedgerTxs().filter(t=>new Date(t.date+'T00:00:00').getFullYear()===statsYear);
   }
   document.getElementById('period-label').textContent=label;
-  const totalBase=filtered.reduce((s,t)=>s+t.baseAmount,0);
-  const catMap={};
-  filtered.forEach(t=>{ catMap[t.categoryId]=(catMap[t.categoryId]||0)+t.baseAmount; });
-  const cats=Object.entries(catMap).sort((a,b)=>b[1]-a[1]);
+  const scope=scopeForCurrentPeriod();
+  const totalBase=summaryMemberUsedTotal(scope);
+  const count=Math.max(0,Number(scope.count||0));
+  const catMap=scope.cats||{};
+  const cats=Object.entries(catMap).filter(([,v])=>Math.abs(Number(v||0))>0.0001).sort((a,b)=>b[1]-a[1]);
   const maxCat=cats[0]?.[1]||1;
-
-  // person balances for the period
-  const pm={};
-  allLedgerTxs().filter(t=>{
-    const d=new Date((t.date||'')+'T00:00:00');
-    if(statsMode==='month'){ return d.getFullYear()===statsPeriod.getFullYear()&&d.getMonth()===statsPeriod.getMonth(); }
-    return d.getFullYear()===statsYear;
-  }).forEach(t=>{
-    if(t.type==='expense'){
-      if(!pm[t.paidByPersonId]) pm[t.paidByPersonId]={paid:0,used:0};
-      pm[t.paidByPersonId].paid+=t.baseAmount;
-      const share=t.usedByPersonIds?.length?t.baseAmount/t.usedByPersonIds.length:0;
-      (t.usedByPersonIds||[]).forEach(pid=>{ if(!pm[pid]) pm[pid]={paid:0,used:0}; pm[pid].used+=share; });
-    }
-    if(t.type==='transfer'){
-      if(!pm[t.fromPersonId]) pm[t.fromPersonId]={paid:0,used:0};
-      if(!pm[t.toPersonId]) pm[t.toPersonId]={paid:0,used:0};
-      pm[t.fromPersonId].paid+=t.baseAmount;
-      pm[t.toPersonId].used+=t.baseAmount;
-    }
-  });
+  const pm=scope.people||{};
 
   const body=document.getElementById('summary-body');
   let html='';
   html+=`<div class="card card-glass"><div class="total-hero">
-    <div class="total-hero-lbl">本期支出（${bc})</div>
+    <div class="total-hero-lbl">本期支出</div>
     <div class="total-hero-num">${fmtBase(totalBase)}</div>
-    <div class="total-hero-sub">${filtered.length} 筆支出</div>
   </div></div>`;
 
   if(statsMode==='year'){
+    const st=statsForLedger(currentLedgerId());
     html+=`<div class="card"><div class="month-grid">`;
     for(let m=0;m<12;m++){
-      const mT=filtered.filter(t=>new Date(t.date+'T00:00:00').getMonth()===m).reduce((s,t)=>s+t.baseAmount,0);
+      const key=`${statsYear}-${String(m+1).padStart(2,'0')}`;
+      const mT=summaryMemberUsedTotal(st.month?.[key] || {people:{}});
       const now=new Date(); const isCur=m===now.getMonth()&&statsYear===now.getFullYear();
       html+=`<div class="month-cell${isCur?' active':''}"><div class="mc-lbl">${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m]}</div><div class="mc-val">${mT?fmtBase(mT):'—'}</div></div>`;
     }
@@ -1789,26 +2237,30 @@ function renderSummary(){
   if(cats.length){
     html+=`<div class="sec-label">分類統計</div><div class="card">`;
     cats.forEach(([catId,amt],i)=>{
-      html+=`<div class="cat-bar-row"><div class="cat-swatch" style="background:${COLORS[i%COLORS.length]}"></div><div class="cat-name">${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(amt/maxCat*100).toFixed(0)}%;background:${COLORS[i%COLORS.length]}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
+      html+=`<div class="cat-bar-row"><div class="cat-swatch" style="background:${COLORS[i%COLORS.length]}"></div><div class="cat-name">${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${COLORS[i%COLORS.length]}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
     });
     html+=`</div>`;
   }
 
-  const people=Object.entries(pm);
+  const people=summaryAllPeople(scope);
   if(people.length){
     html+=`<div class="sec-label">每人統計</div><div class="card">`;
     people.forEach(([pid,d])=>{
-      const net=d.paid-d.used;
+      const paid=Number(d.paid||0);
+      const used=Number(d.used||0);
       html+=`<div class="person-bal-row">
         <div class="person-avatar" style="background:${personColor(pid)}20;color:${personColor(pid)}">${personName(pid).charAt(0)}</div>
-        <div class="person-bal-info"><div class="person-bal-name">${personName(pid)}</div><div class="person-bal-sub">付 ${fmtBase(d.paid)} · 用 ${fmtBase(d.used)}</div></div>
-        <div class="person-bal-net" style="color:${net>=0?'var(--green)':'var(--red)'}">${net>=0?'+':''}${fmtBase(net)}</div>
+        <div class="person-bal-info">
+          <div class="person-bal-name">${personName(pid)}</div>
+          <div class="person-bal-sub">Paid ${fmtBase(paid)} · Use ${fmtBase(used)}</div>
+        </div>
+        <div class="person-bal-net" style="color:var(--text)">${fmtBase(used)}</div>
       </div>`;
     });
     html+=`</div>`;
   }
 
-  if(!filtered.length) html+=`<div class="empty"><div class="empty-icon">📊</div>本期沒有資料</div>`;
+  if(!totalBase) html+=`<div class="empty"><button onclick="rebuildLedgerStats()" style="margin-top:12px;padding:10px 14px;border-radius:12px;background:var(--accent-light);color:var(--accent);font-weight:700">重建 Summary</button></div>`;
   body.innerHTML=html;
 }
 
@@ -1817,20 +2269,10 @@ function renderSummary(){
 // ════════════════════════════════════════════════
 function renderSettle(){
   const bc=baseCur();
-  const allTx=allLedgerTxs();
+  const scope=allScopeForCurrentLedger();
   const balances={};
   cfg.people.forEach(p=>{ balances[p.id]=0; });
-  allTx.forEach(t=>{
-    if(t.type==='expense'){
-      balances[t.paidByPersonId]=(balances[t.paidByPersonId]||0)+t.baseAmount;
-      const share=t.usedByPersonIds?.length?t.baseAmount/t.usedByPersonIds.length:0;
-      (t.usedByPersonIds||[]).forEach(pid=>{ balances[pid]=(balances[pid]||0)-share; });
-    }
-    if(t.type==='transfer'){
-      balances[t.fromPersonId]=(balances[t.fromPersonId]||0)+t.baseAmount;
-      balances[t.toPersonId]=(balances[t.toPersonId]||0)-t.baseAmount;
-    }
-  });
+  Object.entries(scope.people||{}).forEach(([pid,d])=>{ balances[pid]=Number(d.paid||0)-Number(d.used||0); });
   const bals=Object.entries(balances).map(([id,v])=>({id,v:Math.round(v*100)/100})).filter(b=>Math.abs(b.v)>0.005);
   bals.sort((a,b)=>a.v-b.v);
   const settlements=[];
@@ -1868,6 +2310,7 @@ function renderSettle(){
   } else {
     html+=`<div class="card"><div style="padding:16px;text-align:center;color:var(--text-2);font-size:14px">✓ 已全部結清</div></div>`;
   }
+  html+=`<div style="padding:0 0 8px"><button onclick="rebuildLedgerStats()" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:700">重建 Summary / 結算快取</button></div>`;
   body.innerHTML=html;
 }
 
@@ -1877,36 +2320,38 @@ function renderSettle(){
 function renderSettings(){
   const body=document.getElementById('settings-body');
   const isConnected=!!db;
-  const peopleHtml=cfg.people.map((p,i)=>`
+  const peopleHtml=cfg.people.length ? cfg.people.map((p,i)=>`
     <div class="settings-row">
-      <div class="person-avatar" style="width:24px;height:24px;font-size:10px;background:${p.color}20;color:${p.color}">${p.name.charAt(0)}</div>
-      <span class="settings-lbl">${p.name}</span>
+      <div class="person-avatar" style="width:24px;height:24px;font-size:10px;background:${p.color||COLORS[i%COLORS.length]}20;color:${p.color||COLORS[i%COLORS.length]}">${String(p.name||'?').charAt(0)}</div>
+      <span class="settings-lbl">${p.name||'(未命名)'}</span>
       <button onclick="moveEntity('person','${p.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
       <button onclick="moveEntity('person','${p.id}',1)" ${i===cfg.people.length-1?'disabled':''} style="font-size:12px;color:${i===cfg.people.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
       <button onclick="startRename('person','${p.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
-      ${cfg.people.length>1?`<button onclick="removePerson('${p.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>`:''}
-    </div>`).join('');
-  const catHtml=cfg.categories.map((c,i)=>`
+      <button onclick="removePerson('${p.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>
+    </div>`).join('') : `<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">未有人員</span></div>`;
+  const catHtml=cfg.categories.length ? cfg.categories.map((c,i)=>`
     <div class="settings-row">
-      <span class="settings-lbl">${c.name}</span>
+      <span class="settings-lbl">${c.name||'(未命名)'}</span>
       <button onclick="moveEntity('category','${c.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
       <button onclick="moveEntity('category','${c.id}',1)" ${i===cfg.categories.length-1?'disabled':''} style="font-size:12px;color:${i===cfg.categories.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
       <button onclick="startRename('category','${c.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
       <button onclick="removeCategory('${c.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>
-    </div>`).join('');
+    </div>`).join('') : `<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">未有種類</span></div>`;
   body.innerHTML=`
-    <div class="sec-label">Firebase</div>
+    <div class="sec-label">Load Summary</div>
     <div class="card">
-      <div class="settings-row"><span class="settings-lbl">${isConnected?'已連接 ✓':'未連接'}</span><span class="settings-val lbl-badge${isConnected?' green':''}">${isConnected?'即時':'離線'}</span></div>
-      <div class="settings-row" onclick="openSheet('sheet-firebase')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">${cfg.fbConfig?'重新連接':'連接 Firebase'}</span><span class="settings-arrow">›</span></div>
+      <div class="settings-row" onclick="rebuildLedgerStats()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">重建 Summary 快取</span><span class="settings-arrow">›</span></div>
+      <div class="fx-status">最近 150 筆；需要時重建。</div>
     </div>
-    <div class="sec-label">匯入 Excel</div>
-    <div class="card">
-      <div class="settings-row" onclick="openImportExcel()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯入交易 Excel / CSV</span><span class="settings-arrow">›</span></div>
-      <div class="settings-row" onclick="downloadSampleCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">下載 Sample CSV</span><span class="settings-arrow">›</span></div>
-      <div class="fx-status">支援欄位：Year、Month、Day、項目、金額、貨幣、付款人、使用者、種類、備註。亦兼容舊 Date/日期 欄。人名/種類會按名稱 match，沒有就自動建立。</div>
-    </div>
-    <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
+
+    <div class="sec-label">人</div>
+    <div class="card">${peopleHtml}</div>
+    <div style="padding:0 0 8px"><button onclick="openEntitySheet('person')" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:600">＋ 新增人員</button></div>
+
+    <div class="sec-label">種類</div>
+    <div class="card">${catHtml}</div>
+    <div style="padding:0 0 8px"><button onclick="openEntitySheet('category')" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:600">＋ 新增種類</button></div>
+
     <div class="sec-label">帳薄</div>
     <div class="card">
       <div class="settings-row"><span class="settings-lbl">名稱</span><span class="settings-val">${currentLedger().name}</span></div>
@@ -1915,6 +2360,7 @@ function renderSettings(){
       <div class="settings-row" onclick="openEditLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">改名 / 基礎貨幣</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="toggleLedgerArchive()" style="cursor:pointer"><span class="settings-lbl" style="color:${isLedgerArchived()?'var(--green)':'var(--orange)'}">${isLedgerArchived()?'取消封存':'封存帳薄'}</span><span class="settings-arrow">›</span></div>
     </div>
+
     <div class="sec-label">匯率設定</div>
     <div class="card">
       <div class="settings-row"><span class="settings-lbl">Source</span><span class="settings-val">Yahoo Finance</span></div>
@@ -1922,68 +2368,161 @@ function renderSettings(){
       <div class="settings-row" onclick="downloadFxRates()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">Update Now</span><span class="settings-arrow">›</span></div>
       <div class="fx-status">${Object.keys(cfg.fxRates).length} 個匯率日期 · ${cfg.fxLastUpdated?'更新於 '+cfg.fxLastUpdated:'尚未下載匯率'}</div>
     </div>
-    <div class="sec-label">人員</div>
-    <div class="card">${peopleHtml}</div>
-    <div style="padding:0 0 8px"><button onclick="openEntitySheet('person')" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:600">＋ 新增人員</button></div>
-    <div class="sec-label">種類</div>
-    <div class="card">${catHtml}</div>
-    <div style="padding:0 0 8px"><button onclick="openEntitySheet('category')" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:600">＋ 新增種類</button></div>
+
+    <div class="sec-label">Import</div>
+    <div class="card">
+      <div class="settings-row" onclick="openImportExcel()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯入交易 Excel / CSV</span><span class="settings-arrow">›</span></div>
+      <div class="settings-row" onclick="downloadSampleCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">下載 Sample CSV</span><span class="settings-arrow">›</span></div>
+      <div class="fx-status">支援 Year / Month / Day。人名、種類會自動 match。</div>
+    </div>
+
+    <div class="sec-label">Export</div>
+    <div class="card">
+      <div class="settings-row" onclick="exportCurrentLedgerCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯出目前帳薄 CSV</span><span class="settings-arrow">›</span></div>
+      <div class="settings-row" onclick="exportAllLedgersCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯出全部帳薄 CSV</span><span class="settings-arrow">›</span></div>
+      <div class="fx-status">一個帳薄一個 CSV。</div>
+    </div>
+    <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
+
+    <div class="sec-label">Firebase</div>
+    <div class="card">
+      <div class="settings-row"><span class="settings-lbl">${isConnected?'已連接 ✓':'未連接'}</span><span class="settings-val lbl-badge${isConnected?' green':''}">${isConnected?'即時':'離線'}</span></div>
+      <div class="settings-row" onclick="openSheet('sheet-firebase')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">${cfg.fbConfig?'重新連接':'連接 Firebase'}</span><span class="settings-arrow">›</span></div>
+      <div class="settings-row" onclick="forceReloadSharedMeta()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">重新載入人名 / 種類</span><span class="settings-arrow">›</span></div>
+    </div>
   `;
   if(cfg.fbConfig){ const el=document.getElementById('fb-config-input'); if(el) el.value=JSON.stringify(cfg.fbConfig,null,2); }
 }
 window.downloadFxRates=downloadFxRates;
 
+window.forceReloadSharedMeta=async function(){
+  if(!db){ showToast('請先連接 Firebase'); return; }
+  await syncSharedMeta();
+  renderSettings(); renderEntityList(); renderDetailChips(); renderSummary(); renderHistory(); renderSettle();
+  showToast('已重新載入 Firebase 人名 / 種類');
+};
+
 // ════════════════════════════════════════════════
 // ENTITY MANAGEMENT
 // ════════════════════════════════════════════════
-let entityCtx='';
-window.openEntitySheet=function(type){
-  entityCtx=type;
-  document.getElementById('entity-title').textContent=type==='person'?'人員':'種類';
-  document.getElementById('entity-input').value='';
-  document.getElementById('entity-input').placeholder=type==='person'?'人名':'種類名稱';
-  renderEntityList(); openSheet('sheet-entity');
+let entityCtx='person';
+window.openEntitySheet=async function(type){
+  entityCtx=normalizeEntityType(type);
+  document.getElementById('entity-title').textContent=entityLabel(entityCtx);
+  const input=document.getElementById('entity-input');
+  input.value='';
+  input.placeholder=entityCtx==='person'?'人名':'種類名稱';
+  if(db){
+    try{ await loadEntityStateFromFirebase(); }
+    catch(e){ console.error('Entity load failed:', e); showToast('載入人名/種類失敗'); }
+  }
+  renderEntityList();
+  openSheet('sheet-entity');
+  setTimeout(()=>input.focus(),120);
 };
 function renderEntityList(){
-  const items=entityCtx==='person'?cfg.people:cfg.categories;
-  document.getElementById('entity-list').innerHTML=items.map((e,i)=>`
+  const box=document.getElementById('entity-list');
+  if(!box) return;
+  const type=normalizeEntityType(entityCtx);
+  const items=entityLocalArray(type);
+  if(!db){
+    box.innerHTML=`<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">請先連接 Firebase</span></div>`;
+    return;
+  }
+  if(!items.length){
+    box.innerHTML=`<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">暫時未有${entityLabel(type)}</span></div>`;
+    return;
+  }
+  box.innerHTML=items.map((e,i)=>`
     <div class="settings-row">
-      <span class="settings-lbl">${e.name}</span>
-      <button onclick="moveEntity('${entityCtx}','${e.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
-      <button onclick="moveEntity('${entityCtx}','${e.id}',1)" ${i===items.length-1?'disabled':''} style="font-size:12px;color:${i===items.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
-      <button onclick="startRename('${entityCtx}','${e.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
+      ${type==='person'?`<div class="person-avatar" style="width:24px;height:24px;font-size:10px;background:${e.color||COLORS[i%COLORS.length]}20;color:${e.color||COLORS[i%COLORS.length]}">${String(e.name||'?').charAt(0)}</div>`:''}
+      <span class="settings-lbl">${e.name||'(未命名)'}</span>
+      <button onclick="moveEntity('${type}','${e.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
+      <button onclick="moveEntity('${type}','${e.id}',1)" ${i===items.length-1?'disabled':''} style="font-size:12px;color:${i===items.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
+      <button onclick="startRename('${type}','${e.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
+      <button onclick="removeEntity('${type}','${e.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>
     </div>`).join('');
 }
-window.moveEntity=function(type,id,dir){
-  const arr=type==='person'?cfg.people:cfg.categories;
-  const idx=arr.findIndex(e=>e.id===id);
-  const next=idx+dir;
-  if(idx<0||next<0||next>=arr.length) return;
-  const [item]=arr.splice(idx,1);
-  arr.splice(next,0,item);
-  saveCfg();
-  if(db) saveSharedMeta().catch(console.error);
-  renderEntityList(); renderSettings(); renderDetailChips(); renderSummary(); renderHistory(); renderSettle();
+window.moveEntity=async function(type,id,dir){
+  type=normalizeEntityType(type);
+  try{
+    await mutateEntityList(type, (list)=>{
+      const idx=list.findIndex(e=>e.id===id);
+      const next=idx+dir;
+      if(idx<0||next<0||next>=list.length) return;
+      const [item]=list.splice(idx,1);
+      list.splice(next,0,item);
+    });
+    repaintAfterEntityChange();
+  }catch(e){ console.error('Move entity failed:',e); showToast('排序失敗'); }
 };
-window.addEntity=function(){
-  const name=document.getElementById('entity-input').value.trim(); if(!name) return;
-  if(entityCtx==='person') cfg.people.push({id:uid(),name,color:COLORS[cfg.people.length%COLORS.length]});
-  else cfg.categories.push({id:uid(),name});
-  saveCfg(); if(db) saveSharedMeta().catch(console.error); document.getElementById('entity-input').value='';
-  renderEntityList(); renderSettings(); renderDetailChips(); showToast('已加入 '+name);
+window.addEntity=async function(){
+  const type=normalizeEntityType(entityCtx);
+  const input=document.getElementById('entity-input');
+  const name=String(input.value||'').trim().replace(/\s+/g,' ');
+  if(!name) return;
+  if(!db){ showToast('請先連接 Firebase'); return; }
+  try{
+    await mutateEntityList(type, (list)=>{
+      if(list.some(e=>normalizeEntityName(e.name)===normalizeEntityName(name))){
+        throw new Error('DUPLICATE_ENTITY_NAME');
+      }
+      const prefix=type==='person'?'person':'cat';
+      let id=slugId(prefix,name);
+      const base=id;
+      let n=1;
+      while(list.some(e=>e.id===id)) id=base+'-'+(++n);
+      if(type==='person') list.push({id,name,color:COLORS[list.length%COLORS.length]});
+      else list.push({id,name});
+    });
+    input.value='';
+    repaintAfterEntityChange();
+    showToast('已加入 '+name);
+  }catch(e){
+    if(e.message==='DUPLICATE_ENTITY_NAME') showToast(`${entityLabel(type)}已存在`);
+    else { console.error('Add entity failed:', e); showToast('新增失敗：請檢查 Firestore Rules'); }
+  }
 };
-window.startRename=function(type,id){
-  const arr=type==='person'?cfg.people:cfg.categories;
-  const item=arr.find(e=>e.id===id); if(!item) return;
-  const newName=prompt('將「'+item.name+'」改名為：',item.name);
-  if(!newName||newName.trim()===item.name) return;
-  item.name=newName.trim(); saveCfg(); if(db) saveSharedMeta().catch(console.error);
-  renderEntityList(); renderSettings(); renderDetailChips(); renderSummary(); renderHistory(); renderSettle();
-  showToast('已改名為 '+item.name);
+window.startRename=async function(type,id){
+  type=normalizeEntityType(type);
+  if(!db){ showToast('請先連接 Firebase'); return; }
+  const current=entityLocalArray(type).find(e=>e.id===id);
+  if(!current) return;
+  const newName=prompt(`將「${current.name}」改名為：`, current.name);
+  const name=String(newName||'').trim().replace(/\s+/g,' ');
+  if(!name || name===current.name) return;
+  try{
+    await mutateEntityList(type, (list)=>{
+      if(list.some(e=>e.id!==id && normalizeEntityName(e.name)===normalizeEntityName(name))){
+        throw new Error('DUPLICATE_ENTITY_NAME');
+      }
+      const item=list.find(e=>e.id===id);
+      if(item) item.name=name;
+    });
+    repaintAfterEntityChange();
+    showToast('已改名為 '+name);
+  }catch(e){
+    if(e.message==='DUPLICATE_ENTITY_NAME') showToast('名稱已存在');
+    else { console.error('Rename entity failed:', e); showToast('改名失敗'); }
+  }
 };
-window.removePerson=function(id){ if(!confirm('確定移除此人員？')) return; cfg.people=cfg.people.filter(p=>p.id!==id); saveCfg(); if(db) saveSharedMeta().catch(console.error); renderSettings(); renderDetailChips(); };
-window.removeCategory=function(id){ if(!confirm('確定移除此種類？')) return; cfg.categories=cfg.categories.filter(c=>c.id!==id); saveCfg(); if(db) saveSharedMeta().catch(console.error); renderSettings(); renderDetailChips(); };
-
+window.removeEntity=async function(type,id){
+  type=normalizeEntityType(type);
+  if(!db){ showToast('請先連接 Firebase'); return; }
+  const current=entityLocalArray(type).find(e=>e.id===id);
+  if(!current) return;
+  if(!confirm(`確定移除「${current.name}」？舊交易仍會保留 ID，但可能顯示問號。`)) return;
+  try{
+    await mutateEntityList(type, (list)=>{
+      const idx=list.findIndex(e=>e.id===id);
+      if(idx>=0) list.splice(idx,1);
+    });
+    repaintAfterEntityChange();
+    showToast('已移除 '+current.name);
+  }catch(e){ console.error('Remove entity failed:', e); showToast('移除失敗'); }
+};
+window.removePerson=function(id){ return window.removeEntity('person',id); };
+window.removeCategory=function(id){ return window.removeEntity('category',id); };
 
 // ════════════════════════════════════════════════
 // SAMPLE CSV DOWNLOAD
@@ -1994,12 +2533,12 @@ function csvEscape(v){
 }
 window.downloadSampleCsv=function(){
   const bc=baseCur();
-  const people=(cfg.people&&cfg.people.length?cfg.people:DEFAULT_PEOPLE);
-  const cats=(cfg.categories&&cfg.categories.length?cfg.categories:DEFAULT_CATEGORIES);
-  const p1=people[0]?.name||'Ivan';
-  const p2=people[1]?.name||'Charlie';
-  const cat1=cats[0]?.name||'Food & Drink';
-  const cat2=cats[1]?.name||'Transport';
+  const people=(cfg.people&&cfg.people.length?cfg.people:[]);
+  const cats=(cfg.categories&&cfg.categories.length?cfg.categories:[]);
+  const p1=people[0]?.name||'Person A';
+  const p2=people[1]?.name||'Person B';
+  const cat1=cats[0]?.name||'Category A';
+  const cat2=cats[1]?.name||'Category B';
   const rows=[
     ['Year','Month','Day','Type','Item','Amount','Currency','Paid By','Used By','Category','Remark','To'],
     ['2026','06','29','expense','午餐','25.50',bc,p1,`${p1}, ${p2}`,cat1,'sample expense',''],
@@ -2014,6 +2553,86 @@ window.downloadSampleCsv=function(){
   document.body.appendChild(a);
   a.click();
   setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1000);
+};
+
+// ════════════════════════════════════════════════
+// BACKUP EXPORT CSV
+// ════════════════════════════════════════════════
+function txToExportRow(tx, ledger){
+  const date=String(tx.date||'');
+  const m=date.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  const row={
+    Ledger: ledger?.name || ledger?.id || currentLedger().name,
+    LedgerId: ledger?.id || currentLedgerId(),
+    Year: m?m[1]:'',
+    Month: m?m[2]:'',
+    Day: m?m[3]:'',
+    Date: date,
+    Type: tx.type || 'expense',
+    Item: tx.type==='transfer' ? 'Transfer' : (tx.itemName||''),
+    Amount: tx.amount ?? '',
+    Currency: tx.currency || baseCur(),
+    Category: tx.type==='expense' ? catName(tx.categoryId) : '',
+    'Paid By': tx.type==='expense' ? personName(tx.paidByPersonId) : personName(tx.fromPersonId),
+    'Used By': tx.type==='expense' ? (Array.isArray(tx.usedByPersonIds)?tx.usedByPersonIds.map(personName).join(', '):'') : '',
+    To: tx.type==='transfer' ? personName(tx.toPersonId) : '',
+    Remark: tx.remark || '',
+    Status: tx.status || 'completed',
+    FxRate: tx.fxRate ?? '',
+    BaseAmount: tx.baseAmount ?? ''
+  };
+  return row;
+}
+function rowsToCsv(rows){
+  const headers=['Ledger','LedgerId','Year','Month','Day','Date','Type','Item','Amount','Currency','Category','Paid By','Used By','To','Remark','Status','FxRate','BaseAmount'];
+  return [headers.join(','), ...rows.map(r=>headers.map(h=>csvEscape(r[h])).join(','))].join('\n');
+}
+function safeFileName(name){
+  return String(name||'ledger').trim().replace(/[^a-z0-9\u4e00-\u9fff_-]+/gi,'-').replace(/^-+|-+$/g,'').slice(0,60) || 'ledger';
+}
+async function fetchLedgerRowsForExport(ledger){
+  const col=collection(db,'ledgers',ledger.id,'transactions');
+  const snap=await getDocs(query(col, orderBy('date','desc')));
+  return snap.docs.map(d=>txToExportRow({id:d.id,...d.data()}, ledger));
+}
+function downloadCsvFile(filename, csv){
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(()=>{ URL.revokeObjectURL(a.href); a.remove(); },1000);
+}
+window.exportCurrentLedgerCsv=async function(){
+  if(!db) return showToast('請先連接 Firebase');
+  if(!confirm('匯出目前帳薄會讀取此帳薄所有交易一次。繼續？')) return;
+  setSyncDot('pending');
+  try{
+    await syncSharedMeta();
+    const ledger=currentLedger();
+    const rows=await fetchLedgerRowsForExport(ledger);
+    downloadCsvFile(`${safeFileName(ledger.name)}-${ledger.id}-backup.csv`, rowsToCsv(rows));
+    setSyncDot('ok');
+    showToast(`已匯出 ${rows.length} 筆交易`);
+  }catch(e){ console.error(e); setSyncDot('err'); showToast('匯出失敗'); }
+};
+window.exportAllLedgersCsv=async function(){
+  if(!db) return showToast('請先連接 Firebase');
+  const ledgers=(cfg.ledgers||[]).filter(l=>l&&l.id);
+  if(!ledgers.length) return showToast('沒有帳薄可匯出');
+  if(!confirm(`會為 ${ledgers.length} 個帳薄各自下載一個 CSV，並讀取所有交易一次。繼續？`)) return;
+  setSyncDot('pending');
+  try{
+    await syncSharedMeta();
+    for(const ledger of ledgers){
+      const rows=await fetchLedgerRowsForExport(ledger);
+      downloadCsvFile(`${safeFileName(ledger.name)}-${ledger.id}-backup.csv`, rowsToCsv(rows));
+      await new Promise(r=>setTimeout(r,250));
+    }
+    setSyncDot('ok');
+    showToast('已開始下載所有帳薄 CSV');
+  }catch(e){ console.error(e); setSyncDot('err'); showToast('匯出失敗'); }
 };
 
 // ════════════════════════════════════════════════
@@ -2071,25 +2690,27 @@ function parseImportDateFromRow(row){
 function ensurePersonByName(name){
   const n=normText(name);
   if(!n) return '';
-  let p=cfg.people.find(x=>x.name.toLowerCase()===n.toLowerCase());
+  let p=findPersonByName(n);
   if(!p){
-    p={id:slugId('person',n),name:n,color:COLORS[(cfg.people.length||0)%COLORS.length]};
-    let i=1,base=p.id;
-    while(cfg.people.some(x=>x.id===p.id)){ p.id=base+'-'+(++i); }
-    cfg.people.push(p);
+    let id=slugId('person',n), base=id, i=1;
+    while((cfg.people||[]).some(x=>x.id===id)) id=base+'-'+(++i);
+    cfg.people.push({id,name:n,color:COLORS[(cfg.people.length||0)%COLORS.length]});
+    cfg.people=cleanMetaPeople(cfg.people);
+    p=findPersonByName(n);
   }
-  return p.id;
+  return p?.id || '';
 }
 function ensureCategoryByName(name){
   const n=normText(name)||'Other';
-  let c=cfg.categories.find(x=>x.name.toLowerCase()===n.toLowerCase());
+  let c=findCategoryByName(n);
   if(!c){
-    c={id:slugId('cat',n),name:n};
-    let i=1,base=c.id;
-    while(cfg.categories.some(x=>x.id===c.id)){ c.id=base+'-'+(++i); }
-    cfg.categories.push(c);
+    let id=slugId('cat',n), base=id, i=1;
+    while((cfg.categories||[]).some(x=>x.id===id)) id=base+'-'+(++i);
+    cfg.categories.push({id,name:n});
+    cfg.categories=cleanMetaCategories(cfg.categories);
+    c=findCategoryByName(n);
   }
-  return c.id;
+  return c?.id || '';
 }
 function splitNames(v){
   return String(v||'').split(/[、,;；\/|\n]+/).map(s=>s.trim()).filter(Boolean);
@@ -2128,6 +2749,8 @@ function normalizeImportRow(row){
 async function importRows(rows){
   if(!db) return showToast('請先連接 Firebase');
   if(isLedgerArchived()) return showToast('帳薄已封存，不能匯入');
+  // Import must use the latest Firebase people/categories so names match existing shared IDs.
+  await syncSharedMeta();
   const txsToImport=[];
   for(const row of rows){
     const tx=normalizeImportRow(row);
@@ -2135,15 +2758,17 @@ async function importRows(rows){
   }
   if(!txsToImport.length) return showToast('搵唔到可匯入資料');
   if(!confirm(`準備匯入 ${txsToImport.length} 筆交易。新出現的人名/種類會自動加入並同步到所有 device。繼續？`)) return;
-  await saveSharedMeta();
+  await saveEntityArraysToFirebase();
   let batch=writeBatch(db), n=0, batchN=0;
   for(const tx of txsToImport){
-    batch.set(doc(ledgerCol()), {...tx,_created:serverTimestamp(),_imported:true});
+    const saved={...tx,_created:serverTimestamp(),_imported:true};
+    batch.set(doc(ledgerCol()), saved);
+    applyTxToStats(saved,+1,currentLedgerId());
     n++; batchN++;
     if(batchN>=450){ await batch.commit(); batch=writeBatch(db); batchN=0; }
   }
   if(batchN) await batch.commit();
-  saveCfg(); await saveSharedMeta(); subscribeToTx(); renderSettings(); renderDetailChips();
+  saveCfg(); await persistStats(); await saveSharedMeta(); subscribeToTx(); renderSettings(); renderDetailChips();
   showToast(`已匯入 ${n} 筆交易`);
 }
 window.openImportExcel=function(){
@@ -2286,13 +2911,19 @@ Object.assign(window, {
   manualSync,
   saveSharedMeta,
   syncSharedMeta,
+  loadEntityStateFromFirebase,
+  saveEntityArraysToFirebase,
+  removeEntity,
   toggleLedgerArchive,
   openEditLedgerSheet,
   moveEntity,
   openImportExcel,
   handleExcelImport,
   downloadSampleCsv,
+  exportCurrentLedgerCsv,
+  exportAllLedgersCsv,
   refreshNow,
+  rebuildLedgerStats,
 });
 
 (async function init(){
