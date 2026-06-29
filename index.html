@@ -652,7 +652,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
     <div class="sheet-title">帳薄</div>
     <div class="sheet-inner" id="ledger-list"></div>
     <div style="padding:12px">
-      <button onclick="openNewLedgerSheet()" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:15px;font-weight:600">＋ 新增帳薄</button>
+      <button onclick="openNewLedgerSheet()" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:15px;font-weight:600">改名 / 封存帳薄</button>
     </div>
     <div style="height:8px"></div>
   </div>
@@ -662,7 +662,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 <div class="overlay" id="sheet-new-ledger">
   <div class="sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title">新增帳薄</div>
+    <div class="sheet-title">帳薄設定</div>
     <div class="sheet-inner">
       <div class="form-row"><label class="form-label">Name</label><input class="form-control left" id="nl-name" placeholder="例：日常、旅行"></div>
       <div class="form-row">
@@ -680,7 +680,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
       </div>
     </div>
     <div style="padding:12px">
-      <button onclick="createLedger()" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:16px;font-weight:700">建立</button>
+      <button onclick="createLedger()" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:16px;font-weight:700">儲存帳薄設定</button>
     </div>
     <div style="height:8px"></div>
   </div>
@@ -769,6 +769,9 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
   </div>
 </div>
 
+<!-- Excel parser -->
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
 <!-- Firebase SDK -->
 <script type="module">
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
@@ -843,7 +846,9 @@ function seedDefaults(){
   cfg.ledgers = [{
     id: SHARED_LEDGER_ID,
     name: fallback.name || SHARED_LEDGER_NAME,
-    baseCurrency: fallback.baseCurrency || SHARED_LEDGER_BASE_CURRENCY
+    baseCurrency: fallback.baseCurrency || SHARED_LEDGER_BASE_CURRENCY,
+    archived: !!fallback.archived,
+    archivedAt: fallback.archivedAt || null
   }];
   cfg.currentLedgerId = SHARED_LEDGER_ID;
   saveCfg();
@@ -855,7 +860,9 @@ function seedDefaults(){
 function uid(){ return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)+Date.now().toString(36); }
 function fmt(n, cur){ const d=DECIMAL[cur]??2; return Number(n).toFixed(d); }
 function fmtBase(n){ return fmt(n, baseCur()); }
-function baseCur(){ return cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)?.baseCurrency||SHARED_LEDGER_BASE_CURRENCY; }
+function sharedLedger(){ return cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)||{id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY}; }
+function baseCur(){ return sharedLedger()?.baseCurrency||SHARED_LEDGER_BASE_CURRENCY; }
+function isLedgerArchived(){ return !!sharedLedger()?.archived; }
 function personName(id){ return cfg.people.find(p=>p.id===id)?.name||'?'; }
 function personColor(id){ return cfg.people.find(p=>p.id===id)?.color||COLORS[0]; }
 function catName(id){ return cfg.categories.find(c=>c.id===id)?.name||'未分類'; }
@@ -973,7 +980,9 @@ async function syncSharedMeta(){
     cfg.ledgers=[{
       id: SHARED_LEDGER_ID,
       name: remoteLedger.name||localLedger.name||SHARED_LEDGER_NAME,
-      baseCurrency: remoteLedger.baseCurrency||localLedger.baseCurrency||SHARED_LEDGER_BASE_CURRENCY
+      baseCurrency: remoteLedger.baseCurrency||localLedger.baseCurrency||SHARED_LEDGER_BASE_CURRENCY,
+      archived: remoteLedger.archived!=null ? !!remoteLedger.archived : !!localLedger.archived,
+      archivedAt: remoteLedger.archivedAt!=null ? remoteLedger.archivedAt : (localLedger.archivedAt||null)
     }];
     cfg.currentLedgerId=SHARED_LEDGER_ID;
     saveCfg();
@@ -1014,7 +1023,12 @@ function subscribeToTx(){
   }, err=>{ console.error(err); setSyncDot('err'); });
 }
 
-async function fbAdd(data){ if(!db){showToast('請先連接 Firebase');return false;} await addDoc(ledgerCol(),{...data,ledgerId:SHARED_LEDGER_ID,_created:serverTimestamp()}); return true; }
+async function fbAdd(data){
+  if(!db){showToast('請先連接 Firebase');return false;}
+  if(isLedgerArchived()){ showToast('帳薄已封存，不能新增交易'); return false; }
+  await addDoc(ledgerCol(),{...data,ledgerId:SHARED_LEDGER_ID,_created:serverTimestamp()});
+  return true;
+}
 async function fbSet(id,data){ if(!db) return; await setDoc(ledgerDoc(id),{...data,ledgerId:SHARED_LEDGER_ID,_updated:serverTimestamp()}); }
 async function fbDel(id){ if(!db) return; await deleteDoc(ledgerDoc(id)); }
 
@@ -1113,10 +1127,16 @@ window.selectBox=function(groupId,value){
 // ════════════════════════════════════════════════
 function renderLedgerList(){
   document.getElementById('ledger-list').innerHTML=cfg.ledgers.map(l=>`
-    <div class="settings-row" style="cursor:pointer" onclick="switchLedger('${l.id}')">
+    <div class="settings-row">
       <span class="settings-lbl" style="font-weight:${l.id===cfg.currentLedgerId?700:400}">${l.name}</span>
       <span style="font-size:12px;color:var(--text-3)">${l.baseCurrency}</span>
-      ${l.id===cfg.currentLedgerId?'<span class="lbl-badge blue">Active</span>':''}
+      ${l.archived?'<span class="lbl-badge orange">Archived</span>':'<span class="lbl-badge blue">Active</span>'}
+    </div>
+    <div class="settings-row" onclick="openNewLedgerSheet()" style="cursor:pointer">
+      <span class="settings-lbl" style="color:var(--accent)">改名 / 改基礎貨幣</span><span class="settings-arrow">›</span>
+    </div>
+    <div class="settings-row" onclick="toggleLedgerArchive()" style="cursor:pointer">
+      <span class="settings-lbl" style="color:${l.archived?'var(--green)':'var(--orange)'}">${l.archived?'取消封存':'封存帳薄'}</span><span class="settings-arrow">›</span>
     </div>`).join('');
 }
 window.switchLedger=function(id){
@@ -1132,21 +1152,32 @@ window.createLedger=function(){
   const name=document.getElementById('nl-name').value.trim();
   if(!name) return showToast('請輸入名稱');
   const bc=selectedBoxValue('nl-base-cur')||SHARED_LEDGER_BASE_CURRENCY;
-  cfg.ledgers=[{id:SHARED_LEDGER_ID,name,baseCurrency:bc}];
+  const prev=sharedLedger();
+  cfg.ledgers=[{id:SHARED_LEDGER_ID,name,baseCurrency:bc,archived:!!prev.archived,archivedAt:prev.archivedAt||null}];
   cfg.currentLedgerId=SHARED_LEDGER_ID;
   saveCfg();
-  document.getElementById('nl-name').value='';
   document.getElementById('ledger-name-top').textContent=name;
   closeSheet('sheet-new-ledger');
   if(db){ saveSharedMeta().catch(console.error); subscribeToTx(); }
-  renderSettings();
+  renderLedgerList(); renderSettings(); renderSummary(); renderHistory(); renderSettle();
   showToast('共同帳薄已更新');
+};
+
+window.toggleLedgerArchive=function(){
+  const l=sharedLedger();
+  if(!l.archived && !confirm('封存後仍可查看記錄，但不能新增交易。確定封存？')) return;
+  const next={...l, archived:!l.archived, archivedAt:!l.archived?new Date().toISOString():null};
+  cfg.ledgers=[next]; cfg.currentLedgerId=SHARED_LEDGER_ID; saveCfg();
+  if(db) saveSharedMeta().catch(console.error);
+  renderLedgerList(); renderSettings(); renderSummary(); renderHistory(); renderSettle();
+  showToast(next.archived?'帳薄已封存':'帳薄已取消封存');
 };
 
 // ════════════════════════════════════════════════
 // ADD FLOW — NUMPAD
 // ════════════════════════════════════════════════
 function openAddFlow(editId=null){
+  if(!editId && isLedgerArchived()) return showToast('帳薄已封存，不能新增交易');
   editTxId=editId;
   flowData={};
   if(editId){
@@ -1798,6 +1829,19 @@ function renderSettings(){
       <div class="settings-row"><span class="settings-lbl">${isConnected?'已連接 ✓':'未連接'}</span><span class="settings-val lbl-badge${isConnected?' green':''}">${isConnected?'即時':'離線'}</span></div>
       <div class="settings-row" onclick="openSheet('sheet-firebase')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">${cfg.fbConfig?'重新連接':'連接 Firebase'}</span><span class="settings-arrow">›</span></div>
     </div>
+    <div class="sec-label">匯入 Excel</div>
+    <div class="card">
+      <div class="settings-row" onclick="openImportExcel()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯入交易 Excel / CSV</span><span class="settings-arrow">›</span></div>
+      <div class="fx-status">支援欄位：日期、項目、金額、貨幣、付款人、使用者、種類、備註。人名/種類會按名稱 match，沒有就自動建立。</div>
+    </div>
+    <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
+    <div class="sec-label">帳薄</div>
+    <div class="card">
+      <div class="settings-row"><span class="settings-lbl">名稱</span><span class="settings-val">${sharedLedger().name}</span></div>
+      <div class="settings-row"><span class="settings-lbl">狀態</span><span class="settings-val lbl-badge ${isLedgerArchived()?'orange':'green'}">${isLedgerArchived()?'已封存':'使用中'}</span></div>
+      <div class="settings-row" onclick="openNewLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">改名 / 基礎貨幣</span><span class="settings-arrow">›</span></div>
+      <div class="settings-row" onclick="toggleLedgerArchive()" style="cursor:pointer"><span class="settings-lbl" style="color:${isLedgerArchived()?'var(--green)':'var(--orange)'}">${isLedgerArchived()?'取消封存':'封存帳薄'}</span><span class="settings-arrow">›</span></div>
+    </div>
     <div class="sec-label">匯率設定</div>
     <div class="card">
       <div class="settings-row"><span class="settings-lbl">Source</span><span class="settings-val">Yahoo Finance</span></div>
@@ -1811,11 +1855,6 @@ function renderSettings(){
     <div class="sec-label">種類</div>
     <div class="card">${catHtml}</div>
     <div style="padding:0 0 8px"><button onclick="openEntitySheet('category')" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:600">＋ 新增種類</button></div>
-    <div class="sec-label">帳薄</div>
-    <div class="card">${cfg.ledgers.map(l=>`
-      <div class="settings-row"><span class="settings-lbl" style="font-weight:${l.id===cfg.currentLedgerId?700:400}">${l.name}</span><span class="settings-val" style="font-size:12px">${l.baseCurrency}</span>${l.id===cfg.currentLedgerId?'<span class="lbl-badge blue">Active</span>':''}</div>`).join('')}
-    </div>
-    <div style="padding:0 0 24px"><button onclick="openSheet('sheet-new-ledger')" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:600">＋ 新增帳薄</button></div>
   `;
   if(cfg.fbConfig){ const el=document.getElementById('fb-config-input'); if(el) el.value=JSON.stringify(cfg.fbConfig,null,2); }
 }
@@ -1855,6 +1894,145 @@ window.startRename=function(type,id){
 };
 window.removePerson=function(id){ if(!confirm('確定移除此人員？')) return; cfg.people=cfg.people.filter(p=>p.id!==id); saveCfg(); if(db) saveSharedMeta().catch(console.error); renderSettings(); renderDetailChips(); };
 window.removeCategory=function(id){ if(!confirm('確定移除此種類？')) return; cfg.categories=cfg.categories.filter(c=>c.id!==id); saveCfg(); if(db) saveSharedMeta().catch(console.error); renderSettings(); renderDetailChips(); };
+
+
+// ════════════════════════════════════════════════
+// EXCEL IMPORT
+// ════════════════════════════════════════════════
+function normText(v){ return String(v??'').trim(); }
+function normKey(k){ return String(k??'').trim().toLowerCase().replace(/[\s_\-\/（）()：:]+/g,''); }
+function slugId(prefix,name){
+  const base=String(name||'').trim().toLowerCase().replace(/[^a-z0-9\u4e00-\u9fff]+/g,'-').replace(/^-+|-+$/g,'').slice(0,40);
+  return prefix+'-'+(base||uid());
+}
+function getRowVal(row, aliases){
+  const map={};
+  Object.keys(row||{}).forEach(k=>{ map[normKey(k)]=row[k]; });
+  for(const a of aliases){
+    const key=normKey(a);
+    if(map[key]!=null && String(map[key]).trim()!=='') return map[key];
+  }
+  return '';
+}
+function parseImportDate(v){
+  if(v==null||v==='') return isoDate();
+  if(typeof v==='number'){
+    // Excel serial date. XLSX may not be loaded during syntax checks, so use a fallback.
+    if(window.XLSX?.SSF?.parse_date_code){
+      const d=window.XLSX.SSF.parse_date_code(v);
+      if(d) return `${d.y}-${String(d.m).padStart(2,'0')}-${String(d.d).padStart(2,'0')}`;
+    }
+    const js=new Date(Math.round((v-25569)*86400*1000));
+    return isoDate(js);
+  }
+  const s=String(v).trim();
+  const m=s.match(/^(\d{4})[\/-](\d{1,2})[\/-](\d{1,2})/);
+  if(m) return `${m[1]}-${m[2].padStart(2,'0')}-${m[3].padStart(2,'0')}`;
+  const d=new Date(s);
+  return isNaN(d)?isoDate():isoDate(d);
+}
+function ensurePersonByName(name){
+  const n=normText(name);
+  if(!n) return '';
+  let p=cfg.people.find(x=>x.name.toLowerCase()===n.toLowerCase());
+  if(!p){
+    p={id:slugId('person',n),name:n,color:COLORS[(cfg.people.length||0)%COLORS.length]};
+    let i=1,base=p.id;
+    while(cfg.people.some(x=>x.id===p.id)){ p.id=base+'-'+(++i); }
+    cfg.people.push(p);
+  }
+  return p.id;
+}
+function ensureCategoryByName(name){
+  const n=normText(name)||'Other';
+  let c=cfg.categories.find(x=>x.name.toLowerCase()===n.toLowerCase());
+  if(!c){
+    c={id:slugId('cat',n),name:n};
+    let i=1,base=c.id;
+    while(cfg.categories.some(x=>x.id===c.id)){ c.id=base+'-'+(++i); }
+    cfg.categories.push(c);
+  }
+  return c.id;
+}
+function splitNames(v){
+  return String(v||'').split(/[、,;；\/|\n]+/).map(s=>s.trim()).filter(Boolean);
+}
+function normalizeImportRow(row){
+  const typeRaw=normText(getRowVal(row,['type','類型','交易類型'])).toLowerCase();
+  const isTransfer=typeRaw.includes('transfer')||typeRaw.includes('轉帳')||typeRaw.includes('轉賬');
+  const currency=(normText(getRowVal(row,['currency','貨幣','幣種','cur']))||baseCur()).toUpperCase();
+  const amount=Number(String(getRowVal(row,['amount','金額','價錢','total','總額'])).replace(/[, $HKDAUDJPYNTDUSDEURGBP號]/gi,''));
+  if(!amount||amount<=0) return null;
+  const date=parseImportDate(getRowVal(row,['date','日期','交易日期']));
+  const remark=normText(getRowVal(row,['remark','備註','備注','notes','note','memo']));
+  const rate=fxRateForDate(currency,date);
+  if(isTransfer){
+    const fromId=ensurePersonByName(getRowVal(row,['from','付款人','paid by','paidby','payer']));
+    const toId=ensurePersonByName(getRowVal(row,['to','收款人','receiver','payee']));
+    if(!fromId||!toId) return null;
+    return {
+      type:'transfer', fromPersonId:fromId, toPersonId:toId,
+      currency, amount, fxRate:rate, baseAmount:amount*rate,
+      date, remark, status:'completed', ledgerId:SHARED_LEDGER_ID
+    };
+  }
+  const itemName=normText(getRowVal(row,['itemName','item','項目','項目名稱','name','description','描述']))||'Imported';
+  const categoryId=ensureCategoryByName(getRowVal(row,['category','種類','分類','cat']));
+  const paidById=ensurePersonByName(getRowVal(row,['paidBy','paid by','paidby','付款人','payer']));
+  const usedNames=splitNames(getRowVal(row,['usedBy','used by','usedby','使用者','使用人','participants','users','分帳人']));
+  const usedByIds=(usedNames.length?usedNames:[getRowVal(row,['paidBy','paid by','paidby','付款人','payer'])]).map(ensurePersonByName).filter(Boolean);
+  if(!paidById||!usedByIds.length) return null;
+  return {
+    type:'expense', itemName, categoryId, paidByPersonId:paidById, usedByPersonIds:usedByIds,
+    currency, amount, fxRate:rate, baseAmount:amount*rate,
+    date, remark, status:'completed', ledgerId:SHARED_LEDGER_ID
+  };
+}
+async function importRows(rows){
+  if(!db) return showToast('請先連接 Firebase');
+  if(isLedgerArchived()) return showToast('帳薄已封存，不能匯入');
+  const txsToImport=[];
+  for(const row of rows){
+    const tx=normalizeImportRow(row);
+    if(tx) txsToImport.push(tx);
+  }
+  if(!txsToImport.length) return showToast('搵唔到可匯入資料');
+  if(!confirm(`準備匯入 ${txsToImport.length} 筆交易。新出現的人名/種類會自動加入並同步到所有 device。繼續？`)) return;
+  await saveSharedMeta();
+  let batch=writeBatch(db), n=0, batchN=0;
+  for(const tx of txsToImport){
+    batch.set(doc(ledgerCol()), {...tx,_created:serverTimestamp(),_imported:true});
+    n++; batchN++;
+    if(batchN>=450){ await batch.commit(); batch=writeBatch(db); batchN=0; }
+  }
+  if(batchN) await batch.commit();
+  saveCfg(); await saveSharedMeta(); subscribeToTx(); renderSettings(); renderDetailChips();
+  showToast(`已匯入 ${n} 筆交易`);
+}
+window.openImportExcel=function(){
+  document.getElementById('excel-import-input')?.click();
+};
+window.handleExcelImport=async function(input){
+  const file=input.files?.[0];
+  input.value='';
+  if(!file) return;
+  try{
+    const buf=await file.arrayBuffer();
+    let rows=[];
+    if(file.name.toLowerCase().endsWith('.csv')){
+      const text=new TextDecoder().decode(buf);
+      const wb=XLSX.read(text,{type:'string'});
+      rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''});
+    } else {
+      const wb=XLSX.read(buf,{type:'array',cellDates:false});
+      rows=XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''});
+    }
+    await importRows(rows);
+  }catch(e){
+    console.error(e);
+    showToast('匯入失敗，請檢查 Excel 欄位');
+  }
+};
 
 // ════════════════════════════════════════════════
 // DATE FORMAT
@@ -1928,6 +2106,9 @@ Object.assign(window, {
   manualSync,
   saveSharedMeta,
   syncSharedMeta,
+  toggleLedgerArchive,
+  openImportExcel,
+  handleExcelImport,
 });
 
 (async function init(){
