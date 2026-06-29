@@ -825,8 +825,7 @@ function saveCfg(){ localStorage.setItem(CFG_KEY, JSON.stringify(cfg)); }
 
 // Seed default people/cats if empty
 function seedDefaults(){
-  // People/categories are still stored locally in this version, so give the built-in
-  // defaults stable IDs. This avoids records saved on mobile showing as '?' on desktop.
+  // People/categories use shared stable IDs and later sync to Firebase meta/config.
   const defaultPeopleNames = ['Charlie','Ivan','Yumi'];
   const existingPeopleNames = (cfg.people||[]).map(p=>p.name).sort().join('|');
   if(!cfg.people?.length || existingPeopleNames === defaultPeopleNames.sort().join('|')){
@@ -839,30 +838,34 @@ function seedDefaults(){
     cfg.categories = DEFAULT_CATEGORIES.map(c=>({...c}));
   }
 
-  // IMPORTANT: all devices/users must use the same ledger ID, otherwise Firestore path
-  // becomes /ledgers/<different-local-id>/transactions and records will not sync.
-  const existingShared = (cfg.ledgers||[]).find(l=>l.id===SHARED_LEDGER_ID);
-  const fallback = existingShared || (cfg.ledgers||[])[0] || {};
-  cfg.ledgers = [{
-    id: SHARED_LEDGER_ID,
-    name: fallback.name || SHARED_LEDGER_NAME,
-    baseCurrency: fallback.baseCurrency || SHARED_LEDGER_BASE_CURRENCY,
-    archived: !!fallback.archived,
-    archivedAt: fallback.archivedAt || null
-  }];
-  cfg.currentLedgerId = SHARED_LEDGER_ID;
+  // Keep all local ledgers instead of replacing them. Ensure the original shared ledger exists.
+  cfg.ledgers = Array.isArray(cfg.ledgers) ? cfg.ledgers.filter(l=>l&&l.id) : [];
+  if(!cfg.ledgers.some(l=>l.id===SHARED_LEDGER_ID)){
+    cfg.ledgers.unshift({
+      id: SHARED_LEDGER_ID,
+      name: SHARED_LEDGER_NAME,
+      baseCurrency: SHARED_LEDGER_BASE_CURRENCY,
+      archived: false,
+      archivedAt: null
+    });
+  }
+  if(!cfg.currentLedgerId || !cfg.ledgers.some(l=>l.id===cfg.currentLedgerId)){
+    cfg.currentLedgerId = SHARED_LEDGER_ID;
+  }
   saveCfg();
 }
-
 // ════════════════════════════════════════════════
 // UUID + FMT HELPERS
 // ════════════════════════════════════════════════
 function uid(){ return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)+Date.now().toString(36); }
 function fmt(n, cur){ const d=DECIMAL[cur]??2; return Number(n).toFixed(d); }
 function fmtBase(n){ return fmt(n, baseCur()); }
-function sharedLedger(){ return cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)||{id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY}; }
-function baseCur(){ return sharedLedger()?.baseCurrency||SHARED_LEDGER_BASE_CURRENCY; }
-function isLedgerArchived(){ return !!sharedLedger()?.archived; }
+function currentLedgerId(){ return cfg.currentLedgerId || SHARED_LEDGER_ID; }
+function currentLedger(){ return cfg.ledgers.find(l=>l.id===currentLedgerId()) || cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID) || {id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY}; }
+// Backwards-compatible name used by existing rendering code.
+function sharedLedger(){ return currentLedger(); }
+function baseCur(){ return currentLedger()?.baseCurrency||SHARED_LEDGER_BASE_CURRENCY; }
+function isLedgerArchived(){ return !!currentLedger()?.archived; }
 function personName(id){ return cfg.people.find(p=>p.id===id)?.name||'?'; }
 function personColor(id){ return cfg.people.find(p=>p.id===id)?.color||COLORS[0]; }
 function catName(id){ return cfg.categories.find(c=>c.id===id)?.name||'未分類'; }
@@ -935,14 +938,13 @@ async function downloadFxRates(){
 // ════════════════════════════════════════════════
 // FIREBASE
 // ════════════════════════════════════════════════
-// This version uses one shared Firestore path for everyone:
-// /ledgers/shared-ledger/transactions/{txId}
+// This version syncs the ledger list in meta/config and stores transactions per selected shared ledger.
 let db=null;
 let unsub=null;
 let txs=[];  // local mirror of current ledger's transactions
 
-function ledgerCol(){ return collection(db,'ledgers',SHARED_LEDGER_ID,'transactions'); }
-function ledgerDoc(txId){ return doc(db,'ledgers',SHARED_LEDGER_ID,'transactions',txId); }
+function ledgerCol(){ return collection(db,'ledgers',currentLedgerId(),'transactions'); }
+function ledgerDoc(txId){ return doc(db,'ledgers',currentLedgerId(),'transactions',txId); }
 function sharedMetaDoc(){ return doc(db,'ledgers',SHARED_LEDGER_ID,'meta','config'); }
 
 function mergeById(localItems=[], remoteItems=[]){
@@ -958,15 +960,18 @@ async function saveSharedMeta(){
   await setDoc(sharedMetaDoc(),{
     people: cfg.people||[],
     categories: cfg.categories||[],
+    ledgers: cfg.ledgers||[],
+    // Keep legacy field for older deployed builds.
     ledger: cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)||{
       id: SHARED_LEDGER_ID,
       name: SHARED_LEDGER_NAME,
-      baseCurrency: SHARED_LEDGER_BASE_CURRENCY
+      baseCurrency: SHARED_LEDGER_BASE_CURRENCY,
+      archived: false,
+      archivedAt: null
     },
     updatedAt: serverTimestamp()
   },{merge:true});
 }
-
 async function syncSharedMeta(){
   if(!db) return;
   const ref=sharedMetaDoc();
@@ -975,23 +980,20 @@ async function syncSharedMeta(){
     const data=snap.data()||{};
     cfg.people=mergeById(cfg.people||[],data.people||[]);
     cfg.categories=mergeById(cfg.categories||[],data.categories||[]);
-    const remoteLedger=data.ledger||{};
-    const localLedger=cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)||{};
-    cfg.ledgers=[{
-      id: SHARED_LEDGER_ID,
-      name: remoteLedger.name||localLedger.name||SHARED_LEDGER_NAME,
-      baseCurrency: remoteLedger.baseCurrency||localLedger.baseCurrency||SHARED_LEDGER_BASE_CURRENCY,
-      archived: remoteLedger.archived!=null ? !!remoteLedger.archived : !!localLedger.archived,
-      archivedAt: remoteLedger.archivedAt!=null ? remoteLedger.archivedAt : (localLedger.archivedAt||null)
-    }];
-    cfg.currentLedgerId=SHARED_LEDGER_ID;
+
+    let remoteLedgers = Array.isArray(data.ledgers) ? data.ledgers.filter(l=>l&&l.id) : [];
+    if(!remoteLedgers.length && data.ledger?.id) remoteLedgers=[data.ledger];
+    cfg.ledgers = mergeById(cfg.ledgers||[], remoteLedgers);
+    if(!cfg.ledgers.some(l=>l.id===SHARED_LEDGER_ID)){
+      cfg.ledgers.unshift({id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY,archived:false,archivedAt:null});
+    }
+    if(!cfg.currentLedgerId || !cfg.ledgers.some(l=>l.id===cfg.currentLedgerId)) cfg.currentLedgerId=SHARED_LEDGER_ID;
     saveCfg();
-    await saveSharedMeta(); // uploads any old local random person/category IDs so other devices can resolve them
+    await saveSharedMeta(); // uploads any old local random person/category IDs and ledgers so other devices can resolve them
   } else {
     await saveSharedMeta();
   }
 }
-
 async function initFb(config){
   try{
     let app;
@@ -1026,10 +1028,10 @@ function subscribeToTx(){
 async function fbAdd(data){
   if(!db){showToast('請先連接 Firebase');return false;}
   if(isLedgerArchived()){ showToast('帳薄已封存，不能新增交易'); return false; }
-  await addDoc(ledgerCol(),{...data,ledgerId:SHARED_LEDGER_ID,_created:serverTimestamp()});
+  await addDoc(ledgerCol(),{...data,ledgerId:currentLedgerId(),_created:serverTimestamp()});
   return true;
 }
-async function fbSet(id,data){ if(!db) return; await setDoc(ledgerDoc(id),{...data,ledgerId:SHARED_LEDGER_ID,_updated:serverTimestamp()}); }
+async function fbSet(id,data){ if(!db) return; await setDoc(ledgerDoc(id),{...data,ledgerId:currentLedgerId(),_updated:serverTimestamp()}); }
 async function fbDel(id){ if(!db) return; await deleteDoc(ledgerDoc(id)); }
 
 window.connectFirebase=async function(){
@@ -1125,54 +1127,85 @@ window.selectBox=function(groupId,value){
 // ════════════════════════════════════════════════
 // LEDGER
 // ════════════════════════════════════════════════
+let editingLedgerId=null;
 function renderLedgerList(){
-  document.getElementById('ledger-list').innerHTML=cfg.ledgers.map(l=>`
-    <div class="settings-row">
-      <span class="settings-lbl" style="font-weight:${l.id===cfg.currentLedgerId?700:400}">${l.name}</span>
+  const activeId=currentLedgerId();
+  document.getElementById('ledger-list').innerHTML=(cfg.ledgers||[]).map(l=>`
+    <div class="settings-row" onclick="switchLedger('${l.id}')" style="cursor:pointer">
+      <span class="settings-lbl" style="font-weight:${l.id===activeId?800:400}">${l.name}</span>
       <span style="font-size:12px;color:var(--text-3)">${l.baseCurrency}</span>
-      ${l.archived?'<span class="lbl-badge orange">Archived</span>':'<span class="lbl-badge blue">Active</span>'}
+      ${l.archived?'<span class="lbl-badge orange">Archived</span>':(l.id===activeId?'<span class="lbl-badge blue">Active</span>':'')}
     </div>
-    <div class="settings-row" onclick="openNewLedgerSheet()" style="cursor:pointer">
-      <span class="settings-lbl" style="color:var(--accent)">改名 / 改基礎貨幣</span><span class="settings-arrow">›</span>
-    </div>
-    <div class="settings-row" onclick="toggleLedgerArchive()" style="cursor:pointer">
-      <span class="settings-lbl" style="color:${l.archived?'var(--green)':'var(--orange)'}">${l.archived?'取消封存':'封存帳薄'}</span><span class="settings-arrow">›</span>
+    <div class="settings-row">
+      <button onclick="event.stopPropagation(); openEditLedgerSheet('${l.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
+      <button onclick="event.stopPropagation(); toggleLedgerArchive('${l.id}')" style="font-size:12px;color:${l.archived?'var(--green)':'var(--orange)'};padding:4px 8px">${l.archived?'取消封存':'封存'}</button>
     </div>`).join('');
 }
 window.switchLedger=function(id){
-  cfg.currentLedgerId=SHARED_LEDGER_ID; saveCfg();
-  document.getElementById('ledger-name-top').textContent=cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)?.name||'';
+  if(!cfg.ledgers.some(l=>l.id===id)) return;
+  cfg.currentLedgerId=id; saveCfg();
+  document.getElementById('ledger-name-top').textContent=currentLedger().name||'記帳';
   closeSheet('sheet-ledger');
   npCur=baseCur();
   if(db) subscribeToTx();
   renderAll();
 };
-window.openNewLedgerSheet=function(){ closeSheet('sheet-ledger'); setBoxValue('nl-base-cur',baseCur()); document.getElementById('nl-name').value=cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)?.name||SHARED_LEDGER_NAME; openSheet('sheet-new-ledger'); };
+function uniqueLedgerId(name){
+  const base=slugId('ledger',name||'ledger');
+  let id=base, i=1;
+  while((cfg.ledgers||[]).some(l=>l.id===id)) id=base+'-'+(++i);
+  return id;
+}
+window.openNewLedgerSheet=function(){
+  editingLedgerId=null;
+  closeSheet('sheet-ledger');
+  setBoxValue('nl-base-cur',baseCur());
+  document.getElementById('nl-name').value='';
+  document.querySelector('#sheet-new-ledger .sheet-title').textContent='新增帳薄';
+  openSheet('sheet-new-ledger');
+};
+window.openEditLedgerSheet=function(id=currentLedgerId()){
+  editingLedgerId=id;
+  closeSheet('sheet-ledger');
+  const l=cfg.ledgers.find(x=>x.id===id)||currentLedger();
+  setBoxValue('nl-base-cur',l.baseCurrency||SHARED_LEDGER_BASE_CURRENCY);
+  document.getElementById('nl-name').value=l.name||'';
+  document.querySelector('#sheet-new-ledger .sheet-title').textContent='改名 / 改基礎貨幣';
+  openSheet('sheet-new-ledger');
+};
 window.createLedger=function(){
   const name=document.getElementById('nl-name').value.trim();
   if(!name) return showToast('請輸入名稱');
   const bc=selectedBoxValue('nl-base-cur')||SHARED_LEDGER_BASE_CURRENCY;
-  const prev=sharedLedger();
-  cfg.ledgers=[{id:SHARED_LEDGER_ID,name,baseCurrency:bc,archived:!!prev.archived,archivedAt:prev.archivedAt||null}];
-  cfg.currentLedgerId=SHARED_LEDGER_ID;
+  if(editingLedgerId){
+    const l=cfg.ledgers.find(x=>x.id===editingLedgerId);
+    if(l){ l.name=name; l.baseCurrency=bc; }
+    if(cfg.currentLedgerId===editingLedgerId) document.getElementById('ledger-name-top').textContent=name;
+    showToast('帳薄已更新');
+  } else {
+    const id=uniqueLedgerId(name);
+    cfg.ledgers.push({id,name,baseCurrency:bc,archived:false,archivedAt:null});
+    cfg.currentLedgerId=id;
+    document.getElementById('ledger-name-top').textContent=name;
+    showToast('帳薄已建立');
+  }
   saveCfg();
-  document.getElementById('ledger-name-top').textContent=name;
   closeSheet('sheet-new-ledger');
   if(db){ saveSharedMeta().catch(console.error); subscribeToTx(); }
   renderLedgerList(); renderSettings(); renderSummary(); renderHistory(); renderSettle();
-  showToast('共同帳薄已更新');
 };
 
-window.toggleLedgerArchive=function(){
-  const l=sharedLedger();
+window.toggleLedgerArchive=function(id=currentLedgerId()){
+  const l=cfg.ledgers.find(x=>x.id===id);
+  if(!l) return;
   if(!l.archived && !confirm('封存後仍可查看記錄，但不能新增交易。確定封存？')) return;
-  const next={...l, archived:!l.archived, archivedAt:!l.archived?new Date().toISOString():null};
-  cfg.ledgers=[next]; cfg.currentLedgerId=SHARED_LEDGER_ID; saveCfg();
+  l.archived=!l.archived;
+  l.archivedAt=l.archived?new Date().toISOString():null;
+  saveCfg();
   if(db) saveSharedMeta().catch(console.error);
   renderLedgerList(); renderSettings(); renderSummary(); renderHistory(); renderSettle();
-  showToast(next.archived?'帳薄已封存':'帳薄已取消封存');
+  showToast(l.archived?'帳薄已封存':'帳薄已取消封存');
 };
-
 // ════════════════════════════════════════════════
 // ADD FLOW — NUMPAD
 // ════════════════════════════════════════════════
@@ -1476,7 +1509,7 @@ window.saveTx=async function(){
     if(flowData.fromId===flowData.toId) return showToast('付款人與收款人不能相同');
     data={
       type:'transfer',
-      ledgerId:SHARED_LEDGER_ID,
+      ledgerId:currentLedgerId(),
       fromPersonId:flowData.fromId,
       toPersonId:flowData.toId,
       currency:npCur,
@@ -1496,7 +1529,7 @@ window.saveTx=async function(){
 
     data={
       type:'expense',
-      ledgerId:SHARED_LEDGER_ID,
+      ledgerId:currentLedgerId(),
       itemName:name,
       categoryId:flowData.categoryId,
       paidByPersonId:flowData.paidById,
@@ -1575,7 +1608,7 @@ window.clearFilters=function(){
 function renderHistory(){
   const q=(document.getElementById('tx-search')?.value||'').trim().toLowerCase();
   const isFuture=txTab==='future';
-  let list=txs.filter(t=>t.ledgerId===SHARED_LEDGER_ID||(t.ledgerId==null));
+  let list=txs.filter(t=>t.ledgerId===currentLedgerId()||(t.ledgerId==null&&currentLedgerId()===SHARED_LEDGER_ID));
   if(isFuture) list=list.filter(t=>t.status==='scheduled');
   else list=list.filter(t=>t.status!=='scheduled'&&t.status!=='cancelled');
   if(q) list=list.filter(t=>(t.itemName||'').toLowerCase().includes(q)||(t.remark||'').toLowerCase().includes(q));
@@ -1656,10 +1689,10 @@ function changePeriod(dir){
 window.changePeriod=changePeriod;
 
 function completedLedgerTxs(){
-  return txs.filter(t=>(t.ledgerId===SHARED_LEDGER_ID||!t.ledgerId)&&t.status==='completed'&&t.type==='expense');
+  return txs.filter(t=>((t.ledgerId===currentLedgerId())||(!t.ledgerId&&currentLedgerId()===SHARED_LEDGER_ID))&&t.status==='completed'&&t.type==='expense');
 }
 function allLedgerTxs(){
-  return txs.filter(t=>(t.ledgerId===SHARED_LEDGER_ID||!t.ledgerId)&&t.status==='completed');
+  return txs.filter(t=>((t.ledgerId===currentLedgerId())||(!t.ledgerId&&currentLedgerId()===SHARED_LEDGER_ID))&&t.status==='completed');
 }
 
 function renderSummary(){
@@ -1814,12 +1847,16 @@ function renderSettings(){
     <div class="settings-row">
       <div class="person-avatar" style="width:24px;height:24px;font-size:10px;background:${p.color}20;color:${p.color}">${p.name.charAt(0)}</div>
       <span class="settings-lbl">${p.name}</span>
+      <button onclick="moveEntity('person','${p.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
+      <button onclick="moveEntity('person','${p.id}',1)" ${i===cfg.people.length-1?'disabled':''} style="font-size:12px;color:${i===cfg.people.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
       <button onclick="startRename('person','${p.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
       ${cfg.people.length>1?`<button onclick="removePerson('${p.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>`:''}
     </div>`).join('');
   const catHtml=cfg.categories.map((c,i)=>`
     <div class="settings-row">
       <span class="settings-lbl">${c.name}</span>
+      <button onclick="moveEntity('category','${c.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
+      <button onclick="moveEntity('category','${c.id}',1)" ${i===cfg.categories.length-1?'disabled':''} style="font-size:12px;color:${i===cfg.categories.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
       <button onclick="startRename('category','${c.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
       <button onclick="removeCategory('${c.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>
     </div>`).join('');
@@ -1837,9 +1874,9 @@ function renderSettings(){
     <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
     <div class="sec-label">帳薄</div>
     <div class="card">
-      <div class="settings-row"><span class="settings-lbl">名稱</span><span class="settings-val">${sharedLedger().name}</span></div>
+      <div class="settings-row"><span class="settings-lbl">名稱</span><span class="settings-val">${currentLedger().name}</span></div>
       <div class="settings-row"><span class="settings-lbl">狀態</span><span class="settings-val lbl-badge ${isLedgerArchived()?'orange':'green'}">${isLedgerArchived()?'已封存':'使用中'}</span></div>
-      <div class="settings-row" onclick="openNewLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">改名 / 基礎貨幣</span><span class="settings-arrow">›</span></div>
+      <div class="settings-row" onclick="openEditLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">改名 / 基礎貨幣</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="toggleLedgerArchive()" style="cursor:pointer"><span class="settings-lbl" style="color:${isLedgerArchived()?'var(--green)':'var(--orange)'}">${isLedgerArchived()?'取消封存':'封存帳薄'}</span><span class="settings-arrow">›</span></div>
     </div>
     <div class="sec-label">匯率設定</div>
@@ -1873,9 +1910,25 @@ window.openEntitySheet=function(type){
 };
 function renderEntityList(){
   const items=entityCtx==='person'?cfg.people:cfg.categories;
-  document.getElementById('entity-list').innerHTML=items.map(e=>`
-    <div class="settings-row"><span class="settings-lbl">${e.name}</span><button onclick="startRename('${entityCtx}','${e.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button></div>`).join('');
+  document.getElementById('entity-list').innerHTML=items.map((e,i)=>`
+    <div class="settings-row">
+      <span class="settings-lbl">${e.name}</span>
+      <button onclick="moveEntity('${entityCtx}','${e.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
+      <button onclick="moveEntity('${entityCtx}','${e.id}',1)" ${i===items.length-1?'disabled':''} style="font-size:12px;color:${i===items.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
+      <button onclick="startRename('${entityCtx}','${e.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
+    </div>`).join('');
 }
+window.moveEntity=function(type,id,dir){
+  const arr=type==='person'?cfg.people:cfg.categories;
+  const idx=arr.findIndex(e=>e.id===id);
+  const next=idx+dir;
+  if(idx<0||next<0||next>=arr.length) return;
+  const [item]=arr.splice(idx,1);
+  arr.splice(next,0,item);
+  saveCfg();
+  if(db) saveSharedMeta().catch(console.error);
+  renderEntityList(); renderSettings(); renderDetailChips(); renderSummary(); renderHistory(); renderSettle();
+};
 window.addEntity=function(){
   const name=document.getElementById('entity-input').value.trim(); if(!name) return;
   if(entityCtx==='person') cfg.people.push({id:uid(),name,color:COLORS[cfg.people.length%COLORS.length]});
@@ -1973,7 +2026,7 @@ function normalizeImportRow(row){
     return {
       type:'transfer', fromPersonId:fromId, toPersonId:toId,
       currency, amount, fxRate:rate, baseAmount:amount*rate,
-      date, remark, status:'completed', ledgerId:SHARED_LEDGER_ID
+      date, remark, status:'completed', ledgerId:currentLedgerId()
     };
   }
   const itemName=normText(getRowVal(row,['itemName','item','項目','項目名稱','name','description','描述']))||'Imported';
@@ -1985,7 +2038,7 @@ function normalizeImportRow(row){
   return {
     type:'expense', itemName, categoryId, paidByPersonId:paidById, usedByPersonIds:usedByIds,
     currency, amount, fxRate:rate, baseAmount:amount*rate,
-    date, remark, status:'completed', ledgerId:SHARED_LEDGER_ID
+    date, remark, status:'completed', ledgerId:currentLedgerId()
   };
 }
 async function importRows(rows){
@@ -2107,6 +2160,8 @@ Object.assign(window, {
   saveSharedMeta,
   syncSharedMeta,
   toggleLedgerArchive,
+  openEditLedgerSheet,
+  moveEntity,
   openImportExcel,
   handleExcelImport,
 });
@@ -2115,7 +2170,7 @@ Object.assign(window, {
   try{
     seedDefaults();
     document.getElementById('ledger-name-top').textContent=
-      cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID)?.name||'記帳';
+      currentLedger().name||'記帳';
     npCur=baseCur();
     if(cfg.fbConfig){
       const ok=await initFb(cfg.fbConfig);
