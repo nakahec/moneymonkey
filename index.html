@@ -130,13 +130,6 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .form-control::placeholder{color:var(--text-3)}
 .form-control.left{text-align:left}
 textarea.form-control{resize:none;height:60px;text-align:left;padding-top:2px}
-#sheet-detail .sheet-inner{margin-bottom:12px}
-#expense-fields .form-row,#transfer-fields .form-row{min-height:48px}
-.detail-actions{padding:0 12px 10px;display:flex;gap:10px}
-.detail-actions button{height:48px;border:0;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;transition:transform .04s,opacity .04s;touch-action:manipulation}
-.detail-actions button:active{transform:scale(.98);opacity:.86}
-.detail-actions .back{flex:1;background:rgba(255,255,255,.72);color:var(--text-2);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
-.detail-actions .save{flex:1.55;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 12px 24px rgba(10,132,255,.24)}
 .form-arrow{color:var(--text-3);font-size:14px;flex-shrink:0}
 .form-value{font-size:15px;color:var(--text-2);flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .form-value.blue{color:var(--accent)}
@@ -169,15 +162,13 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 
 /* Numpad */
 .numpad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:transparent;border-top:none;padding:0 12px 10px}
-.npk{height:50px;border-radius:16px;background:rgba(255,255,255,.86);font-size:22px;font-weight:800;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,background .04s,box-shadow .04s;user-select:none;touch-action:manipulation;box-shadow:0 7px 16px rgba(38,36,30,.075),inset 0 0 0 1px rgba(0,0,0,.04)}
+.npk{height:54px;border-radius:18px;background:rgba(255,255,255,.86);font-size:23px;font-weight:800;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,background .04s,box-shadow .04s;user-select:none;touch-action:manipulation;box-shadow:0 7px 16px rgba(38,36,30,.075),inset 0 0 0 1px rgba(0,0,0,.04)}
 .npk:active,.npk.pressed{transform:scale(.96);background:#fff;box-shadow:0 4px 12px rgba(38,36,30,.08),inset 0 0 0 1px rgba(10,132,255,.18)}
 .npk.zero{grid-column:span 2}
 .npk.wide{grid-column:span 2}
 .npk.full-zero{grid-column:span 4}
 .npk.del{color:var(--red);background:var(--red-light)}
 .npk.dot{color:var(--accent)}
-.npk.op{color:var(--accent);background:rgba(10,132,255,.10)}
-.npk.op.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff}
 .numpad-actions{padding:0 12px 12px;display:flex;gap:10px}
 .numpad-action{height:48px;border-radius:16px;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,opacity .04s;touch-action:manipulation}
 .numpad-action:active{transform:scale(.98);opacity:.85}
@@ -610,7 +601,7 @@ html, body, .page { overscroll-behavior-y: contain; }
 <div class="overlay" id="sheet-numpad">
   <div class="sheet numpad-sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title" id="numpad-title">新增支出</div>
+    <div class="sheet-title" id="numpad-title">✨ 新增支出</div>
     <div class="cur-pill-wrap amount-cur-pick" id="cur-pills"></div>
     <div class="amount-display" onclick="openAmountNumpadFromDetail()">
       <div class="amount-number" id="np-display"><span style="color:var(--text-3);font-size:36px">0</span></div>
@@ -620,19 +611,16 @@ html, body, .page { overscroll-behavior-y: contain; }
       <div class="npk" ontouchstart="npTouch(this,'1')" onclick="npKey('1')">1</div>
       <div class="npk" ontouchstart="npTouch(this,'2')" onclick="npKey('2')">2</div>
       <div class="npk" ontouchstart="npTouch(this,'3')" onclick="npKey('3')">3</div>
-      <div class="npk op" data-op="÷" ontouchstart="npTouch(this,'÷')" onclick="npOp('÷')">÷</div>
+      <div class="npk del" ontouchstart="npTouch(this,'del')" onclick="npDel()">⌫</div>
       <div class="npk" ontouchstart="npTouch(this,'4')" onclick="npKey('4')">4</div>
       <div class="npk" ontouchstart="npTouch(this,'5')" onclick="npKey('5')">5</div>
       <div class="npk" ontouchstart="npTouch(this,'6')" onclick="npKey('6')">6</div>
-      <div class="npk op" data-op="×" ontouchstart="npTouch(this,'×')" onclick="npOp('×')">×</div>
+      <div class="npk del" ontouchstart="npTouch(this,'neg')" onclick="npToggleSign()">±</div>
       <div class="npk" ontouchstart="npTouch(this,'7')" onclick="npKey('7')">7</div>
       <div class="npk" ontouchstart="npTouch(this,'8')" onclick="npKey('8')">8</div>
       <div class="npk" ontouchstart="npTouch(this,'9')" onclick="npKey('9')">9</div>
-      <div class="npk op" data-op="-" ontouchstart="npTouch(this,'-')" onclick="npOp('-')">-</div>
       <div class="npk dot" ontouchstart="npTouch(this,'.')" onclick="npKey('.')">.</div>
-      <div class="npk" ontouchstart="npTouch(this,'0')" onclick="npKey('0')">0</div>
-      <div class="npk del" ontouchstart="npTouch(this,'del')" onclick="npDel()">⌫</div>
-      <div class="npk op" data-op="+" ontouchstart="npTouch(this,'+')" onclick="npOp('+')">+</div>
+      <div class="npk zero wide full-zero" ontouchstart="npTouch(this,'0')" onclick="npKey('0')">0</div>
     </div>
     <div class="numpad-actions">
       <button class="numpad-action cancel" onclick="closeSheet('sheet-numpad')">取消</button>
@@ -669,11 +657,11 @@ html, body, .page { overscroll-behavior-y: contain; }
           <label class="form-label">項目</label>
           <input class="form-control left" id="d-name" placeholder="項目名稱" autocomplete="off">
         </div>
+        <div class="chip-wrap" id="d-cat-chips" style="padding-top:2px"></div>
         <div class="form-row">
           <label class="form-label">日期</label>
           <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')">
         </div>
-        <div class="chip-wrap" id="d-cat-chips" style="padding-top:2px"></div>
         <div id="utility-period-wrap" style="display:none">
           <div class="form-row utility-period-row">
             <label class="form-label">帳單期</label>
@@ -699,6 +687,43 @@ html, body, .page { overscroll-behavior-y: contain; }
         <div class="form-row remark-row">
           <label class="form-label">備注</label>
           <input class="form-control left" id="d-remark" placeholder="選填" autocomplete="off">
+        </div>
+      </div>
+      <!-- Recurring -->
+      <div class="sheet-inner">
+        <div class="toggle-row" style="cursor:pointer" onclick="toggleRecurring()">
+          <span style="flex:1;font-size:15px">定期</span>
+          <div class="toggle" id="recur-toggle"></div>
+        </div>
+        <div id="recur-fields" style="display:none">
+          <div class="form-row">
+            <label class="form-label">重複</label>
+          </div>
+          <div class="option-grid compact" id="recur-freq">
+            <div class="option-box" data-value="daily" onclick="selectBox('recur-freq','daily')">每天</div>
+            <div class="option-box" data-value="weekly" onclick="selectBox('recur-freq','weekly')">每週</div>
+            <div class="option-box selected" data-value="monthly" onclick="selectBox('recur-freq','monthly')">每月</div>
+            <div class="option-box" data-value="yearly" onclick="selectBox('recur-freq','yearly')">每年</div>
+          </div>
+          <div class="form-row">
+            <label class="form-label">開始日</label>
+            <input type="date" class="form-control" id="recur-start">
+          </div>
+          <div class="form-row">
+            <label class="form-label">結束方式</label>
+          </div>
+          <div class="option-grid" id="recur-end-type">
+            <div class="option-box selected" data-value="occurrences" onclick="selectBox('recur-end-type','occurrences')">次數</div>
+            <div class="option-box" data-value="date" onclick="selectBox('recur-end-type','date')">截止日期</div>
+          </div>
+          <div id="recur-occ-row" class="form-row">
+            <label class="form-label">次數</label>
+            <input type="number" class="form-control" id="recur-occ" value="12" min="1" max="999">
+          </div>
+          <div id="recur-date-row" class="form-row" style="display:none">
+            <label class="form-label">截止日</label>
+            <input type="date" class="form-control" id="recur-until">
+          </div>
         </div>
       </div>
     </div>
@@ -727,9 +752,9 @@ html, body, .page { overscroll-behavior-y: contain; }
       </div>
     </div>
 
-    <div class="detail-actions">
-      <button class="back" onclick="backToNumpad()">← 返回</button>
-      <button class="save" onclick="saveTx()" id="save-tx-btn">儲存</button>
+    <div style="padding:0 12px 8px">
+      <button onclick="saveTx()" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:16px;font-weight:700;margin-bottom:8px" id="save-tx-btn">儲存</button>
+      <button onclick="backToNumpad()" style="width:100%;padding:12px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">← 返回</button>
     </div>
   </div>
 </div>
@@ -2068,7 +2093,6 @@ window.toggleLedgerArchive=function(id=currentLedgerId()){
 function openAddFlow(editId=null){
   if(!editId && isLedgerArchived()) return showToast('帳薄已封存，不能新增交易');
   editTxId=editId;
-  npCalcLeft=null; npCalcOp=null; npFreshAfterOp=false;
   flowData={};
   if(editId){
     const tx=txs.find(t=>t.id===editId);
@@ -2079,6 +2103,8 @@ function openAddFlow(editId=null){
       date:tx.date||isoDate(),remark:tx.remark||'',
       isTransfer:tx.type==='transfer',
       fromId:tx.fromPersonId||'',toId:tx.toPersonId||'',
+      isRecurring:!!tx.recurringRuleId,
+      recurringFreq:tx.recurringFreq||'monthly',
       utilityPeriodStart:tx.utilityPeriodStart||'',
       utilityPeriodEnd:tx.utilityPeriodEnd||''
     };
@@ -2115,15 +2141,13 @@ function updateNpDisplay(){
   const val=parseFloat(npVal)||0;
   const span=document.getElementById('np-display');
   span.innerHTML=`<span style="font-weight:${val?500:300};color:${val?'var(--text)':'var(--text-3)'}">${npVal}</span>`;
-  document.querySelectorAll('.npk.op').forEach(el=>el.classList.toggle('active', !!npCalcOp && el.dataset.op===npCalcOp));
   const fxEl=document.getElementById('np-fx');
   if(npCur!==baseCur()&&val){
     const date=flowData.date||isoDate();
     const rate=fxRateForDate(npCur,date);
     const base=val*rate;
-    const calcHint=npCalcOp?`${fmtPlain(npCalcLeft)} ${npCalcOp} · `:'';
-    fxEl.textContent=`${calcHint}≈ ${baseCur()} ${fmtBase(base)}`;
-  } else { fxEl.textContent=npCalcOp?`${fmtPlain(npCalcLeft)} ${npCalcOp}`:''; }
+    fxEl.textContent=`≈ ${baseCur()} ${fmtBase(base)}`;
+  } else { fxEl.textContent=''; }
 }
 
 let fxRefreshToken=0;
@@ -2138,38 +2162,8 @@ async function updateFxForCurrentInput({force=false}={}){
   refreshDetailAmountOnly();
 }
 
-
-function fmtPlain(n){
-  n=Number(n);
-  if(!Number.isFinite(n)) return '0';
-  return String(Number(n.toFixed(8))).replace(/\.0+$/,'');
-}
-function npComputePending(){
-  if(!npCalcOp) return;
-  const right=parseFloat(npVal)||0;
-  let out=right;
-  if(npCalcOp==='+') out=(npCalcLeft||0)+right;
-  if(npCalcOp==='-') out=(npCalcLeft||0)-right;
-  if(npCalcOp==='×') out=(npCalcLeft||0)*right;
-  if(npCalcOp==='÷'){
-    if(!right){ showToast('不能除以 0'); return; }
-    out=(npCalcLeft||0)/right;
-  }
-  npVal=fmtPlain(out);
-  npCalcLeft=null; npCalcOp=null; npFreshAfterOp=true;
-}
-window.npOp=function(op){
-  if(npCalcOp && !npFreshAfterOp) npComputePending();
-  npCalcLeft=parseFloat(npVal)||0;
-  npCalcOp=op;
-  npFreshAfterOp=true;
-  updateNpDisplay();
-  if(navigator.vibrate) navigator.vibrate(5);
-};
-
 window.npKey=function(k){
   const decimalPlaces = DECIMAL[npCur]??2;
-  if(npFreshAfterOp){ npVal='0'; npFreshAfterOp=false; }
   if(k==='.'){
     if(decimalPlaces===0||npVal.includes('.')) return;
     npVal+='.';
@@ -2184,7 +2178,6 @@ window.npKey=function(k){
   if(navigator.vibrate) navigator.vibrate(5);
 };
 window.npDel=function(){
-  if(npFreshAfterOp){ npFreshAfterOp=false; npCalcOp=null; npCalcLeft=null; }
   if(npVal==='-0'||npVal==='0'||npVal==='-') npVal='0';
   else if(npVal.length<=1) npVal='0';
   else if(npVal.length===2 && npVal.startsWith('-')) npVal='0';
@@ -2212,31 +2205,13 @@ function handleNumpadKeyboard(e){
   if(/^\d$/.test(k)){ e.preventDefault(); window.npKey(k); return; }
   if(k==='.' || k===','){ e.preventDefault(); window.npKey('.'); return; }
   if(k==='Backspace' || k==='Delete'){ e.preventDefault(); window.npDel(); return; }
-  if(['+','-','*','/','x','X'].includes(k)){
-    e.preventDefault();
-    const op=k==='*'||k==='x'||k==='X'?'×':(k==='/'?'÷':k);
-    window.npOp(op);
-    return;
-  }
+  if(k==='-' || k==='+'){ e.preventDefault(); window.npToggleSign(); return; }
   if(k==='Enter'){ e.preventDefault(); window.npConfirm(); return; }
   if(k==='Escape'){ e.preventDefault(); closeSheet('sheet-numpad'); return; }
 }
 document.addEventListener('keydown', handleNumpadKeyboard);
-function handleDetailKeyboard(e){
-  const detailOpen=document.getElementById('sheet-detail')?.classList.contains('open');
-  const pickerOpen=document.getElementById('sheet-picker')?.classList.contains('open');
-  if(!detailOpen || pickerOpen || e.isComposing) return;
-  if(e.key==='Enter'){
-    const target=e.target;
-    if(target && target.tagName==='TEXTAREA') return;
-    e.preventDefault();
-    window.saveTx();
-  }
-}
-document.addEventListener('keydown', handleDetailKeyboard);
 
 window.npConfirm=function(){
-  npComputePending();
   const v=parseFloat(npVal);
   if(!v) return showToast('請輸入金額');
   refreshDetailSheet();
@@ -2274,6 +2249,8 @@ window.onTxDateChange=function(kind){
   const el=document.getElementById(id);
   if(!el||!el.value) return;
   flowData.date=el.value;
+  const recurStart=document.getElementById('recur-start');
+  if(recurStart && kind!=='transfer') recurStart.value=el.value;
   refreshDetailAmountOnly();
   updateFxForCurrentInput({force:false});
 };
@@ -2312,6 +2289,15 @@ function refreshDetailSheet(){
   // transfer fields
   document.getElementById('d-tr-date').value=flowData.date||isoDate();
   document.getElementById('d-tr-remark').value=flowData.remark||'';
+
+  // recurring
+  recurringOn=flowData.isRecurring||false;
+  document.getElementById('recur-toggle').className='toggle'+(recurringOn?' on':'');
+  document.getElementById('recur-fields').style.display=recurringOn?'':'none';
+  document.getElementById('recur-start').value=flowData.date||isoDate();
+  setBoxValue('recur-freq',flowData.recurringFreq||'monthly');
+  setBoxValue('recur-end-type','occurrences');
+  renderRecurEndFields();
 
   document.getElementById('detail-title').textContent=editTxId?'編輯交易':'新增交易';
   document.getElementById('save-tx-btn').textContent=editTxId?'更新':'儲存';
@@ -2391,8 +2377,17 @@ window.setTxType=function(type, silent=false){
   });
 };
 
-window.toggleRecurring=function(){ showToast('定期功能已移除'); };
-window.renderRecurEndFields=function(){};
+window.toggleRecurring=function(){
+  recurringOn=!recurringOn;
+  document.getElementById('recur-toggle').className='toggle'+(recurringOn?' on':'');
+  document.getElementById('recur-fields').style.display=recurringOn?'':'none';
+};
+
+window.renderRecurEndFields=function(){
+  const t=selectedBoxValue('recur-end-type')||'occurrences';
+  document.getElementById('recur-occ-row').style.display=t==='occurrences'?'':'none';
+  document.getElementById('recur-date-row').style.display=t==='date'?'':'none';
+};
 
 // ════════════════════════════════════════════════
 // PICKER
@@ -2482,8 +2477,6 @@ window.saveTx=async function(){
   if(!date) return showToast('請選擇日期');
   flowData.date=date;
   const btn=document.getElementById('save-tx-btn');
-  if(btn?.disabled) return;
-  const resetSaveBtn=()=>{ if(btn){ btn.disabled=false; btn.textContent=editTxId?'更新':'儲存'; } };
   if(btn){ btn.disabled=true; btn.textContent=editTxId?'更新中…':'儲存中…'; }
   let rate=await ensureFxRateForDate(npCur,date,{force:false,quiet:false});
   rate=Number(rate);
@@ -2492,8 +2485,8 @@ window.saveTx=async function(){
 
   let data;
   if(flowData.isTransfer){
-    if(!flowData.fromId||!flowData.toId){ resetSaveBtn(); return showToast('請選擇付款人和收款人'); }
-    if(flowData.fromId===flowData.toId){ resetSaveBtn(); return showToast('付款人與收款人不能相同'); }
+    if(!flowData.fromId||!flowData.toId) return showToast('請選擇付款人和收款人');
+    if(flowData.fromId===flowData.toId) return showToast('付款人與收款人不能相同');
     data={
       type:'transfer',
       ledgerId:currentLedgerId(),
@@ -2509,10 +2502,10 @@ window.saveTx=async function(){
     };
   } else {
     const name=document.getElementById('d-name').value.trim();
-    if(!name){ resetSaveBtn(); return showToast('請輸入項目名稱'); }
-    if(!flowData.categoryId){ resetSaveBtn(); return showToast('請選擇種類'); }
-    if(!flowData.paidById){ resetSaveBtn(); return showToast('請選擇付款人'); }
-    if(!flowData.usedByIds?.length){ resetSaveBtn(); return showToast('請選擇使用者'); }
+    if(!name) return showToast('請輸入項目名稱');
+    if(!flowData.categoryId) return showToast('請選擇種類');
+    if(!flowData.paidById) return showToast('請選擇付款人');
+    if(!flowData.usedByIds?.length) return showToast('請選擇使用者');
 
     data={
       type:'expense',
@@ -2527,18 +2520,31 @@ window.saveTx=async function(){
       baseAmount:baseAmt,
       date,
       remark:document.getElementById('d-remark').value.trim(),
-      status:'completed'
+      status: recurringOn?'scheduled':'completed'
     };
 
     if(isUtilityCategoryId(flowData.categoryId)){
       const ps=document.getElementById('d-utility-start')?.value||'';
       const pe=document.getElementById('d-utility-end')?.value||'';
-      if((ps&&!pe)||(!ps&&pe)){ resetSaveBtn(); return showToast('請填完整帳單期'); }
+      if((ps&&!pe)||(!ps&&pe)) return showToast('請填完整帳單期');
       if(ps && pe){
-        if(pe<ps){ resetSaveBtn(); return showToast('帳單期日期錯誤'); }
+        if(pe<ps) return showToast('帳單期日期錯誤');
         data.utilityPeriodStart=ps;
         data.utilityPeriodEnd=pe;
       }
+    }
+
+    if(recurringOn){
+      const freq=selectedBoxValue('recur-freq')||'monthly';
+      const start=document.getElementById('recur-start').value;
+      const endType=selectedBoxValue('recur-end-type')||'occurrences';
+      const rule={id:uid(),freq,startDate:start};
+      if(endType==='occurrences') rule.occurrences=parseInt(document.getElementById('recur-occ').value)||12;
+      else rule.endDate=document.getElementById('recur-until').value;
+      if(!cfg.recurringRules) cfg.recurringRules=[];
+      cfg.recurringRules.push(rule); saveCfg();
+      data.recurringRuleId=rule.id;
+      data.recurringFreq=freq;
     }
   }
 
@@ -2865,6 +2871,7 @@ function renderTxCard(t){
     nameHtml=`<div class="tx-name">${t.itemName||'—'}</div>`;
     subParts.push(catName(t.categoryId));
     subParts.push(`Paid by ${personName(t.paidByPersonId)}`);
+    if(t.recurringRuleId) subParts.push('<span><span class="recur-dot"></span>定期</span>');
   }
   if(t.remark) subParts.push(`<span style="color:var(--text-3)">${t.remark}</span>`);
   const subHtml=subParts.map((s,i)=>i<subParts.length-1?s+' <span class="tx-sub-dot">·</span> ':s).join('');
