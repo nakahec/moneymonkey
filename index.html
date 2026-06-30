@@ -3883,15 +3883,19 @@ Object.assign(window, {
   <tbody>${txRows}</tbody>
 </table>
 
-<script>
-// Press Cmd+P (Mac) or Ctrl+P (Windows) to print / save as PDF
-<\/script>
 </body></html>`;
 
     closeSheet('sheet-pdf-export');
-    const w=window.open('','_blank');
-    if(w){ w.document.write(html); w.document.close(); }
-    else showToast('請允許彈出視窗以產生 PDF');
+    let iframe=document.getElementById('pdf-print-frame');
+    if(iframe) iframe.remove();
+    iframe=document.createElement('iframe');
+    iframe.id='pdf-print-frame';
+    iframe.style.cssText='position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:none';
+    document.body.appendChild(iframe);
+    const doc=iframe.contentDocument||iframe.contentWindow.document;
+    doc.open(); doc.write(html); doc.close();
+    iframe.contentWindow.focus();
+    iframe.contentWindow.print();
   };
 
   document.querySelectorAll('.page .nav').forEach(nav=>{
