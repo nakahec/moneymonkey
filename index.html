@@ -152,28 +152,29 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .toggle.on::after{left:22px}
 
 /* Amount input */
-.amount-display{text-align:center;padding:18px 20px 14px;margin:0 12px 12px;border-radius:22px;background:linear-gradient(180deg,rgba(255,255,255,.88),rgba(255,255,255,.64));box-shadow:inset 0 0 0 1px rgba(0,0,0,.04),var(--card-shadow)}
-.amount-cur-pick{display:flex;justify-content:center;gap:8px;margin:0 12px 12px;padding:6px;border-radius:18px;background:rgba(255,255,255,.58);box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
-.cur-pill{flex:1;min-width:0;padding:9px 8px;border-radius:14px;font-size:13px;font-weight:800;background:transparent;color:var(--text-2);cursor:pointer;transition:all .12s;text-align:center}
-.cur-pill.active{background:#fff;color:var(--accent);box-shadow:var(--card-shadow)}
-.amount-number{font-size:56px;font-weight:800;letter-spacing:0;color:var(--text);min-height:68px;display:flex;align-items:center;justify-content:center;line-height:1}
+.amount-display{text-align:center;padding:16px 20px 12px;margin:0 16px 12px;border-radius:20px;background:var(--surface-solid);box-shadow:var(--card-shadow)}
+.amount-cur-pick{display:flex;justify-content:center;gap:6px;margin:0 16px 12px;padding:5px;border-radius:16px;background:rgba(0,0,0,.04)}
+.cur-pill{flex:1;min-width:0;padding:8px 6px;border-radius:12px;font-size:13px;font-weight:700;background:transparent;color:var(--text-2);cursor:pointer;transition:all .12s;text-align:center}
+.cur-pill.active{background:var(--surface-solid);color:var(--accent);box-shadow:var(--card-shadow)}
+.amount-number{font-size:52px;font-weight:700;letter-spacing:-.5px;color:var(--text);min-height:64px;display:flex;align-items:center;justify-content:center;line-height:1}
 .amount-number.has-val{font-weight:400;color:var(--text)}
 .amount-fx{font-size:13px;color:var(--text-2);min-height:18px}
 
 /* Numpad */
-.numpad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:transparent;border-top:none;padding:0 12px 10px}
-.npk{height:54px;border-radius:18px;background:rgba(255,255,255,.86);font-size:23px;font-weight:800;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,background .04s,box-shadow .04s;user-select:none;touch-action:manipulation;box-shadow:0 7px 16px rgba(38,36,30,.075),inset 0 0 0 1px rgba(0,0,0,.04)}
-.npk:active,.npk.pressed{transform:scale(.96);background:#fff;box-shadow:0 4px 12px rgba(38,36,30,.08),inset 0 0 0 1px rgba(10,132,255,.18)}
+.numpad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;background:transparent;border-top:none;padding:0 16px 10px}
+.npk{height:58px;border-radius:18px;background:var(--surface-solid);font-size:22px;font-weight:700;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,background .04s,box-shadow .04s;user-select:none;touch-action:manipulation;box-shadow:var(--card-shadow)}
+.npk:active,.npk.pressed{transform:scale(.96);background:var(--accent-light);color:var(--accent);box-shadow:0 2px 8px rgba(10,132,255,.12)}
 .npk.zero{grid-column:span 2}
 .npk.wide{grid-column:span 2}
 .npk.full-zero{grid-column:span 4}
 .npk.del{color:var(--red);background:var(--red-light)}
+.npk.del:active,.npk.del.pressed{background:var(--red-light);color:var(--red)}
 .npk.dot{color:var(--accent)}
-.numpad-actions{padding:0 12px 12px;display:flex;gap:10px}
-.numpad-action{height:48px;border-radius:16px;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,opacity .04s;touch-action:manipulation}
+.numpad-actions{padding:0 16px 14px;display:flex;gap:10px}
+.numpad-action{height:50px;border-radius:16px;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,opacity .04s;touch-action:manipulation}
 .numpad-action:active{transform:scale(.98);opacity:.85}
-.numpad-action.ok{flex:2;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 12px 24px rgba(10,132,255,.24)}
-.numpad-action.cancel{flex:1;background:rgba(255,255,255,.72);color:var(--text-2);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.numpad-action.ok{flex:2;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 8px 20px rgba(10,132,255,.22)}
+.numpad-action.cancel{flex:1;background:var(--surface-solid);color:var(--text-2);box-shadow:var(--card-shadow)}
 
 /* Chips */
 .chip-wrap{display:flex;flex-wrap:wrap;gap:8px;padding:14px 16px}
@@ -182,9 +183,9 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .chip.ghost{background:none;border:1.5px dashed var(--text-3);color:var(--text-3)}
 .chip.ghost:active{background:rgba(0,122,255,.05)}
 .detail-chip-title{font-size:13px;font-weight:700;color:var(--text-2);padding:12px 16px 0}
-#d-cat-chips,#d-paidby-chips,#d-usedby-chips,#d-from-chips,#d-to-chips{background:var(--surface-solid);padding-top:10px}
-#d-cat-chips .chip,#d-paidby-chips .chip,#d-usedby-chips .chip,#d-from-chips .chip,#d-to-chips .chip{font-weight:800;padding:9px 14px;border-radius:14px}
-#d-cat-chips .chip.sel,#d-paidby-chips .chip.sel,#d-usedby-chips .chip.sel,#d-from-chips .chip.sel,#d-to-chips .chip.sel{background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 8px 16px rgba(10,132,255,.18)}
+#d-cat-chips,#d-paidby-chips,#d-usedby-chips,#d-from-chips,#d-to-chips{background:var(--surface-solid)}
+#d-cat-chips .chip,#d-paidby-chips .chip,#d-usedby-chips .chip,#d-from-chips .chip,#d-to-chips .chip{font-weight:700;padding:8px 14px;border-radius:12px;font-size:13px}
+#d-cat-chips .chip.sel,#d-paidby-chips .chip.sel,#d-usedby-chips .chip.sel,#d-from-chips .chip.sel,#d-to-chips .chip.sel{background:linear-gradient(135deg,var(--accent),var(--accent-2));box-shadow:0 4px 12px rgba(10,132,255,.18)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SHEETS
@@ -207,9 +208,9 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
   padding-bottom:var(--safe-b);
 }
 .overlay.open .sheet{transform:translateY(0);transition-timing-function:cubic-bezier(.33,1,.68,1)}
-.sheet-handle{width:36px;height:4px;background:rgba(0,0,0,.2);border-radius:2px;margin:10px auto 16px}
-.sheet-title{font-size:20px;font-weight:800;padding:0 20px 16px;color:var(--text)}
-.sheet-inner{background:var(--surface-solid);margin:0 12px;border-radius:18px;overflow:hidden;margin-bottom:12px;box-shadow:0 1px 0 rgba(0,0,0,.03)}
+.sheet-handle{width:36px;height:4px;background:rgba(0,0,0,.15);border-radius:2px;margin:12px auto 14px}
+.sheet-title{font-size:19px;font-weight:800;padding:0 20px 14px;color:var(--text)}
+.sheet-inner{background:var(--surface-solid);margin:0 12px;border-radius:18px;overflow:hidden;margin-bottom:10px;box-shadow:var(--card-shadow)}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TX CARDS (History)
@@ -601,10 +602,10 @@ html, body, .page { overscroll-behavior-y: contain; }
 <div class="overlay" id="sheet-numpad">
   <div class="sheet numpad-sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title" id="numpad-title">✨ 新增支出</div>
+    <div class="sheet-title" id="numpad-title" style="padding-bottom:8px">✨ 新增支出</div>
     <div class="cur-pill-wrap amount-cur-pick" id="cur-pills"></div>
     <div class="amount-display" onclick="openAmountNumpadFromDetail()">
-      <div class="amount-number" id="np-display"><span style="color:var(--text-3);font-size:36px">0</span></div>
+      <div class="amount-number" id="np-display"><span style="color:var(--text-3);font-size:36px;font-weight:300">0</span></div>
       <div class="amount-fx" id="np-fx"></div>
     </div>
     <div class="numpad">
@@ -636,17 +637,19 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div class="sheet-title" id="detail-title">詳情</div>
 
     <!-- Amount summary -->
-    <div class="sheet-inner" id="detail-amt-box" style="text-align:center;padding:16px">
-      <div onclick="openAmountNumpadFromDetail()" style="cursor:pointer"><div style="font-size:11px;color:var(--text-2);margin-bottom:2px">金額</div>
-      <div style="font-size:32px;font-weight:600;color:var(--text)" id="d-amt-show"></div>
-      <div style="font-size:12px;color:var(--text-2);margin-top:2px" id="d-aud-show"></div></div>
+    <div class="sheet-inner" id="detail-amt-box" style="text-align:center;padding:14px 16px">
+      <div onclick="openAmountNumpadFromDetail()" style="cursor:pointer">
+        <div style="font-size:11px;color:var(--text-2);margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.4px">金額</div>
+        <div style="font-size:34px;font-weight:700;color:var(--text);line-height:1.1" id="d-amt-show"></div>
+        <div style="font-size:12px;color:var(--text-2);margin-top:3px" id="d-aud-show"></div>
+      </div>
     </div>
 
     <!-- Type toggle (Expense / Transfer) -->
-    <div class="sheet-inner" id="type-toggle-wrap">
+    <div class="sheet-inner" id="type-toggle-wrap" style="margin-bottom:10px">
       <div style="display:flex">
-        <div id="type-expense" class="seg-btn active" style="flex:1;padding:10px 0;border-radius:0;font-size:14px;border-bottom:2px solid var(--accent)" onclick="setTxType('expense')">💸 支出</div>
-        <div id="type-transfer" class="seg-btn" style="flex:1;padding:10px 0;border-radius:0;font-size:14px;border-bottom:2px solid transparent" onclick="setTxType('transfer')">🔁 轉帳</div>
+        <div id="type-expense" class="seg-btn active" style="flex:1;padding:11px 0;border-radius:0;font-size:14px;border-bottom:2px solid var(--accent)" onclick="setTxType('expense')">💸 支出</div>
+        <div id="type-transfer" class="seg-btn" style="flex:1;padding:11px 0;border-radius:0;font-size:14px;border-bottom:2px solid transparent" onclick="setTxType('transfer')">🔁 轉帳</div>
       </div>
     </div>
 
@@ -657,8 +660,7 @@ html, body, .page { overscroll-behavior-y: contain; }
           <label class="form-label">項目</label>
           <input class="form-control left" id="d-name" placeholder="項目名稱" autocomplete="off">
         </div>
-        <div class="chip-wrap" id="d-cat-chips" style="padding-top:2px"></div>
-        <div class="form-row">
+        <div class="form-row" style="border-top:.5px solid var(--sep)">
           <label class="form-label">日期</label>
           <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')">
         </div>
@@ -674,14 +676,20 @@ html, body, .page { overscroll-behavior-y: contain; }
         </div>
       </div>
       <div class="sheet-inner">
-        <div class="form-row">
-          <label class="form-label wide">付款人</label>
+        <div class="form-row" style="padding-bottom:4px">
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">種類</label>
         </div>
-        <div class="chip-wrap" id="d-paidby-chips"></div>
-        <div class="form-row">
-          <label class="form-label wide">使用者</label>
+        <div class="chip-wrap" id="d-cat-chips" style="padding-top:4px;padding-bottom:12px"></div>
+      </div>
+      <div class="sheet-inner">
+        <div class="form-row" style="padding-bottom:4px">
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">付款人</label>
         </div>
-        <div class="chip-wrap" id="d-usedby-chips"></div>
+        <div class="chip-wrap" id="d-paidby-chips" style="padding-top:4px;padding-bottom:10px"></div>
+        <div class="form-row" style="border-top:.5px solid var(--sep);padding-bottom:4px">
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">使用者</label>
+        </div>
+        <div class="chip-wrap" id="d-usedby-chips" style="padding-top:4px;padding-bottom:10px"></div>
       </div>
       <div class="sheet-inner">
         <div class="form-row remark-row">
@@ -689,57 +697,20 @@ html, body, .page { overscroll-behavior-y: contain; }
           <input class="form-control left" id="d-remark" placeholder="選填" autocomplete="off">
         </div>
       </div>
-      <!-- Recurring -->
-      <div class="sheet-inner">
-        <div class="toggle-row" style="cursor:pointer" onclick="toggleRecurring()">
-          <span style="flex:1;font-size:15px">定期</span>
-          <div class="toggle" id="recur-toggle"></div>
-        </div>
-        <div id="recur-fields" style="display:none">
-          <div class="form-row">
-            <label class="form-label">重複</label>
-          </div>
-          <div class="option-grid compact" id="recur-freq">
-            <div class="option-box" data-value="daily" onclick="selectBox('recur-freq','daily')">每天</div>
-            <div class="option-box" data-value="weekly" onclick="selectBox('recur-freq','weekly')">每週</div>
-            <div class="option-box selected" data-value="monthly" onclick="selectBox('recur-freq','monthly')">每月</div>
-            <div class="option-box" data-value="yearly" onclick="selectBox('recur-freq','yearly')">每年</div>
-          </div>
-          <div class="form-row">
-            <label class="form-label">開始日</label>
-            <input type="date" class="form-control" id="recur-start">
-          </div>
-          <div class="form-row">
-            <label class="form-label">結束方式</label>
-          </div>
-          <div class="option-grid" id="recur-end-type">
-            <div class="option-box selected" data-value="occurrences" onclick="selectBox('recur-end-type','occurrences')">次數</div>
-            <div class="option-box" data-value="date" onclick="selectBox('recur-end-type','date')">截止日期</div>
-          </div>
-          <div id="recur-occ-row" class="form-row">
-            <label class="form-label">次數</label>
-            <input type="number" class="form-control" id="recur-occ" value="12" min="1" max="999">
-          </div>
-          <div id="recur-date-row" class="form-row" style="display:none">
-            <label class="form-label">截止日</label>
-            <input type="date" class="form-control" id="recur-until">
-          </div>
-        </div>
-      </div>
     </div>
 
     <!-- Transfer fields -->
     <div id="transfer-fields" style="display:none">
       <div class="sheet-inner">
-        <div class="form-row">
-          <label class="form-label wide">付款人</label>
+        <div class="form-row" style="padding-bottom:4px">
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">付款人</label>
         </div>
-        <div class="chip-wrap" id="d-from-chips"></div>
-        <div class="form-row">
-          <label class="form-label wide">收款人</label>
+        <div class="chip-wrap" id="d-from-chips" style="padding-top:4px;padding-bottom:10px"></div>
+        <div class="form-row" style="border-top:.5px solid var(--sep);padding-bottom:4px">
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">收款人</label>
         </div>
-        <div class="chip-wrap" id="d-to-chips"></div>
-        <div class="form-row">
+        <div class="chip-wrap" id="d-to-chips" style="padding-top:4px;padding-bottom:10px"></div>
+        <div class="form-row" style="border-top:.5px solid var(--sep)">
           <label class="form-label">日期</label>
           <input type="date" class="form-control" id="d-tr-date" onchange="onTxDateChange('transfer')" oninput="onTxDateChange('transfer')">
         </div>
@@ -752,9 +723,9 @@ html, body, .page { overscroll-behavior-y: contain; }
       </div>
     </div>
 
-    <div style="padding:0 12px 8px">
-      <button onclick="saveTx()" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:16px;font-weight:700;margin-bottom:8px" id="save-tx-btn">儲存</button>
-      <button onclick="backToNumpad()" style="width:100%;padding:12px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">← 返回</button>
+    <div style="padding:8px 12px 12px;display:flex;gap:10px">
+      <button onclick="backToNumpad()" style="flex:1;padding:14px;border-radius:var(--radius-sm);background:var(--surface-solid);color:var(--text-2);font-size:15px;font-weight:600;box-shadow:var(--card-shadow)">← 返回</button>
+      <button onclick="saveTx()" style="flex:2;padding:14px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:16px;font-weight:700;box-shadow:0 8px 20px rgba(10,132,255,.22)" id="save-tx-btn">儲存</button>
     </div>
   </div>
 </div>
@@ -2003,7 +1974,6 @@ function setBoxValue(groupId,value){
 }
 window.selectBox=function(groupId,value){
   setBoxValue(groupId,value);
-  if(groupId==='recur-end-type') renderRecurEndFields();
 };
 
 // ════════════════════════════════════════════════
@@ -2210,6 +2180,15 @@ function handleNumpadKeyboard(e){
   if(k==='Escape'){ e.preventDefault(); closeSheet('sheet-numpad'); return; }
 }
 document.addEventListener('keydown', handleNumpadKeyboard);
+document.addEventListener('keydown', function(e){
+  if(e.key!=='Enter') return;
+  const detailOpen=document.getElementById('sheet-detail')?.classList.contains('open');
+  if(!detailOpen) return;
+  const target=e.target;
+  if(target && target.tagName==='TEXTAREA') return;
+  e.preventDefault();
+  window.saveTx();
+});
 
 window.npConfirm=function(){
   const v=parseFloat(npVal);
@@ -2249,8 +2228,6 @@ window.onTxDateChange=function(kind){
   const el=document.getElementById(id);
   if(!el||!el.value) return;
   flowData.date=el.value;
-  const recurStart=document.getElementById('recur-start');
-  if(recurStart && kind!=='transfer') recurStart.value=el.value;
   refreshDetailAmountOnly();
   updateFxForCurrentInput({force:false});
 };
@@ -2290,14 +2267,7 @@ function refreshDetailSheet(){
   document.getElementById('d-tr-date').value=flowData.date||isoDate();
   document.getElementById('d-tr-remark').value=flowData.remark||'';
 
-  // recurring
-  recurringOn=flowData.isRecurring||false;
-  document.getElementById('recur-toggle').className='toggle'+(recurringOn?' on':'');
-  document.getElementById('recur-fields').style.display=recurringOn?'':'none';
-  document.getElementById('recur-start').value=flowData.date||isoDate();
-  setBoxValue('recur-freq',flowData.recurringFreq||'monthly');
-  setBoxValue('recur-end-type','occurrences');
-  renderRecurEndFields();
+  recurringOn=false;
 
   document.getElementById('detail-title').textContent=editTxId?'編輯交易':'新增交易';
   document.getElementById('save-tx-btn').textContent=editTxId?'更新':'儲存';
@@ -2377,17 +2347,8 @@ window.setTxType=function(type, silent=false){
   });
 };
 
-window.toggleRecurring=function(){
-  recurringOn=!recurringOn;
-  document.getElementById('recur-toggle').className='toggle'+(recurringOn?' on':'');
-  document.getElementById('recur-fields').style.display=recurringOn?'':'none';
-};
-
-window.renderRecurEndFields=function(){
-  const t=selectedBoxValue('recur-end-type')||'occurrences';
-  document.getElementById('recur-occ-row').style.display=t==='occurrences'?'':'none';
-  document.getElementById('recur-date-row').style.display=t==='date'?'':'none';
-};
+window.toggleRecurring=function(){};
+window.renderRecurEndFields=function(){};
 
 // ════════════════════════════════════════════════
 // PICKER
@@ -2520,7 +2481,7 @@ window.saveTx=async function(){
       baseAmount:baseAmt,
       date,
       remark:document.getElementById('d-remark').value.trim(),
-      status: recurringOn?'scheduled':'completed'
+      status:'completed'
     };
 
     if(isUtilityCategoryId(flowData.categoryId)){
@@ -2532,19 +2493,6 @@ window.saveTx=async function(){
         data.utilityPeriodStart=ps;
         data.utilityPeriodEnd=pe;
       }
-    }
-
-    if(recurringOn){
-      const freq=selectedBoxValue('recur-freq')||'monthly';
-      const start=document.getElementById('recur-start').value;
-      const endType=selectedBoxValue('recur-end-type')||'occurrences';
-      const rule={id:uid(),freq,startDate:start};
-      if(endType==='occurrences') rule.occurrences=parseInt(document.getElementById('recur-occ').value)||12;
-      else rule.endDate=document.getElementById('recur-until').value;
-      if(!cfg.recurringRules) cfg.recurringRules=[];
-      cfg.recurringRules.push(rule); saveCfg();
-      data.recurringRuleId=rule.id;
-      data.recurringFreq=freq;
     }
   }
 
@@ -2733,7 +2681,7 @@ function utilityStackBar(month, max, height, year, monthIndex, showVal=false){
     return `<div class="utility-seg" style="height:${pct}%;background:${utilityItemColor(name)}" title="${escapeHtml(name)}: ${fmtBase(amt)}"></div>`;
   }).join('');
   const label=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][monthIndex];
-  return `<div class="cat-chart-col" onclick="goUtilityMonthRecords(${year},${monthIndex})" title="${label}: ${fmtBase(total)}">
+  return `<div class="cat-chart-col" title="${label}: ${fmtBase(total)}">
     ${showVal?`<div class="cat-chart-val">${total?fmtBase(total):''}</div>`:''}
     <div class="cat-chart-bar-wrap" style="height:${height}px"><div class="utility-stack" style="height:${barH}px">${segs}</div></div>
     <div class="cat-chart-month">${label}</div>
@@ -2752,12 +2700,12 @@ function renderUtilityYearCard(year){
   const max=Math.max(...bd.months.map(v=>Math.abs(Number(v.total||0))),1);
   const bars=bd.months.map((mon,m)=>utilityStackBar(mon,max,70,year,m,false)).join('');
   return `<div class="sec-label">水電雜費</div>
-    <div class="card card-glass utility-summary-card" onclick="openUtilitySummary(${year})">
+    <div class="card card-glass utility-summary-card" onclick="openUtilitySummary(${year})" style="padding:14px 14px 12px">
       <div class="cat-summary-metrics">
         <div class="cat-summary-metric"><div class="lbl">全年總額</div><div class="num">${fmtBase(total)}</div></div>
         <div class="cat-summary-metric"><div class="lbl">每月平均</div><div class="num">${fmtBase(avg)}</div></div>
       </div>
-      <div class="cat-chart-bars" style="height:104px">${bars}</div>
+      <div class="cat-chart-bars" style="height:104px;padding:8px 0 2px">${bars}</div>
       ${utilityLegend(bd.items)}
     </div>`;
 }
@@ -2777,17 +2725,17 @@ function renderUtilitySummarySheet(){
   document.getElementById('cat-summary-title').textContent=`💡 水電雜費`;
   const bars=bd.months.map((mon,m)=>utilityStackBar(mon,max,116,year,m,true)).join('');
   document.getElementById('cat-summary-body').innerHTML=`
-    <div class="card card-glass cat-month-chart">
-      <div class="cat-summary-nav">
+    <div class="card card-glass cat-month-chart" style="padding:16px 14px 14px">
+      <div class="cat-summary-nav" style="margin-bottom:14px">
         <button class="cat-summary-nav-btn" onclick="changeUtilitySummaryYear(-1)" aria-label="上一年">‹</button>
         <div style="text-align:center"><div class="cat-summary-year">${year}</div></div>
         <button class="cat-summary-nav-btn" onclick="changeUtilitySummaryYear(1)" aria-label="下一年">›</button>
       </div>
-      <div class="cat-summary-metrics">
+      <div class="cat-summary-metrics" style="margin-bottom:14px">
         <div class="cat-summary-metric"><div class="lbl">全年總額</div><div class="num">${fmtBase(total)}</div></div>
         <div class="cat-summary-metric"><div class="lbl">每月平均</div><div class="num">${fmtBase(avg)}</div></div>
       </div>
-      <div class="cat-chart-bars">${bars}</div>
+      <div class="cat-chart-bars" style="padding:8px 0 4px">${bars}</div>
       ${utilityLegend(bd.items)}
       ${total?'':`<div class="empty"><div class="empty-icon">💡</div>未有記錄</div>`}
     </div>`;
