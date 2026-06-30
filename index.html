@@ -891,6 +891,29 @@ html, body, .page { overscroll-behavior-y: contain; }
 </div>
 
 
+<!-- PDF Export Sheet -->
+<div class="overlay" id="sheet-pdf-export">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">匯出 PDF 報告</div>
+    <div class="sheet-inner">
+      <div class="form-row">
+        <label class="form-label">日期由</label>
+        <input type="date" class="form-control" id="pdf-from-date">
+      </div>
+      <div class="form-row">
+        <label class="form-label">日期至</label>
+        <input type="date" class="form-control" id="pdf-to-date">
+      </div>
+    </div>
+    <div style="padding:12px;display:flex;gap:8px">
+      <button onclick="closeSheet('sheet-pdf-export')" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">取消</button>
+      <button onclick="exportLedgerPdf()" style="flex:2;padding:13px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:15px;font-weight:700">產生 PDF</button>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
 <!-- Category Summary Sheet -->
 <div class="overlay" id="sheet-category-summary">
   <div class="sheet">
@@ -2949,8 +2972,7 @@ function renderSummary(){
 
   const body=document.getElementById('summary-body');
   let html='';
-  html+=`<div class="summary-toggle-row"><button class="summary-toggle-btn ${summaryExcludeRent?'active':''}" onclick="toggleSummaryExcludeRent()">不計租金</button></div>`;
-  html+=`<div class="card card-glass"><div class="total-hero">
+  html+=`<div class="card" style="border:none;box-shadow:none;background:transparent"><div class="total-hero">
     <div class="total-hero-lbl">本期支出</div>
     <div class="total-hero-num">${fmtBase(totalBase)}</div>
   </div></div>`;
@@ -2968,7 +2990,7 @@ function renderSummary(){
   }
 
   if(cats.length){
-    html+=`<div class="sec-label">分類統計</div><div class="card">`;
+    html+=`<div class="sec-label" style="display:flex;align-items:center;justify-content:space-between">分類統計<button class="summary-toggle-btn ${summaryExcludeRent?'active':''}" onclick="toggleSummaryExcludeRent()" style="font-size:10px;padding:4px 9px">不計租金</button></div><div class="card">`;
     cats.forEach(([catId,amt],i)=>{
       const color=catColor(catId);
       html+=`<div class="cat-bar-row summary-click" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
@@ -3106,6 +3128,7 @@ function renderSettings(){
 
     <div class="sec-label">匯出</div>
     <div class="card">
+      <div class="settings-row" onclick="openPdfExportSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯出目前帳薄 PDF 報告</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="exportCurrentLedgerCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯出目前帳薄 CSV</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="exportAllLedgersCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯出全部帳薄 CSV</span><span class="settings-arrow">›</span></div>
     </div>
@@ -3711,6 +3734,173 @@ Object.assign(window, {
     initPullToRefresh();
     renderSummary();
   }
+  window.openPdfExportSheet=function(){
+    const now=new Date();
+    const y=now.getFullYear(), m=String(now.getMonth()+1).padStart(2,'0');
+    const firstDay=`${y}-${m}-01`;
+    const lastDay=isoDate(new Date(y,now.getMonth()+1,0));
+    const f=document.getElementById('pdf-from-date');
+    const t=document.getElementById('pdf-to-date');
+    if(f&&!f.value) f.value=firstDay;
+    if(t&&!t.value) t.value=lastDay;
+    openSheet('sheet-pdf-export');
+  };
+
+  window.exportLedgerPdf=async function(){
+    const dateFrom=document.getElementById('pdf-from-date')?.value||'';
+    const dateTo=document.getElementById('pdf-to-date')?.value||'';
+    const ledger=currentLedger();
+    const bc=baseCur();
+
+    let all=[...txs].filter(t=>t.ledgerId===currentLedgerId()||(t.ledgerId==null&&currentLedgerId()===SHARED_LEDGER_ID));
+    all=all.filter(t=>t.status!=='scheduled'&&t.status!=='cancelled');
+    if(dateFrom) all=all.filter(t=>String(t.date||'')>=dateFrom);
+    if(dateTo)   all=all.filter(t=>String(t.date||'')<=dateTo);
+    // oldest → newest
+    all.sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
+
+    const totalExp=all.filter(t=>t.type==='expense').reduce((s,t)=>s+t.baseAmount,0);
+
+    const personStats={};
+    cfg.people.forEach(p=>{ personStats[p.id]={paid:0,used:0}; });
+    all.forEach(t=>{
+      if(t.type==='expense'){
+        if(t.paidByPersonId && personStats[t.paidByPersonId]) personStats[t.paidByPersonId].paid+=t.baseAmount;
+        (t.usedByPersonIds||[]).forEach(pid=>{ if(personStats[pid]) personStats[pid].used+=t.baseAmount/(t.usedByPersonIds.length||1); });
+      }
+    });
+
+    const balances={};
+    cfg.people.forEach(p=>{ balances[p.id]=0; });
+    Object.entries(personStats).forEach(([pid,d])=>{ balances[pid]=Number(d.paid||0)-Number(d.used||0); });
+    const bals=Object.entries(balances).map(([id,v])=>({id,v:Math.round(v*100)/100})).filter(b=>Math.abs(b.v)>0.005);
+    bals.sort((a,b)=>a.v-b.v);
+    const settlements=[];
+    let lo=0,hi=bals.length-1;
+    while(lo<hi){
+      const owe=bals[lo],owed=bals[hi];
+      const amt=Math.min(-owe.v,owed.v);
+      if(amt>0.005) settlements.push({from:owe.id,to:owed.id,amount:amt});
+      owe.v+=amt; owed.v-=amt;
+      if(Math.abs(owe.v)<0.005) lo++;
+      if(Math.abs(owed.v)<0.005) hi--;
+    }
+
+    const f=v=>`${bc} ${fmt(v,bc)}`;
+    // Amount cell: show base currency; if foreign, show "(CUR amount)" after
+    const fxAmt=(t)=>{
+      const base=`${bc} ${fmt(t.baseAmount,bc)}`;
+      return t.currency!==bc ? `${base}<br><span class="fx">(${t.currency} ${fmt(t.amount,t.currency)})</span>` : base;
+    };
+    const dateLabel=`${dateFrom||'—'} → ${dateTo||'—'}`;
+    const generatedAt=new Date().toLocaleString();
+
+    const personRows=cfg.people.map(p=>{
+      const d=personStats[p.id]||{paid:0,used:0};
+      const net=Math.round((d.paid-d.used)*100)/100;
+      return `<tr>
+        <td>${p.name}</td>
+        <td class="num">${f(d.paid)}</td>
+        <td class="num">${f(d.used)}</td>
+        <td class="num ${net>0?'pos':net<0?'neg':''}">${net>=0?'+':''}${f(net)}</td>
+      </tr>`;
+    }).join('');
+
+    const settleRows=settlements.length
+      ? settlements.map(s=>`<tr><td>${personName(s.from)}</td><td class="arr">→</td><td>${personName(s.to)}</td><td class="num">${f(s.amount)}</td></tr>`).join('')
+      : `<tr><td colspan="4" class="empty">All settled</td></tr>`;
+
+    const txRows=all.map(t=>{
+      if(t.type==='transfer'){
+        return `<tr>
+          <td>${t.date||''}</td>
+          <td>Transfer</td>
+          <td>${personName(t.fromPersonId)} → ${personName(t.toPersonId)}</td>
+          <td></td>
+          <td>${t.remark||''}</td>
+          <td class="num">${fxAmt(t)}</td>
+        </tr>`;
+      }
+      return `<tr>
+        <td>${t.date||''}</td>
+        <td>${catName(t.categoryId)}</td>
+        <td>${t.itemName||''}</td>
+        <td>${personName(t.paidByPersonId)}</td>
+        <td>${(t.usedByPersonIds||[]).map(personName).join(', ')}${t.remark?`<br><span class="remark">${t.remark}</span>`:''}</td>
+        <td class="num">${fxAmt(t)}</td>
+      </tr>`;
+    }).join('');
+
+    const html=`<!DOCTYPE html><html><head><meta charset="utf-8">
+<title>${ledger.name} — ${dateLabel}</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:sans-serif;font-size:12px;color:#111;background:#fff;padding:32px}
+  h1{font-size:22px;font-weight:800;margin-bottom:4px}
+  .meta{font-size:11px;color:#888;margin-bottom:24px}
+  h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#555;margin:28px 0 8px;border-bottom:1.5px solid #e0e0e0;padding-bottom:5px}
+  .hero{margin-bottom:24px}
+  .hero-lbl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+  .hero-num{font-size:34px;font-weight:800;letter-spacing:-1px}
+  table{width:100%;border-collapse:collapse;font-size:11.5px}
+  th{background:#f5f5f7;font-weight:700;text-align:left;padding:7px 9px;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:#666;border-bottom:1.5px solid #ddd}
+  td{padding:6px 9px;border-bottom:1px solid #f0f0f0;vertical-align:top;line-height:1.4}
+  tr:last-child td{border-bottom:none}
+  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pos{color:#1a8f50;font-weight:700}
+  .neg{color:#d42b2b;font-weight:700}
+  .arr{text-align:center;color:#bbb}
+  .empty{text-align:center;color:#888;padding:12px}
+  .fx{color:#888;font-size:10px}
+  .remark{color:#888;font-size:10px}
+  .page-break{page-break-before:always;margin-top:0}
+  @media print{body{padding:18px}}
+</style></head><body>
+<h1>${ledger.name}</h1>
+<div class="meta">${dateLabel} &nbsp;&nbsp; Generated ${generatedAt}</div>
+
+<div class="hero">
+  <div class="hero-lbl">Total Expenses</div>
+  <div class="hero-num">${f(totalExp)}</div>
+</div>
+
+<h2>Summary by Person</h2>
+<table>
+  <thead><tr><th>Name</th><th class="num">Paid</th><th class="num">Used</th><th class="num">Balance</th></tr></thead>
+  <tbody>${personRows}</tbody>
+</table>
+
+<h2>Suggested Payments</h2>
+<table>
+  <thead><tr><th>From</th><th></th><th>To</th><th class="num">Amount</th></tr></thead>
+  <tbody>${settleRows}</tbody>
+</table>
+
+<div class="page-break"></div>
+<h2>Transactions (${all.length})</h2>
+<table>
+  <thead><tr><th>Date</th><th>Category</th><th>Item</th><th>Paid by</th><th>Used by</th><th class="num">Amount (${bc})</th></tr></thead>
+  <tbody>${txRows}</tbody>
+</table>
+
+<script>
+// Press Cmd+P (Mac) or Ctrl+P (Windows) to print / save as PDF
+<\/script>
+</body></html>`;
+
+    closeSheet('sheet-pdf-export');
+    const w=window.open('','_blank');
+    if(w){ w.document.write(html); w.document.close(); }
+    else showToast('請允許彈出視窗以產生 PDF');
+  };
+
+  document.querySelectorAll('.page .nav').forEach(nav=>{
+    nav.addEventListener('click', e=>{
+      if(e.target.closest('button,a,[onclick]')) return;
+      const page=nav.closest('.page');
+      if(page) page.scrollTo({top:0,behavior:'smooth'});
+    });
+  });
 })();
 
 </script>
