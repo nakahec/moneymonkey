@@ -103,6 +103,8 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .nav-title{font-size:20px;font-weight:800;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;letter-spacing:0}
 .nav-btn{width:36px;height:36px;border-radius:13px;background:rgba(10,132,255,.10);display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--accent);font-size:14px;font-weight:600;transition:opacity .1s}
 .nav-btn:active{opacity:.6}
+.nav-clear-btn{height:36px;border:0;border-radius:13px;background:rgba(0,0,0,.06);color:var(--text-2);font-size:13px;font-weight:800;padding:0 12px;touch-action:manipulation;white-space:nowrap}
+.nav-clear-btn:active{opacity:.6;transform:scale(.98)}
 .ledger-chip{flex:1;min-width:0;background:rgba(255,255,255,.75);border:1px solid rgba(10,132,255,.14);box-shadow:var(--card-shadow);border-radius:18px;padding:8px 12px;display:flex;align-items:center;gap:7px;color:var(--accent);font-size:13px;font-weight:800;cursor:pointer;max-width:210px}
 .ledger-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
@@ -128,6 +130,13 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .form-control::placeholder{color:var(--text-3)}
 .form-control.left{text-align:left}
 textarea.form-control{resize:none;height:60px;text-align:left;padding-top:2px}
+#sheet-detail .sheet-inner{margin-bottom:12px}
+#expense-fields .form-row,#transfer-fields .form-row{min-height:48px}
+.detail-actions{padding:0 12px 10px;display:flex;gap:10px}
+.detail-actions button{height:48px;border:0;border-radius:16px;font-size:15px;font-weight:800;cursor:pointer;transition:transform .04s,opacity .04s;touch-action:manipulation}
+.detail-actions button:active{transform:scale(.98);opacity:.86}
+.detail-actions .back{flex:1;background:rgba(255,255,255,.72);color:var(--text-2);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.detail-actions .save{flex:1.55;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 12px 24px rgba(10,132,255,.24)}
 .form-arrow{color:var(--text-3);font-size:14px;flex-shrink:0}
 .form-value{font-size:15px;color:var(--text-2);flex:1;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .form-value.blue{color:var(--accent)}
@@ -160,13 +169,15 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 
 /* Numpad */
 .numpad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:transparent;border-top:none;padding:0 12px 10px}
-.npk{height:54px;border-radius:18px;background:rgba(255,255,255,.86);font-size:23px;font-weight:800;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,background .04s,box-shadow .04s;user-select:none;touch-action:manipulation;box-shadow:0 7px 16px rgba(38,36,30,.075),inset 0 0 0 1px rgba(0,0,0,.04)}
+.npk{height:50px;border-radius:16px;background:rgba(255,255,255,.86);font-size:22px;font-weight:800;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,background .04s,box-shadow .04s;user-select:none;touch-action:manipulation;box-shadow:0 7px 16px rgba(38,36,30,.075),inset 0 0 0 1px rgba(0,0,0,.04)}
 .npk:active,.npk.pressed{transform:scale(.96);background:#fff;box-shadow:0 4px 12px rgba(38,36,30,.08),inset 0 0 0 1px rgba(10,132,255,.18)}
 .npk.zero{grid-column:span 2}
 .npk.wide{grid-column:span 2}
 .npk.full-zero{grid-column:span 4}
 .npk.del{color:var(--red);background:var(--red-light)}
 .npk.dot{color:var(--accent)}
+.npk.op{color:var(--accent);background:rgba(10,132,255,.10)}
+.npk.op.active{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff}
 .numpad-actions{padding:0 12px 12px;display:flex;gap:10px}
 .numpad-action{height:48px;border-radius:16px;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,opacity .04s;touch-action:manipulation}
 .numpad-action:active{transform:scale(.98);opacity:.85}
@@ -304,6 +315,28 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .cat-month-row:active{opacity:.65}
 .cat-month-row .m{font-size:13px;font-weight:700;color:var(--text)}
 .cat-month-row .v{font-size:13px;font-weight:700;color:var(--text-2)}
+.cat-summary-nav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.cat-summary-year{font-size:20px;font-weight:800;color:var(--text);line-height:1}
+.cat-summary-year-sub{font-size:12px;color:var(--text-3);margin-top:3px}
+.cat-summary-nav-btn{width:42px;height:38px;border:0;border-radius:14px;background:rgba(0,0,0,.05);color:var(--text);font-size:20px;font-weight:800;display:flex;align-items:center;justify-content:center;touch-action:manipulation}
+.cat-summary-nav-btn:active{transform:scale(.96);opacity:.7}
+.cat-summary-metrics{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.cat-summary-metric{background:rgba(0,0,0,.035);border-radius:16px;padding:12px;text-align:center}
+.cat-summary-metric .lbl{font-size:12px;color:var(--text-2);margin-bottom:4px}
+.cat-summary-metric .num{font-size:22px;font-weight:800;color:var(--text);line-height:1.05}
+.cat-summary-metric .hint{font-size:11px;color:var(--text-3);margin-top:4px}
+
+.utility-summary-card{cursor:pointer}
+.utility-summary-card:active{opacity:.72}
+.utility-period-row{display:grid;grid-template-columns:64px 1fr;gap:8px;align-items:center}
+.utility-period-inputs{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.utility-period-inputs input{min-width:0}
+.utility-period-note{font-size:11px;color:var(--text-3);padding:0 2px 10px;text-align:right}
+.utility-stack{width:100%;max-width:22px;border-radius:9px 9px 3px 3px;overflow:hidden;display:flex;flex-direction:column-reverse;justify-content:flex-start;background:rgba(0,0,0,.06)}
+.utility-seg{width:100%;min-height:2px}
+.utility-legend{display:flex;flex-wrap:wrap;gap:7px 10px;margin-top:10px;justify-content:center;text-align:center}
+.utility-legend-item{display:inline-flex;align-items:center;gap:5px;font-size:11px;color:var(--text-2);min-width:0}
+.utility-legend-dot{width:9px;height:9px;border-radius:999px;flex:0 0 auto}
 
 .person-bal-row{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:.5px solid var(--sep)}
 .person-bal-row:last-child{border-bottom:none}
@@ -455,6 +488,11 @@ html, body, .page { overscroll-behavior-y: contain; }
 .settings-mini-chip:active{transform:scale(.98);opacity:.86}
 .summary-click{cursor:pointer}
 .summary-click:active{opacity:.72}
+.summary-toggle-row{display:flex;justify-content:flex-end;margin:-2px 0 10px}
+.summary-toggle-btn{border:1px solid var(--border);background:var(--card);color:var(--text-2);border-radius:999px;padding:8px 12px;font-size:12px;font-weight:800;box-shadow:0 2px 8px rgba(0,0,0,.04);touch-action:manipulation}
+.summary-toggle-btn.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.summary-toggle-btn:active{transform:scale(.97);opacity:.75}
+
 .chip .chip-emoji{font-size:13px;margin-right:2px}
 .chip .chip-label{font-size:11px}
 #d-cat-chips .chip{font-size:11px;padding:7px 10px;gap:2px}
@@ -505,8 +543,11 @@ html, body, .page { overscroll-behavior-y: contain; }
   <div id="page-history" class="page">
     <div class="nav">
       <span class="nav-title">📋 交易記錄</span>
-      <div class="nav-btn" onclick="openFilterSheet()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></svg>
+      <div style="display:flex;align-items:center;gap:7px">
+        <button class="nav-clear-btn" onclick="clearFilters()">清除</button>
+        <div class="nav-btn" onclick="openFilterSheet()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></svg>
+        </div>
       </div>
     </div>
     <div class="future-tabs">
@@ -569,7 +610,7 @@ html, body, .page { overscroll-behavior-y: contain; }
 <div class="overlay" id="sheet-numpad">
   <div class="sheet numpad-sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title" id="numpad-title">✨ 新增支出</div>
+    <div class="sheet-title" id="numpad-title">新增支出</div>
     <div class="cur-pill-wrap amount-cur-pick" id="cur-pills"></div>
     <div class="amount-display" onclick="openAmountNumpadFromDetail()">
       <div class="amount-number" id="np-display"><span style="color:var(--text-3);font-size:36px">0</span></div>
@@ -579,16 +620,19 @@ html, body, .page { overscroll-behavior-y: contain; }
       <div class="npk" ontouchstart="npTouch(this,'1')" onclick="npKey('1')">1</div>
       <div class="npk" ontouchstart="npTouch(this,'2')" onclick="npKey('2')">2</div>
       <div class="npk" ontouchstart="npTouch(this,'3')" onclick="npKey('3')">3</div>
-      <div class="npk del" ontouchstart="npTouch(this,'del')" onclick="npDel()">⌫</div>
+      <div class="npk op" data-op="÷" ontouchstart="npTouch(this,'÷')" onclick="npOp('÷')">÷</div>
       <div class="npk" ontouchstart="npTouch(this,'4')" onclick="npKey('4')">4</div>
       <div class="npk" ontouchstart="npTouch(this,'5')" onclick="npKey('5')">5</div>
       <div class="npk" ontouchstart="npTouch(this,'6')" onclick="npKey('6')">6</div>
-      <div class="npk del" ontouchstart="npTouch(this,'neg')" onclick="npToggleSign()">±</div>
+      <div class="npk op" data-op="×" ontouchstart="npTouch(this,'×')" onclick="npOp('×')">×</div>
       <div class="npk" ontouchstart="npTouch(this,'7')" onclick="npKey('7')">7</div>
       <div class="npk" ontouchstart="npTouch(this,'8')" onclick="npKey('8')">8</div>
       <div class="npk" ontouchstart="npTouch(this,'9')" onclick="npKey('9')">9</div>
+      <div class="npk op" data-op="-" ontouchstart="npTouch(this,'-')" onclick="npOp('-')">-</div>
       <div class="npk dot" ontouchstart="npTouch(this,'.')" onclick="npKey('.')">.</div>
-      <div class="npk zero wide full-zero" ontouchstart="npTouch(this,'0')" onclick="npKey('0')">0</div>
+      <div class="npk" ontouchstart="npTouch(this,'0')" onclick="npKey('0')">0</div>
+      <div class="npk del" ontouchstart="npTouch(this,'del')" onclick="npDel()">⌫</div>
+      <div class="npk op" data-op="+" ontouchstart="npTouch(this,'+')" onclick="npOp('+')">+</div>
     </div>
     <div class="numpad-actions">
       <button class="numpad-action cancel" onclick="closeSheet('sheet-numpad')">取消</button>
@@ -625,10 +669,20 @@ html, body, .page { overscroll-behavior-y: contain; }
           <label class="form-label">項目</label>
           <input class="form-control left" id="d-name" placeholder="項目名稱" autocomplete="off">
         </div>
-        <div class="chip-wrap" id="d-cat-chips" style="padding-top:2px"></div>
         <div class="form-row">
           <label class="form-label">日期</label>
           <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')">
+        </div>
+        <div class="chip-wrap" id="d-cat-chips" style="padding-top:2px"></div>
+        <div id="utility-period-wrap" style="display:none">
+          <div class="form-row utility-period-row">
+            <label class="form-label">帳單期</label>
+            <div class="utility-period-inputs">
+              <input type="date" class="form-control" id="d-utility-start" onchange="onUtilityPeriodChange()" oninput="onUtilityPeriodChange()">
+              <input type="date" class="form-control" id="d-utility-end" onchange="onUtilityPeriodChange()" oninput="onUtilityPeriodChange()">
+            </div>
+          </div>
+          <div class="utility-period-note">留空 = 付款月份</div>
         </div>
       </div>
       <div class="sheet-inner">
@@ -645,43 +699,6 @@ html, body, .page { overscroll-behavior-y: contain; }
         <div class="form-row remark-row">
           <label class="form-label">備注</label>
           <input class="form-control left" id="d-remark" placeholder="選填" autocomplete="off">
-        </div>
-      </div>
-      <!-- Recurring -->
-      <div class="sheet-inner">
-        <div class="toggle-row" style="cursor:pointer" onclick="toggleRecurring()">
-          <span style="flex:1;font-size:15px">定期</span>
-          <div class="toggle" id="recur-toggle"></div>
-        </div>
-        <div id="recur-fields" style="display:none">
-          <div class="form-row">
-            <label class="form-label">重複</label>
-          </div>
-          <div class="option-grid compact" id="recur-freq">
-            <div class="option-box" data-value="daily" onclick="selectBox('recur-freq','daily')">每天</div>
-            <div class="option-box" data-value="weekly" onclick="selectBox('recur-freq','weekly')">每週</div>
-            <div class="option-box selected" data-value="monthly" onclick="selectBox('recur-freq','monthly')">每月</div>
-            <div class="option-box" data-value="yearly" onclick="selectBox('recur-freq','yearly')">每年</div>
-          </div>
-          <div class="form-row">
-            <label class="form-label">開始日</label>
-            <input type="date" class="form-control" id="recur-start">
-          </div>
-          <div class="form-row">
-            <label class="form-label">結束方式</label>
-          </div>
-          <div class="option-grid" id="recur-end-type">
-            <div class="option-box selected" data-value="occurrences" onclick="selectBox('recur-end-type','occurrences')">次數</div>
-            <div class="option-box" data-value="date" onclick="selectBox('recur-end-type','date')">截止日期</div>
-          </div>
-          <div id="recur-occ-row" class="form-row">
-            <label class="form-label">次數</label>
-            <input type="number" class="form-control" id="recur-occ" value="12" min="1" max="999">
-          </div>
-          <div id="recur-date-row" class="form-row" style="display:none">
-            <label class="form-label">截止日</label>
-            <input type="date" class="form-control" id="recur-until">
-          </div>
         </div>
       </div>
     </div>
@@ -710,9 +727,9 @@ html, body, .page { overscroll-behavior-y: contain; }
       </div>
     </div>
 
-    <div style="padding:0 12px 8px">
-      <button onclick="saveTx()" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:16px;font-weight:700;margin-bottom:8px" id="save-tx-btn">儲存</button>
-      <button onclick="backToNumpad()" style="width:100%;padding:12px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">← 返回</button>
+    <div class="detail-actions">
+      <button class="back" onclick="backToNumpad()">← 返回</button>
+      <button class="save" onclick="saveTx()" id="save-tx-btn">儲存</button>
     </div>
   </div>
 </div>
@@ -1052,11 +1069,22 @@ function yahooCurrency(c){
   return c==='NTD' ? 'TWD' : c;
 }
 
+
+async function fetchWithTimeout(url, options={}, timeoutMs=4500){
+  const controller=new AbortController();
+  const timer=setTimeout(()=>controller.abort(), timeoutMs);
+  try{
+    return await fetch(url, {...options, signal: controller.signal});
+  }finally{
+    clearTimeout(timer);
+  }
+}
+
 async function fetchFxFrankfurter(currency,date){
   const bc=baseCur().toUpperCase();
   currency=currency.toUpperCase();
   if(!frankfurterSupported(currency)||!frankfurterSupported(bc)) throw new Error('Frankfurter unsupported currency');
-  const r=await fetch(`https://api.frankfurter.app/${date}?from=${encodeURIComponent(currency)}&to=${encodeURIComponent(bc)}`);
+  const r=await fetchWithTimeout(`https://api.frankfurter.app/${date}?from=${encodeURIComponent(currency)}&to=${encodeURIComponent(bc)}`, {}, 4500);
   if(!r.ok) throw new Error('Frankfurter HTTP '+r.status);
   const j=await r.json();
   const rate=j?.rates?.[bc];
@@ -1075,7 +1103,7 @@ async function fetchFxYahoo(currency,date){
   const url=`https://query1.finance.yahoo.com/v8/finance/chart/${pair}?interval=1d&period1=${p1}&period2=${p2}`;
 
   async function read(u, source){
-    const r=await fetch(u);
+    const r=await fetchWithTimeout(u, {}, source==='yahoo-proxy'?6500:4500);
     if(!r.ok) throw new Error(source+' HTTP '+r.status);
     const j=await r.json();
     const res=j?.chart?.result?.[0];
@@ -1101,22 +1129,30 @@ async function ensureFxRateForDate(currency,date,{force=false,quiet=true}={}){
   currency=(currency||baseCur()).toUpperCase();
   date=date||isoDate();
   if(currency===baseCur()) return 1;
-  if(!force && cfg.fxRates?.[date]?.[currency]!=null) return cfg.fxRates[date][currency];
+  if(!force && cfg.fxRates?.[date]?.[currency]!=null){
+    const cached=Number(cfg.fxRates[date][currency]);
+    if(Number.isFinite(cached) && cached>0) return cached;
+  }
 
   try{
     let out;
     try{ out=await fetchFxFrankfurter(currency,date); }
     catch(e){ out=await fetchFxYahoo(currency,date); }
-    setFxRateForDate(currency,date,out.rate,out);
+    const rate=Number(out?.rate);
+    if(!Number.isFinite(rate) || rate<=0) throw new Error('Invalid FX rate');
+    setFxRateForDate(currency,date,rate,out);
     cfg.fxLastUpdated=isoDate();
     saveCfg();
-    return out.rate;
+    return rate;
   }catch(e){
     console.warn('Dated FX fetch failed',currency,date,e);
     if(!quiet) showToast('匯率更新失敗，暫用已儲存匯率');
-    return fxRateForDate(currency,date);
+    const fallback=Number(fxRateForDate(currency,date));
+    if(Number.isFinite(fallback) && fallback>0) return fallback;
+    return 1;
   }
 }
+
 
 function toBase(amount, currency, date){
   return amount * fxRateForDate(currency, date);
@@ -1165,9 +1201,63 @@ async function downloadFxRates(){
 let db=null;
 let unsub=null;
 let metaUnsub=null;
-let txs=[];  // recent transactions for current ledger (limited to reduce Firestore reads)
-const TX_LIST_LIMIT = 150;
+let txs=[];  // transactions loaded for current ledger; starts with recent 150, can cache all locally
+const TX_LIST_LIMIT = 100;
+const TX_LOCAL_CACHE_PREFIX = 'splits-tx-cache-v2:';
+let localFullLedgerIds = new Set();
 let ledgerStats = {}; // aggregate summary cache from Firebase meta/config; keeps Summary accurate without reading every tx
+
+function txCacheKey(ledgerId=currentLedgerId()){ return TX_LOCAL_CACHE_PREFIX + ledgerId; }
+function sortTxList(list=[]){
+  return [...list].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')) || String(b.id||'').localeCompare(String(a.id||'')));
+}
+function mergeTxLists(base=[], incoming=[]){
+  const m=new Map();
+  (base||[]).forEach(t=>{ if(t&&t.id) m.set(t.id,t); });
+  (incoming||[]).forEach(t=>{ if(t&&t.id) m.set(t.id,t); });
+  return sortTxList([...m.values()]);
+}
+function serialisableTx(t){
+  const out={};
+  Object.entries(t||{}).forEach(([k,v])=>{
+    if(v===undefined || typeof v==='function') return;
+    if(k.startsWith('_')) return;
+    out[k]=v;
+  });
+  return out;
+}
+function saveTxLocalCache(ledgerId=currentLedgerId(), list=txs, complete=false){
+  try{
+    const payload={complete:!!complete, cachedAt:new Date().toISOString(), txs:(list||[]).map(serialisableTx)};
+    localStorage.setItem(txCacheKey(ledgerId), JSON.stringify(payload));
+    if(complete) localFullLedgerIds.add(ledgerId);
+    return true;
+  }catch(e){
+    console.warn('Cannot save local tx cache', e);
+    showToast('本機記錄太多，未能完整儲存');
+    return false;
+  }
+}
+function loadTxLocalCache(ledgerId=currentLedgerId()){
+  try{
+    const raw=localStorage.getItem(txCacheKey(ledgerId));
+    if(!raw) return [];
+    const payload=JSON.parse(raw);
+    const list=Array.isArray(payload?.txs)?payload.txs:[];
+    if(payload?.complete) localFullLedgerIds.add(ledgerId);
+    return sortTxList(list);
+  }catch(e){ console.warn('Cannot load local tx cache', e); return []; }
+}
+function isLedgerFullyCached(ledgerId=currentLedgerId()){ return localFullLedgerIds.has(ledgerId); }
+function upsertLocalTx(tx, ledgerId=currentLedgerId()){
+  if(!tx?.id) return;
+  txs=mergeTxLists(txs,[{...tx, ledgerId}]);
+  if(isLedgerFullyCached(ledgerId)) saveTxLocalCache(ledgerId, txs, true);
+}
+function removeLocalTx(id, ledgerId=currentLedgerId()){
+  txs=(txs||[]).filter(t=>t.id!==id);
+  if(isLedgerFullyCached(ledgerId)) saveTxLocalCache(ledgerId, txs, true);
+}
 
 function ledgerCol(){ return collection(db,'ledgers',currentLedgerId(),'transactions'); }
 function ledgerDoc(txId){ return doc(db,'ledgers',currentLedgerId(),'transactions',txId); }
@@ -1456,14 +1546,96 @@ async function initFb(config){
 function subscribeToTx(){
   if(unsub) unsub();
   if(!db){ txs=[]; renderAll(); return; }
+  const ledgerId=currentLedgerId();
+  const cached=loadTxLocalCache(ledgerId);
+  txs=cached.length ? cached : [];
+  renderAll();
   const q=query(ledgerCol(), orderBy('date','desc'), limit(TX_LIST_LIMIT));
   unsub=onSnapshot(q, snap=>{
-    txs=snap.docs.map(d=>({id:d.id,...d.data()}));
+    let list=[...(txs||[])];
+    snap.docChanges().forEach(ch=>{
+      const id=ch.doc.id;
+      if(ch.type==='removed') list=list.filter(t=>t.id!==id);
+      else list=mergeTxLists(list,[{id,...ch.doc.data(),ledgerId}]);
+    });
+    if(!snap.docChanges().length){
+      list=mergeTxLists(list, snap.docs.map(d=>({id:d.id,...d.data(),ledgerId})));
+    }
+    txs=sortTxList(list);
+    if(isLedgerFullyCached(ledgerId)) saveTxLocalCache(ledgerId, txs, true);
     renderAll();
     setSyncDot('ok');
   }, err=>{ console.error(err); setSyncDot('err'); });
 }
 
+const UTILITY_CATEGORY_ID='cat-utility';
+function isUtilityCategoryId(catId){ return String(catId||'')===UTILITY_CATEGORY_ID; }
+function daysInMonthNum(year, monthIndex){ return new Date(year, monthIndex+1, 0).getDate(); }
+function utilityDefaultPeriodForDate(dateStr){
+  const d=parseIsoDateLocal(dateStr) || new Date();
+  const y=d.getFullYear(), m=d.getMonth();
+  return {start:`${y}-${String(m+1).padStart(2,'0')}-01`, end:`${y}-${String(m+1).padStart(2,'0')}-${String(daysInMonthNum(y,m)).padStart(2,'0')}`};
+}
+function parseIsoDateLocal(dateStr){
+  const m=String(dateStr||'').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(!m) return null;
+  return new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
+}
+function isoLocalDate(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
+function utilityPeriodForTx(tx){
+  if(!tx || tx.type!=='expense' || !isUtilityCategoryId(tx.categoryId)) return null;
+  let start=String(tx.utilityPeriodStart||'');
+  let end=String(tx.utilityPeriodEnd||'');
+  if(!start || !end){ const def=utilityDefaultPeriodForDate(tx.date); start=def.start; end=def.end; }
+  let ds=parseIsoDateLocal(start), de=parseIsoDateLocal(end);
+  if(!ds || !de || de<ds){ const def=utilityDefaultPeriodForDate(tx.date); start=def.start; end=def.end; ds=parseIsoDateLocal(start); de=parseIsoDateLocal(end); }
+  return {start,end,ds,de};
+}
+function escapeHtml(v){ return String(v??'').replace(/[&<>"']/g, ch=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[ch])); }
+function utilityItemName(tx){
+  const n=String(tx?.itemName||'').trim();
+  return n || '未命名';
+}
+function utilityItemColor(name){
+  const palette=['#007aff','#34c759','#ff9500','#ff2d55','#af52de','#5ac8fa','#ffcc00','#5856d6','#30d158','#bf5af2','#64d2ff','#ff9f0a'];
+  const text=String(name||'');
+  let h=0;
+  for(let i=0;i<text.length;i++) h=((h*31)+text.charCodeAt(i))>>>0;
+  return palette[h%palette.length];
+}
+function utilityMonthlyBreakdownForYear(year){
+  const months=Array.from({length:12},()=>({total:0,items:{}}));
+  const y=Number(year);
+  const ledgerId=currentLedgerId();
+  (txs||[]).forEach(tx=>{
+    if(tx.ledgerId && tx.ledgerId!==ledgerId) return;
+    if(tx.status!=='completed' || tx.type!=='expense' || !isUtilityCategoryId(tx.categoryId)) return;
+    const p=utilityPeriodForTx(tx); if(!p) return;
+    const amount=Number(tx.baseAmount||0); if(!Number.isFinite(amount) || !amount) return;
+    const item=utilityItemName(tx);
+    const totalDays=Math.floor((p.de-p.ds)/86400000)+1;
+    if(totalDays<=0) return;
+    for(let m=0;m<12;m++){
+      const ms=new Date(y,m,1);
+      const me=new Date(y,m+1,0);
+      const os=p.ds>ms?p.ds:ms;
+      const oe=p.de<me?p.de:me;
+      if(oe>=os){
+        const days=Math.floor((oe-os)/86400000)+1;
+        const part=amount*(days/totalDays);
+        months[m].total+=part;
+        months[m].items[item]=Number(months[m].items[item]||0)+part;
+      }
+    }
+  });
+  const itemTotals={};
+  months.forEach(mon=>Object.entries(mon.items).forEach(([name,amt])=>{ itemTotals[name]=Number(itemTotals[name]||0)+Number(amt||0); }));
+  const items=Object.entries(itemTotals).filter(([,v])=>Math.abs(v)>0.0001).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1])).map(([name,total])=>({name,total,color:utilityItemColor(name)}));
+  return {months, items};
+}
+function utilityMonthlyTotalsForYear(year){
+  return utilityMonthlyBreakdownForYear(year).months.map(m=>m.total);
+}
 function makeEmptyStats(){ return { month:{}, year:{}, all:{ total:0, count:0, cats:{}, people:{} }, rebuiltAt:null }; }
 function statsForLedger(ledgerId=currentLedgerId()){
   if(!ledgerStats[ledgerId]) ledgerStats[ledgerId]=makeEmptyStats();
@@ -1545,6 +1717,73 @@ function summaryMemberPeriodTotal(mode, year, monthIndex){
   return summaryMemberUsedTotal(st.year?.[String(year)] || {people:{}});
 }
 
+function addPersonAmounts(scope, pid, paidDelta=0, usedDelta=0){
+  if(!pid) return;
+  const b=personBucket(scope,pid);
+  if(!b) return;
+  b.paid=Number(b.paid||0)+Number(paidDelta||0);
+  b.used=Number(b.used||0)+Number(usedDelta||0);
+}
+function applyTxToScopeForDisplay(scope, tx){
+  if(!scope || !tx || tx.status!=='completed') return;
+  const amt=Number(tx.baseAmount||0);
+  if(!Number.isFinite(amt)) return;
+  if(tx.type==='expense'){
+    scope.total=Number(scope.total||0)+amt;
+    scope.count=Number(scope.count||0)+1;
+    if(!scope.cats) scope.cats={};
+    if(tx.categoryId) addNum(scope.cats, tx.categoryId, amt);
+    addPersonAmounts(scope, tx.paidByPersonId, amt, 0);
+    const users=Array.isArray(tx.usedByPersonIds)?tx.usedByPersonIds:[];
+    const share=users.length?amt/users.length:0;
+    users.forEach(pid=>addPersonAmounts(scope, pid, 0, share));
+  }else if(tx.type==='transfer'){
+    addPersonAmounts(scope, tx.fromPersonId, amt, 0);
+    addPersonAmounts(scope, tx.toPersonId, 0, amt);
+  }
+}
+function scopeFromLoadedTxsForPeriod({mode=statsMode, year=statsYear, monthIndex=statsPeriod.getMonth(), excludeRent=summaryExcludeRent}={}){
+  const scope={total:0,count:0,cats:{},people:{}};
+  const y=Number(year);
+  const ledgerId=currentLedgerId();
+  (txs||[]).forEach(tx=>{
+    if(tx.ledgerId && tx.ledgerId!==ledgerId) return;
+    if(!tx.ledgerId && ledgerId!==SHARED_LEDGER_ID) return;
+    if(tx.status!=='completed') return;
+    const d=String(tx.date||'');
+    if(mode==='month'){
+      const prefix=`${y}-${String(Number(monthIndex)+1).padStart(2,'0')}`;
+      if(!d.startsWith(prefix)) return;
+    }else{
+      if(!d.startsWith(String(y)+'-')) return;
+    }
+    if(excludeRent && tx.type==='expense' && tx.categoryId==='cat-rent') return;
+    applyTxToScopeForDisplay(scope, tx);
+  });
+  return scope;
+}
+function displayScopeForCurrentPeriod(){
+  if(summaryExcludeRent){
+    const y=statsMode==='month'?statsPeriod.getFullYear():statsYear;
+    const m=statsMode==='month'?statsPeriod.getMonth():0;
+    return scopeFromLoadedTxsForPeriod({mode:statsMode, year:y, monthIndex:m, excludeRent:true});
+  }
+  return scopeForCurrentPeriod();
+}
+window.toggleSummaryExcludeRent=function(){
+  summaryExcludeRent=!summaryExcludeRent;
+  localStorage.setItem('summary-exclude-rent', summaryExcludeRent?'1':'0');
+  renderSummary();
+};
+function monthMemberTotalForSummary(year, monthIndex){
+  if(summaryExcludeRent){
+    return summaryMemberUsedTotal(scopeFromLoadedTxsForPeriod({mode:'month', year, monthIndex, excludeRent:true}));
+  }
+  const st=statsForLedger(currentLedgerId());
+  const key=`${year}-${String(monthIndex+1).padStart(2,'0')}`;
+  return summaryMemberUsedTotal(st.month?.[key] || {people:{}});
+}
+
 async function persistStats(){
   if(!db) return;
   const payload = stripUndefined({
@@ -1564,40 +1803,55 @@ async function persistStats(){
 async function fbAdd(data){
   if(!db){showToast('請先連接 Firebase');return false;}
   if(isLedgerArchived()){ showToast('帳薄已封存，不能新增交易'); return false; }
-  const saved={...data,ledgerId:currentLedgerId(),_created:serverTimestamp()};
-  await addDoc(ledgerCol(),saved);
-  applyTxToStats(saved,+1,currentLedgerId());
+  const ledgerId=currentLedgerId();
+  const saved=stripUndefined({...data,ledgerId,_created:serverTimestamp()});
+  const ref=await addDoc(ledgerCol(),saved);
+  const localTx={id:ref.id,...data,ledgerId};
+  upsertLocalTx(localTx, ledgerId);
+  applyTxToStats(localTx,+1,ledgerId);
   await persistStats();
+  renderHistory();
   return true;
 }
 async function fbSet(id,data){
   if(!db) return;
+  const ledgerId=currentLedgerId();
   const old=txs.find(t=>t.id===id);
-  const saved={...data,ledgerId:currentLedgerId(),_updated:serverTimestamp()};
+  const saved=stripUndefined({...data,ledgerId,_updated:serverTimestamp()});
   await setDoc(ledgerDoc(id),saved);
-  if(old) applyTxToStats(old,-1,currentLedgerId());
-  applyTxToStats(saved,+1,currentLedgerId());
+  const localTx={id,...data,ledgerId};
+  if(old) applyTxToStats(old,-1,ledgerId);
+  applyTxToStats(localTx,+1,ledgerId);
+  upsertLocalTx(localTx, ledgerId);
   await persistStats();
+  renderHistory();
 }
 async function fbDel(id){
   if(!db) return;
+  const ledgerId=currentLedgerId();
   const old=txs.find(t=>t.id===id);
   await deleteDoc(ledgerDoc(id));
-  if(old){ applyTxToStats(old,-1,currentLedgerId()); await persistStats(); }
+  if(old){ applyTxToStats(old,-1,ledgerId); await persistStats(); }
+  removeLocalTx(id, ledgerId);
+  renderHistory();
 }
 async function rebuildLedgerStats(){
   if(!db){ showToast('請先連接 Firebase'); return; }
-  if(!confirm('載入全部記錄會清除舊 Summary 快取，並由目前帳薄現有交易重新計算一次。繼續？')) return;
+  if(!confirm('載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？')) return;
+  const ledgerId=currentLedgerId();
   setSyncDot('pending');
   try{
     const snap=await getDocs(query(ledgerCol(), orderBy('date','desc')));
-    ledgerStats[currentLedgerId()]=makeEmptyStats();
-    snap.docs.forEach(d=>applyTxToStats({id:d.id,...d.data()},+1,currentLedgerId()));
-    ledgerStats[currentLedgerId()].rebuiltAt=isoDate();
+    const all=sortTxList(snap.docs.map(d=>({id:d.id,...d.data(),ledgerId})));
+    txs=all;
+    saveTxLocalCache(ledgerId, all, true);
+    ledgerStats[ledgerId]=makeEmptyStats();
+    all.forEach(t=>applyTxToStats(t,+1,ledgerId));
+    ledgerStats[ledgerId].rebuiltAt=isoDate();
     await persistStats();
-    renderSummary(); renderSettle();
+    renderHistory(); renderSummary(); renderSettle();
     setSyncDot('ok');
-    showToast(`已載入 ${snap.size} 筆記錄`);
+    showToast(`已載入全部 ${snap.size} 筆到本機`);
   }catch(e){ console.error(e); setSyncDot('err'); showToast('載入失敗'); }
 }
 window.rebuildLedgerStats=rebuildLedgerStats;
@@ -1618,6 +1872,7 @@ window.connectFirebase=async function(){
 let statsMode='month'; // 'month'|'year'
 let statsPeriod=new Date(); statsPeriod.setDate(1);
 let statsYear=new Date().getFullYear();
+let summaryExcludeRent = localStorage.getItem('summary-exclude-rent') === '1';
 let txTab='history'; // 'history'|'future'
 let editTxId=null;
 // numpad state
@@ -1680,15 +1935,29 @@ function setSyncDot(s){
   const btn=document.getElementById('sync-btn');
   btn.style.color=s==='ok'?'var(--green)':s==='pending'?'var(--orange)':'var(--red)';
 }
+
+async function fetchRecentTx(limitN=100, showMsg=false){
+  if(!db) return [];
+  const ledgerId=currentLedgerId();
+  const snap=await getDocs(query(ledgerCol(), orderBy('date','desc'), limit(limitN)));
+  const recent=snap.docs.map(d=>({id:d.id,...d.data(),ledgerId}));
+  txs=sortTxList(mergeTxLists(txs||[], recent));
+  if(isLedgerFullyCached(ledgerId)) saveTxLocalCache(ledgerId, txs, true);
+  if(showMsg) showToast(`已載入最近 ${snap.size} 筆`);
+  return recent;
+}
+window.fetchRecentTx=fetchRecentTx;
+
 async function refreshNow(showDone=true){
   if(!db){ showToast('未連接 Firebase'); renderAll(); return; }
   try{
     setSyncDot('pending');
     await syncSharedMeta();
+    await fetchRecentTx(100, false);
     if(!unsub) subscribeToTx();
     renderAll();
     setSyncDot('ok');
-    if(showDone) showToast('已重新整理');
+    if(showDone) showToast('已載入最近 100 筆');
   }catch(e){
     console.error(e);
     setSyncDot('err');
@@ -1799,6 +2068,7 @@ window.toggleLedgerArchive=function(id=currentLedgerId()){
 function openAddFlow(editId=null){
   if(!editId && isLedgerArchived()) return showToast('帳薄已封存，不能新增交易');
   editTxId=editId;
+  npCalcLeft=null; npCalcOp=null; npFreshAfterOp=false;
   flowData={};
   if(editId){
     const tx=txs.find(t=>t.id===editId);
@@ -1809,8 +2079,8 @@ function openAddFlow(editId=null){
       date:tx.date||isoDate(),remark:tx.remark||'',
       isTransfer:tx.type==='transfer',
       fromId:tx.fromPersonId||'',toId:tx.toPersonId||'',
-      isRecurring:!!tx.recurringRuleId,
-      recurringFreq:tx.recurringFreq||'monthly'
+      utilityPeriodStart:tx.utilityPeriodStart||'',
+      utilityPeriodEnd:tx.utilityPeriodEnd||''
     };
     npCur=tx.currency||baseCur();
     npVal=String(tx.amount);
@@ -1821,7 +2091,7 @@ function openAddFlow(editId=null){
   }
   // fresh add
   npVal='0'; npCur=baseCur();
-  flowData={date:isoDate(),usedByIds:[]};
+  flowData={date:isoDate(),usedByIds:[],utilityPeriodStart:'',utilityPeriodEnd:''};
   refreshNumpad();
   openSheet('sheet-numpad');
 }
@@ -1845,13 +2115,15 @@ function updateNpDisplay(){
   const val=parseFloat(npVal)||0;
   const span=document.getElementById('np-display');
   span.innerHTML=`<span style="font-weight:${val?500:300};color:${val?'var(--text)':'var(--text-3)'}">${npVal}</span>`;
+  document.querySelectorAll('.npk.op').forEach(el=>el.classList.toggle('active', !!npCalcOp && el.dataset.op===npCalcOp));
   const fxEl=document.getElementById('np-fx');
   if(npCur!==baseCur()&&val){
     const date=flowData.date||isoDate();
     const rate=fxRateForDate(npCur,date);
     const base=val*rate;
-    fxEl.textContent=`≈ ${baseCur()} ${fmtBase(base)}`;
-  } else { fxEl.textContent=''; }
+    const calcHint=npCalcOp?`${fmtPlain(npCalcLeft)} ${npCalcOp} · `:'';
+    fxEl.textContent=`${calcHint}≈ ${baseCur()} ${fmtBase(base)}`;
+  } else { fxEl.textContent=npCalcOp?`${fmtPlain(npCalcLeft)} ${npCalcOp}`:''; }
 }
 
 let fxRefreshToken=0;
@@ -1866,8 +2138,38 @@ async function updateFxForCurrentInput({force=false}={}){
   refreshDetailAmountOnly();
 }
 
+
+function fmtPlain(n){
+  n=Number(n);
+  if(!Number.isFinite(n)) return '0';
+  return String(Number(n.toFixed(8))).replace(/\.0+$/,'');
+}
+function npComputePending(){
+  if(!npCalcOp) return;
+  const right=parseFloat(npVal)||0;
+  let out=right;
+  if(npCalcOp==='+') out=(npCalcLeft||0)+right;
+  if(npCalcOp==='-') out=(npCalcLeft||0)-right;
+  if(npCalcOp==='×') out=(npCalcLeft||0)*right;
+  if(npCalcOp==='÷'){
+    if(!right){ showToast('不能除以 0'); return; }
+    out=(npCalcLeft||0)/right;
+  }
+  npVal=fmtPlain(out);
+  npCalcLeft=null; npCalcOp=null; npFreshAfterOp=true;
+}
+window.npOp=function(op){
+  if(npCalcOp && !npFreshAfterOp) npComputePending();
+  npCalcLeft=parseFloat(npVal)||0;
+  npCalcOp=op;
+  npFreshAfterOp=true;
+  updateNpDisplay();
+  if(navigator.vibrate) navigator.vibrate(5);
+};
+
 window.npKey=function(k){
   const decimalPlaces = DECIMAL[npCur]??2;
+  if(npFreshAfterOp){ npVal='0'; npFreshAfterOp=false; }
   if(k==='.'){
     if(decimalPlaces===0||npVal.includes('.')) return;
     npVal+='.';
@@ -1882,6 +2184,7 @@ window.npKey=function(k){
   if(navigator.vibrate) navigator.vibrate(5);
 };
 window.npDel=function(){
+  if(npFreshAfterOp){ npFreshAfterOp=false; npCalcOp=null; npCalcLeft=null; }
   if(npVal==='-0'||npVal==='0'||npVal==='-') npVal='0';
   else if(npVal.length<=1) npVal='0';
   else if(npVal.length===2 && npVal.startsWith('-')) npVal='0';
@@ -1909,13 +2212,31 @@ function handleNumpadKeyboard(e){
   if(/^\d$/.test(k)){ e.preventDefault(); window.npKey(k); return; }
   if(k==='.' || k===','){ e.preventDefault(); window.npKey('.'); return; }
   if(k==='Backspace' || k==='Delete'){ e.preventDefault(); window.npDel(); return; }
-  if(k==='-' || k==='+'){ e.preventDefault(); window.npToggleSign(); return; }
+  if(['+','-','*','/','x','X'].includes(k)){
+    e.preventDefault();
+    const op=k==='*'||k==='x'||k==='X'?'×':(k==='/'?'÷':k);
+    window.npOp(op);
+    return;
+  }
   if(k==='Enter'){ e.preventDefault(); window.npConfirm(); return; }
   if(k==='Escape'){ e.preventDefault(); closeSheet('sheet-numpad'); return; }
 }
 document.addEventListener('keydown', handleNumpadKeyboard);
+function handleDetailKeyboard(e){
+  const detailOpen=document.getElementById('sheet-detail')?.classList.contains('open');
+  const pickerOpen=document.getElementById('sheet-picker')?.classList.contains('open');
+  if(!detailOpen || pickerOpen || e.isComposing) return;
+  if(e.key==='Enter'){
+    const target=e.target;
+    if(target && target.tagName==='TEXTAREA') return;
+    e.preventDefault();
+    window.saveTx();
+  }
+}
+document.addEventListener('keydown', handleDetailKeyboard);
 
 window.npConfirm=function(){
+  npComputePending();
   const v=parseFloat(npVal);
   if(!v) return showToast('請輸入金額');
   refreshDetailSheet();
@@ -1953,11 +2274,23 @@ window.onTxDateChange=function(kind){
   const el=document.getElementById(id);
   if(!el||!el.value) return;
   flowData.date=el.value;
-  const recurStart=document.getElementById('recur-start');
-  if(recurStart && kind!=='transfer') recurStart.value=el.value;
   refreshDetailAmountOnly();
   updateFxForCurrentInput({force:false});
 };
+window.onUtilityPeriodChange=function(){
+  flowData.utilityPeriodStart=document.getElementById('d-utility-start')?.value||'';
+  flowData.utilityPeriodEnd=document.getElementById('d-utility-end')?.value||'';
+};
+function renderUtilityPeriodFields(){
+  const wrap=document.getElementById('utility-period-wrap');
+  if(!wrap) return;
+  const show=!flowData.isTransfer && isUtilityCategoryId(flowData.categoryId);
+  wrap.style.display=show?'':'none';
+  const sEl=document.getElementById('d-utility-start');
+  const eEl=document.getElementById('d-utility-end');
+  if(sEl && sEl.value!==(flowData.utilityPeriodStart||'')) sEl.value=flowData.utilityPeriodStart||'';
+  if(eEl && eEl.value!==(flowData.utilityPeriodEnd||'')) eEl.value=flowData.utilityPeriodEnd||'';
+}
 
 function refreshDetailSheet(){
   // amount header, including FX rate for the currently selected transaction date
@@ -1970,21 +2303,15 @@ function refreshDetailSheet(){
   // expense fields
   document.getElementById('d-name').value=flowData.name||'';
   document.getElementById('d-date').value=flowData.date||isoDate();
+  document.getElementById('d-utility-start').value=flowData.utilityPeriodStart||'';
+  document.getElementById('d-utility-end').value=flowData.utilityPeriodEnd||'';
   document.getElementById('d-remark').value=flowData.remark||'';
   renderDetailChips();
+  renderUtilityPeriodFields();
 
   // transfer fields
   document.getElementById('d-tr-date').value=flowData.date||isoDate();
   document.getElementById('d-tr-remark').value=flowData.remark||'';
-
-  // recurring
-  recurringOn=flowData.isRecurring||false;
-  document.getElementById('recur-toggle').className='toggle'+(recurringOn?' on':'');
-  document.getElementById('recur-fields').style.display=recurringOn?'':'none';
-  document.getElementById('recur-start').value=flowData.date||isoDate();
-  setBoxValue('recur-freq',flowData.recurringFreq||'monthly');
-  setBoxValue('recur-end-type','occurrences');
-  renderRecurEndFields();
 
   document.getElementById('detail-title').textContent=editTxId?'編輯交易':'新增交易';
   document.getElementById('save-tx-btn').textContent=editTxId?'更新':'儲存';
@@ -2004,6 +2331,7 @@ function renderDetailChips(){
       chipBtn(`<span class="chip-emoji">${catEmoji(c.id)}</span><span class="chip-label">${c.name}</span>`, flowData.categoryId===c.id, `selectDetailChip('cat','${c.id}')`)
     ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有種類</div>';
   }
+  renderUtilityPeriodFields();
 
   const paidEl=document.getElementById('d-paidby-chips');
   if(paidEl){
@@ -2063,17 +2391,8 @@ window.setTxType=function(type, silent=false){
   });
 };
 
-window.toggleRecurring=function(){
-  recurringOn=!recurringOn;
-  document.getElementById('recur-toggle').className='toggle'+(recurringOn?' on':'');
-  document.getElementById('recur-fields').style.display=recurringOn?'':'none';
-};
-
-window.renderRecurEndFields=function(){
-  const t=selectedBoxValue('recur-end-type')||'occurrences';
-  document.getElementById('recur-occ-row').style.display=t==='occurrences'?'':'none';
-  document.getElementById('recur-date-row').style.display=t==='date'?'':'none';
-};
+window.toggleRecurring=function(){ showToast('定期功能已移除'); };
+window.renderRecurEndFields=function(){};
 
 // ════════════════════════════════════════════════
 // PICKER
@@ -2162,13 +2481,19 @@ window.saveTx=async function(){
     document.getElementById('d-date').value;
   if(!date) return showToast('請選擇日期');
   flowData.date=date;
-  const rate=await ensureFxRateForDate(npCur,date,{force:false,quiet:false});
-  const baseAmt=v*rate;
+  const btn=document.getElementById('save-tx-btn');
+  if(btn?.disabled) return;
+  const resetSaveBtn=()=>{ if(btn){ btn.disabled=false; btn.textContent=editTxId?'更新':'儲存'; } };
+  if(btn){ btn.disabled=true; btn.textContent=editTxId?'更新中…':'儲存中…'; }
+  let rate=await ensureFxRateForDate(npCur,date,{force:false,quiet:false});
+  rate=Number(rate);
+  if(!Number.isFinite(rate) || rate<=0) rate=1;
+  const baseAmt=Number((v*rate).toFixed(6));
 
   let data;
   if(flowData.isTransfer){
-    if(!flowData.fromId||!flowData.toId) return showToast('請選擇付款人和收款人');
-    if(flowData.fromId===flowData.toId) return showToast('付款人與收款人不能相同');
+    if(!flowData.fromId||!flowData.toId){ resetSaveBtn(); return showToast('請選擇付款人和收款人'); }
+    if(flowData.fromId===flowData.toId){ resetSaveBtn(); return showToast('付款人與收款人不能相同'); }
     data={
       type:'transfer',
       ledgerId:currentLedgerId(),
@@ -2184,10 +2509,10 @@ window.saveTx=async function(){
     };
   } else {
     const name=document.getElementById('d-name').value.trim();
-    if(!name) return showToast('請輸入項目名稱');
-    if(!flowData.categoryId) return showToast('請選擇種類');
-    if(!flowData.paidById) return showToast('請選擇付款人');
-    if(!flowData.usedByIds?.length) return showToast('請選擇使用者');
+    if(!name){ resetSaveBtn(); return showToast('請輸入項目名稱'); }
+    if(!flowData.categoryId){ resetSaveBtn(); return showToast('請選擇種類'); }
+    if(!flowData.paidById){ resetSaveBtn(); return showToast('請選擇付款人'); }
+    if(!flowData.usedByIds?.length){ resetSaveBtn(); return showToast('請選擇使用者'); }
 
     data={
       type:'expense',
@@ -2202,20 +2527,18 @@ window.saveTx=async function(){
       baseAmount:baseAmt,
       date,
       remark:document.getElementById('d-remark').value.trim(),
-      status: recurringOn?'scheduled':'completed'
+      status:'completed'
     };
 
-    if(recurringOn){
-      const freq=selectedBoxValue('recur-freq')||'monthly';
-      const start=document.getElementById('recur-start').value;
-      const endType=selectedBoxValue('recur-end-type')||'occurrences';
-      const rule={id:uid(),freq,startDate:start};
-      if(endType==='occurrences') rule.occurrences=parseInt(document.getElementById('recur-occ').value)||12;
-      else rule.endDate=document.getElementById('recur-until').value;
-      if(!cfg.recurringRules) cfg.recurringRules=[];
-      cfg.recurringRules.push(rule); saveCfg();
-      data.recurringRuleId=rule.id;
-      data.recurringFreq=freq;
+    if(isUtilityCategoryId(flowData.categoryId)){
+      const ps=document.getElementById('d-utility-start')?.value||'';
+      const pe=document.getElementById('d-utility-end')?.value||'';
+      if((ps&&!pe)||(!ps&&pe)){ resetSaveBtn(); return showToast('請填完整帳單期'); }
+      if(ps && pe){
+        if(pe<ps){ resetSaveBtn(); return showToast('帳單期日期錯誤'); }
+        data.utilityPeriodStart=ps;
+        data.utilityPeriodEnd=pe;
+      }
     }
   }
 
@@ -2223,7 +2546,12 @@ window.saveTx=async function(){
     if(editTxId){ await fbSet(editTxId,data); showToast('已更新'); }
     else { await fbAdd(data); showToast('已儲存'); }
     closeSheet('sheet-detail');
-  }catch(e){ showToast('錯誤：'+e.message); }
+  }catch(e){
+    console.error('Save transaction failed', e);
+    showToast('儲存失敗：'+(e?.message||e));
+  }finally{
+    if(btn){ btn.disabled=false; btn.textContent=editTxId?'更新':'儲存'; }
+  }
 };
 
 // ════════════════════════════════════════════════
@@ -2317,15 +2645,29 @@ function goHistoryWithFilter(extra={}){
 }
 window.goHistoryWithFilter=goHistoryWithFilter;
 let categorySummaryCatId='';
+let categorySummaryYear=new Date().getFullYear();
 function monthRangeForYearMonth(year, monthIndex){
   const from=`${year}-${String(monthIndex+1).padStart(2,'0')}-01`;
   const to=new Date(year,monthIndex+1,0).toISOString().slice(0,10);
   return {from,to};
 }
-function openCategorySummary(catId){
+function averageMonthsForYear(year){
+  const now=new Date();
+  const y=Number(year);
+  if(y===now.getFullYear()) return now.getMonth()+1; // YTD, Jan to current month
+  return 12;
+}
+function openCategorySummary(catId, year){
   categorySummaryCatId=catId;
+  categorySummaryYear=Number(year || (statsMode==='year' ? statsYear : statsPeriod.getFullYear())) || new Date().getFullYear();
+  renderCategorySummarySheet();
+  openSheet('sheet-category-summary');
+}
+function renderCategorySummarySheet(){
+  const catId=categorySummaryCatId;
+  if(!catId) return;
   const st=statsForLedger(currentLedgerId());
-  const year=statsMode==='year' ? statsYear : statsPeriod.getFullYear();
+  const year=Number(categorySummaryYear)||new Date().getFullYear();
   const color=catColor(catId);
   const rows=[];
   for(let m=0;m<12;m++){
@@ -2334,8 +2676,10 @@ function openCategorySummary(catId){
     rows.push({m, key, label:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m], amt});
   }
   const total=rows.reduce((s,r)=>s+r.amt,0);
+  const avgMonths=averageMonthsForYear(year);
+  const avg=avgMonths ? total/avgMonths : 0;
   const max=Math.max(...rows.map(r=>Math.abs(r.amt)), 1);
-  document.getElementById('cat-summary-title').textContent=`${catEmoji(catId)} ${catName(catId)} · ${year}`;
+  document.getElementById('cat-summary-title').textContent=`${catEmoji(catId)} ${catName(catId)}`;
   const bars=rows.map(r=>{
     const h=Math.max(3, Math.round(Math.abs(r.amt)/max*116));
     return `<div class="cat-chart-col" onclick="goCategoryMonthRecords('${catId}',${year},${r.m})" title="${r.label}: ${fmtBase(r.amt)}">
@@ -2344,28 +2688,117 @@ function openCategorySummary(catId){
       <div class="cat-chart-month">${r.label}</div>
     </div>`;
   }).join('');
-  const list=rows.filter(r=>Math.abs(r.amt)>0.0001).map(r=>`<div class="cat-month-row" onclick="goCategoryMonthRecords('${catId}',${year},${r.m})"><span class="m">${r.label}</span><span class="v">${fmtBase(r.amt)}</span></div>`).join('');
   document.getElementById('cat-summary-body').innerHTML=`
     <div class="card card-glass cat-month-chart">
-      <div class="cat-month-total"><div class="lbl">全年總額</div><div class="num">${fmtBase(total)}</div></div>
+      <div class="cat-summary-nav">
+        <button class="cat-summary-nav-btn" onclick="changeCategorySummaryYear(-1)" aria-label="上一年">‹</button>
+        <div style="text-align:center">
+          <div class="cat-summary-year">${year}</div>
+        </div>
+        <button class="cat-summary-nav-btn" onclick="changeCategorySummaryYear(1)" aria-label="下一年">›</button>
+      </div>
+      <div class="cat-summary-metrics">
+        <div class="cat-summary-metric"><div class="lbl">全年總額</div><div class="num">${fmtBase(total)}</div></div>
+        <div class="cat-summary-metric"><div class="lbl">每月平均</div><div class="num">${fmtBase(avg)}</div></div>
+      </div>
       <div class="cat-chart-bars">${bars}</div>
-      ${list?`<div class="cat-month-list">${list}</div>`:`<div class="empty"><div class="empty-icon">📊</div>未有記錄</div>`}
+      ${total?'' : `<div class="empty"><div class="empty-icon">📊</div>未有記錄</div>`}
     </div>`;
-  openSheet('sheet-category-summary');
 }
+window.changeCategorySummaryYear=function(dir){
+  categorySummaryYear=(Number(categorySummaryYear)||new Date().getFullYear())+Number(dir||0);
+  if(isUtilityCategoryId(categorySummaryCatId)) renderUtilitySummarySheet(); else renderCategorySummarySheet();
+};
 window.openCategorySummary=openCategorySummary;
 window.goCategorySummaryRecords=function(){
   closeSheet('sheet-category-summary');
-  if(categorySummaryCatId) goHistoryWithFilter({catId:categorySummaryCatId});
+  if(categorySummaryCatId) goHistoryWithFilter({catId:categorySummaryCatId, dateFrom:`${categorySummaryYear}-01-01`, dateTo:`${categorySummaryYear}-12-31`});
 };
 window.goCategoryMonthRecords=function(catId, year, monthIndex){
   closeSheet('sheet-category-summary');
   const r=monthRangeForYearMonth(Number(year), Number(monthIndex));
   goHistoryWithFilter({catId, dateFrom:r.from, dateTo:r.to});
 };
+function utilityStackBar(month, max, height, year, monthIndex, showVal=false){
+  const total=Number(month.total||0);
+  const barH=Math.max(total?3:0, Math.round(Math.abs(total)/Math.max(max,1)*height));
+  const segs=Object.entries(month.items||{}).filter(([,v])=>Math.abs(Number(v||0))>0.0001).sort((a,b)=>a[0].localeCompare(b[0])).map(([name,amt])=>{
+    const pct=Math.max(2, Math.round(Math.abs(Number(amt||0))/Math.max(Math.abs(total),0.000001)*100));
+    return `<div class="utility-seg" style="height:${pct}%;background:${utilityItemColor(name)}" title="${escapeHtml(name)}: ${fmtBase(amt)}"></div>`;
+  }).join('');
+  const label=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][monthIndex];
+  return `<div class="cat-chart-col" onclick="goUtilityMonthRecords(${year},${monthIndex})" title="${label}: ${fmtBase(total)}">
+    ${showVal?`<div class="cat-chart-val">${total?fmtBase(total):''}</div>`:''}
+    <div class="cat-chart-bar-wrap" style="height:${height}px"><div class="utility-stack" style="height:${barH}px">${segs}</div></div>
+    <div class="cat-chart-month">${label}</div>
+  </div>`;
+}
+function utilityLegend(items){
+  if(!items?.length) return '';
+  return `<div class="utility-legend">${items.map(it=>`<div class="utility-legend-item"><span class="utility-legend-dot" style="background:${it.color}"></span><span>${escapeHtml(it.name)}</span></div>`).join('')}</div>`;
+}
+function renderUtilityYearCard(year){
+  const bd=utilityMonthlyBreakdownForYear(year);
+  const total=bd.months.reduce((s,v)=>s+Number(v.total||0),0);
+  if(Math.abs(total)<0.0001) return '';
+  const avgMonths=averageMonthsForYear(year);
+  const avg=avgMonths ? total/avgMonths : 0;
+  const max=Math.max(...bd.months.map(v=>Math.abs(Number(v.total||0))),1);
+  const bars=bd.months.map((mon,m)=>utilityStackBar(mon,max,70,year,m,false)).join('');
+  return `<div class="sec-label">水電雜費</div>
+    <div class="card card-glass utility-summary-card" onclick="openUtilitySummary(${year})">
+      <div class="cat-summary-metrics">
+        <div class="cat-summary-metric"><div class="lbl">全年總額</div><div class="num">${fmtBase(total)}</div></div>
+        <div class="cat-summary-metric"><div class="lbl">每月平均</div><div class="num">${fmtBase(avg)}</div></div>
+      </div>
+      <div class="cat-chart-bars" style="height:104px">${bars}</div>
+      ${utilityLegend(bd.items)}
+    </div>`;
+}
+function openUtilitySummary(year){
+  categorySummaryCatId=UTILITY_CATEGORY_ID;
+  categorySummaryYear=Number(year||statsYear)||new Date().getFullYear();
+  renderUtilitySummarySheet();
+  openSheet('sheet-category-summary');
+}
+function renderUtilitySummarySheet(){
+  const year=Number(categorySummaryYear)||new Date().getFullYear();
+  const bd=utilityMonthlyBreakdownForYear(year);
+  const total=bd.months.reduce((s,v)=>s+Number(v.total||0),0);
+  const avgMonths=averageMonthsForYear(year);
+  const avg=avgMonths ? total/avgMonths : 0;
+  const max=Math.max(...bd.months.map(v=>Math.abs(Number(v.total||0))),1);
+  document.getElementById('cat-summary-title').textContent=`💡 水電雜費`;
+  const bars=bd.months.map((mon,m)=>utilityStackBar(mon,max,116,year,m,true)).join('');
+  document.getElementById('cat-summary-body').innerHTML=`
+    <div class="card card-glass cat-month-chart">
+      <div class="cat-summary-nav">
+        <button class="cat-summary-nav-btn" onclick="changeUtilitySummaryYear(-1)" aria-label="上一年">‹</button>
+        <div style="text-align:center"><div class="cat-summary-year">${year}</div></div>
+        <button class="cat-summary-nav-btn" onclick="changeUtilitySummaryYear(1)" aria-label="下一年">›</button>
+      </div>
+      <div class="cat-summary-metrics">
+        <div class="cat-summary-metric"><div class="lbl">全年總額</div><div class="num">${fmtBase(total)}</div></div>
+        <div class="cat-summary-metric"><div class="lbl">每月平均</div><div class="num">${fmtBase(avg)}</div></div>
+      </div>
+      <div class="cat-chart-bars">${bars}</div>
+      ${utilityLegend(bd.items)}
+      ${total?'':`<div class="empty"><div class="empty-icon">💡</div>未有記錄</div>`}
+    </div>`;
+}
+window.changeUtilitySummaryYear=function(dir){
+  categorySummaryYear=(Number(categorySummaryYear)||new Date().getFullYear())+Number(dir||0);
+  renderUtilitySummarySheet();
+};
+window.openUtilitySummary=openUtilitySummary;
+window.goUtilityMonthRecords=function(year, monthIndex){
+  closeSheet('sheet-category-summary');
+  const r=monthRangeForYearMonth(Number(year), Number(monthIndex));
+  goHistoryWithFilter({catId:UTILITY_CATEGORY_ID, dateFrom:r.from, dateTo:r.to});
+};
 function summaryCategoryClick(catId){
   if(!catId) return;
-  if(statsMode==='year') openCategorySummary(catId);
+  if(statsMode==='year') (isUtilityCategoryId(catId)?openUtilitySummary(statsYear):openCategorySummary(catId));
   else goHistoryWithFilter({catId});
 }
 window.summaryCategoryClick=summaryCategoryClick;
@@ -2432,7 +2865,6 @@ function renderTxCard(t){
     nameHtml=`<div class="tx-name">${t.itemName||'—'}</div>`;
     subParts.push(catName(t.categoryId));
     subParts.push(`Paid by ${personName(t.paidByPersonId)}`);
-    if(t.recurringRuleId) subParts.push('<span><span class="recur-dot"></span>定期</span>');
   }
   if(t.remark) subParts.push(`<span style="color:var(--text-3)">${t.remark}</span>`);
   const subHtml=subParts.map((s,i)=>i<subParts.length-1?s+' <span class="tx-sub-dot">·</span> ':s).join('');
@@ -2495,7 +2927,7 @@ function renderSummary(){
     label=String(statsYear);
   }
   document.getElementById('period-label').textContent=label;
-  const scope=scopeForCurrentPeriod();
+  const scope=displayScopeForCurrentPeriod();
   const totalBase=summaryMemberUsedTotal(scope);
   const count=Math.max(0,Number(scope.count||0));
   const catMap=scope.cats||{};
@@ -2505,6 +2937,7 @@ function renderSummary(){
 
   const body=document.getElementById('summary-body');
   let html='';
+  html+=`<div class="summary-toggle-row"><button class="summary-toggle-btn ${summaryExcludeRent?'active':''}" onclick="toggleSummaryExcludeRent()">不計租金</button></div>`;
   html+=`<div class="card card-glass"><div class="total-hero">
     <div class="total-hero-lbl">本期支出</div>
     <div class="total-hero-num">${fmtBase(totalBase)}</div>
@@ -2515,7 +2948,7 @@ function renderSummary(){
     html+=`<div class="card"><div class="month-grid">`;
     for(let m=0;m<12;m++){
       const key=`${statsYear}-${String(m+1).padStart(2,'0')}`;
-      const mT=summaryMemberUsedTotal(st.month?.[key] || {people:{}});
+      const mT=monthMemberTotalForSummary(statsYear,m);
       const now=new Date(); const isCur=m===now.getMonth()&&statsYear===now.getFullYear();
       html+=`<div class="month-cell${isCur?' active':''}"><div class="mc-lbl">${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m]}</div><div class="mc-val">${mT?fmtBase(mT):'—'}</div></div>`;
     }
@@ -2549,6 +2982,7 @@ function renderSummary(){
     html+=`</div>`;
   }
 
+  if(statsMode==='year') html+=renderUtilityYearCard(statsYear);
   body.innerHTML=html;
 }
 
@@ -3181,6 +3615,7 @@ Object.assign(window, {
   renderRecurEndFields,
   selectDetailChip,
   renderDetailChips,
+  onUtilityPeriodChange,
   openPickerSheet,
   pickerSingleSel,
   togglePickerChip,
@@ -3222,6 +3657,8 @@ Object.assign(window, {
   exportAllLedgersCsv,
   refreshNow,
   rebuildLedgerStats,
+  loadTxLocalCache,
+  saveTxLocalCache,
 });
 
 (async function init(){
