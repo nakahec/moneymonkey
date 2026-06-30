@@ -158,14 +158,15 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .amount-fx{font-size:13px;color:var(--text-2);min-height:18px}
 
 /* Numpad */
-.numpad{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;background:transparent;border-top:none;padding:0 12px 12px}
-.npk{height:62px;border-radius:20px;background:rgba(255,255,255,.86);font-size:26px;font-weight:800;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,background .04s,box-shadow .04s;user-select:none;touch-action:manipulation;box-shadow:0 8px 20px rgba(38,36,30,.08),inset 0 0 0 1px rgba(0,0,0,.04)}
+.numpad{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;background:transparent;border-top:none;padding:0 12px 10px}
+.npk{height:54px;border-radius:18px;background:rgba(255,255,255,.86);font-size:23px;font-weight:800;color:var(--text);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,background .04s,box-shadow .04s;user-select:none;touch-action:manipulation;box-shadow:0 7px 16px rgba(38,36,30,.075),inset 0 0 0 1px rgba(0,0,0,.04)}
 .npk:active,.npk.pressed{transform:scale(.96);background:#fff;box-shadow:0 4px 12px rgba(38,36,30,.08),inset 0 0 0 1px rgba(10,132,255,.18)}
 .npk.zero{grid-column:span 2}
+.npk.wide{grid-column:span 2}
 .npk.del{color:var(--red);background:var(--red-light)}
 .npk.dot{color:var(--accent)}
 .numpad-actions{padding:0 12px 12px;display:flex;gap:10px}
-.numpad-action{height:54px;border-radius:18px;font-size:16px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,opacity .04s;touch-action:manipulation}
+.numpad-action{height:48px;border-radius:16px;font-size:15px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .04s,opacity .04s;touch-action:manipulation}
 .numpad-action:active{transform:scale(.98);opacity:.85}
 .numpad-action.ok{flex:2;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 12px 24px rgba(10,132,255,.24)}
 .numpad-action.cancel{flex:1;background:rgba(255,255,255,.72);color:var(--text-2);box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
@@ -332,7 +333,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SETTINGS
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
-.settings-row{display:flex;align-items:center;padding:13px 16px;border-bottom:.5px solid var(--sep);gap:10px;background:var(--surface-solid)}
+.settings-row{display:flex;align-items:center;padding:14px 16px;border-bottom:.5px solid var(--sep);gap:11px;background:var(--surface-solid)}
 .settings-row:last-child{border-bottom:none}
 .settings-lbl{flex:1;font-size:15px}
 .settings-val{font-size:15px;color:var(--text-2)}
@@ -340,6 +341,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 
 .cat-icon-dot{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
 .entity-icon-input{width:52px;flex:0 0 52px;text-align:center;font-size:20px;background:rgba(0,0,0,.04);border:none;outline:none;border-radius:12px;padding:7px 6px}
+.entity-mini-btn{font-size:12px;font-weight:800;padding:6px 8px;border-radius:10px;background:rgba(0,0,0,.045);flex-shrink:0}
 .fx-status{font-size:12px;color:var(--text-2);padding:10px 16px;text-align:center}
 
 /* DANGER ZONE */
@@ -415,6 +417,30 @@ html, body, .page { overscroll-behavior-y: contain; }
 
 /* Recurring badge */
 .recur-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--orange);margin-right:3px;vertical-align:middle}
+
+.settings-chip-wrap{display:flex;flex-wrap:wrap;gap:10px;padding:14px 16px}
+.settings-mini-chip{border:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.76);border-radius:999px;padding:9px 12px;font-size:13px;font-weight:750;color:var(--text);display:inline-flex;align-items:center;gap:7px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);transition:transform .06s,background .08s}
+.settings-mini-chip:active{transform:scale(.97);background:#fff}
+.btn-primary,.btn-secondary,.btn-danger{border:none;outline:none;cursor:pointer;touch-action:manipulation;transition:transform .05s,opacity .05s}
+.btn-primary:active,.btn-secondary:active,.btn-danger:active{transform:scale(.98);opacity:.86}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800}
+.btn-secondary{background:var(--accent-light);color:var(--accent);font-weight:800}
+.btn-danger{background:var(--red-light);color:var(--red);font-weight:800}
+.color-palette{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;padding:12px 16px}
+.color-dot{height:40px;border-radius:15px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.08);cursor:pointer;position:relative;transition:transform .06s}
+.color-dot:active{transform:scale(.94)}
+.color-dot.sel::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;text-shadow:0 1px 4px rgba(0,0,0,.35)}
+.style-preview{margin:0 16px 10px;padding:12px;border-radius:18px;background:rgba(0,0,0,.035);display:flex;align-items:center;gap:10px}
+.style-preview-icon{width:44px;height:44px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+.settings-mini-chip:active{transform:scale(.98);opacity:.86}
+.summary-click{cursor:pointer}
+.summary-click:active{opacity:.72}
+.chip .chip-emoji{font-size:14px;margin-right:3px}
+.chip .chip-label{font-size:12px}
+.form-row.remark-row .form-label{flex:0 0 56px;width:56px;min-width:56px}
+.form-row.remark-row .form-control{flex:1;text-align:left}
+.amount-display{cursor:pointer}
+
 </style>
 </head>
 <body>
@@ -432,10 +458,10 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div class="nav">
       <div class="ledger-chip" onclick="openLedgerSheet()">
         <span class="tab-emoji" style="font-size:17px">📒</span>
-        <span id="ledger-name-top">My Ledger</span>
+        <span id="ledger-name-top">帳薄</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:10px;height:10px;margin-left:1px"><path d="M6 9l6 6 6-6"/></svg>
       </div>
-      <div class="nav-btn" id="sync-btn" onclick="manualSync()" title="Sync">
+      <div class="nav-btn" id="sync-btn" onclick="manualSync()" title="同步">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
       </div>
     </div>
@@ -524,7 +550,7 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div class="sheet-handle"></div>
     <div class="sheet-title" id="numpad-title">✨ 新增支出</div>
     <div class="cur-pill-wrap amount-cur-pick" id="cur-pills"></div>
-    <div class="amount-display">
+    <div class="amount-display" onclick="openAmountNumpadFromDetail()">
       <div class="amount-number" id="np-display"><span style="color:var(--text-3);font-size:36px">0</span></div>
       <div class="amount-fx" id="np-fx"></div>
     </div>
@@ -532,15 +558,17 @@ html, body, .page { overscroll-behavior-y: contain; }
       <div class="npk" ontouchstart="npTouch(this,'1')" onclick="npKey('1')">1</div>
       <div class="npk" ontouchstart="npTouch(this,'2')" onclick="npKey('2')">2</div>
       <div class="npk" ontouchstart="npTouch(this,'3')" onclick="npKey('3')">3</div>
+      <div class="npk del" ontouchstart="npTouch(this,'del')" onclick="npDel()">⌫</div>
       <div class="npk" ontouchstart="npTouch(this,'4')" onclick="npKey('4')">4</div>
       <div class="npk" ontouchstart="npTouch(this,'5')" onclick="npKey('5')">5</div>
       <div class="npk" ontouchstart="npTouch(this,'6')" onclick="npKey('6')">6</div>
+      <div class="npk del" ontouchstart="npTouch(this,'neg')" onclick="npToggleSign()">±</div>
       <div class="npk" ontouchstart="npTouch(this,'7')" onclick="npKey('7')">7</div>
       <div class="npk" ontouchstart="npTouch(this,'8')" onclick="npKey('8')">8</div>
       <div class="npk" ontouchstart="npTouch(this,'9')" onclick="npKey('9')">9</div>
       <div class="npk dot" ontouchstart="npTouch(this,'.')" onclick="npKey('.')">.</div>
-      <div class="npk zero" ontouchstart="npTouch(this,'0')" onclick="npKey('0')">0</div>
-      <div class="npk del" ontouchstart="npTouch(this,'del')" onclick="npDel()">⌫</div>
+      <div class="npk zero wide" ontouchstart="npTouch(this,'0')" onclick="npKey('0')">0</div>
+      <div class="npk dot wide" ontouchstart="npTouch(this,'00')" onclick="npKey('0');npKey('0')">00</div>
     </div>
     <div class="numpad-actions">
       <button class="numpad-action cancel" onclick="closeSheet('sheet-numpad')">取消</button>
@@ -557,9 +585,9 @@ html, body, .page { overscroll-behavior-y: contain; }
 
     <!-- Amount summary -->
     <div class="sheet-inner" id="detail-amt-box" style="text-align:center;padding:16px">
-      <div style="font-size:11px;color:var(--text-2);margin-bottom:2px">金額</div>
+      <div onclick="openAmountNumpadFromDetail()" style="cursor:pointer"><div style="font-size:11px;color:var(--text-2);margin-bottom:2px">金額</div>
       <div style="font-size:32px;font-weight:600;color:var(--text)" id="d-amt-show"></div>
-      <div style="font-size:12px;color:var(--text-2);margin-top:2px" id="d-aud-show"></div>
+      <div style="font-size:12px;color:var(--text-2);margin-top:2px" id="d-aud-show"></div></div>
     </div>
 
     <!-- Type toggle (Expense / Transfer) -->
@@ -597,8 +625,8 @@ html, body, .page { overscroll-behavior-y: contain; }
         <div class="chip-wrap" id="d-usedby-chips"></div>
       </div>
       <div class="sheet-inner">
-        <div class="form-row">
-          <label class="form-label wide">備注</label>
+        <div class="form-row remark-row">
+          <label class="form-label">備注</label>
           <input class="form-control left" id="d-remark" placeholder="選填" autocomplete="off">
         </div>
       </div>
@@ -658,8 +686,8 @@ html, body, .page { overscroll-behavior-y: contain; }
         </div>
       </div>
       <div class="sheet-inner">
-        <div class="form-row">
-          <label class="form-label wide">備注</label>
+        <div class="form-row remark-row">
+          <label class="form-label">備注</label>
           <input class="form-control left" id="d-tr-remark" placeholder="選填" autocomplete="off">
         </div>
       </div>
@@ -688,10 +716,6 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div class="sheet-handle"></div>
     <div class="sheet-title">帳薄</div>
     <div class="sheet-inner" id="ledger-list"></div>
-    <div style="padding:12px;display:flex;gap:8px">
-      <button onclick="openNewLedgerSheet()" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:15px;font-weight:600">＋ 新增帳薄</button>
-      <button onclick="openEditLedgerSheet()" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">改名 / 封存</button>
-    </div>
     <div style="height:8px"></div>
   </div>
 </div>
@@ -702,7 +726,7 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div class="sheet-handle"></div>
     <div class="sheet-title">帳薄設定</div>
     <div class="sheet-inner">
-      <div class="form-row"><label class="form-label">Name</label><input class="form-control left" id="nl-name" placeholder="例：日常、旅行"></div>
+      <div class="form-row"><label class="form-label">名稱</label><input class="form-control left" id="nl-name" placeholder="例：日常、旅行"></div>
       <div class="form-row">
         <label class="form-label">基礎貨幣</label>
       </div>
@@ -732,7 +756,7 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div class="setup-card" style="margin:0 12px 12px">
       <h3>🔥 設定步驟</h3>
       <p>
-        1. 前往 <strong>console.firebase.google.com</strong> → 建立 Project<br>
+        1. 前往 <strong>console.firebase.google.com</strong> → 建立專案<br>
         2. 新增 Web App → 複製 Config JSON<br>
         3. Firestore → 建立 → Test mode<br>
         4. 貼入下方 → 連接
@@ -740,7 +764,7 @@ html, body, .page { overscroll-behavior-y: contain; }
     </div>
     <div class="sheet-inner">
       <div class="form-row" style="flex-direction:column;align-items:flex-start;gap:8px">
-        <label class="form-label wide" style="width:auto">Firebase Config JSON</label>
+        <label class="form-label wide" style="width:auto">Firebase 設定 JSON</label>
         <textarea class="form-control left" id="fb-config-input" rows="6" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}' style="font-size:12px;font-family:ui-monospace,monospace;line-height:1.5;width:100%;padding:0"></textarea>
       </div>
     </div>
@@ -760,12 +784,30 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div class="sheet-inner" id="entity-list"></div>
     <div class="sheet-inner" style="margin-top:0">
       <div class="form-row">
-        <input class="entity-icon-input" id="entity-emoji-input" placeholder="🏷️" maxlength="4" inputmode="text" title="Emoji icon">
+        <input class="entity-icon-input" id="entity-emoji-input" placeholder="🏷️" maxlength="4" inputmode="text" title="表情符號">
         <input class="form-control left" id="entity-input" placeholder="名稱">
-        <button onclick="addEntity()" style="padding:7px 16px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:14px;font-weight:600;flex-shrink:0">加入</button>
+        <button onclick="addEntity()" class="btn-primary" style="padding:8px 16px;border-radius:var(--radius-sm);font-size:14px;flex-shrink:0">加入</button>
       </div>
     </div>
     <div style="height:16px"></div>
+  </div>
+</div>
+
+<!-- Category Style Sheet -->
+<div class="overlay" id="sheet-category-style">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="cat-style-title">種類樣式</div>
+    <div class="style-preview">
+      <div class="style-preview-icon" id="cat-style-preview">🏷️</div>
+      <input class="form-control left" id="cat-style-emoji" placeholder="表情符號" maxlength="4" inputmode="text">
+    </div>
+    <div class="color-palette" id="cat-style-palette"></div>
+    <div style="padding:12px;display:flex;gap:8px">
+      <button class="numpad-action cancel" onclick="closeSheet('sheet-category-style')">取消</button>
+      <button class="numpad-action ok" onclick="saveCategoryStyle()">儲存</button>
+    </div>
+    <div style="height:8px"></div>
   </div>
 </div>
 
@@ -777,32 +819,51 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div class="sheet-inner">
       <div class="form-row" onclick="openPickerSheet('filter-cat')" style="cursor:pointer">
         <label class="form-label">種類</label>
-        <span class="form-value blue" id="filter-cat-val">All</span>
+        <span class="form-value blue" id="filter-cat-val">全部</span>
         <span class="form-arrow">›</span>
       </div>
       <div class="form-row" onclick="openPickerSheet('filter-person')" style="cursor:pointer">
         <label class="form-label">人員</label>
-        <span class="form-value blue" id="filter-person-val">All</span>
+        <span class="form-value blue" id="filter-person-val">全部</span>
+        <span class="form-arrow">›</span>
+      </div>
+      <div class="form-row" onclick="openPickerSheet('filter-type')" style="cursor:pointer">
+        <label class="form-label">類型</label>
+        <span class="form-value blue" id="filter-type-val">全部</span>
+        <span class="form-arrow">›</span>
+      </div>
+      <div class="form-row" onclick="openPickerSheet('filter-cur')" style="cursor:pointer">
+        <label class="form-label">貨幣</label>
+        <span class="form-value blue" id="filter-cur-val">全部</span>
         <span class="form-arrow">›</span>
       </div>
       <div class="form-row">
-        <label class="form-label">類型</label>
-      </div>
-      <div class="option-grid three" id="filter-type">
-        <div class="option-box selected" data-value="" onclick="selectBox('filter-type','')">全部</div>
-        <div class="option-box" data-value="expense" onclick="selectBox('filter-type','expense')">💸 支出</div>
-        <div class="option-box" data-value="transfer" onclick="selectBox('filter-type','transfer')">🔁 轉帳</div>
+        <label class="form-label">日期由</label>
+        <input type="date" class="form-control" id="filter-from-date">
       </div>
       <div class="form-row">
-        <label class="form-label">貨幣</label>
-      </div>
-      <div class="option-grid compact" id="filter-cur">
-        <div class="option-box selected" data-value="" onclick="selectBox('filter-cur','')">全部</div>
+        <label class="form-label">日期至</label>
+        <input type="date" class="form-control" id="filter-to-date">
       </div>
     </div>
     <div style="padding:12px;display:flex;gap:8px">
       <button onclick="clearFilters()" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">清除</button>
       <button onclick="applyFilters()" style="flex:2;padding:13px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:15px;font-weight:700">套用</button>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+
+<!-- Category Summary Sheet -->
+<div class="overlay" id="sheet-category-summary">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="cat-summary-title">種類摘要</div>
+    <div class="sheet-inner" id="cat-summary-body"></div>
+    <div style="padding:12px;display:flex;gap:8px">
+      <button onclick="closeSheet('sheet-category-summary')" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">關閉</button>
+      <button onclick="goCategorySummaryRecords()" style="flex:2;padding:13px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:15px;font-weight:700">查看記錄</button>
     </div>
     <div style="height:8px"></div>
   </div>
@@ -1493,7 +1554,7 @@ async function fbDel(id){
 }
 async function rebuildLedgerStats(){
   if(!db){ showToast('請先連接 Firebase'); return; }
-  if(!confirm('重建 Summary 會讀取目前帳薄所有交易一次。之後 Summary 會用快取，日常 reads 會大幅降低。繼續？')) return;
+  if(!confirm('載入全部記錄會讀取目前帳薄所有交易一次。繼續？')) return;
   setSyncDot('pending');
   try{
     const snap=await getDocs(query(ledgerCol(), orderBy('date','desc')));
@@ -1503,8 +1564,8 @@ async function rebuildLedgerStats(){
     await persistStats();
     renderSummary(); renderSettle();
     setSyncDot('ok');
-    showToast(`已重建 ${snap.size} 筆交易嘅 Summary`);
-  }catch(e){ console.error(e); setSyncDot('err'); showToast('重建失敗'); }
+    showToast(`已載入 ${snap.size} 筆記錄`);
+  }catch(e){ console.error(e); setSyncDot('err'); showToast('載入失敗'); }
 }
 window.rebuildLedgerStats=rebuildLedgerStats;
 
@@ -1533,7 +1594,7 @@ let flowData={}; // {name,categoryId,paidById,usedByIds,date,remark,isTransfer,f
 // picker context
 let pickerCtx='';
 // filters
-let filters={catId:'',personId:'',type:'',currency:''};
+let filters={catId:'',personId:'',type:'',currency:'',dateFrom:'',dateTo:''};
 let filterActive=false;
 
 // ════════════════════════════════════════════════
@@ -1574,7 +1635,7 @@ function showToast(msg,dur=2400){
   t.textContent=msg; t.classList.add('show');
   clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),dur);
 }
-function setMsg(m){ document.getElementById('loading-msg').textContent=m||'Loading…'; }
+function setMsg(m){ document.getElementById('loading-msg').textContent=m||'載入中…'; }
 function showApp(){ document.getElementById('loading-screen').classList.add('gone'); document.getElementById('app').style.display=''; }
 
 function setSyncDot(s){
@@ -1619,17 +1680,16 @@ window.selectBox=function(groupId,value){
 let editingLedgerId=null;
 function renderLedgerList(){
   const activeId=currentLedgerId();
-  document.getElementById('ledger-list').innerHTML=(cfg.ledgers||[]).map(l=>`
+  const rows=(cfg.ledgers||[]).map(l=>`
     <div class="settings-row" onclick="switchLedger('${l.id}')" style="cursor:pointer">
-      <span class="settings-lbl" style="font-weight:${l.id===activeId?800:400}">${l.name}</span>
+      <span class="settings-lbl" style="font-weight:${l.id===activeId?800:500}">${l.name}</span>
       <span style="font-size:12px;color:var(--text-3)">${l.baseCurrency}</span>
-      ${l.archived?'<span class="lbl-badge orange">Archived</span>':(l.id===activeId?'<span class="lbl-badge blue">Active</span>':'')}
-    </div>
-    <div class="settings-row">
-      <button onclick="event.stopPropagation(); openEditLedgerSheet('${l.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
-      <button onclick="event.stopPropagation(); toggleLedgerArchive('${l.id}')" style="font-size:12px;color:${l.archived?'var(--green)':'var(--orange)'};padding:4px 8px">${l.archived?'取消封存':'封存'}</button>
+      ${l.archived?'<span class="lbl-badge orange">已封存</span>':(l.id===activeId?'<span class="lbl-badge blue">目前</span>':'')}
+      <span class="settings-arrow">›</span>
     </div>`).join('');
+  document.getElementById('ledger-list').innerHTML=rows || `<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">未有帳薄</span></div>`;
 }
+
 window.switchLedger=function(id){
   if(!cfg.ledgers.some(l=>l.id===id)) return;
   cfg.currentLedgerId=id; saveCurrentLedgerState();
@@ -1777,16 +1837,31 @@ window.npKey=function(k){
   else{
     const p=npVal.split('.');
     if(p[1]!=null&&p[1].length>=decimalPlaces) return;
-    if(p[0].length>=7&&!npVal.includes('.')) return;
+    if(p[0].replace('-','').length>=7&&!npVal.includes('.')) return;
     npVal=npVal==='0'?k:npVal+k;
   }
   updateNpDisplay();
   if(navigator.vibrate) navigator.vibrate(5);
 };
 window.npDel=function(){
-  npVal=npVal.length<=1?'0':npVal.slice(0,-1);
+  if(npVal==='-0'||npVal==='0'||npVal==='-') npVal='0';
+  else if(npVal.length<=1) npVal='0';
+  else if(npVal.length===2 && npVal.startsWith('-')) npVal='0';
+  else npVal=npVal.slice(0,-1);
   updateNpDisplay();
 };
+window.npToggleSign=function(){
+  if(npVal.startsWith('-')) npVal=npVal.slice(1)||'0';
+  else if(npVal!=='0') npVal='-'+npVal;
+  else npVal='-0';
+  updateNpDisplay();
+};
+function openAmountNumpadFromDetail(){
+  refreshNumpad();
+  closeSheet('sheet-detail');
+  openSheet('sheet-numpad');
+}
+window.openAmountNumpadFromDetail=openAmountNumpadFromDetail;
 function handleNumpadKeyboard(e){
   const npOpen=document.getElementById('sheet-numpad')?.classList.contains('open');
   if(!npOpen) return;
@@ -1796,6 +1871,7 @@ function handleNumpadKeyboard(e){
   if(/^\d$/.test(k)){ e.preventDefault(); window.npKey(k); return; }
   if(k==='.' || k===','){ e.preventDefault(); window.npKey('.'); return; }
   if(k==='Backspace' || k==='Delete'){ e.preventDefault(); window.npDel(); return; }
+  if(k==='-' || k==='+'){ e.preventDefault(); window.npToggleSign(); return; }
   if(k==='Enter'){ e.preventDefault(); window.npConfirm(); return; }
   if(k==='Escape'){ e.preventDefault(); closeSheet('sheet-numpad'); return; }
 }
@@ -1803,7 +1879,7 @@ document.addEventListener('keydown', handleNumpadKeyboard);
 
 window.npConfirm=function(){
   const v=parseFloat(npVal);
-  if(!v||v<=0) return showToast('請輸入金額');
+  if(!v) return showToast('請輸入金額');
   refreshDetailSheet();
   closeSheet('sheet-numpad');
   openSheet('sheet-detail');
@@ -1887,7 +1963,7 @@ function renderDetailChips(){
   const catEl=document.getElementById('d-cat-chips');
   if(catEl){
     catEl.innerHTML=cfg.categories.length ? cfg.categories.map(c=>
-      chipBtn(c.name, flowData.categoryId===c.id, `selectDetailChip('cat','${c.id}')`)
+      chipBtn(`<span class="chip-emoji">${catEmoji(c.id)}</span><span class="chip-label">${c.name}</span>`, flowData.categoryId===c.id, `selectDetailChip('cat','${c.id}')`)
     ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有種類</div>';
   }
 
@@ -1976,13 +2052,21 @@ const pickerCfg={
   to:{ title:'To', multi:false, items:()=>cfg.people.map(p=>({id:p.id,label:p.name})),
        getVal:()=>flowData.toId, setVal:v=>{ flowData.toId=v; renderDetailChips(); closeSheet('sheet-picker'); } },
   'filter-cat':{ title:'Category', multi:false,
-    items:()=>[{id:'',label:'All'},...cfg.categories.map(c=>({id:c.id,label:`${catEmoji(c.id)} ${c.name}`}))],
+    items:()=>[{id:'',label:'全部'},...cfg.categories.map(c=>({id:c.id,label:`${catEmoji(c.id)} ${c.name}`}))],
     getVal:()=>filters.catId,
-    setVal:v=>{ filters.catId=v; document.getElementById('filter-cat-val').textContent=v?catName(v):'All'; closeSheet('sheet-picker'); } },
+    setVal:v=>{ filters.catId=v; document.getElementById('filter-cat-val').textContent=v?catName(v):'全部'; closeSheet('sheet-picker'); } },
   'filter-person':{ title:'Person', multi:false,
-    items:()=>[{id:'',label:'All'},...cfg.people.map(p=>({id:p.id,label:p.name}))],
+    items:()=>[{id:'',label:'全部'},...cfg.people.map(p=>({id:p.id,label:p.name}))],
     getVal:()=>filters.personId,
-    setVal:v=>{ filters.personId=v; document.getElementById('filter-person-val').textContent=v?personName(v):'All'; closeSheet('sheet-picker'); } },
+    setVal:v=>{ filters.personId=v; document.getElementById('filter-person-val').textContent=v?personName(v):'全部'; closeSheet('sheet-picker'); } },
+  'filter-type':{ title:'類型', multi:false,
+    items:()=>[{id:'',label:'全部'},{id:'expense',label:'💸 支出'},{id:'transfer',label:'🔁 轉帳'}],
+    getVal:()=>filters.type,
+    setVal:v=>{ filters.type=v; document.getElementById('filter-type-val').textContent=filterTypeLabel(v); closeSheet('sheet-picker'); } },
+  'filter-cur':{ title:'貨幣', multi:false,
+    items:()=>[{id:'',label:'全部'},...filterCurrencyItems.map(c=>({id:c,label:c}))],
+    getVal:()=>filters.currency,
+    setVal:v=>{ filters.currency=v; document.getElementById('filter-cur-val').textContent=v||'全部'; closeSheet('sheet-picker'); } },
 };
 
 window.openPickerSheet=function(ctx){
@@ -2034,7 +2118,7 @@ window.pickerMultiDone=function(){ closeSheet('sheet-picker'); };
 // ════════════════════════════════════════════════
 window.saveTx=async function(){
   const v=parseFloat(npVal);
-  if(!v||v<=0) return showToast('金額無效');
+  if(!v) return showToast('金額無效');
   const date=flowData.isTransfer?
     document.getElementById('d-tr-date').value:
     document.getElementById('d-date').value;
@@ -2117,30 +2201,104 @@ window.deleteTx=async function(id){
 // FILTER
 // ════════════════════════════════════════════════
 window.openFilterSheet=function(){
-  const curs=[...new Set(txs.map(t=>t.currency).filter(Boolean))];
-  document.getElementById('filter-cur').innerHTML=
-    `<div class="option-box${!filters.currency?' selected':''}" data-value="" onclick="selectBox('filter-cur','')">全部</div>`+
-    curs.map(c=>`<div class="option-box${filters.currency===c?' selected':''}" data-value="${c}" onclick="selectBox('filter-cur','${c}')">${c}</div>`).join('');
-  setBoxValue('filter-type',filters.type||'');
-  document.getElementById('filter-cat-val').textContent=filters.catId?catName(filters.catId):'All';
-  document.getElementById('filter-person-val').textContent=filters.personId?personName(filters.personId):'All';
+  const curs=[...new Set([baseCur(), ...txs.map(t=>t.currency).filter(Boolean)])];
+  filterCurrencyItems=curs;
+  document.getElementById('filter-cat-val').textContent=filters.catId?catName(filters.catId):'全部';
+  document.getElementById('filter-person-val').textContent=filters.personId?personName(filters.personId):'全部';
+  document.getElementById('filter-type-val').textContent=filterTypeLabel(filters.type);
+  document.getElementById('filter-cur-val').textContent=filters.currency||'全部';
+  document.getElementById('filter-from-date').value=filters.dateFrom||'';
+  document.getElementById('filter-to-date').value=filters.dateTo||'';
   openSheet('sheet-filter');
 };
 window.applyFilters=function(){
-  filters.type=selectedBoxValue('filter-type');
-  filters.currency=selectedBoxValue('filter-cur');
-  filterActive=!!(filters.catId||filters.personId||filters.type||filters.currency);
-  closeSheet('sheet-filter'); renderHistory();
+  filters.dateFrom=document.getElementById('filter-from-date')?.value||'';
+  filters.dateTo=document.getElementById('filter-to-date')?.value||'';
+  filterActive=!!(filters.catId||filters.personId||filters.type||filters.currency||filters.dateFrom||filters.dateTo);
+  closeSheet('sheet-filter'); renderHistory(); ensureFilteredHistoryLoaded();
 };
 window.clearFilters=function(){
-  filters={catId:'',personId:'',type:'',currency:''};
+  filters={catId:'',personId:'',type:'',currency:'',dateFrom:'',dateTo:''};
   filterActive=false;
-  document.getElementById('filter-cat-val').textContent='全部';
-  document.getElementById('filter-person-val').textContent='全部';
-  setBoxValue('filter-type','');
-  setBoxValue('filter-cur','');
+  lastFilterLoadKey='';
+  ['filter-cat-val','filter-person-val','filter-type-val','filter-cur-val'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent='全部'; });
+  const f=document.getElementById('filter-from-date'); if(f) f.value='';
+  const t=document.getElementById('filter-to-date'); if(t) t.value='';
   closeSheet('sheet-filter'); renderHistory();
 };
+function filterTypeLabel(v){ return v==='expense'?'支出':v==='transfer'?'轉帳':'全部'; }
+let filterCurrencyItems=[];
+let lastFilterLoadKey='';
+let filterLoadInFlight=false;
+function currentFilterLoadKey(){
+  return JSON.stringify({ledgerId:currentLedgerId(),catId:filters.catId||'',personId:filters.personId||'',type:filters.type||'',currency:filters.currency||'',dateFrom:filters.dateFrom||'',dateTo:filters.dateTo||''});
+}
+async function ensureFilteredHistoryLoaded(){
+  if(!db || !filterActive || filterLoadInFlight) return;
+  if(!filters.dateFrom && !filters.dateTo) return;
+  const key=currentFilterLoadKey();
+  if(key===lastFilterLoadKey) return;
+  filterLoadInFlight=true;
+  try{
+    const parts=[];
+    if(filters.dateFrom) parts.push(where('date','>=',filters.dateFrom));
+    if(filters.dateTo) parts.push(where('date','<=',filters.dateTo));
+    parts.push(orderBy('date','desc'));
+    parts.push(limit(1500));
+    const snap=await getDocs(query(ledgerCol(), ...parts));
+    const incoming=snap.docs.map(d=>({id:d.id,...d.data()}));
+    const byId=new Map((txs||[]).map(t=>[t.id,t]));
+    incoming.forEach(t=>byId.set(t.id,t));
+    txs=[...byId.values()].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
+    lastFilterLoadKey=key;
+    renderHistory();
+  }catch(e){
+    console.error('Filtered history load failed:', e);
+    showToast('載入篩選記錄失敗');
+  }finally{
+    filterLoadInFlight=false;
+  }
+}
+function periodDateRange(){
+  if(statsMode==='month'){
+    const y=statsPeriod.getFullYear(), m=statsPeriod.getMonth();
+    const from=`${y}-${String(m+1).padStart(2,'0')}-01`;
+    const to=new Date(y,m+1,0).toISOString().slice(0,10);
+    return {from,to};
+  }
+  return {from:`${statsYear}-01-01`, to:`${statsYear}-12-31`};
+}
+function goHistoryWithFilter(extra={}){
+  const r=periodDateRange();
+  filters={catId:'',personId:'',type:'expense',currency:'',dateFrom:r.from,dateTo:r.to,...extra};
+  filterActive=true;
+  const tab=[...document.querySelectorAll('.tab')].find(t=>t.getAttribute('onclick')?.includes('history')) || document.querySelector('.tab');
+  switchTab('history', tab);
+  renderHistory();
+  ensureFilteredHistoryLoaded();
+}
+window.goHistoryWithFilter=goHistoryWithFilter;
+let categorySummaryCatId='';
+function openCategorySummary(catId){
+  categorySummaryCatId=catId;
+  const scope=scopeForCurrentPeriod();
+  const amt=Number(scope.cats?.[catId]||0);
+  document.getElementById('cat-summary-title').textContent=`${catEmoji(catId)} ${catName(catId)}`;
+  document.getElementById('cat-summary-body').innerHTML=`
+    <div class="card card-glass"><div class="total-hero"><div class="total-hero-lbl">${statsMode==='year'?statsYear:document.getElementById('period-label').textContent}</div><div class="total-hero-num">${fmtBase(amt)}</div></div></div>`;
+  openSheet('sheet-category-summary');
+}
+window.openCategorySummary=openCategorySummary;
+window.goCategorySummaryRecords=function(){
+  closeSheet('sheet-category-summary');
+  goHistoryWithFilter({catId:categorySummaryCatId});
+};
+function summaryCategoryClick(catId){
+  if(statsMode==='year') openCategorySummary(catId);
+  else goHistoryWithFilter({catId});
+}
+window.summaryCategoryClick=summaryCategoryClick;
+window.summaryPersonClick=function(pid){ goHistoryWithFilter({personId:pid}); };
 
 // ════════════════════════════════════════════════
 // RENDER — HISTORY
@@ -2156,9 +2314,15 @@ function renderHistory(){
   if(filters.personId) list=list.filter(t=>t.paidByPersonId===filters.personId||(t.usedByPersonIds||[]).includes(filters.personId)||t.fromPersonId===filters.personId||t.toPersonId===filters.personId);
   if(filters.type) list=list.filter(t=>t.type===filters.type);
   if(filters.currency) list=list.filter(t=>t.currency===filters.currency);
+  if(filters.dateFrom) list=list.filter(t=>String(t.date||'')>=filters.dateFrom);
+  if(filters.dateTo) list=list.filter(t=>String(t.date||'')<=filters.dateTo);
   const body=document.getElementById('tx-body');
   if(!list.length){
-    body.innerHTML=`<div class="empty"><div class="empty-icon">${isFuture?'\uD83D\uDDD3':'\uD83D\uDCCB'}</div>${isFuture?'沒有計劃中的交易':'找不到記錄'}</div>`;
+    if(filterActive && filterLoadInFlight){
+      body.innerHTML=`<div class="empty"><div class="empty-icon">⏳</div>正在載入記錄</div>`;
+    }else{
+      body.innerHTML=`<div class="empty"><div class="empty-icon">${isFuture?'\uD83D\uDDD3':'\uD83D\uDCCB'}</div>${isFuture?'沒有計劃中的交易':'找不到記錄'}</div>`;
+    }
     return;
   }
   const grp={};
@@ -2284,7 +2448,7 @@ function renderSummary(){
     html+=`<div class="sec-label">分類統計</div><div class="card">`;
     cats.forEach(([catId,amt],i)=>{
       const color=catColor(catId);
-      html+=`<div class="cat-bar-row"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
+      html+=`<div class="cat-bar-row summary-click" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
     });
     html+=`</div>`;
   }
@@ -2295,7 +2459,7 @@ function renderSummary(){
     people.forEach(([pid,d])=>{
       const paid=Number(d.paid||0);
       const used=Number(d.used||0);
-      html+=`<div class="person-bal-row">
+      html+=`<div class="person-bal-row summary-click" onclick="summaryPersonClick('${pid}')">
         <div class="person-avatar" style="background:${personColor(pid)}20;color:${personColor(pid)}">${personName(pid).charAt(0)}</div>
         <div class="person-bal-info">
           <div class="person-bal-name">${personName(pid)}</div>
@@ -2307,7 +2471,6 @@ function renderSummary(){
     html+=`</div>`;
   }
 
-  if(!totalBase) html+=`<div class="empty"><button onclick="rebuildLedgerStats()" style="margin-top:12px;padding:10px 14px;border-radius:12px;background:var(--accent-light);color:var(--accent);font-weight:700">重建 Summary</button></div>`;
   body.innerHTML=html;
 }
 
@@ -2336,7 +2499,7 @@ function renderSettle(){
   let html=`<div class="sec-label">結餘（${bc})</div><div class="card">`;
   Object.entries(balances).forEach(([pid,v])=>{
     const net=Math.round(v*100)/100;
-    html+=`<div class="person-bal-row">
+    html+=`<div class="person-bal-row summary-click" onclick="summaryPersonClick('${pid}')">
       <div class="person-avatar" style="background:${personColor(pid)}20;color:${personColor(pid)}">${personName(pid).charAt(0)}</div>
       <div class="person-bal-info"><div class="person-bal-name">${personName(pid)}</div></div>
       <div class="person-bal-net" style="color:${net>0?'var(--green)':net<0?'var(--red)':'var(--text-2)'}">${net>0?'+':''}${fmtBase(net)}</div>
@@ -2357,7 +2520,6 @@ function renderSettle(){
   } else {
     html+=`<div class="card"><div style="padding:16px;text-align:center;color:var(--text-2);font-size:14px">✓ 已全部結清</div></div>`;
   }
-  html+=`<div style="padding:0 0 8px"><button onclick="rebuildLedgerStats()" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:700">重建 Summary / 結算快取</button></div>`;
   body.innerHTML=html;
 }
 
@@ -2367,69 +2529,57 @@ function renderSettle(){
 function renderSettings(){
   const body=document.getElementById('settings-body');
   const isConnected=!!db;
-  const peopleHtml=cfg.people.length ? cfg.people.map((p,i)=>`
-    <div class="settings-row">
-      <div class="person-avatar" style="width:24px;height:24px;font-size:10px;background:${p.color||COLORS[i%COLORS.length]}20;color:${p.color||COLORS[i%COLORS.length]}">${String(p.name||'?').charAt(0)}</div>
-      <span class="settings-lbl">${p.name||'(未命名)'}</span>
-      <button onclick="moveEntity('person','${p.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
-      <button onclick="moveEntity('person','${p.id}',1)" ${i===cfg.people.length-1?'disabled':''} style="font-size:12px;color:${i===cfg.people.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
-      <button onclick="startRename('person','${p.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
-      <button onclick="removePerson('${p.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>
-    </div>`).join('') : `<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">未有人員</span></div>`;
-  const catHtml=cfg.categories.length ? cfg.categories.map((c,i)=>`
-    <div class="settings-row">
-      <div class="cat-icon-dot" style="background:${catColor(c.id)}22;color:${catColor(c.id)}">${catEmoji(c.id)}</div>
-      <span class="settings-lbl">${c.name||'(未命名)'}</span>
-      <button onclick="moveEntity('category','${c.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
-      <button onclick="moveEntity('category','${c.id}',1)" ${i===cfg.categories.length-1?'disabled':''} style="font-size:12px;color:${i===cfg.categories.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
-      <button onclick="startRename('category','${c.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
-      <button onclick="startCategoryStyle('${c.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">Icon</button>
-      <button onclick="removeCategory('${c.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>
-    </div>`).join('') : `<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">未有種類</span></div>`;
+  const peopleChips=cfg.people.length ? `<div class="settings-chip-wrap">${cfg.people.map((p,i)=>`
+    <div class="settings-mini-chip" onclick="openEntitySheet('person')">
+      <span class="person-avatar" style="width:20px;height:20px;font-size:9px;background:${p.color||COLORS[i%COLORS.length]}20;color:${p.color||COLORS[i%COLORS.length]}">${String(p.name||'?').charAt(0)}</span>
+      <span>${p.name||'(未命名)'}</span>
+    </div>`).join('')}</div>` : `<div class="settings-row" onclick="openEntitySheet('person')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--text-2)">未有人員</span><span class="settings-arrow">›</span></div>`;
+  const catChips=cfg.categories.length ? `<div class="settings-chip-wrap">${cfg.categories.map(c=>`
+    <div class="settings-mini-chip" onclick="openEntitySheet('category')">
+      <span class="cat-icon-dot" style="width:20px;height:20px;font-size:12px;background:${catColor(c.id)}22;color:${catColor(c.id)}">${catEmoji(c.id)}</span>
+      <span>${c.name||'(未命名)'}</span>
+    </div>`).join('')}</div>` : `<div class="settings-row" onclick="openEntitySheet('category')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--text-2)">未有種類</span><span class="settings-arrow">›</span></div>`;
   body.innerHTML=`
-    <div class="sec-label">Load Summary</div>
+    <div class="sec-label">摘要</div>
     <div class="card">
-      <div class="settings-row" onclick="rebuildLedgerStats()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">重建 Summary 快取</span><span class="settings-arrow">›</span></div>
-      <div class="fx-status">最近 150 筆；需要時重建。</div>
+      <div class="settings-row" onclick="rebuildLedgerStats()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">載入全部記錄</span><span class="settings-arrow">›</span></div>
     </div>
 
     <div class="sec-label">人</div>
-    <div class="card">${peopleHtml}</div>
-    <div style="padding:0 0 8px"><button onclick="openEntitySheet('person')" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:600">＋ 新增人員</button></div>
+    <div class="card">${peopleChips}</div>
+    <div style="padding:0 0 8px"><button onclick="openEntitySheet('person')" class="btn-secondary" style="width:100%;padding:13px;border-radius:var(--radius-sm);font-size:14px">管理人員</button></div>
 
     <div class="sec-label">種類</div>
-    <div class="card">${catHtml}</div>
-    <div style="padding:0 0 8px"><button onclick="openEntitySheet('category')" style="width:100%;padding:13px;border-radius:var(--radius-sm);background:var(--accent-light);color:var(--accent);font-size:14px;font-weight:600">＋ 新增種類</button></div>
+    <div class="card">${catChips}</div>
+    <div style="padding:0 0 8px"><button onclick="openEntitySheet('category')" class="btn-secondary" style="width:100%;padding:13px;border-radius:var(--radius-sm);font-size:14px">管理種類</button></div>
 
     <div class="sec-label">帳薄</div>
     <div class="card">
       <div class="settings-row"><span class="settings-lbl">名稱</span><span class="settings-val">${currentLedger().name}</span></div>
       <div class="settings-row"><span class="settings-lbl">狀態</span><span class="settings-val lbl-badge ${isLedgerArchived()?'orange':'green'}">${isLedgerArchived()?'已封存':'使用中'}</span></div>
+      <div class="settings-row" onclick="openSheet('sheet-ledger')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">切換帳薄</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="openNewLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">＋ 新增帳薄</span><span class="settings-arrow">›</span></div>
-      <div class="settings-row" onclick="openEditLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">改名 / 基礎貨幣</span><span class="settings-arrow">›</span></div>
+      <div class="settings-row" onclick="openEditLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">編輯目前帳薄</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="toggleLedgerArchive()" style="cursor:pointer"><span class="settings-lbl" style="color:${isLedgerArchived()?'var(--green)':'var(--orange)'}">${isLedgerArchived()?'取消封存':'封存帳薄'}</span><span class="settings-arrow">›</span></div>
     </div>
 
     <div class="sec-label">匯率設定</div>
     <div class="card">
-      <div class="settings-row"><span class="settings-lbl">Source</span><span class="settings-val">Yahoo Finance</span></div>
-      <div class="settings-row"><span class="settings-lbl">Last Updated</span><span class="settings-val">${cfg.fxLastUpdated||'從未'}</span></div>
-      <div class="settings-row" onclick="downloadFxRates()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">Update Now</span><span class="settings-arrow">›</span></div>
-      <div class="fx-status">${Object.keys(cfg.fxRates).length} 個匯率日期 · ${cfg.fxLastUpdated?'更新於 '+cfg.fxLastUpdated:'尚未下載匯率'}</div>
+      <div class="settings-row"><span class="settings-lbl">匯率來源</span><span class="settings-val">Frankfurter / Yahoo</span></div>
+      <div class="settings-row"><span class="settings-lbl">最後更新</span><span class="settings-val">${cfg.fxLastUpdated||'從未'}</span></div>
+      <div class="settings-row" onclick="downloadFxRates()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">立即更新</span><span class="settings-arrow">›</span></div>
     </div>
 
-    <div class="sec-label">Import</div>
+    <div class="sec-label">匯入</div>
     <div class="card">
       <div class="settings-row" onclick="openImportExcel()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯入交易 Excel / CSV</span><span class="settings-arrow">›</span></div>
-      <div class="settings-row" onclick="downloadSampleCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">下載 Sample CSV</span><span class="settings-arrow">›</span></div>
-      <div class="fx-status">支援 Year / Month / Day。人名、種類會自動 match。</div>
+      <div class="settings-row" onclick="downloadSampleCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">下載範例 CSV</span><span class="settings-arrow">›</span></div>
     </div>
 
-    <div class="sec-label">Export</div>
+    <div class="sec-label">匯出</div>
     <div class="card">
       <div class="settings-row" onclick="exportCurrentLedgerCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯出目前帳薄 CSV</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="exportAllLedgersCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯出全部帳薄 CSV</span><span class="settings-arrow">›</span></div>
-      <div class="fx-status">一個帳薄一個 CSV。</div>
     </div>
     <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
 
@@ -2442,6 +2592,7 @@ function renderSettings(){
   `;
   if(cfg.fbConfig){ const el=document.getElementById('fb-config-input'); if(el) el.value=JSON.stringify(cfg.fbConfig,null,2); }
 }
+
 window.downloadFxRates=downloadFxRates;
 
 window.forceReloadSharedMeta=async function(){
@@ -2488,11 +2639,11 @@ function renderEntityList(){
     <div class="settings-row">
       ${type==='person'?`<div class="person-avatar" style="width:24px;height:24px;font-size:10px;background:${e.color||COLORS[i%COLORS.length]}20;color:${e.color||COLORS[i%COLORS.length]}">${String(e.name||'?').charAt(0)}</div>`:`<div class="cat-icon-dot" style="background:${catColor(e.id)}22;color:${catColor(e.id)}">${catEmoji(e.id)}</div>`}
       <span class="settings-lbl">${e.name||'(未命名)'}</span>
-      <button onclick="moveEntity('${type}','${e.id}',-1)" ${i===0?'disabled':''} style="font-size:12px;color:${i===0?'var(--text-3)':'var(--accent)'};padding:4px 6px">↑</button>
-      <button onclick="moveEntity('${type}','${e.id}',1)" ${i===items.length-1?'disabled':''} style="font-size:12px;color:${i===items.length-1?'var(--text-3)':'var(--accent)'};padding:4px 6px">↓</button>
-      <button onclick="startRename('${type}','${e.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">改名</button>
-      ${type==='category'?`<button onclick="startCategoryStyle('${e.id}')" style="font-size:12px;color:var(--accent);padding:4px 8px">Icon</button>`:''}
-      <button onclick="removeEntity('${type}','${e.id}')" style="font-size:12px;color:var(--red);padding:4px 8px">移除</button>
+      <button onclick="moveEntity('${type}','${e.id}',-1)" ${i===0?'disabled':''} class="entity-mini-btn" style="color:${i===0?'var(--text-3)':'var(--accent)'}">↑</button>
+      <button onclick="moveEntity('${type}','${e.id}',1)" ${i===items.length-1?'disabled':''} class="entity-mini-btn" style="color:${i===items.length-1?'var(--text-3)':'var(--accent)'}">↓</button>
+      <button onclick="startRename('${type}','${e.id}')" class="entity-mini-btn" style="color:var(--accent)">改名</button>
+      ${type==='category'?`<button onclick="startCategoryStyle('${e.id}')" class="entity-mini-btn" style="color:var(--accent)">樣式</button>`:''}
+      <button onclick="removeEntity('${type}','${e.id}')" class="entity-mini-btn" style="color:var(--red)">移除</button>
     </div>`).join('');
 }
 window.moveEntity=async function(type,id,dir){
@@ -2562,23 +2713,52 @@ window.startRename=async function(type,id){
   }
 };
 
-window.startCategoryStyle=async function(id){
-  if(!db){ showToast('請先連接 Firebase'); return; }
+let categoryStyleId='';
+let categoryStyleColor='';
+function renderCategoryStyleSheet(){
+  const c=(cfg.categories||[]).find(x=>x.id===categoryStyleId);
+  if(!c) return;
+  const emojiInput=document.getElementById('cat-style-emoji');
+  const preview=document.getElementById('cat-style-preview');
+  const palette=document.getElementById('cat-style-palette');
+  const emoji=cleanEmoji(emojiInput?.value || c.emoji || '🏷️') || '🏷️';
+  if(preview){
+    preview.textContent=emoji;
+    preview.style.background=(categoryStyleColor||c.color||catColor(c.id))+'22';
+    preview.style.color=categoryStyleColor||c.color||catColor(c.id);
+  }
+  if(palette){
+    palette.innerHTML=CATEGORY_COLORS.map(col=>`<button class="color-dot ${col===(categoryStyleColor||c.color)?'sel':''}" style="background:${col}" onclick="pickCategoryColor('${col}')" aria-label="${col}"></button>`).join('');
+  }
+}
+window.pickCategoryColor=function(col){ categoryStyleColor=String(col||'').trim(); renderCategoryStyleSheet(); };
+window.startCategoryStyle=function(id){
   const current=(cfg.categories||[]).find(c=>c.id===id);
   if(!current) return;
-  const emoji=prompt(`Emoji icon for「${current.name}」：`, current.emoji||'');
-  if(emoji===null) return;
-  const color=prompt(`Color hex for「${current.name}」：`, current.color||randomCategoryColor());
-  if(color===null) return;
-  const nextEmoji=cleanEmoji(emoji);
-  const nextColor=String(color||'').trim() || randomCategoryColor();
+  categoryStyleId=id;
+  categoryStyleColor=current.color||catColor(id);
+  document.getElementById('cat-style-title').textContent=`${current.name} 樣式`;
+  const emojiInput=document.getElementById('cat-style-emoji');
+  if(emojiInput){
+    emojiInput.value=current.emoji||'';
+    emojiInput.oninput=renderCategoryStyleSheet;
+  }
+  renderCategoryStyleSheet();
+  openSheet('sheet-category-style');
+};
+window.saveCategoryStyle=async function(){
+  if(!db){ showToast('請先連接 Firebase'); return; }
+  const id=categoryStyleId;
+  const nextEmoji=cleanEmoji(document.getElementById('cat-style-emoji')?.value || '');
+  const nextColor=String(categoryStyleColor||randomCategoryColor()).trim();
   try{
     await mutateEntityList('category', (list)=>{
       const item=list.find(e=>e.id===id);
       if(item){ item.emoji=nextEmoji; item.color=nextColor; }
     });
+    closeSheet('sheet-category-style');
     repaintAfterEntityChange();
-    showToast('已更新種類 icon');
+    showToast('已更新種類樣式');
   }catch(e){ console.error('Update category style failed:', e); showToast('更新失敗'); }
 };
 window.removeEntity=async function(type,id){
