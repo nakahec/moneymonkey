@@ -2,7 +2,7 @@
 <html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="記帳">
@@ -59,6 +59,7 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 input,textarea,select,button{font-family:inherit;font-size:inherit;color:inherit}
+input,textarea,select{font-size:16px!important}
 button{cursor:pointer;border:none;background:none;touch-action:manipulation}
 button,.nav-btn,.tab,.chip,.option-box,.settings-row,.tx-card,.npk,.numpad-action,.fab{touch-action:manipulation}
 button:disabled{opacity:.45;cursor:not-allowed}
@@ -123,7 +124,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .form-row:last-child{border-bottom:none}
 .form-label{font-size:15px;flex-shrink:0;width:84px;color:var(--text)}
 .form-label.wide{width:auto;flex:1}
-.form-control{flex:1;background:none;border:none;outline:none;font-size:15px;color:var(--text);text-align:right}
+.form-control{flex:1;background:none;border:none;outline:none;font-size:16px;color:var(--text);text-align:right}
 .form-control::placeholder{color:var(--text-3)}
 .form-control.left{text-align:left}
 textarea.form-control{resize:none;height:60px;text-align:left;padding-top:2px}
@@ -163,6 +164,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .npk:active,.npk.pressed{transform:scale(.96);background:#fff;box-shadow:0 4px 12px rgba(38,36,30,.08),inset 0 0 0 1px rgba(10,132,255,.18)}
 .npk.zero{grid-column:span 2}
 .npk.wide{grid-column:span 2}
+.npk.full-zero{grid-column:span 4}
 .npk.del{color:var(--red);background:var(--red-light)}
 .npk.dot{color:var(--accent)}
 .numpad-actions{padding:0 12px 12px;display:flex;gap:10px}
@@ -284,6 +286,24 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .cat-track{width:60px;height:4px;background:rgba(0,0,0,.06);border-radius:2px;flex-shrink:0}
 .cat-fill{height:100%;border-radius:2px}
 .cat-val{font-size:13px;color:var(--text-2);width:64px;text-align:right;flex-shrink:0}
+
+.cat-month-chart{padding:14px 12px 12px}
+.cat-month-total{padding:6px 4px 14px;text-align:center}
+.cat-month-total .lbl{font-size:12px;color:var(--text-2);margin-bottom:4px}
+.cat-month-total .num{font-size:34px;font-weight:800;color:var(--text);line-height:1}
+.cat-chart-bars{height:168px;display:grid;grid-template-columns:repeat(12,1fr);gap:6px;align-items:end;padding:8px 2px 2px}
+.cat-chart-col{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;cursor:pointer;min-width:0}
+.cat-chart-bar-wrap{height:116px;width:100%;display:flex;align-items:flex-end;justify-content:center}
+.cat-chart-bar{width:100%;max-width:18px;min-height:3px;border-radius:8px 8px 3px 3px;transition:transform .12s, opacity .12s}
+.cat-chart-col:active .cat-chart-bar{transform:scaleY(.94);opacity:.82}
+.cat-chart-month{font-size:9px;color:var(--text-3);line-height:1;white-space:nowrap}
+.cat-chart-val{font-size:9px;color:var(--text-2);line-height:1;writing-mode:vertical-rl;max-height:32px;overflow:hidden}
+.cat-month-list{margin-top:8px;border-top:.5px solid var(--sep)}
+.cat-month-row{display:flex;align-items:center;justify-content:space-between;padding:10px 4px;border-bottom:.5px solid var(--sep);cursor:pointer}
+.cat-month-row:last-child{border-bottom:none}
+.cat-month-row:active{opacity:.65}
+.cat-month-row .m{font-size:13px;font-weight:700;color:var(--text)}
+.cat-month-row .v{font-size:13px;font-weight:700;color:var(--text-2)}
 
 .person-bal-row{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:.5px solid var(--sep)}
 .person-bal-row:last-child{border-bottom:none}
@@ -435,8 +455,9 @@ html, body, .page { overscroll-behavior-y: contain; }
 .settings-mini-chip:active{transform:scale(.98);opacity:.86}
 .summary-click{cursor:pointer}
 .summary-click:active{opacity:.72}
-.chip .chip-emoji{font-size:14px;margin-right:3px}
-.chip .chip-label{font-size:12px}
+.chip .chip-emoji{font-size:13px;margin-right:2px}
+.chip .chip-label{font-size:11px}
+#d-cat-chips .chip{font-size:11px;padding:7px 10px;gap:2px}
 .form-row.remark-row .form-label{flex:0 0 56px;width:56px;min-width:56px}
 .form-row.remark-row .form-control{flex:1;text-align:left}
 .amount-display{cursor:pointer}
@@ -567,8 +588,7 @@ html, body, .page { overscroll-behavior-y: contain; }
       <div class="npk" ontouchstart="npTouch(this,'8')" onclick="npKey('8')">8</div>
       <div class="npk" ontouchstart="npTouch(this,'9')" onclick="npKey('9')">9</div>
       <div class="npk dot" ontouchstart="npTouch(this,'.')" onclick="npKey('.')">.</div>
-      <div class="npk zero wide" ontouchstart="npTouch(this,'0')" onclick="npKey('0')">0</div>
-      <div class="npk dot wide" ontouchstart="npTouch(this,'00')" onclick="npKey('0');npKey('0')">00</div>
+      <div class="npk zero wide full-zero" ontouchstart="npTouch(this,'0')" onclick="npKey('0')">0</div>
     </div>
     <div class="numpad-actions">
       <button class="numpad-action cancel" onclick="closeSheet('sheet-numpad')">取消</button>
@@ -605,10 +625,7 @@ html, body, .page { overscroll-behavior-y: contain; }
           <label class="form-label">項目</label>
           <input class="form-control left" id="d-name" placeholder="項目名稱" autocomplete="off">
         </div>
-        <div class="form-row">
-          <label class="form-label wide">種類</label>
-        </div>
-        <div class="chip-wrap" id="d-cat-chips"></div>
+        <div class="chip-wrap" id="d-cat-chips" style="padding-top:2px"></div>
         <div class="form-row">
           <label class="form-label">日期</label>
           <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')">
@@ -876,7 +893,7 @@ html, body, .page { overscroll-behavior-y: contain; }
 <script type="module">
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import {
-  getFirestore, collection, doc, addDoc, setDoc, deleteDoc, getDoc,
+  getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, getDoc,
   getDocs, onSnapshot, query, orderBy, where, writeBatch, serverTimestamp, limit, runTransaction
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
@@ -1293,7 +1310,8 @@ async function saveSharedMeta(){
   };
   const payload = stripUndefined({
     ledgers: cfg.ledgers,
-    stats: ledgerStats||{},
+    // Stats are saved by persistStats() with updateDoc so stale nested category/person
+    // fields are fully replaced, not recursively merged.
     // Keep legacy field for older deployed builds.
     ledger: currentLedger,
     updatedAt: serverTimestamp()
@@ -1527,7 +1545,22 @@ function summaryMemberPeriodTotal(mode, year, monthIndex){
   return summaryMemberUsedTotal(st.year?.[String(year)] || {people:{}});
 }
 
-async function persistStats(){ if(db) await saveSharedMeta(); }
+async function persistStats(){
+  if(!db) return;
+  const payload = stripUndefined({
+    stats: ledgerStats || {},
+    updatedAt: serverTimestamp()
+  });
+  try{
+    // Important: updateDoc overwrites the whole top-level stats map.
+    // setDoc(..., {merge:true}) can leave deleted nested cat/person totals behind,
+    // which caused ghost categories like "其他 1500" in Summary.
+    await updateDoc(sharedMetaDoc(), payload);
+  }catch(e){
+    await setDoc(sharedMetaDoc(), payload, {merge:true});
+  }
+}
+
 async function fbAdd(data){
   if(!db){showToast('請先連接 Firebase');return false;}
   if(isLedgerArchived()){ showToast('帳薄已封存，不能新增交易'); return false; }
@@ -1554,7 +1587,7 @@ async function fbDel(id){
 }
 async function rebuildLedgerStats(){
   if(!db){ showToast('請先連接 Firebase'); return; }
-  if(!confirm('載入全部記錄會讀取目前帳薄所有交易一次。繼續？')) return;
+  if(!confirm('載入全部記錄會清除舊 Summary 快取，並由目前帳薄現有交易重新計算一次。繼續？')) return;
   setSyncDot('pending');
   try{
     const snap=await getDocs(query(ledgerCol(), orderBy('date','desc')));
@@ -1622,7 +1655,12 @@ window.setTxTab=setTxTab;
 
 function openSheet(id){
   if(id==='sheet-ledger') renderLedgerList();
-  document.getElementById(id)?.classList.add('open');
+  const ov=document.getElementById(id);
+  ov?.classList.add('open');
+  requestAnimationFrame(()=>{
+    const sheet=ov?.querySelector('.sheet');
+    if(sheet) sheet.scrollTop=0;
+  });
 }
 function closeSheet(id){ document.getElementById(id)?.classList.remove('open'); }
 window.closeSheet=closeSheet;
@@ -2279,25 +2317,65 @@ function goHistoryWithFilter(extra={}){
 }
 window.goHistoryWithFilter=goHistoryWithFilter;
 let categorySummaryCatId='';
+function monthRangeForYearMonth(year, monthIndex){
+  const from=`${year}-${String(monthIndex+1).padStart(2,'0')}-01`;
+  const to=new Date(year,monthIndex+1,0).toISOString().slice(0,10);
+  return {from,to};
+}
 function openCategorySummary(catId){
   categorySummaryCatId=catId;
-  const scope=scopeForCurrentPeriod();
-  const amt=Number(scope.cats?.[catId]||0);
-  document.getElementById('cat-summary-title').textContent=`${catEmoji(catId)} ${catName(catId)}`;
+  const st=statsForLedger(currentLedgerId());
+  const year=statsMode==='year' ? statsYear : statsPeriod.getFullYear();
+  const color=catColor(catId);
+  const rows=[];
+  for(let m=0;m<12;m++){
+    const key=`${year}-${String(m+1).padStart(2,'0')}`;
+    const amt=Number(st.month?.[key]?.cats?.[catId]||0);
+    rows.push({m, key, label:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m], amt});
+  }
+  const total=rows.reduce((s,r)=>s+r.amt,0);
+  const max=Math.max(...rows.map(r=>Math.abs(r.amt)), 1);
+  document.getElementById('cat-summary-title').textContent=`${catEmoji(catId)} ${catName(catId)} · ${year}`;
+  const bars=rows.map(r=>{
+    const h=Math.max(3, Math.round(Math.abs(r.amt)/max*116));
+    return `<div class="cat-chart-col" onclick="goCategoryMonthRecords('${catId}',${year},${r.m})" title="${r.label}: ${fmtBase(r.amt)}">
+      <div class="cat-chart-val">${r.amt?fmtBase(r.amt):''}</div>
+      <div class="cat-chart-bar-wrap"><div class="cat-chart-bar" style="height:${h}px;background:${color}"></div></div>
+      <div class="cat-chart-month">${r.label}</div>
+    </div>`;
+  }).join('');
+  const list=rows.filter(r=>Math.abs(r.amt)>0.0001).map(r=>`<div class="cat-month-row" onclick="goCategoryMonthRecords('${catId}',${year},${r.m})"><span class="m">${r.label}</span><span class="v">${fmtBase(r.amt)}</span></div>`).join('');
   document.getElementById('cat-summary-body').innerHTML=`
-    <div class="card card-glass"><div class="total-hero"><div class="total-hero-lbl">${statsMode==='year'?statsYear:document.getElementById('period-label').textContent}</div><div class="total-hero-num">${fmtBase(amt)}</div></div></div>`;
+    <div class="card card-glass cat-month-chart">
+      <div class="cat-month-total"><div class="lbl">全年總額</div><div class="num">${fmtBase(total)}</div></div>
+      <div class="cat-chart-bars">${bars}</div>
+      ${list?`<div class="cat-month-list">${list}</div>`:`<div class="empty"><div class="empty-icon">📊</div>未有記錄</div>`}
+    </div>`;
   openSheet('sheet-category-summary');
 }
 window.openCategorySummary=openCategorySummary;
 window.goCategorySummaryRecords=function(){
   closeSheet('sheet-category-summary');
-  goHistoryWithFilter({catId:categorySummaryCatId});
+  if(categorySummaryCatId) goHistoryWithFilter({catId:categorySummaryCatId});
+};
+window.goCategoryMonthRecords=function(catId, year, monthIndex){
+  closeSheet('sheet-category-summary');
+  const r=monthRangeForYearMonth(Number(year), Number(monthIndex));
+  goHistoryWithFilter({catId, dateFrom:r.from, dateTo:r.to});
 };
 function summaryCategoryClick(catId){
+  if(!catId) return;
   if(statsMode==='year') openCategorySummary(catId);
   else goHistoryWithFilter({catId});
 }
 window.summaryCategoryClick=summaryCategoryClick;
+// Fallback event delegation: fixes cases where inline onclick is swallowed after dynamic render.
+document.addEventListener('click', (e)=>{
+  const row=e.target.closest?.('[data-summary-cat-id]');
+  if(!row) return;
+  e.preventDefault();
+  summaryCategoryClick(row.dataset.summaryCatId);
+}, true);
 window.summaryPersonClick=function(pid){ goHistoryWithFilter({personId:pid}); };
 
 // ════════════════════════════════════════════════
@@ -2448,7 +2526,7 @@ function renderSummary(){
     html+=`<div class="sec-label">分類統計</div><div class="card">`;
     cats.forEach(([catId,amt],i)=>{
       const color=catColor(catId);
-      html+=`<div class="cat-bar-row summary-click" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
+      html+=`<div class="cat-bar-row summary-click" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
     });
     html+=`</div>`;
   }
