@@ -258,6 +258,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .tx-expand-actions{display:flex;gap:8px;margin-top:12px}
 .tx-btn{flex:1;padding:9px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;text-align:center}
 .tx-btn-edit{background:var(--accent-light);color:var(--accent)}
+.tx-btn-dup{background:var(--surface-2,rgba(120,120,128,.12));color:var(--text-2)}
 .tx-btn-del{background:var(--red-light);color:var(--red)}
 
 /* Transfer card */
@@ -464,6 +465,12 @@ html, body, .page { overscroll-behavior-y: contain; }
 .recur-dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--orange);margin-right:3px;vertical-align:middle}
 
 .settings-chip-wrap{display:flex;flex-wrap:wrap;gap:10px;padding:14px 16px}
+.toggle-switch{position:relative;display:inline-block;width:44px;height:26px;flex-shrink:0}
+.toggle-switch input{opacity:0;width:0;height:0;position:absolute}
+.toggle-track{position:absolute;inset:0;border-radius:999px;background:var(--sep);transition:background .2s;cursor:pointer}
+.toggle-track::after{content:'';position:absolute;left:3px;top:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .2s}
+.toggle-switch input:checked+.toggle-track{background:var(--accent)}
+.toggle-switch input:checked+.toggle-track::after{transform:translateX(18px)}
 .settings-mini-chip{border:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.76);border-radius:999px;padding:9px 12px;font-size:13px;font-weight:750;color:var(--text);display:inline-flex;align-items:center;gap:7px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);transition:transform .06s,background .08s}
 .settings-mini-chip:active{transform:scale(.97);background:#fff}
 .btn-primary,.btn-secondary,.btn-danger{border:none;outline:none;cursor:pointer;touch-action:manipulation;transition:transform .05s,opacity .05s}
@@ -551,6 +558,9 @@ html, body, .page { overscroll-behavior-y: contain; }
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input class="search-input" id="tx-search" placeholder="搜尋…" oninput="renderHistory()" autocomplete="off" type="search">
       </div>
+    </div>
+    <div class="filter-bar">
+      <div class="filter-chip" id="chip-recent" onclick="toggleRecentFilter()">🕐 最近新增</div>
     </div>
     <div class="page-body" id="tx-body" style="padding-top:4px"></div>
   </div>
@@ -658,7 +668,7 @@ html, body, .page { overscroll-behavior-y: contain; }
       <div class="sheet-inner">
         <div class="form-row">
           <label class="form-label">項目</label>
-          <input class="form-control left" id="d-name" placeholder="項目名稱" autocomplete="off">
+          <input class="form-control" id="d-name" placeholder="項目名稱" autocomplete="off" style="text-align:right">
         </div>
         <div class="form-row" style="border-top:.5px solid var(--sep)">
           <label class="form-label">日期</label>
@@ -672,29 +682,25 @@ html, body, .page { overscroll-behavior-y: contain; }
               <input type="date" class="form-control" id="d-utility-end" onchange="onUtilityPeriodChange()" oninput="onUtilityPeriodChange()">
             </div>
           </div>
-          <div class="utility-period-note">留空 = 付款月份</div>
         </div>
       </div>
       <div class="sheet-inner">
-        <div class="form-row" style="padding-bottom:4px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">種類</label>
-        </div>
-        <div class="chip-wrap" id="d-cat-chips" style="padding-top:4px;padding-bottom:12px"></div>
+        <div class="chip-wrap" id="d-cat-chips" style="padding:10px 12px 10px"></div>
       </div>
       <div class="sheet-inner">
         <div class="form-row" style="padding-bottom:4px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">付款人</label>
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Paid by</label>
         </div>
         <div class="chip-wrap" id="d-paidby-chips" style="padding-top:4px;padding-bottom:10px"></div>
         <div class="form-row" style="border-top:.5px solid var(--sep);padding-bottom:4px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">使用者</label>
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Used by</label>
         </div>
         <div class="chip-wrap" id="d-usedby-chips" style="padding-top:4px;padding-bottom:10px"></div>
       </div>
       <div class="sheet-inner">
         <div class="form-row remark-row">
           <label class="form-label">備注</label>
-          <input class="form-control left" id="d-remark" placeholder="選填" autocomplete="off">
+          <input class="form-control" id="d-remark" placeholder="選填" autocomplete="off" style="text-align:right">
         </div>
       </div>
     </div>
@@ -1296,6 +1302,7 @@ function dedupePeople(items=[]){
     if(seen.has(key)) return;
     seen.set(key,true);
     out.push({
+      ...p,
       id: p.id || slugId('person', name),
       name,
       color: p.color || COLORS[out.length % COLORS.length]
@@ -1370,9 +1377,11 @@ function cleanMetaPeople(people=[]){
   return dedupePeople(people||[]).map((p,i)=>stripUndefined({
     id: p.id || slugId('person', p.name || ('person-'+i)),
     name: p.name || '',
-    color: p.color || COLORS[i%COLORS.length]
+    color: p.color || COLORS[i%COLORS.length],
+    hidden: p.hidden || undefined
   })).filter(p=>p.name);
 }
+function visiblePeople(){ return (cfg.people||[]).filter(p=>!p.hidden); }
 function cleanMetaCategories(categories=[]){
   return dedupeCategories(categories||[]).map((c,i)=>{
     const id = c.id || slugId('cat', c.name || ('category-'+i));
@@ -1885,6 +1894,14 @@ let flowData={}; // {name,categoryId,paidById,usedByIds,date,remark,isTransfer,f
 let pickerCtx='';
 // filters
 let filters={catId:'',personId:'',type:'',currency:'',dateFrom:'',dateTo:''};
+let filterRecent=false;
+function toggleRecentFilter(){
+  filterRecent=!filterRecent;
+  const chip=document.getElementById('chip-recent');
+  if(chip) chip.classList.toggle('active',filterRecent);
+  renderHistory();
+}
+window.toggleRecentFilter=toggleRecentFilter;
 let filterActive=false;
 
 // ════════════════════════════════════════════════
@@ -2295,9 +2312,11 @@ function renderDetailChips(){
   }
   renderUtilityPeriodFields();
 
+  const visible=visiblePeople();
+
   const paidEl=document.getElementById('d-paidby-chips');
   if(paidEl){
-    paidEl.innerHTML=cfg.people.length ? cfg.people.map(p=>
+    paidEl.innerHTML=visible.length ? visible.map(p=>
       chipBtn(p.name, flowData.paidById===p.id, `selectDetailChip('paidby','${p.id}')`)
     ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有人員</div>';
   }
@@ -2305,21 +2324,21 @@ function renderDetailChips(){
   const usedEl=document.getElementById('d-usedby-chips');
   if(usedEl){
     const selected=flowData.usedByIds||[];
-    usedEl.innerHTML=cfg.people.length ? cfg.people.map(p=>
+    usedEl.innerHTML=visible.length ? visible.map(p=>
       chipBtn(p.name, selected.includes(p.id), `selectDetailChip('usedby','${p.id}')`)
     ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有人員</div>';
   }
 
   const fromEl=document.getElementById('d-from-chips');
   if(fromEl){
-    fromEl.innerHTML=cfg.people.length ? cfg.people.map(p=>
+    fromEl.innerHTML=visible.length ? visible.map(p=>
       chipBtn(p.name, flowData.fromId===p.id, `selectDetailChip('from','${p.id}')`)
     ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有人員</div>';
   }
 
   const toEl=document.getElementById('d-to-chips');
   if(toEl){
-    toEl.innerHTML=cfg.people.length ? cfg.people.map(p=>
+    toEl.innerHTML=visible.length ? visible.map(p=>
       chipBtn(p.name, flowData.toId===p.id, `selectDetailChip('to','${p.id}')`)
     ).join('') : '<div style="font-size:13px;color:var(--text-2);padding:4px 2px">未有人員</div>';
   }
@@ -2517,6 +2536,26 @@ window.saveTx=async function(){
 // ════════════════════════════════════════════════
 // DELETE
 // ════════════════════════════════════════════════
+window.duplicateTx=function(id){
+  const tx=txs.find(t=>t.id===id);
+  if(!tx) return;
+  editTxId=null;
+  flowData={
+    name:tx.itemName||'',categoryId:tx.categoryId||'',
+    paidById:tx.paidByPersonId||'',usedByIds:tx.usedByPersonIds||[],
+    date:isoDate(),remark:tx.remark||'',
+    isTransfer:tx.type==='transfer',
+    fromId:tx.fromPersonId||'',toId:tx.toPersonId||'',
+    isRecurring:false,recurringFreq:tx.recurringFreq||'monthly',
+    utilityPeriodStart:tx.utilityPeriodStart||'',
+    utilityPeriodEnd:tx.utilityPeriodEnd||''
+  };
+  npCur=tx.currency||baseCur();
+  npVal=String(tx.amount);
+  refreshDetailSheet();
+  openSheet('sheet-detail');
+};
+
 window.deleteTx=async function(id){
   if(!confirm('確定刪除此記錄？')) return;
   await fbDel(id);
@@ -2546,10 +2585,12 @@ window.applyFilters=function(){
 window.clearFilters=function(){
   filters={catId:'',personId:'',type:'',currency:'',dateFrom:'',dateTo:''};
   filterActive=false;
+  filterRecent=false;
   lastFilterLoadKey='';
   ['filter-cat-val','filter-person-val','filter-type-val','filter-cur-val'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent='全部'; });
   const f=document.getElementById('filter-from-date'); if(f) f.value='';
   const t=document.getElementById('filter-to-date'); if(t) t.value='';
+  const chip=document.getElementById('chip-recent'); if(chip) chip.classList.remove('active');
   closeSheet('sheet-filter'); renderHistory();
 };
 function filterTypeLabel(v){ return v==='expense'?'支出':v==='transfer'?'轉帳':'全部'; }
@@ -2787,6 +2828,15 @@ function renderHistory(){
   if(filters.currency) list=list.filter(t=>t.currency===filters.currency);
   if(filters.dateFrom) list=list.filter(t=>String(t.date||'')>=filters.dateFrom);
   if(filters.dateTo) list=list.filter(t=>String(t.date||'')<=filters.dateTo);
+  if(filterRecent){
+    const cutoff=new Date(Date.now()-7*24*3600*1000).toISOString();
+    list=list.filter(t=>t._created && (t._created?.toDate?.()?.toISOString()||String(t._created))>=cutoff);
+    list=[...list].sort((a,b)=>{
+      const ta=a._created?.toDate?.()?.toISOString()||String(a._created||'');
+      const tb=b._created?.toDate?.()?.toISOString()||String(b._created||'');
+      return tb.localeCompare(ta);
+    });
+  }
   const body=document.getElementById('tx-body');
   if(!list.length){
     if(filterActive && filterLoadInFlight){
@@ -2836,6 +2886,7 @@ function renderTxCard(t){
     ${t.remark?`<div class="tx-detail-row"><span class="tx-dl">備注</span><span class="tx-dv">${t.remark}</span></div>`:''}
     <div class="tx-expand-actions">
       <div class="tx-btn tx-btn-edit" onclick="openAddFlow('${t.id}')">✏ 編輯</div>
+      <div class="tx-btn tx-btn-dup" onclick="duplicateTx('${t.id}')">複製</div>
       <div class="tx-btn tx-btn-del" onclick="deleteTx('${t.id}')">刪除</div>
     </div>
   </div>`;
@@ -3002,11 +3053,15 @@ function renderSettle(){
 function renderSettings(){
   const body=document.getElementById('settings-body');
   const isConnected=!!db;
-  const peopleChips=cfg.people.length ? `<div class="settings-chip-wrap">${cfg.people.map((p,i)=>`
-    <div class="settings-mini-chip" onclick="openEntitySheet('person')">
-      <span class="person-avatar" style="width:20px;height:20px;font-size:9px;background:${p.color||COLORS[i%COLORS.length]}20;color:${p.color||COLORS[i%COLORS.length]}">${String(p.name||'?').charAt(0)}</span>
-      <span>${p.name||'(未命名)'}</span>
-    </div>`).join('')}</div>` : `<div class="settings-row" onclick="openEntitySheet('person')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--text-2)">未有人員</span><span class="settings-arrow">›</span></div>`;
+  const peopleChips=cfg.people.length ? `<div>${cfg.people.map((p,i)=>`
+    <div class="settings-row" style="gap:10px">
+      <span class="person-avatar" style="width:26px;height:26px;font-size:11px;flex-shrink:0;background:${p.color||COLORS[i%COLORS.length]}20;color:${p.color||COLORS[i%COLORS.length]}">${String(p.name||'?').charAt(0)}</span>
+      <span class="settings-lbl" style="flex:1;opacity:${p.hidden?0.4:1}">${p.name||'(未命名)'}</span>
+      <label class="toggle-switch" title="${p.hidden?'顯示':'隱藏'}">
+        <input type="checkbox" ${p.hidden?'':'checked'} onchange="togglePersonVisibility('${p.id}',this.checked)">
+        <span class="toggle-track"></span>
+      </label>
+    </div>`).join('')}</div>` : `<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">未有人員</span></div>`;
   const catChips=cfg.categories.length ? `<div class="settings-chip-wrap">${cfg.categories.map(c=>`
     <div class="settings-mini-chip" onclick="openEntitySheet('category')">
       <span class="cat-icon-dot" style="width:20px;height:20px;font-size:12px;background:${catColor(c.id)}22;color:${catColor(c.id)}">${catEmoji(c.id)}</span>
@@ -3067,6 +3122,22 @@ function renderSettings(){
 }
 
 window.downloadFxRates=downloadFxRates;
+
+window.togglePersonVisibility=async function(id, visible){
+  if(db){
+    await mutateEntityList('person', list=>{
+      const p=list.find(x=>x.id===id);
+      if(p) p.hidden = visible ? undefined : true;
+    });
+  } else {
+    const p=cfg.people.find(x=>x.id===id);
+    if(p) p.hidden = visible ? undefined : true;
+    cfg.people=cleanMetaPeople(cfg.people);
+    saveCfg();
+  }
+  renderSettings();
+  renderDetailChips();
+};
 
 window.forceReloadSharedMeta=async function(){
   if(!db){ showToast('請先連接 Firebase'); return; }
