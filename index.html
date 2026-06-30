@@ -672,7 +672,7 @@ html, body, .page { overscroll-behavior-y: contain; }
         </div>
         <div class="form-row" style="border-top:.5px solid var(--sep)">
           <label class="form-label">日期</label>
-          <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')">
+          <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')" style="text-align:right">
         </div>
         <div id="utility-period-wrap" style="display:none">
           <div class="form-row utility-period-row">
@@ -692,14 +692,14 @@ html, body, .page { overscroll-behavior-y: contain; }
           <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Paid by</label>
         </div>
         <div class="chip-wrap" id="d-paidby-chips" style="padding-top:4px;padding-bottom:10px"></div>
-        <div class="form-row" style="border-top:.5px solid var(--sep);padding-bottom:4px">
+        <div class="form-row" style="padding-bottom:4px">
           <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Used by</label>
         </div>
         <div class="chip-wrap" id="d-usedby-chips" style="padding-top:4px;padding-bottom:10px"></div>
       </div>
       <div class="sheet-inner">
         <div class="form-row remark-row">
-          <label class="form-label">備注</label>
+          <label class="form-label">備註</label>
           <input class="form-control" id="d-remark" placeholder="選填" autocomplete="off" style="text-align:right">
         </div>
       </div>
@@ -723,7 +723,7 @@ html, body, .page { overscroll-behavior-y: contain; }
       </div>
       <div class="sheet-inner">
         <div class="form-row remark-row">
-          <label class="form-label">備注</label>
+          <label class="form-label">備註</label>
           <input class="form-control left" id="d-tr-remark" placeholder="選填" autocomplete="off">
         </div>
       </div>
@@ -2900,7 +2900,6 @@ function renderTxCard(t){
     subParts.push(`Paid by ${personName(t.paidByPersonId)}`);
     if(t.recurringRuleId) subParts.push('<span><span class="recur-dot"></span>定期</span>');
   }
-  if(t.remark) subParts.push(`<span style="color:var(--text-3)">${t.remark}</span>`);
   const subHtml=subParts.map((s,i)=>i<subParts.length-1?s+' <span class="tx-sub-dot">·</span> ':s).join('');
   const detail=`<div class="tx-expand" id="${expandId}">
     ${!isTransfer?`<div class="tx-detail-row"><span class="tx-dl">付款人</span><span class="tx-dv">${personName(t.paidByPersonId)}</span></div>
@@ -2938,6 +2937,11 @@ function setStatsMode(mode,el){
   renderSummary();
 }
 window.setStatsMode=setStatsMode;
+window.goMonthFromYearView=function(year,monthIndex){
+  statsPeriod=new Date(year,monthIndex,1);
+  const btns=document.querySelectorAll('#page-summary .seg-ctrl .seg-btn');
+  setStatsMode('month', btns[0]);
+};
 function changePeriod(dir){
   if(statsMode==='month') statsPeriod.setMonth(statsPeriod.getMonth()+dir);
   else statsYear+=dir;
@@ -2984,7 +2988,7 @@ function renderSummary(){
       const key=`${statsYear}-${String(m+1).padStart(2,'0')}`;
       const mT=monthMemberTotalForSummary(statsYear,m);
       const now=new Date(); const isCur=m===now.getMonth()&&statsYear===now.getFullYear();
-      html+=`<div class="month-cell${isCur?' active':''}"><div class="mc-lbl">${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m]}</div><div class="mc-val">${mT?fmtBase(mT):'—'}</div></div>`;
+      html+=`<div class="month-cell${isCur?' active':''}" style="cursor:pointer" onclick="goMonthFromYearView(${statsYear},${m})"><div class="mc-lbl">${['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][m]}</div><div class="mc-val">${mT?fmtBase(mT):'—'}</div></div>`;
     }
     html+=`</div></div>`;
   }
@@ -3089,12 +3093,8 @@ function renderSettings(){
       <span class="cat-icon-dot" style="width:20px;height:20px;font-size:12px;background:${catColor(c.id)}22;color:${catColor(c.id)}">${catEmoji(c.id)}</span>
       <span>${c.name||'(未命名)'}</span>
     </div>`).join('')}</div>` : `<div class="settings-row" onclick="openEntitySheet('category')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--text-2)">未有種類</span><span class="settings-arrow">›</span></div>`;
+  const btnStyle='width:100%;padding:12px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none;margin-bottom:8px';
   body.innerHTML=`
-    <div class="sec-label">摘要</div>
-    <div class="card">
-      <div class="settings-row" onclick="rebuildLedgerStats()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">載入全部記錄</span><span class="settings-arrow">›</span></div>
-    </div>
-
     <div class="sec-label">人</div>
     <div class="card">${peopleChips}</div>
     <div style="padding:0 0 8px"><button onclick="openEntitySheet('person')" class="btn-secondary" style="width:100%;padding:13px;border-radius:var(--radius-sm);font-size:14px">管理人員</button></div>
@@ -3107,18 +3107,20 @@ function renderSettings(){
     <div class="card">
       <div class="settings-row"><span class="settings-lbl">名稱</span><span class="settings-val">${currentLedger().name}</span></div>
       <div class="settings-row"><span class="settings-lbl">狀態</span><span class="settings-val lbl-badge ${isLedgerArchived()?'orange':'green'}">${isLedgerArchived()?'已封存':'使用中'}</span></div>
-      <div class="settings-row" onclick="openSheet('sheet-ledger')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">切換帳薄</span><span class="settings-arrow">›</span></div>
-      <div class="settings-row" onclick="openNewLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">＋ 新增帳薄</span><span class="settings-arrow">›</span></div>
-      <div class="settings-row" onclick="openEditLedgerSheet()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">編輯目前帳薄</span><span class="settings-arrow">›</span></div>
-      <div class="settings-row" onclick="toggleLedgerArchive()" style="cursor:pointer"><span class="settings-lbl" style="color:${isLedgerArchived()?'var(--green)':'var(--orange)'}">${isLedgerArchived()?'取消封存':'封存帳薄'}</span><span class="settings-arrow">›</span></div>
+    </div>
+    <div style="padding:0 0 8px;display:flex;flex-direction:column;gap:0">
+      <button onclick="openSheet('sheet-ledger')" class="btn-secondary" style="${btnStyle}">切換帳薄</button>
+      <button onclick="openNewLedgerSheet()" class="btn-secondary" style="${btnStyle}">＋ 新增帳薄</button>
+      <button onclick="openEditLedgerSheet()" class="btn-secondary" style="${btnStyle}">編輯目前帳薄</button>
+      <button onclick="toggleLedgerArchive()" class="btn-secondary" style="${btnStyle};color:${isLedgerArchived()?'var(--green)':'var(--orange)'}">${isLedgerArchived()?'取消封存':'封存帳薄'}</button>
     </div>
 
     <div class="sec-label">匯率設定</div>
     <div class="card">
       <div class="settings-row"><span class="settings-lbl">匯率來源</span><span class="settings-val">Frankfurter / Yahoo</span></div>
       <div class="settings-row"><span class="settings-lbl">最後更新</span><span class="settings-val">${cfg.fxLastUpdated||'從未'}</span></div>
-      <div class="settings-row" onclick="downloadFxRates()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">立即更新</span><span class="settings-arrow">›</span></div>
     </div>
+    <div style="padding:0 0 8px"><button onclick="downloadFxRates()" class="btn-secondary" style="${btnStyle}">立即更新匯率</button></div>
 
     <div class="sec-label">匯入</div>
     <div class="card">
@@ -3137,8 +3139,13 @@ function renderSettings(){
     <div class="sec-label">Firebase</div>
     <div class="card">
       <div class="settings-row"><span class="settings-lbl">${isConnected?'已連接 ✓':'未連接'}</span><span class="settings-val lbl-badge${isConnected?' green':''}">${isConnected?'即時':'離線'}</span></div>
-      <div class="settings-row" onclick="openSheet('sheet-firebase')" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">${cfg.fbConfig?'重新連接':'連接 Firebase'}</span><span class="settings-arrow">›</span></div>
-      <div class="settings-row" onclick="forceReloadSharedMeta()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">重新載入人名 / 種類</span><span class="settings-arrow">›</span></div>
+    </div>
+    <div style="padding:0 0 8px"><button onclick="openSheet('sheet-firebase')" class="btn-secondary" style="${btnStyle}">${cfg.fbConfig?'重新連接 Firebase':'連接 Firebase'}</button></div>
+    <div style="padding:0 0 8px"><button onclick="rebuildLedgerStats()" class="btn-secondary" style="${btnStyle}">載入全部記錄</button></div>
+
+    <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
+      <div>v1.0.0</div>
+      <div>Last updated: 2026-06-30 18:00</div>
     </div>
   `;
   if(cfg.fbConfig){ const el=document.getElementById('fb-config-input'); if(el) el.value=JSON.stringify(cfg.fbConfig,null,2); }
