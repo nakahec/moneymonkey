@@ -990,7 +990,7 @@ function seedDefaults(){
 // UUID + FMT HELPERS
 // ════════════════════════════════════════════════
 function uid(){ return crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)+Date.now().toString(36); }
-function fmt(n, cur){ const d=DECIMAL[cur]??2; return Number(n).toFixed(d); }
+function fmt(n, cur){ const d=DECIMAL[cur]??2; return Number(n).toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
 function fmtBase(n){ return fmt(n, baseCur()); }
 function currentLedgerId(){ return cfg.currentLedgerId || SHARED_LEDGER_ID; }
 function currentLedger(){ return cfg.ledgers.find(l=>l.id===currentLedgerId()) || cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID) || {id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY}; }
@@ -1012,29 +1012,35 @@ function isoDate(d=new Date()){
 // ════════════════════════════════════════════════
 // FX RATES
 // ════════════════════════════════════════════════
+// Returns the raw stored rate for `currency` (relative to SHARED_LEDGER_BASE_CURRENCY, i.e. AUD).
+function rawFxRateForDate(currency, date){
+  if(cfg.fxRates?.[date]?.[currency]!=null) return cfg.fxRates[date][currency];
+  const sorted=Object.keys(cfg.fxRates||{}).filter(d=>d<=date).sort().reverse();
+  for(const d of sorted){
+    if(cfg.fxRates[d]?.[currency]!=null) return cfg.fxRates[d][currency];
+  }
+  const any=Object.keys(cfg.fxRates||{}).sort().reverse();
+  for(const d of any){
+    if(cfg.fxRates[d]?.[currency]!=null) return cfg.fxRates[d][currency];
+  }
+  return null;
+}
+
 function fxRateForDate(currency, date){
   currency=(currency||baseCur()).toUpperCase();
   date=date||isoDate();
   if(currency===baseCur()) return 1;
 
-  // Prefer exact transaction date if we have it.
-  if(cfg.fxRates?.[date]?.[currency]!=null) return cfg.fxRates[date][currency];
-
-  // Otherwise use the most recent previous market day already cached.
-  const sorted=Object.keys(cfg.fxRates||{}).filter(d=>d<=date).sort().reverse();
-  for(const d of sorted){
-    if(cfg.fxRates[d]?.[currency]!=null) return cfg.fxRates[d][currency];
-  }
-
-  // Fallback to any cached date before using hardcoded estimate.
-  const any=Object.keys(cfg.fxRates||{}).sort().reverse();
-  for(const d of any){
-    if(cfg.fxRates[d]?.[currency]!=null) return cfg.fxRates[d][currency];
-  }
-
-  // Last resort only; UI will try to fetch a dated rate in the background.
   const def={HKD:0.197,JPY:0.0099,NTD:0.047,USD:1.53,GBP:1.93,EUR:1.68,SGD:1.14,TWD:0.047,CNY:0.21};
-  return def[currency]??1;
+
+  // Stored rates are relative to SHARED_LEDGER_BASE_CURRENCY (AUD).
+  // If the ledger base is not AUD, compute the cross rate: X→base = (X→AUD) / (base→AUD).
+  const bc=baseCur();
+  const rawCurrency = rawFxRateForDate(currency, date) ?? def[currency] ?? 1;
+  if(bc===SHARED_LEDGER_BASE_CURRENCY) return rawCurrency;
+
+  const rawBase = rawFxRateForDate(bc, date) ?? def[bc] ?? 1;
+  return rawCurrency / rawBase;
 }
 
 function fxMetaForDate(currency,date){
