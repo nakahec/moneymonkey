@@ -376,9 +376,9 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 }
 .fab:active{transform:scale(.92);box-shadow:0 2px 8px rgba(0,122,255,.3)}
 .fab-scan-tab{display:none}
-.tab-scan-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:22px;border:none;flex-shrink:0;margin-top:-20px;box-shadow:0 4px 16px rgba(10,132,255,.4);touch-action:manipulation;align-self:flex-start}
+.tab-scan-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:22px;border:none;flex-shrink:0;position:relative;top:-18px;box-shadow:0 4px 16px rgba(10,132,255,.4);touch-action:manipulation;display:flex;align-items:center;justify-content:center;line-height:1;padding:0}
 .tab-scan-btn:active{transform:scale(.92)}
-.scan-tx-row{background:var(--surface-solid);border-radius:14px;padding:14px;margin-bottom:10px;display:flex;flex-direction:column;gap:8px}
+.scan-tx-row{background:var(--surface-solid);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;flex-direction:column;gap:8px}
 .scan-tx-row.skip{opacity:.35}
 .scan-tx-field{display:flex;align-items:center;gap:8px}
 .scan-tx-lbl{font-size:11px;color:var(--text-2);width:54px;flex-shrink:0;text-transform:uppercase;letter-spacing:.4px}
@@ -617,7 +617,7 @@ html, body, .page { overscroll-behavior-y: contain; }
 
 <button class="fab" id="fab" onclick="openAddFlow()">＋</button>
 <button class="fab-scan-tab" id="fab-scan" onclick="openScanReceipt()" title="掃描收據">📷</button>
-<input type="file" id="scan-photo-input" accept="image/*" capture="environment" style="display:none" onchange="handleScanPhoto(this)">
+<input type="file" id="scan-photo-input" accept="image/*,application/pdf" style="display:none" onchange="handleScanPhoto(this)">
 <div class="toast" id="toast"></div>
 <div id="pull-refresh" hidden></div>
 
@@ -1269,7 +1269,13 @@ let ledgerStats = {}; // aggregate summary cache from Firebase meta/config; keep
 
 function txCacheKey(ledgerId=currentLedgerId()){ return TX_LOCAL_CACHE_PREFIX + ledgerId; }
 function sortTxList(list=[]){
-  return [...list].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')) || String(b.id||'').localeCompare(String(a.id||'')));
+  return [...list].sort((a,b)=>{
+    const dateCmp=String(b.date||'').localeCompare(String(a.date||''));
+    if(dateCmp!==0) return dateCmp;
+    const aMs=a._created?.toMillis?a._created.toMillis():(typeof a._created==='number'?a._created:0);
+    const bMs=b._created?.toMillis?b._created.toMillis():(typeof b._created==='number'?b._created:0);
+    return bMs-aMs || String(b.id||'').localeCompare(String(a.id||''));
+  });
 }
 function mergeTxLists(base=[], incoming=[]){
   const m=new Map();
@@ -1615,6 +1621,7 @@ function subscribeToTx(){
   renderAll();
   const q=query(ledgerCol(), orderBy('date','desc'), limit(TX_LIST_LIMIT));
   unsub=onSnapshot(q, snap=>{
+    // Always merge with existing local cache — never drop old records not in this snapshot
     let list=[...(txs||[])];
     snap.docChanges().forEach(ch=>{
       const id=ch.doc.id;
@@ -1625,7 +1632,8 @@ function subscribeToTx(){
       list=mergeTxLists(list, snap.docs.map(d=>({id:d.id,...d.data(),ledgerId})));
     }
     txs=sortTxList(list);
-    if(isLedgerFullyCached(ledgerId)) saveTxLocalCache(ledgerId, txs, true);
+    // Persist merged list to local cache (not marked complete — only the 100 newest were fetched)
+    saveTxLocalCache(ledgerId, txs, isLedgerFullyCached(ledgerId));
     renderAll();
     setSyncDot('ok');
   }, err=>{ console.error(err); setSyncDot('err'); });
@@ -3974,9 +3982,9 @@ Object.assign(window, {
 
       const catNames=cfg.categories.map(c=>c.name);
       const bc=baseCur();
-      const prompt=`Receipt parser. Return ONLY a JSON array, no markdown.
-Each element: {"itemName":"string","amount":number,"currency":"${bc}","category":"MUST be one of: ${catNames.join('|')}","remark":""}
-Rules: currency default ${bc}, detect from symbol if visible; amount positive number; split each line item separately; date omitted (will be set by user).`;
+      const prompt=`Receipt parser. Return ONLY a JSON object, no markdown.
+Format: {"date":"YYYY-MM-DD","items":[{"itemName":"string","amount":number,"currency":"${bc}","category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
+Rules: date from receipt, default ${isoDate()} if not visible; currency default ${bc}, detect from symbol if visible; amount positive number; split each line item separately.`;
 
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',
@@ -3990,16 +3998,17 @@ Rules: currency default ${bc}, detect from symbol if visible; amount positive nu
       if(!resp.ok) throw new Error('Gemini API error '+resp.status);
       const j=await resp.json();
       const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
-      const match=raw.match(/\[[\s\S]*\]/);
-      if(!match) throw new Error('No JSON array in response');
-      scanResults=JSON.parse(match[0]);
-      if(!Array.isArray(scanResults)||!scanResults.length) throw new Error('Empty result');
+      const objMatch=raw.match(/\{[\s\S]*\}/);
+      if(!objMatch) throw new Error('No JSON in response');
+      const parsed=JSON.parse(objMatch[0]);
+      scanSharedDate=parsed.date||isoDate();
+      scanResults=Array.isArray(parsed.items)?parsed.items:Array.isArray(parsed)?parsed:[];
+      if(!scanResults.length) throw new Error('Empty result');
 
-      scanSharedDate=isoDate();
       scanSharedPaidById=visiblePeople()[0]?.id||cfg.people[0]?.id||'';
       // init per-item usedByIds and categoryId
       scanResults.forEach(t=>{
-        t._usedByIds=[...visiblePeople().map(p=>p.id)];
+        t._usedByIds=['person-charlie','person-ivan'].filter(id=>visiblePeople().some(p=>p.id===id));
         t._catId=cfg.categories.find(c=>c.name.toLowerCase()===String(t.category||'').toLowerCase())?.id||cfg.categories[0]?.id||'';
         t._skip=false;
       });
@@ -4018,16 +4027,14 @@ Rules: currency default ${bc}, detect from symbol if visible; amount positive nu
     const body=document.getElementById('scan-confirm-body');
 
     const sharedHtml=`
-      <div class="sheet-inner" style="margin-bottom:10px">
-        <div class="form-row">
+      <div class="scan-tx-row" style="margin-bottom:10px">
+        <div class="form-row" style="padding:0 0 8px">
           <label class="form-label">日期</label>
-          <input type="date" class="form-control" value="${scanSharedDate}" oninput="scanSharedDate=this.value" style="text-align:right">
+          <input type="date" class="form-control" value="${scanSharedDate}" oninput="setScanDate(this.value)" style="text-align:right">
         </div>
-        <div class="form-row" style="border-top:.5px solid var(--sep);padding-bottom:6px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Paid by</label>
-        </div>
-        <div class="chip-wrap" style="padding:4px 12px 10px">${people.map(p=>`
-          <div class="chip${scanSharedPaidById===p.id?' sel':''}" onclick="scanSetPaidBy('${p.id}')">${p.name}</div>`).join('')}
+        <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Paid by</div>
+        <div class="chip-wrap" style="padding:4px 0 2px;flex-wrap:wrap">${people.map(p=>`
+          <div class="chip${scanSharedPaidById===p.id?' sel':''}" onclick="scanSetPaidBy('${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('')}
         </div>
       </div>`;
 
@@ -4047,15 +4054,16 @@ Rules: currency default ${bc}, detect from symbol if visible; amount positive nu
           <input class="scan-tx-input" value="${t.currency||baseCur()}" oninput="scanResults[${i}].currency=this.value.toUpperCase()" style="width:60px;flex:none">
         </div>
         <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">種類</div>
-        <div class="chip-wrap" style="padding:0 0 6px;flex-wrap:wrap">${catChips}</div>
+        <div class="chip-wrap" style="padding:4px 0 6px;flex-wrap:wrap">${catChips}</div>
         <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Used by</div>
-        <div class="chip-wrap" style="padding:0 0 4px;flex-wrap:wrap">${usedChips}</div>
+        <div class="chip-wrap" style="padding:4px 0 6px;flex-wrap:wrap">${usedChips}</div>
       </div>`;
     }).join('');
 
     body.innerHTML=`<div style="font-size:12px;color:var(--text-2);padding:8px 0 10px">找到 ${scanResults.length} 筆，請確認後儲存：</div>${sharedHtml}${itemsHtml}`;
   }
 
+  window.setScanDate=function(v){ scanSharedDate=v; };
   window.scanSetPaidBy=function(id){
     scanSharedPaidById=id;
     renderScanConfirm();
@@ -4076,6 +4084,16 @@ Rules: currency default ${bc}, detect from symbol if visible; amount positive nu
   };
 
   window.saveScanResults=async function(){
+    // Sync amount/currency directly from DOM inputs before reading scanResults,
+    // because oninput can be unreliable on iOS number inputs.
+    document.querySelectorAll('[id^="scan-row-"]').forEach(row=>{
+      const idx=parseInt(row.id.replace('scan-row-',''));
+      if(isNaN(idx)) return;
+      const amtEl=row.querySelector('input[type="number"]');
+      const curEl=row.querySelectorAll('.scan-tx-input')[1];
+      if(amtEl) scanResults[idx].amount=Number(amtEl.value)||0;
+      if(curEl) scanResults[idx].currency=(curEl.value||'').toUpperCase()||baseCur();
+    });
     const toSave=scanResults.filter(t=>!t._skip);
     if(!toSave.length){ showToast('未選擇任何交易'); return; }
     const btn=document.querySelector('#scan-confirm-actions button:last-child');
