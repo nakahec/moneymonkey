@@ -9,6 +9,8 @@
 <meta name="theme-color" content="#f5f5f7">
 <title>記帳</title>
 <link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/icon.svg">
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TOKENS
@@ -2877,7 +2879,13 @@ window.summaryPersonClick=function(pid){ goHistoryWithFilter({personId:pid}); };
 // ════════════════════════════════════════════════
 // RENDER — HISTORY
 // ════════════════════════════════════════════════
-function renderHistory(){
+const HISTORY_PAGE = 100;
+let historyShown = HISTORY_PAGE;
+let _historyObs = null;
+
+function renderHistory(keepPage=false){
+  if(!keepPage) historyShown=HISTORY_PAGE;
+  if(_historyObs){ _historyObs.disconnect(); _historyObs=null; }
   const q=(document.getElementById('tx-search')?.value||'').trim().toLowerCase();
   const isFuture=txTab==='future';
   let list=txs.filter(t=>t.ledgerId===currentLedgerId()||(t.ledgerId==null&&currentLedgerId()===SHARED_LEDGER_ID));
@@ -2908,12 +2916,27 @@ function renderHistory(){
     }
     return;
   }
+  const visible=list.slice(0,historyShown);
+  const hasMore=list.length>historyShown;
   const grp={};
-  list.forEach(t=>{ if(!grp[t.date]) grp[t.date]=[]; grp[t.date].push(t); });
+  visible.forEach(t=>{ if(!grp[t.date]) grp[t.date]=[]; grp[t.date].push(t); });
   body.innerHTML=Object.entries(grp).sort((a,b)=>b[0].localeCompare(a[0])).map(([date,items])=>{
     const dayTotal=items.filter(t=>t.type==='expense').reduce((s,t)=>s+t.baseAmount,0);
     return `<div class="tx-group-hdr"><span>${fmtDate(date)}</span>${dayTotal?`<span class="tx-group-sum">${baseCur()} ${fmtBase(dayTotal)}</span>`:''}</div>`+items.map(t=>renderTxCard(t)).join('');
-  }).join('');
+  }).join('')+(hasMore?'<div id="history-sentinel" style="height:1px;margin-bottom:1px"></div>':'');
+
+  if(hasMore){
+    const sentinel=document.getElementById('history-sentinel');
+    if(sentinel){
+      _historyObs=new IntersectionObserver(entries=>{
+        if(!entries[0].isIntersecting) return;
+        _historyObs.disconnect(); _historyObs=null;
+        historyShown+=HISTORY_PAGE;
+        renderHistory(true);
+      },{rootMargin:'300px'});
+      _historyObs.observe(sentinel);
+    }
+  }
 }
 
 function categoryDisplayIcon(catId){
