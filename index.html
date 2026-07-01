@@ -375,6 +375,18 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
   touch-action:manipulation;
 }
 .fab:active{transform:scale(.92);box-shadow:0 2px 8px rgba(0,122,255,.3)}
+.fab-scan-tab{display:none}
+.tab-scan-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:22px;border:none;flex-shrink:0;margin-top:-20px;box-shadow:0 4px 16px rgba(10,132,255,.4);touch-action:manipulation;align-self:flex-start}
+.tab-scan-btn:active{transform:scale(.92)}
+.scan-tx-row{background:var(--surface-solid);border-radius:14px;padding:14px;margin-bottom:10px;display:flex;flex-direction:column;gap:8px}
+.scan-tx-row.skip{opacity:.35}
+.scan-tx-field{display:flex;align-items:center;gap:8px}
+.scan-tx-lbl{font-size:11px;color:var(--text-2);width:54px;flex-shrink:0;text-transform:uppercase;letter-spacing:.4px}
+.scan-tx-input{flex:1;background:var(--bg);border:1px solid var(--sep);border-radius:8px;padding:6px 10px;font-size:14px;color:var(--text)}
+.scan-tx-toggle{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.scan-tx-toggle-lbl{font-size:14px;font-weight:600}
+.scan-spinner{text-align:center;padding:32px;font-size:28px;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SETTINGS
@@ -591,6 +603,7 @@ html, body, .page { overscroll-behavior-y: contain; }
       <span class="tab-emoji">🧾</span>
       記錄
     </div>
+    <button class="tab-scan-btn" id="fab-scan" onclick="openScanReceipt()">📷</button>
     <div class="tab" onclick="switchTab('settle',this)">
       <span class="tab-emoji">📊</span>
       統計
@@ -603,6 +616,8 @@ html, body, .page { overscroll-behavior-y: contain; }
 </div>
 
 <button class="fab" id="fab" onclick="openAddFlow()">＋</button>
+<button class="fab-scan-tab" id="fab-scan" onclick="openScanReceipt()" title="掃描收據">📷</button>
+<input type="file" id="scan-photo-input" accept="image/*" capture="environment" style="display:none" onchange="handleScanPhoto(this)">
 <div class="toast" id="toast"></div>
 <div id="pull-refresh" hidden></div>
 
@@ -890,6 +905,20 @@ html, body, .page { overscroll-behavior-y: contain; }
   </div>
 </div>
 
+
+<!-- Scan Receipt Confirmation Sheet -->
+<div class="overlay" id="sheet-scan-confirm">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">掃描收據</div>
+    <div id="scan-confirm-body" style="padding:0 16px;overflow-y:auto;max-height:65vh"></div>
+    <div style="padding:12px;display:flex;gap:8px" id="scan-confirm-actions">
+      <button onclick="closeSheet('sheet-scan-confirm')" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">取消</button>
+      <button onclick="saveScanResults()" style="flex:2;padding:13px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:16px;font-weight:700">儲存已選交易</button>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
 
 <!-- PDF Export Sheet -->
 <div class="overlay" id="sheet-pdf-export">
@@ -3136,6 +3165,14 @@ function renderSettings(){
     </div>
     <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
 
+    <div class="sec-label">AI 掃描</div>
+    <div class="card">
+      <div class="settings-row">
+        <label class="settings-lbl">Gemini API Key</label>
+        <input id="gemini-key-input" type="text" class="form-control" placeholder="AIza..." style="text-align:right;font-size:13px;max-width:180px" value="${cfg.geminiApiKey||''}" oninput="cfg.geminiApiKey=this.value.trim();saveCfg()">
+      </div>
+    </div>
+
     <div class="sec-label">Firebase</div>
     <div class="card">
       <div class="settings-row"><span class="settings-lbl">${isConnected?'已連接 ✓':'未連接'}</span><span class="settings-val lbl-badge${isConnected?' green':''}">${isConnected?'即時':'離線'}</span></div>
@@ -3903,6 +3940,175 @@ Object.assign(window, {
     doc.open(); doc.write(html); doc.close();
     iframe.contentWindow.focus();
     iframe.contentWindow.print();
+  };
+
+  // ── SCAN RECEIPT ──────────────────────────────
+  let scanResults=[];
+  let scanSharedDate=isoDate();
+  let scanSharedPaidById='';
+
+  window.openScanReceipt=function(){
+    const keyFromInput=document.getElementById('gemini-key-input')?.value?.trim();
+    if(keyFromInput){ cfg.geminiApiKey=keyFromInput; saveCfg(); }
+    if(!cfg.geminiApiKey){ showToast('請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)'); return; }
+    document.getElementById('scan-photo-input').value='';
+    document.getElementById('scan-photo-input').click();
+  };
+
+  window.handleScanPhoto=async function(input){
+    const file=input.files?.[0];
+    if(!file) return;
+    const body=document.getElementById('scan-confirm-body');
+    const actions=document.getElementById('scan-confirm-actions');
+    body.innerHTML=`<div class="scan-spinner">⏳</div>`;
+    actions.style.display='none';
+    openSheet('sheet-scan-confirm');
+
+    try{
+      const b64=await new Promise((res,rej)=>{
+        const r=new FileReader();
+        r.onload=e=>res(e.target.result.split(',')[1]);
+        r.onerror=rej;
+        r.readAsDataURL(file);
+      });
+
+      const catNames=cfg.categories.map(c=>c.name);
+      const bc=baseCur();
+      const prompt=`Receipt parser. Return ONLY a JSON array, no markdown.
+Each element: {"itemName":"string","amount":number,"currency":"${bc}","category":"MUST be one of: ${catNames.join('|')}","remark":""}
+Rules: currency default ${bc}, detect from symbol if visible; amount positive number; split each line item separately; date omitted (will be set by user).`;
+
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          contents:[{parts:[{text:prompt},{inline_data:{mime_type:file.type,data:b64}}]}],
+          generationConfig:{temperature:0,maxOutputTokens:1024}
+        })
+      },20000);
+
+      if(!resp.ok) throw new Error('Gemini API error '+resp.status);
+      const j=await resp.json();
+      const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
+      const match=raw.match(/\[[\s\S]*\]/);
+      if(!match) throw new Error('No JSON array in response');
+      scanResults=JSON.parse(match[0]);
+      if(!Array.isArray(scanResults)||!scanResults.length) throw new Error('Empty result');
+
+      scanSharedDate=isoDate();
+      scanSharedPaidById=visiblePeople()[0]?.id||cfg.people[0]?.id||'';
+      // init per-item usedByIds and categoryId
+      scanResults.forEach(t=>{
+        t._usedByIds=[...visiblePeople().map(p=>p.id)];
+        t._catId=cfg.categories.find(c=>c.name.toLowerCase()===String(t.category||'').toLowerCase())?.id||cfg.categories[0]?.id||'';
+        t._skip=false;
+      });
+
+      renderScanConfirm();
+      actions.style.display='flex';
+    }catch(e){
+      console.error(e);
+      body.innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ 掃描失敗<br><span style="font-size:12px;color:var(--text-2)">${e.message}</span></div>`;
+      actions.style.display='none';
+    }
+  };
+
+  function renderScanConfirm(){
+    const people=visiblePeople();
+    const body=document.getElementById('scan-confirm-body');
+
+    const sharedHtml=`
+      <div class="sheet-inner" style="margin-bottom:10px">
+        <div class="form-row">
+          <label class="form-label">日期</label>
+          <input type="date" class="form-control" value="${scanSharedDate}" oninput="scanSharedDate=this.value" style="text-align:right">
+        </div>
+        <div class="form-row" style="border-top:.5px solid var(--sep);padding-bottom:6px">
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Paid by</label>
+        </div>
+        <div class="chip-wrap" style="padding:4px 12px 10px">${people.map(p=>`
+          <div class="chip${scanSharedPaidById===p.id?' sel':''}" onclick="scanSetPaidBy('${p.id}')">${p.name}</div>`).join('')}
+        </div>
+      </div>`;
+
+    const itemsHtml=scanResults.map((t,i)=>{
+      const catChips=cfg.categories.map(c=>`
+        <div class="chip${t._catId===c.id?' sel':''}" onclick="scanSetCat(${i},'${c.id}')" style="font-size:12px;padding:6px 11px">${c.name}</div>`).join('');
+      const usedChips=people.map(p=>`
+        <div class="chip${(t._usedByIds||[]).includes(p.id)?' sel':''}" onclick="scanToggleUsed(${i},'${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('');
+      return `<div class="scan-tx-row${t._skip?' skip':''}" id="scan-row-${i}">
+        <div class="scan-tx-toggle">
+          <span class="scan-tx-toggle-lbl" style="font-weight:700">${t.itemName||'Item '+(i+1)}</span>
+          <label class="toggle-switch"><input type="checkbox" ${t._skip?'':'checked'} onchange="toggleScanRow(${i},this.checked)"><span class="toggle-track"></span></label>
+        </div>
+        <div class="scan-tx-field">
+          <span class="scan-tx-lbl">金額</span>
+          <input class="scan-tx-input" type="number" value="${t.amount||0}" oninput="scanResults[${i}].amount=Number(this.value)">
+          <input class="scan-tx-input" value="${t.currency||baseCur()}" oninput="scanResults[${i}].currency=this.value.toUpperCase()" style="width:60px;flex:none">
+        </div>
+        <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">種類</div>
+        <div class="chip-wrap" style="padding:0 0 6px;flex-wrap:wrap">${catChips}</div>
+        <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Used by</div>
+        <div class="chip-wrap" style="padding:0 0 4px;flex-wrap:wrap">${usedChips}</div>
+      </div>`;
+    }).join('');
+
+    body.innerHTML=`<div style="font-size:12px;color:var(--text-2);padding:8px 0 10px">找到 ${scanResults.length} 筆，請確認後儲存：</div>${sharedHtml}${itemsHtml}`;
+  }
+
+  window.scanSetPaidBy=function(id){
+    scanSharedPaidById=id;
+    renderScanConfirm();
+  };
+  window.scanSetCat=function(i,catId){
+    scanResults[i]._catId=catId;
+    renderScanConfirm();
+  };
+  window.scanToggleUsed=function(i,pid){
+    const cur=scanResults[i]._usedByIds||[];
+    scanResults[i]._usedByIds=cur.includes(pid)?cur.filter(x=>x!==pid):[...cur,pid];
+    renderScanConfirm();
+  };
+
+  window.toggleScanRow=function(i,on){
+    scanResults[i]._skip=!on;
+    document.getElementById('scan-row-'+i)?.classList.toggle('skip',!on);
+  };
+
+  window.saveScanResults=async function(){
+    const toSave=scanResults.filter(t=>!t._skip);
+    if(!toSave.length){ showToast('未選擇任何交易'); return; }
+    const btn=document.querySelector('#scan-confirm-actions button:last-child');
+    if(btn){ btn.disabled=true; btn.textContent='儲存中…'; }
+    let saved=0;
+    const date=scanSharedDate||isoDate();
+    const paidById=scanSharedPaidById||visiblePeople()[0]?.id||'';
+    for(const t of toSave){
+      try{
+        const cur=(t.currency||baseCur()).toUpperCase();
+        const rate=await ensureFxRateForDate(cur,date);
+        const data={
+          type:'expense',
+          itemName:t.itemName||'',
+          categoryId:t._catId||cfg.categories[0]?.id||'',
+          paidByPersonId:paidById,
+          usedByPersonIds:t._usedByIds||[paidById],
+          date,
+          currency:cur,
+          amount:Number(t.amount)||0,
+          fxRate:rate,
+          baseAmount:Number(((t.amount||0)*rate).toFixed(6)),
+          remark:t.remark||'',
+          ledgerId:currentLedgerId(),
+          status:'completed'
+        };
+        await fbAdd(data);
+        saved++;
+      }catch(e){ console.error('saveScanResults',e); }
+    }
+    closeSheet('sheet-scan-confirm');
+    showToast(`已儲存 ${saved} 筆交易`);
+    if(btn){ btn.disabled=false; btn.textContent='儲存已選交易'; }
   };
 
   document.querySelectorAll('.page .nav').forEach(nav=>{
