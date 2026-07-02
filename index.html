@@ -564,8 +564,8 @@ html, body, .page { overscroll-behavior-y: contain; }
       </div>
     </div>
     <div class="future-tabs">
-      <div class="future-tab active" onclick="setTxTab('history',this)">記錄</div>
-      <div class="future-tab" onclick="setTxTab('future',this)">計劃</div>
+      <div class="future-tab active" onclick="setTxTab('history',this)">過去</div>
+      <div class="future-tab" onclick="setTxTab('future',this)">未來</div>
     </div>
     <div class="search-wrap">
       <div class="search-inner">
@@ -824,6 +824,25 @@ html, body, .page { overscroll-behavior-y: contain; }
     <div id="fb-connect-status" style="text-align:center;font-size:12px;color:var(--text-2);padding:4px 0"></div>
     <div style="padding:12px">
       <button onclick="connectFirebase()" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:16px;font-weight:700">連接</button>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
+<!-- Gemini AI Sheet -->
+<div class="overlay" id="sheet-gemini">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">AI 設定</div>
+    <div class="sheet-inner">
+      <div class="form-row" style="flex-direction:column;align-items:flex-start;gap:8px">
+        <label class="form-label wide" style="width:auto">Gemini API Key</label>
+        <input id="gemini-key-input" type="text" placeholder="AIza…" class="form-control left" style="font-size:13px;font-family:ui-monospace,monospace" oninput="cfg.geminiApiKey=this.value.trim();saveCfg()">
+      </div>
+      <div style="font-size:12px;color:var(--text-2);padding:4px 0 8px">從 aistudio.google.com/apikey 免費取得</div>
+    </div>
+    <div style="padding:12px">
+      <button onclick="closeSheet('sheet-gemini')" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:16px;font-weight:700">完成</button>
     </div>
     <div style="height:8px"></div>
   </div>
@@ -1221,11 +1240,10 @@ function toBase(amount, currency, date){
 }
 
 async function downloadFxRates(){
-  setMsg('下載匯率中…');
+  const btn=document.getElementById('fx-update-btn');
+  if(btn){ btn.disabled=true; btn.textContent='更新中…'; }
   const bc=baseCur();
   const syms=CURRENCIES.filter(c=>c!==bc);
-  // Fetch last 2 years of daily rates. This is a bulk cache; individual transaction
-  // dates are also fetched on demand by ensureFxRateForDate().
   const to=isoDate();
   const from=isoDate(new Date(Date.now()-365*2*24*3600*1000));
   const p1=Math.floor(new Date(from).getTime()/1000);
@@ -1234,24 +1252,42 @@ async function downloadFxRates(){
   let fetched=0;
   for(const sym of syms){
     try{
-      const pair=`${yahooCurrency(sym)}${bc}=X`;
-      const url=`https://query1.finance.yahoo.com/v8/finance/chart/${pair}?interval=1d&period1=${p1}&period2=${p2}`;
-      const proxy=`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
-      const r=await fetch(proxy);
-      const j=await r.json();
-      const ts=j?.chart?.result?.[0]?.timestamp||[];
-      const close=j?.chart?.result?.[0]?.indicators?.quote?.[0]?.close||[];
-      ts.forEach((t,i)=>{
-        if(close[i]==null||isNaN(close[i])) return;
-        const d=isoDate(new Date(t*1000));
-        setFxRateForDate(sym,d,close[i],{source:'yahoo-bulk',sourceDate:d});
-      });
+      let ok=false;
+      // Try Frankfurter bulk (supports EUR-family currencies)
+      if(frankfurterSupported(sym)&&frankfurterSupported(bc)){
+        try{
+          const r=await fetch(`https://api.frankfurter.app/${from}..${to}?from=${sym}&to=${bc}&amount=1`);
+          if(r.ok){
+            const j=await r.json();
+            Object.entries(j.rates||{}).forEach(([d,rateMap])=>{
+              const rate=rateMap[bc];
+              if(rate!=null&&!isNaN(rate)) setFxRateForDate(sym,d,rate,{source:'frankfurter-bulk',sourceDate:d});
+            });
+            ok=true;
+          }
+        }catch(_){}
+      }
+      // Fall back to Yahoo via proxy
+      if(!ok){
+        const pair=`${yahooCurrency(sym)}${bc}=X`;
+        const url=`https://query1.finance.yahoo.com/v8/finance/chart/${pair}?interval=1d&period1=${p1}&period2=${p2}`;
+        const proxy=`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`;
+        const r=await fetch(proxy);
+        const j=await r.json();
+        const ts=j?.chart?.result?.[0]?.timestamp||[];
+        const close=j?.chart?.result?.[0]?.indicators?.quote?.[0]?.close||[];
+        ts.forEach((t,i)=>{
+          if(close[i]==null||isNaN(close[i])) return;
+          const d=isoDate(new Date(t*1000));
+          setFxRateForDate(sym,d,close[i],{source:'yahoo-bulk',sourceDate:d});
+        });
+      }
       fetched++;
     }catch(e){ console.warn('FX fetch failed',sym,e); }
   }
   cfg.fxLastUpdated=isoDate();
   saveCfg();
-  setMsg('');
+  if(btn){ btn.disabled=false; btn.textContent='立即更新匯率'; }
   showToast(`匯率已更新（${fetched}/${syms.length}）`);
   renderSettings();
 }
@@ -1769,7 +1805,10 @@ function summaryMemberUsedTotal(scope){
   const pm = scope?.people || {};
   return Object.entries(pm).reduce((sum,[pid,d])=>{
     if(!isSummaryMemberId(pid)) return sum;
-    return sum + Number(d?.used || 0);
+    // subtract transferIn in case old cached stats stored transfers in 'used'
+    const used = Number(d?.used || 0);
+    const transferIn = Number(d?.transferIn || 0);
+    return sum + Math.max(0, used - transferIn);
   },0);
 }
 function summaryAllPeople(scope){
@@ -1850,6 +1889,36 @@ window.toggleSummaryExcludeRent=function(){
   localStorage.setItem('summary-exclude-rent', summaryExcludeRent?'1':'0');
   renderSummary();
 };
+window.toggleSummaryCatByPerson=function(){
+  summaryCatByPerson=!summaryCatByPerson;
+  localStorage.setItem('summary-cat-by-person', summaryCatByPerson?'1':'0');
+  renderSummary();
+};
+function catsByPersonForPeriod(){
+  const ledgerId=currentLedgerId();
+  const result={}; // {pid: {catId: amount}}
+  (txs||[]).forEach(tx=>{
+    if(tx.ledgerId&&tx.ledgerId!==ledgerId) return;
+    if(!tx.ledgerId&&ledgerId!==SHARED_LEDGER_ID) return;
+    if(tx.status!=='completed'||tx.type!=='expense') return;
+    if(summaryExcludeRent&&tx.categoryId==='cat-rent') return;
+    const d=String(tx.date||'');
+    if(statsMode==='month'){
+      const prefix=`${statsPeriod.getFullYear()}-${String(statsPeriod.getMonth()+1).padStart(2,'0')}`;
+      if(!d.startsWith(prefix)) return;
+    } else {
+      if(!d.startsWith(String(statsYear))) return;
+    }
+    const amt=Number(tx.baseAmount||0);
+    const users=Array.isArray(tx.usedByPersonIds)?tx.usedByPersonIds:[];
+    const share=users.length?amt/users.length:0;
+    users.forEach(pid=>{
+      if(!result[pid]) result[pid]={};
+      result[pid][tx.categoryId]=(result[pid][tx.categoryId]||0)+share;
+    });
+  });
+  return result;
+}
 function monthMemberTotalForSummary(year, monthIndex){
   if(summaryExcludeRent){
     return summaryMemberUsedTotal(scopeFromLoadedTxsForPeriod({mode:'month', year, monthIndex, excludeRent:true}));
@@ -1948,6 +2017,7 @@ let statsMode='month'; // 'month'|'year'
 let statsPeriod=new Date(); statsPeriod.setDate(1);
 let statsYear=new Date().getFullYear();
 let summaryExcludeRent = localStorage.getItem('summary-exclude-rent') === '1';
+let summaryCatByPerson = localStorage.getItem('summary-cat-by-person') === '1';
 let txTab='history'; // 'history'|'future'
 let editTxId=null;
 // numpad state
@@ -1991,6 +2061,16 @@ function setTxTab(tab,el){
 }
 window.setTxTab=setTxTab;
 
+window.openFirebaseSheet=function(){
+  const el=document.getElementById('fb-config-input');
+  if(el && cfg.fbConfig) el.value=JSON.stringify(cfg.fbConfig,null,2);
+  openSheet('sheet-firebase');
+};
+window.openGeminiSheet=function(){
+  const el=document.getElementById('gemini-key-input');
+  if(el) el.value=cfg.geminiApiKey||'';
+  openSheet('sheet-gemini');
+};
 function openSheet(id){
   if(id==='sheet-ledger') renderLedgerList();
   const ov=document.getElementById(id);
@@ -2889,8 +2969,10 @@ function renderHistory(keepPage=false){
   const q=(document.getElementById('tx-search')?.value||'').trim().toLowerCase();
   const isFuture=txTab==='future';
   let list=txs.filter(t=>t.ledgerId===currentLedgerId()||(t.ledgerId==null&&currentLedgerId()===SHARED_LEDGER_ID));
-  if(isFuture) list=list.filter(t=>t.status==='scheduled');
-  else list=list.filter(t=>t.status!=='scheduled'&&t.status!=='cancelled');
+  const _today=isoDate();
+  list=list.filter(t=>t.status!=='cancelled');
+  if(isFuture) list=list.filter(t=>String(t.date||'')>_today);
+  else list=list.filter(t=>String(t.date||'')<=_today);
   if(q) list=list.filter(t=>(t.itemName||'').toLowerCase().includes(q)||(t.remark||'').toLowerCase().includes(q));
   if(filters.catId) list=list.filter(t=>t.categoryId===filters.catId);
   if(filters.personId) list=list.filter(t=>t.paidByPersonId===filters.personId||(t.usedByPersonIds||[]).includes(filters.personId)||t.fromPersonId===filters.personId||t.toPersonId===filters.personId);
@@ -2920,10 +3002,11 @@ function renderHistory(keepPage=false){
   const hasMore=list.length>historyShown;
   const grp={};
   visible.forEach(t=>{ if(!grp[t.date]) grp[t.date]=[]; grp[t.date].push(t); });
+  const loadAllBtn=db?`<div style="padding:16px 0 8px;text-align:center"><button onclick="rebuildLedgerStats()" class="btn-secondary" style="padding:10px 24px;border-radius:20px;font-size:13px;font-weight:600;color:var(--text-2)">載入全部記錄</button></div>`:'';
   body.innerHTML=Object.entries(grp).sort((a,b)=>b[0].localeCompare(a[0])).map(([date,items])=>{
     const dayTotal=items.filter(t=>t.type==='expense').reduce((s,t)=>s+t.baseAmount,0);
     return `<div class="tx-group-hdr"><span>${fmtDate(date)}</span>${dayTotal?`<span class="tx-group-sum">${baseCur()} ${fmtBase(dayTotal)}</span>`:''}</div>`+items.map(t=>renderTxCard(t)).join('');
-  }).join('')+(hasMore?'<div id="history-sentinel" style="height:1px;margin-bottom:1px"></div>':'');
+  }).join('')+(hasMore?'<div id="history-sentinel" style="height:1px;margin-bottom:1px"></div>':'')+loadAllBtn;
 
   if(hasMore){
     const sentinel=document.getElementById('history-sentinel');
@@ -3056,12 +3139,31 @@ function renderSummary(){
   }
 
   if(cats.length){
-    html+=`<div class="sec-label" style="display:flex;align-items:center;justify-content:space-between">分類統計<button class="summary-toggle-btn ${summaryExcludeRent?'active':''}" onclick="toggleSummaryExcludeRent()" style="font-size:10px;padding:4px 9px">不計租金</button></div><div class="card">`;
-    cats.forEach(([catId,amt],i)=>{
-      const color=catColor(catId);
-      html+=`<div class="cat-bar-row summary-click" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
-    });
-    html+=`</div>`;
+    html+=`<div class="sec-label" style="display:flex;align-items:center;justify-content:space-between">分類統計<div style="display:flex;gap:5px"><button class="summary-toggle-btn ${summaryExcludeRent?'active':''}" onclick="toggleSummaryExcludeRent()" style="font-size:10px;padding:4px 9px">不計租金</button><button class="summary-toggle-btn ${summaryCatByPerson?'active':''}" onclick="toggleSummaryCatByPerson()" style="font-size:10px;padding:4px 9px">按人</button></div></div>`;
+    if(summaryCatByPerson){
+      const byPerson=catsByPersonForPeriod();
+      const members=visiblePeople().filter(p=>isSummaryMemberId(p.id));
+      members.forEach(p=>{
+        const pCats=byPerson[p.id]||{};
+        const pTotal=Object.values(pCats).reduce((s,v)=>s+v,0);
+        if(!pTotal) return;
+        const pMax=Math.max(...Object.values(pCats));
+        html+=`<div class="card" style="margin-bottom:10px">`;
+        html+=`<div style="padding:10px 16px 4px;display:flex;align-items:center;gap:8px"><span class="person-avatar" style="width:24px;height:24px;font-size:11px;background:${personColor(p.id)}20;color:${personColor(p.id)}">${String(p.name||'?').charAt(0)}</span><span style="font-size:14px;font-weight:700;flex:1">${p.name}</span><span style="font-size:13px;color:var(--text-2)">${baseCur()} ${fmtBase(pTotal)}</span></div>`;
+        Object.entries(pCats).sort((a,b)=>b[1]-a[1]).forEach(([catId,amt])=>{
+          const color=catColor(catId);
+          html+=`<div class="cat-bar-row" style="padding:6px 16px"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name" style="font-size:13px">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(amt/pMax*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val" style="font-size:12px">${fmtBase(amt)}</div></div>`;
+        });
+        html+=`</div>`;
+      });
+    } else {
+      html+=`<div class="card">`;
+      cats.forEach(([catId,amt])=>{
+        const color=catColor(catId);
+        html+=`<div class="cat-bar-row summary-click" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
+      });
+      html+=`</div>`;
+    }
   }
 
   const people=summaryAllPeople(scope);
@@ -3166,15 +3268,22 @@ function renderSettings(){
     <div style="padding:0 0 8px"><button onclick="openEntitySheet('category')" class="btn-secondary" style="width:100%;padding:13px;border-radius:var(--radius-sm);font-size:14px">管理種類</button></div>
 
     <div class="sec-label">帳薄</div>
-    <div class="card">
-      <div class="settings-row"><span class="settings-lbl">名稱</span><span class="settings-val">${currentLedger().name}</span></div>
-      <div class="settings-row"><span class="settings-lbl">狀態</span><span class="settings-val lbl-badge ${isLedgerArchived()?'orange':'green'}">${isLedgerArchived()?'已封存':'使用中'}</span></div>
-    </div>
-    <div style="padding:0 0 8px;display:flex;flex-direction:column;gap:0">
-      <button onclick="openSheet('sheet-ledger')" class="btn-secondary" style="${btnStyle}">切換帳薄</button>
-      <button onclick="openNewLedgerSheet()" class="btn-secondary" style="${btnStyle}">＋ 新增帳薄</button>
-      <button onclick="openEditLedgerSheet()" class="btn-secondary" style="${btnStyle}">編輯目前帳薄</button>
-      <button onclick="toggleLedgerArchive()" class="btn-secondary" style="${btnStyle};color:${isLedgerArchived()?'var(--green)':'var(--orange)'}">${isLedgerArchived()?'取消封存':'封存帳薄'}</button>
+    <div class="card">${cfg.ledgers.filter(l=>l&&l.id).map(l=>{
+      const isCur=l.id===currentLedgerId();
+      const isArch=!!l.archived;
+      return `<div class="settings-row" style="gap:10px;cursor:pointer" onclick="switchLedger('${l.id}')">
+        <span style="width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;background:${isCur?'rgba(10,132,255,.15)':'rgba(0,0,0,.06)'};color:${isCur?'var(--accent)':'var(--text-2)'}">📒</span>
+        <span class="settings-lbl" style="flex:1;font-weight:${isCur?700:400}">${l.name||'帳薄'}</span>
+        ${isCur?`<span class="lbl-badge blue" style="font-size:11px">使用中</span>`:''}
+        <label class="toggle-switch" title="${isArch?'取消封存':'封存'}" onclick="event.stopPropagation();toggleLedgerArchive('${l.id}')">
+          <input type="checkbox" ${isArch?'':'checked'} onclick="event.stopPropagation()" onchange="toggleLedgerArchive('${l.id}')">
+          <span class="toggle-track"></span>
+        </label>
+      </div>`;
+    }).join('')||`<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">未有帳薄</span></div>`}</div>
+    <div style="padding:0 0 8px;display:flex;gap:8px">
+      <button onclick="openNewLedgerSheet()" class="btn-secondary" style="flex:1;padding:12px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none">＋ 新增帳薄</button>
+      <button onclick="openEditLedgerSheet()" class="btn-secondary" style="flex:1;padding:12px;border-radius:var(--radius-sm);font-size:14px;font-weight:600;cursor:pointer;border:none">編輯目前帳薄</button>
     </div>
 
     <div class="sec-label">匯率設定</div>
@@ -3182,7 +3291,7 @@ function renderSettings(){
       <div class="settings-row"><span class="settings-lbl">匯率來源</span><span class="settings-val">Frankfurter / Yahoo</span></div>
       <div class="settings-row"><span class="settings-lbl">最後更新</span><span class="settings-val">${cfg.fxLastUpdated||'從未'}</span></div>
     </div>
-    <div style="padding:0 0 8px"><button onclick="downloadFxRates()" class="btn-secondary" style="${btnStyle}">立即更新匯率</button></div>
+    <div style="padding:0 0 8px"><button id="fx-update-btn" onclick="downloadFxRates()" class="btn-secondary" style="${btnStyle}">立即更新匯率</button></div>
 
     <div class="sec-label">匯入</div>
     <div class="card">
@@ -3198,27 +3307,27 @@ function renderSettings(){
     </div>
     <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
 
-    <div class="sec-label">AI 掃描</div>
-    <div class="card">
-      <div class="settings-row">
-        <label class="settings-lbl">Gemini API Key</label>
-        <input id="gemini-key-input" type="text" class="form-control" placeholder="AIza..." style="text-align:right;font-size:13px;max-width:180px" value="${cfg.geminiApiKey||''}" oninput="cfg.geminiApiKey=this.value.trim();saveCfg()">
+    <div class="sec-label">API</div>
+    <div class="card" style="margin-bottom:8px">
+      <div class="settings-row" onclick="openFirebaseSheet()" style="cursor:pointer">
+        <span style="font-size:18px;line-height:1;margin-right:4px">🔥</span>
+        <span class="settings-lbl" style="flex:1">Firebase</span>
+        <span class="lbl-badge${isConnected?' green':''}" style="font-size:12px;margin-right:6px">${isConnected?'✓ 已連接':'✗ 未連接'}</span>
+        <span class="settings-arrow">›</span>
+      </div>
+      <div class="settings-row" onclick="openGeminiSheet()" style="cursor:pointer;border-top:.5px solid var(--sep)">
+        <span style="font-size:18px;line-height:1;margin-right:4px">✨</span>
+        <span class="settings-lbl" style="flex:1">AI</span>
+        <span class="lbl-badge${cfg.geminiApiKey?' green':''}" style="font-size:12px;margin-right:6px">${cfg.geminiApiKey?'✓ 已設定':'✗ 未設定'}</span>
+        <span class="settings-arrow">›</span>
       </div>
     </div>
-
-    <div class="sec-label">Firebase</div>
-    <div class="card">
-      <div class="settings-row"><span class="settings-lbl">${isConnected?'已連接 ✓':'未連接'}</span><span class="settings-val lbl-badge${isConnected?' green':''}">${isConnected?'即時':'離線'}</span></div>
-    </div>
-    <div style="padding:0 0 8px"><button onclick="openSheet('sheet-firebase')" class="btn-secondary" style="${btnStyle}">${cfg.fbConfig?'重新連接 Firebase':'連接 Firebase'}</button></div>
-    <div style="padding:0 0 8px"><button onclick="rebuildLedgerStats()" class="btn-secondary" style="${btnStyle}">載入全部記錄</button></div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
       <div>v1.0.0</div>
       <div>Last updated: 2026-06-30 18:00</div>
     </div>
   `;
-  if(cfg.fbConfig){ const el=document.getElementById('fb-config-input'); if(el) el.value=JSON.stringify(cfg.fbConfig,null,2); }
 }
 
 window.downloadFxRates=downloadFxRates;
