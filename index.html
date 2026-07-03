@@ -89,7 +89,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .tab-indicator{position:absolute;top:0;left:0;width:0;height:2px;background:var(--accent);border-radius:0 0 2px 2px;transition:left .25s cubic-bezier(.4,0,.2,1),width .25s cubic-bezier(.4,0,.2,1)}
 
 /* PAGES */
-.page{display:none;flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;min-height:0}
+.page{display:none;flex:1;height:0;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior-y:none;min-height:0}
 .page.active{display:flex;flex-direction:column}
 
 /* NAV BAR */
@@ -839,7 +839,6 @@ html, body, .page { overscroll-behavior-y: contain; }
         <label class="form-label wide" style="width:auto">Gemini API Key</label>
         <input id="gemini-key-input" type="text" placeholder="AIza…" class="form-control left" style="font-size:13px;font-family:ui-monospace,monospace" oninput="cfg.geminiApiKey=this.value.trim();saveCfg()">
       </div>
-      <div style="font-size:12px;color:var(--text-2);padding:4px 0 8px">從 aistudio.google.com/apikey 免費取得</div>
     </div>
     <div style="padding:12px">
       <button onclick="closeSheet('sheet-gemini')" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;font-size:16px;font-weight:700">完成</button>
