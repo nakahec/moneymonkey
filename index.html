@@ -925,6 +925,19 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
   </div>
 </div>
 
+<div class="overlay" id="sheet-ai-cat-review">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">🔍 AI 審查種類</div>
+    <div id="ai-cat-review-body" style="padding:0 16px;overflow-y:auto;max-height:65vh"></div>
+    <div style="padding:12px;display:flex;gap:8px" id="ai-cat-review-actions">
+      <button onclick="closeSheet('sheet-ai-cat-review')" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">關閉</button>
+      <button id="ai-cat-primary-btn" style="flex:2;padding:13px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:15px;font-weight:700">開始分析</button>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
 <!-- Bank Statement Sheet -->
 <div class="overlay" id="sheet-bank-stmt">
   <div class="sheet sheet-wide" style="max-height:96dvh">
@@ -1881,21 +1894,14 @@ window.toggleSummaryCatByPerson=function(){
   localStorage.setItem('summary-cat-by-person', summaryCatByPerson?'1':'0');
   renderSummary();
 };
-function catsByPersonForPeriod(){
+function catsByPersonFromList(list){
   const ledgerId=currentLedgerId();
-  const result={}; // {pid: {catId: amount}}
-  (txs||[]).forEach(tx=>{
+  const result={};
+  (list||[]).forEach(tx=>{
     if(tx.ledgerId&&tx.ledgerId!==ledgerId) return;
     if(!tx.ledgerId&&ledgerId!==SHARED_LEDGER_ID) return;
     if(tx.status!=='completed'||tx.type!=='expense') return;
     if(summaryExcludeRent&&tx.categoryId==='cat-rent') return;
-    const d=String(tx.date||'');
-    if(statsMode==='month'){
-      const prefix=`${statsPeriod.getFullYear()}-${String(statsPeriod.getMonth()+1).padStart(2,'0')}`;
-      if(!d.startsWith(prefix)) return;
-    } else {
-      if(!d.startsWith(String(statsYear))) return;
-    }
     const amt=Number(tx.baseAmount||0);
     const users=Array.isArray(tx.usedByPersonIds)?tx.usedByPersonIds:[];
     const share=users.length?amt/users.length:0;
@@ -1905,6 +1911,47 @@ function catsByPersonForPeriod(){
     });
   });
   return result;
+}
+function catsByPersonForPeriod(){
+  const ledgerId=currentLedgerId();
+  const prefix=statsMode==='month'
+    ?`${statsPeriod.getFullYear()}-${String(statsPeriod.getMonth()+1).padStart(2,'0')}`
+    :String(statsYear);
+  const list=(txs||[]).filter(tx=>{
+    if(tx.ledgerId&&tx.ledgerId!==ledgerId) return false;
+    if(!tx.ledgerId&&ledgerId!==SHARED_LEDGER_ID) return false;
+    return String(tx.date||'').startsWith(prefix);
+  });
+  return catsByPersonFromList(list);
+}
+
+function renderByPersonCats(byPerson){
+  const members=visiblePeople().filter(p=>isSummaryMemberId(p.id));
+  let html='';
+  members.forEach(p=>{
+    const pCats=byPerson[p.id]||{};
+    const pTotal=Object.values(pCats).reduce((s,v)=>s+v,0);
+    if(!pTotal) return;
+    const pMax=Math.max(...Object.values(pCats));
+    html+=`<div class="card" style="margin-bottom:10px">`;
+    html+=`<div style="padding:10px 16px 4px;display:flex;align-items:center;gap:8px"><span class="person-avatar" style="width:24px;height:24px;font-size:11px;background:${personColor(p.id)}20;color:${personColor(p.id)}">${String(p.name||'?').charAt(0)}</span><span style="font-size:14px;font-weight:700;flex:1">${p.name}</span><span style="font-size:13px;color:var(--text-2)">${baseCur()} ${fmtBase(pTotal)}</span></div>`;
+    Object.entries(pCats).sort((a,b)=>b[1]-a[1]).forEach(([catId,amt])=>{
+      const color=catColor(catId);
+      html+=`<div class="cat-bar-row summary-click" style="padding:6px 16px" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name" style="font-size:13px">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(amt/pMax*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val" style="font-size:12px">${fmtBase(amt)}</div></div>`;
+    });
+    html+=`</div>`;
+  });
+  return html;
+}
+
+// Cache for full-year tx lists (keyed by "ledgerId:year")
+const _yearTxsCache={};
+async function ensureYearTxs(year){
+  const key=`${currentLedgerId()}:${year}`;
+  if(_yearTxsCache[key]) return _yearTxsCache[key];
+  const snap=await getDocs(query(ledgerCol(),where('date','>=',`${year}-01-01`),where('date','<=',`${year}-12-31`),orderBy('date','desc')));
+  _yearTxsCache[key]=snap.docs.map(d=>({id:d.id,...d.data()}));
+  return _yearTxsCache[key];
 }
 function monthMemberTotalForSummary(year, monthIndex){
   if(summaryExcludeRent){
@@ -3112,21 +3159,18 @@ function renderSummary(){
   if(cats.length){
     html+=`<div class="sec-label" style="display:flex;align-items:center;justify-content:space-between">分類統計<div style="display:flex;gap:5px"><button class="summary-toggle-btn ${summaryExcludeRent?'active':''}" onclick="toggleSummaryExcludeRent()" style="font-size:10px;padding:4px 9px">不計租金</button><button class="summary-toggle-btn ${summaryCatByPerson?'active':''}" onclick="toggleSummaryCatByPerson()" style="font-size:10px;padding:4px 9px">按人</button></div></div>`;
     if(summaryCatByPerson){
-      const byPerson=catsByPersonForPeriod();
-      const members=visiblePeople().filter(p=>isSummaryMemberId(p.id));
-      members.forEach(p=>{
-        const pCats=byPerson[p.id]||{};
-        const pTotal=Object.values(pCats).reduce((s,v)=>s+v,0);
-        if(!pTotal) return;
-        const pMax=Math.max(...Object.values(pCats));
-        html+=`<div class="card" style="margin-bottom:10px">`;
-        html+=`<div style="padding:10px 16px 4px;display:flex;align-items:center;gap:8px"><span class="person-avatar" style="width:24px;height:24px;font-size:11px;background:${personColor(p.id)}20;color:${personColor(p.id)}">${String(p.name||'?').charAt(0)}</span><span style="font-size:14px;font-weight:700;flex:1">${p.name}</span><span style="font-size:13px;color:var(--text-2)">${baseCur()} ${fmtBase(pTotal)}</span></div>`;
-        Object.entries(pCats).sort((a,b)=>b[1]-a[1]).forEach(([catId,amt])=>{
-          const color=catColor(catId);
-          html+=`<div class="cat-bar-row" style="padding:6px 16px"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name" style="font-size:13px">${catEmoji(catId)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(amt/pMax*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val" style="font-size:12px">${fmtBase(amt)}</div></div>`;
-        });
-        html+=`</div>`;
-      });
+      if(statsMode==='year'){
+        const cacheKey=`${currentLedgerId()}:${statsYear}`;
+        if(!_yearTxsCache[cacheKey]){
+          html+=`<div class="empty"><div class="empty-icon">⏳</div>載入中…</div>`;
+          ensureYearTxs(statsYear).then(()=>renderSummary());
+        } else {
+          const byPerson=catsByPersonFromList(_yearTxsCache[cacheKey].filter(tx=>summaryExcludeRent?tx.categoryId!=='cat-rent':true));
+          html+=renderByPersonCats(byPerson);
+        }
+      } else {
+        html+=renderByPersonCats(catsByPersonForPeriod());
+      }
     } else {
       html+=`<div class="card">`;
       cats.forEach(([catId,amt])=>{
@@ -3266,7 +3310,6 @@ function renderSettings(){
 
     <div class="sec-label">匯入</div>
     <div class="card">
-      <div class="settings-row" onclick="openBankStmt()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">對帳銀行結單</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="openImportExcel()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯入交易 Excel / CSV</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="downloadSampleCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">下載範例 CSV</span><span class="settings-arrow">›</span></div>
     </div>
@@ -3290,6 +3333,20 @@ function renderSettings(){
         <span style="font-size:18px;line-height:1;margin-right:4px">✨</span>
         <span class="settings-lbl" style="flex:1">AI</span>
         <span class="lbl-badge${cfg.geminiApiKey?' green':''}" style="font-size:12px;margin-right:6px">${cfg.geminiApiKey?'✓ 已設定':'✗ 未設定'}</span>
+        <span class="settings-arrow">›</span>
+      </div>
+    </div>
+
+    <div class="sec-label">AI 工具</div>
+    <div class="card" style="margin-bottom:8px">
+      <div class="settings-row" onclick="openBankStmt()" style="cursor:pointer">
+        <span style="font-size:18px;line-height:1;margin-right:4px">🏦</span>
+        <span class="settings-lbl" style="flex:1">對帳銀行結單</span>
+        <span class="settings-arrow">›</span>
+      </div>
+      <div class="settings-row" onclick="openAiCatReview()" style="cursor:pointer;border-top:.5px solid var(--sep)">
+        <span style="font-size:18px;line-height:1;margin-right:4px">🔍</span>
+        <span class="settings-lbl" style="flex:1">AI 審查種類分類</span>
         <span class="settings-arrow">›</span>
       </div>
     </div>
@@ -4042,12 +4099,14 @@ Object.assign(window, {
   let scanResults=[];
   let scanSharedDate=isoDate();
   let scanSharedPaidById='';
+  let scanSharedCurrency=baseCur();
 
   window.openScanReceipt=function(){
     const keyFromInput=document.getElementById('gemini-key-input')?.value?.trim();
     if(keyFromInput){ cfg.geminiApiKey=keyFromInput; saveCfg(); }
     if(!cfg.geminiApiKey){ showToast('請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)'); return; }
     document.getElementById('scan-photo-input').value='';
+    scanSharedCurrency=baseCur();
     document.getElementById('scan-photo-input').click();
   };
 
@@ -4071,8 +4130,8 @@ Object.assign(window, {
       const catNames=cfg.categories.map(c=>c.name);
       const bc=baseCur();
       const prompt=`Receipt parser. Return ONLY a JSON object, no markdown.
-Format: {"date":"YYYY-MM-DD","items":[{"itemName":"string","amount":number,"currency":"${bc}","category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
-Rules: date from receipt, default ${isoDate()} if not visible; currency default ${bc}, detect from symbol if visible; amount positive number; split each line item separately.`;
+Format: {"date":"YYYY-MM-DD","currency":"${bc}","items":[{"itemName":"string","amount":number,"category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
+Rules: date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); split each line item separately.`;
 
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',
@@ -4090,19 +4149,22 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
       if(!objMatch) throw new Error('No JSON in response');
       const parsed=JSON.parse(objMatch[0]);
       scanSharedDate=parsed.date||isoDate();
+      scanSharedCurrency=(parsed.currency||baseCur()).toUpperCase();
       scanResults=Array.isArray(parsed.items)?parsed.items:Array.isArray(parsed)?parsed:[];
       if(!scanResults.length) throw new Error('Empty result');
 
       scanSharedPaidById=visiblePeople()[0]?.id||cfg.people[0]?.id||'';
       // init per-item usedByIds and categoryId
       scanResults.forEach(t=>{
-        t._usedByIds=visiblePeople().map(p=>p.id);
+        t._usedByIds=visiblePeople().slice(0,2).map(p=>p.id);
         t._catId=cfg.categories.find(c=>c.name.toLowerCase()===String(t.category||'').toLowerCase())?.id||cfg.categories[0]?.id||'';
         t._skip=false;
       });
 
       renderScanConfirm();
       actions.style.display='flex';
+      // auto-complete item names in the background
+      aiCompleteItemNames();
     }catch(e){
       console.error(e);
       body.innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ 掃描失敗<br><span style="font-size:12px;color:var(--text-2)">${e.message}</span></div>`;
@@ -4114,12 +4176,15 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
     const people=visiblePeople();
     const body=document.getElementById('scan-confirm-body');
 
+    const curPills=CURRENCIES.slice(0,6).map(c=>`<div class="chip${c===scanSharedCurrency?' sel':''}" onclick="setScanCurrency('${c}')" style="font-size:12px;padding:6px 11px">${c}</div>`).join('');
     const sharedHtml=`
       <div class="scan-tx-row" style="margin-bottom:10px">
         <div class="form-row" style="padding:0 0 8px">
           <label class="form-label">日期</label>
           <input type="date" class="form-control" value="${scanSharedDate}" oninput="setScanDate(this.value)" style="text-align:right">
         </div>
+        <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">貨幣</div>
+        <div class="chip-wrap" style="padding:4px 0 6px;flex-wrap:wrap">${curPills}</div>
         <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Paid by</div>
         <div class="chip-wrap" style="padding:4px 0 2px;flex-wrap:wrap">${people.map(p=>`
           <div class="chip${scanSharedPaidById===p.id?' sel':''}" onclick="scanSetPaidBy('${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('')}
@@ -4133,13 +4198,12 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
         <div class="chip${(t._usedByIds||[]).includes(p.id)?' sel':''}" onclick="scanToggleUsed(${i},'${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('');
       return `<div class="scan-tx-row${t._skip?' skip':''}" id="scan-row-${i}">
         <div class="scan-tx-toggle">
-          <span class="scan-tx-toggle-lbl" style="font-weight:700">${t.itemName||'Item '+(i+1)}</span>
-          <label class="toggle-switch"><input type="checkbox" ${t._skip?'':'checked'} onchange="toggleScanRow(${i},this.checked)"><span class="toggle-track"></span></label>
+          <input class="scan-tx-input" value="${escapeHtml(t.itemName||'')}" placeholder="Item ${i+1}" oninput="scanResults[${i}].itemName=this.value" style="flex:1;font-weight:700;font-size:14px">
+          <label class="toggle-switch" style="flex-shrink:0;margin-left:8px"><input type="checkbox" ${t._skip?'':'checked'} onchange="toggleScanRow(${i},this.checked)"><span class="toggle-track"></span></label>
         </div>
         <div class="scan-tx-field">
           <span class="scan-tx-lbl">金額</span>
           <input class="scan-tx-input" type="number" value="${t.amount||0}" oninput="scanResults[${i}].amount=Number(this.value)">
-          <input class="scan-tx-input" value="${t.currency||baseCur()}" oninput="scanResults[${i}].currency=this.value.toUpperCase()" style="width:60px;flex:none">
         </div>
         <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">種類</div>
         <div class="chip-wrap" style="padding:4px 0 6px;flex-wrap:wrap">${catChips}</div>
@@ -4152,6 +4216,37 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
   }
 
   window.setScanDate=function(v){ scanSharedDate=v; };
+  window.setScanCurrency=function(c){ scanSharedCurrency=c; renderScanConfirm(); };
+
+  window.aiCompleteItemNames=async function(){
+    if(!cfg.geminiApiKey){ showToast('請先設定 Gemini API Key'); return; }
+    const btn=document.getElementById('scan-complete-btn');
+    if(btn){ btn.disabled=true; btn.textContent='✨ 補全中…'; }
+    try{
+      const items=scanResults.map((t,i)=>({index:i,name:t.itemName||''}));
+      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Return ONLY a JSON array, no markdown: [{"index":0,"name":"Full Name"}]
+Items: ${JSON.stringify(items)}`;
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:512}})
+      },12000);
+      if(!resp.ok) throw new Error('Gemini error '+resp.status);
+      const j=await resp.json();
+      const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
+      const m=raw.match(/\[[\s\S]*\]/);
+      if(!m) throw new Error('No JSON array');
+      JSON.parse(m[0]).forEach(s=>{ if(scanResults[s.index]&&s.name) scanResults[s.index].itemName=s.name; });
+      renderScanConfirm();
+      showToast('名稱已補全');
+    }catch(e){
+      console.error('aiCompleteItemNames',e);
+      showToast('補全失敗');
+    }finally{
+      const b=document.getElementById('scan-complete-btn');
+      if(b){ b.disabled=false; b.textContent='✨ 補全名稱'; }
+    }
+  };
+
   window.scanSetPaidBy=function(id){
     scanSharedPaidById=id;
     renderScanConfirm();
@@ -4172,15 +4267,13 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
   };
 
   window.saveScanResults=async function(){
-    // Sync amount/currency directly from DOM inputs before reading scanResults,
+    // Sync amount directly from DOM inputs before reading scanResults,
     // because oninput can be unreliable on iOS number inputs.
     document.querySelectorAll('[id^="scan-row-"]').forEach(row=>{
       const idx=parseInt(row.id.replace('scan-row-',''));
       if(isNaN(idx)) return;
       const amtEl=row.querySelector('input[type="number"]');
-      const curEl=row.querySelectorAll('.scan-tx-input')[1];
       if(amtEl) scanResults[idx].amount=Number(amtEl.value)||0;
-      if(curEl) scanResults[idx].currency=(curEl.value||'').toUpperCase()||baseCur();
     });
     const toSave=scanResults.filter(t=>!t._skip);
     if(!toSave.length){ showToast('未選擇任何交易'); return; }
@@ -4191,7 +4284,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
     const paidById=scanSharedPaidById||visiblePeople()[0]?.id||'';
     for(const t of toSave){
       try{
-        const cur=(t.currency||baseCur()).toUpperCase();
+        const cur=scanSharedCurrency||baseCur();
         const rate=await ensureFxRateForDate(cur,date);
         const data={
           type:'expense',
@@ -4218,11 +4311,147 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
   };
 
   // ════════════════════════════════════════════════
+  // AI CATEGORY REVIEW
+  // ════════════════════════════════════════════════
+
+  let aiCatSuggestions=[];
+  let aiCatFetchedTxs=[];
+
+  function aiCatDefaultPeriod(){
+    const now=new Date();
+    const y=now.getFullYear(), m=String(now.getMonth()+1).padStart(2,'0');
+    const last=new Date(y,now.getMonth()+1,0).getDate();
+    return {from:`${y}-${m}-01`, to:`${y}-${m}-${last}`};
+  }
+
+  window.openAiCatReview=function(){
+    if(!cfg.geminiApiKey){ showToast('請先在設定輸入 Gemini API Key'); return; }
+    if(!db){ showToast('請先連接 Firebase'); return; }
+    const {from,to}=aiCatDefaultPeriod();
+    const body=document.getElementById('ai-cat-review-body');
+    const btn=document.getElementById('ai-cat-primary-btn');
+    body.innerHTML=`
+      <div style="padding:12px 0 8px">
+        <div class="form-row" style="padding:0 0 12px">
+          <label class="form-label">開始日期</label>
+          <input type="date" id="ai-cat-from" class="form-control" value="${from}" style="text-align:right">
+        </div>
+        <div class="form-row" style="padding:0">
+          <label class="form-label">結束日期</label>
+          <input type="date" id="ai-cat-to" class="form-control" value="${to}" style="text-align:right">
+        </div>
+      </div>`;
+    btn.textContent='開始分析';
+    btn.onclick=runAiCatReview;
+    btn.disabled=false;
+    openSheet('sheet-ai-cat-review');
+  };
+
+  async function runAiCatReview(){
+    const fromVal=document.getElementById('ai-cat-from')?.value;
+    const toVal=document.getElementById('ai-cat-to')?.value;
+    if(!fromVal||!toVal){ showToast('請選擇日期範圍'); return; }
+    const body=document.getElementById('ai-cat-review-body');
+    const btn=document.getElementById('ai-cat-primary-btn');
+    body.innerHTML=`<div class="scan-spinner">⏳</div><div style="text-align:center;color:var(--text-2);font-size:13px;padding-bottom:16px">載入資料中…</div>`;
+    btn.disabled=true;
+    try{
+      const snap=await getDocs(query(ledgerCol(),where('date','>=',fromVal),where('date','<=',toVal),orderBy('date','desc')));
+      aiCatFetchedTxs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(t=>t.status==='completed'&&t.type==='expense');
+      if(!aiCatFetchedTxs.length){
+        body.innerHTML=`<div class="empty"><div class="empty-icon">📋</div>該時段沒有支出記錄</div>`;
+        btn.textContent='開始分析'; btn.onclick=runAiCatReview; btn.disabled=false;
+        return;
+      }
+      body.innerHTML=`<div class="scan-spinner">✨</div><div style="text-align:center;color:var(--text-2);font-size:13px;padding-bottom:16px">AI 分析中（共 ${aiCatFetchedTxs.length} 筆）…</div>`;
+      const catList=cfg.categories.map(c=>c.name).join(', ');
+      const txList=aiCatFetchedTxs.map(t=>({id:t.id,name:t.itemName||'',category:catName(t.categoryId),remark:t.remark||''}));
+      const prompt=`You are a financial categorization assistant. Review these expense transactions and identify any that seem miscategorized.
+Available categories: ${catList}.
+Transactions (JSON): ${JSON.stringify(txList)}
+For each transaction with a WRONG category, suggest the correct one. Only flag transactions where you are confident.
+Return ONLY a JSON array (empty [] if all correct): [{"id":"txId","suggestedCategory":"CategoryName"}]`;
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:2048}})
+      },30000);
+      if(!resp.ok) throw new Error('Gemini error '+resp.status);
+      const j=await resp.json();
+      const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
+      const m=raw.match(/\[[\s\S]*\]/);
+      const suggestions=m?JSON.parse(m[0]):[];
+      aiCatSuggestions=suggestions.map(s=>{
+        const tx=aiCatFetchedTxs.find(t=>t.id===s.id);
+        if(!tx) return null;
+        const sugCat=cfg.categories.find(c=>c.name.toLowerCase()===String(s.suggestedCategory||'').toLowerCase());
+        if(!sugCat||sugCat.id===tx.categoryId) return null;
+        return {txId:tx.id,txName:tx.itemName||'',txDate:tx.date||'',currentCatId:tx.categoryId,suggestedCatId:sugCat.id,accepted:true};
+      }).filter(Boolean);
+      renderAiCatReview();
+      btn.textContent='套用已選更改'; btn.onclick=applyAiCatSuggestions; btn.disabled=false;
+    }catch(e){
+      console.error(e);
+      body.innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ 分析失敗<br><span style="font-size:12px;color:var(--text-2)">${escapeHtml(e.message)}</span></div>`;
+      btn.textContent='重試'; btn.onclick=runAiCatReview; btn.disabled=false;
+    }
+  }
+
+  function renderAiCatReview(){
+    const body=document.getElementById('ai-cat-review-body');
+    if(!aiCatSuggestions.length){
+      body.innerHTML=`<div class="empty"><div class="empty-icon">✅</div><div>種類分類正確，無需更改</div></div>`;
+      return;
+    }
+    body.innerHTML=`<div style="font-size:12px;color:var(--text-2);padding:10px 0 4px">AI 建議以下 ${aiCatSuggestions.length} 項更改：</div>`+
+      aiCatSuggestions.map((s,i)=>`
+        <div style="background:var(--surface-solid);border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--card-shadow)">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
+            <div style="min-width:0;flex:1">
+              <div style="font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(s.txName)||'—'}</div>
+              <div style="font-size:12px;color:var(--text-2);margin-top:2px">${s.txDate}</div>
+            </div>
+            <label class="toggle-switch" style="flex-shrink:0;margin-left:12px">
+              <input type="checkbox" ${s.accepted?'checked':''} onchange="toggleAiCatSuggestion(${i},this.checked)">
+              <span class="toggle-track"></span>
+            </label>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;font-size:13px;flex-wrap:wrap;margin-top:8px">
+            <span style="padding:4px 10px;border-radius:8px;background:${catColor(s.currentCatId)}18;color:${catColor(s.currentCatId)};font-weight:700">${catEmoji(s.currentCatId)} ${catName(s.currentCatId)}</span>
+            <span style="color:var(--text-3)">→</span>
+            <span style="padding:4px 10px;border-radius:8px;background:${catColor(s.suggestedCatId)}18;color:${catColor(s.suggestedCatId)};font-weight:700">${catEmoji(s.suggestedCatId)} ${catName(s.suggestedCatId)}</span>
+          </div>
+        </div>`).join('');
+  }
+
+  window.toggleAiCatSuggestion=function(i,accepted){ if(aiCatSuggestions[i]) aiCatSuggestions[i].accepted=accepted; };
+
+  async function applyAiCatSuggestions(){
+    const toApply=aiCatSuggestions.filter(s=>s.accepted);
+    if(!toApply.length){ showToast('沒有選擇任何更改'); return; }
+    const btn=document.getElementById('ai-cat-primary-btn');
+    if(btn){ btn.disabled=true; btn.textContent='套用中…'; }
+    let applied=0;
+    for(const s of toApply){
+      try{
+        const tx=aiCatFetchedTxs.find(t=>t.id===s.txId);
+        if(!tx) continue;
+        await fbSet(s.txId,{...tx,categoryId:s.suggestedCatId});
+        applied++;
+      }catch(e){ console.error('applyAiCatSuggestions',e); }
+    }
+    closeSheet('sheet-ai-cat-review');
+    showToast(`已更新 ${applied} 筆交易種類`);
+  }
+
+  // ════════════════════════════════════════════════
   // BANK STATEMENT RECONCILIATION
   // ════════════════════════════════════════════════
   let bankItems=[];
   let bankView='review'; // 'review' | 'input'
   let bankHideMatched=false;
+  let bankFilterName='';
+  let bankFilterCatId='';
+  let bankInputSelected=new Set();
 
   window.openBankStmt=function(){
     if(!cfg.geminiApiKey){ showToast('請先在設定輸入 Gemini API Key'); return; }
@@ -4235,6 +4464,8 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
     if(!file) return;
     bankView='review';
     bankItems=[];
+    bankFilterName='';
+    bankFilterCatId='';
     document.getElementById('bank-stmt-title').textContent='對帳銀行結單';
     document.getElementById('bank-stmt-body').innerHTML=`<div class="scan-spinner">⏳</div>`;
     document.getElementById('bank-stmt-actions').style.display='none';
@@ -4254,7 +4485,8 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
       if(!resp.ok) throw new Error('Gemini API error '+resp.status);
       const j=await resp.json();
       const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
-      const arrMatch=raw.match(/\[[\s\S]*\]/);
+      const cleaned=raw.replace(/```[\w]*\n?/g,'').replace(/```/g,'').trim();
+      const arrMatch=cleaned.match(/\[[\s\S]*\]/);
       if(!arrMatch) throw new Error('No JSON array in response');
       const parsed=JSON.parse(arrMatch[0]);
       if(!Array.isArray(parsed)||!parsed.length) throw new Error('Empty result');
@@ -4342,15 +4574,41 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
     const colHdr=(label)=>`<div style="font-size:10px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px;padding:0 0 4px">${label}</div>`;
     const matchedTxIds=new Set(bankItems.flatMap(x=>x._matchedTxIds||[]));
 
-    const filterBar=`<div style="display:flex;align-items:center;gap:8px;padding:4px 0 10px">
-      <button onclick="toggleBankHideMatched()" style="padding:6px 12px;border-radius:16px;font-size:12px;font-weight:700;border:none;cursor:pointer;background:${bankHideMatched?'var(--accent)':'rgba(0,0,0,.06)'};color:${bankHideMatched?'#fff':'var(--text-2)'}">
-        ${bankHideMatched?'✓ 隱藏已匹配':'隱藏已匹配'}
-      </button>
-      <span style="font-size:12px;color:var(--text-2)">${matchedCount} 已匹配 · ${addCount} 待新增 · ${bankItems.length-matchedCount-addCount} 略過</span>
+    const catChipAll=`<div class="chip${!bankFilterCatId?' sel':''}" onclick="setBankFilterCat('')" style="font-size:11px;padding:5px 10px">全部</div>`;
+    const catChips=cfg.categories.map(c=>`<div class="chip${bankFilterCatId===c.id?' sel':''}" onclick="setBankFilterCat('${c.id}')" style="font-size:11px;padding:5px 10px">${catEmoji(c.id)} ${c.name}</div>`).join('');
+
+    const filterBar=`<div style="padding:4px 0 10px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+        <button onclick="toggleBankHideMatched()" style="padding:6px 12px;border-radius:16px;font-size:12px;font-weight:700;border:none;cursor:pointer;flex-shrink:0;background:${bankHideMatched?'var(--accent)':'rgba(0,0,0,.06)'};color:${bankHideMatched?'#fff':'var(--text-2)'}">
+          ${bankHideMatched?'✓ 隱藏已匹配':'隱藏已匹配'}
+        </button>
+        <span style="font-size:12px;color:var(--text-2)">${matchedCount} 已匹配 · ${addCount} 待新增 · ${bankItems.length-matchedCount-addCount} 略過</span>
+      </div>
+      <input type="search" placeholder="搜尋名稱…" value="${escapeHtml(bankFilterName)}" onchange="setBankFilterName(this.value)" onblur="setBankFilterName(this.value)" style="width:100%;box-sizing:border-box;padding:8px 12px;border-radius:12px;border:.5px solid var(--sep);background:var(--surface-solid);font-size:13px;color:var(--text);outline:none;margin-bottom:8px">
+      <div class="chip-wrap" style="flex-wrap:wrap;gap:6px">${catChipAll}${catChips}</div>
     </div>`;
 
+    // apply filters
+    function bankItemMatchesFilter(item){
+      if(bankFilterName && !item.description.toLowerCase().includes(bankFilterName.toLowerCase())) return false;
+      if(bankFilterCatId){
+        if(item._action==='exists'){
+          const matched=item._matchedTxIds.some(id=>{ const t=txs.find(x=>x.id===id); return t?.categoryId===bankFilterCatId; });
+          if(!matched) return false;
+        } else if(item._action==='add'){
+          if(item._catId!==bankFilterCatId) return false;
+        } else {
+          return false;
+        }
+      }
+      return true;
+    }
+
     const html=Object.entries(groups).sort((a,b)=>b[0].localeCompare(a[0])).map(([date,entries])=>{
-      const visibleEntries=bankHideMatched?entries.filter(({item})=>item._action!=='exists'):entries;
+      const visibleEntries=entries.filter(({item})=>{
+        if(bankHideMatched && item._action==='exists') return false;
+        return bankItemMatchesFilter(item);
+      });
       if(!visibleEntries.length) return '';
       const appTxs=txs.filter(t=>t.ledgerId===currentLedgerId()&&t.status!=='cancelled'&&t.date===date);
 
@@ -4365,8 +4623,9 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
         </div>`;
       }).join('');
 
-      const appCol=appTxs.length
-        ? appTxs.map(t=>{
+      const visibleAppTxs=bankHideMatched?appTxs.filter(t=>!matchedTxIds.has(t.id)):appTxs;
+      const appCol=visibleAppTxs.length
+        ? visibleAppTxs.map(t=>{
             const matched=matchedTxIds.has(t.id);
             const name=t.type==='transfer'?`${personName(t.fromPersonId)} → ${personName(t.toPersonId)}`:t.itemName||'—';
             return `<div style="padding:8px;border-bottom:.5px solid var(--sep);${matched?'border-left:3px solid var(--green);background:var(--green-light);':'border-left:3px solid transparent;'}">
@@ -4403,12 +4662,43 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
     const body=document.getElementById('bank-stmt-body');
     const toAdd=bankItems.map((item,i)=>({item,i})).filter(({item})=>item._action==='add');
     if(!toAdd.length){ body.innerHTML=`<div class="empty"><div class="empty-icon">✓</div>沒有需要新增的項目</div>`; return; }
+    // remove stale selections
+    bankInputSelected=new Set([...bankInputSelected].filter(idx=>toAdd.some(x=>x.i===idx)));
     const people=visiblePeople();
+    const selCount=bankInputSelected.size;
+
+    const bulkPanel=`<div id="bank-bulk-panel" style="background:var(--surface-solid);border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--card-shadow)">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:13px;font-weight:700">批量套用${selCount?` (${selCount} 已選)`:''}</span>
+        <div style="display:flex;gap:6px">
+          <button onclick="bankSelectAll()" style="padding:5px 10px;border-radius:10px;font-size:11px;font-weight:700;border:none;cursor:pointer;background:rgba(0,0,0,.06);color:var(--text-2)">全選</button>
+          <button onclick="bankClearSel()" style="padding:5px 10px;border-radius:10px;font-size:11px;font-weight:700;border:none;cursor:pointer;background:rgba(0,0,0,.06);color:var(--text-2)">取消</button>
+        </div>
+      </div>
+      <div class="scan-tx-field" style="margin-bottom:10px">
+        <span class="scan-tx-lbl">名稱</span>
+        <input id="bank-bulk-name" class="scan-tx-input" placeholder="（留空則不更改）">
+      </div>
+      <div style="font-size:11px;color:var(--text-2);padding:0 0 4px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Used by</div>
+      <div class="chip-wrap" style="padding:4px 0 8px;flex-wrap:wrap">${people.map(p=>`
+        <div class="chip" id="bank-bulk-used-${p.id}" onclick="toggleBankBulkUsed('${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('')}
+      </div>
+      <button onclick="applyBankBulk()" style="width:100%;padding:10px;border-radius:12px;font-size:13px;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;border:none;cursor:pointer${selCount?'':';opacity:.4;pointer-events:none'}">套用到已選項目</button>
+    </div>`;
+
     const html=toAdd.map(({item,i})=>{
+      const sel=bankInputSelected.has(i);
       const catChips=cfg.categories.map(c=>`<div class="chip${item._catId===c.id?' sel':''}" data-bcat="${c.id}" onclick="setBankItemCat(${i},'${c.id}')" style="font-size:12px;padding:6px 11px">${catEmoji(c.id)} ${c.name}</div>`).join('');
       const paidChips=people.map(p=>`<div class="chip${item._paidById===p.id?' sel':''}" data-bpaid="${p.id}" onclick="setBankItemPaid(${i},'${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('');
       const usedChips=people.map(p=>`<div class="chip${(item._usedByIds||[]).includes(p.id)?' sel':''}" data-bused="${p.id}" onclick="toggleBankItemUsed(${i},'${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('');
-      return `<div class="scan-tx-row" id="bank-row-${i}">
+      return `<div class="scan-tx-row${sel?' sel':''}" id="bank-row-${i}" style="${sel?'outline:2px solid var(--accent);':''}">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+          <label style="display:flex;align-items:center;gap:6px;cursor:pointer;flex:1">
+            <input type="checkbox" ${sel?'checked':''} onchange="toggleBankInputSel(${i},this.checked)" style="width:16px;height:16px;accent-color:var(--accent);flex-shrink:0">
+            <span style="font-size:13px;font-weight:700;color:var(--text)">${escapeHtml(item.description)}</span>
+          </label>
+          <span style="font-size:12px;color:var(--text-2);flex-shrink:0">${item.currency} ${fmt(item.amount,item.currency)}</span>
+        </div>
         <div class="scan-tx-field" style="margin-bottom:6px">
           <span class="scan-tx-lbl">名稱</span>
           <input class="scan-tx-input" value="${item._itemName.replace(/"/g,'&quot;')}" oninput="bankItems[${i}]._itemName=this.value">
@@ -4430,12 +4720,46 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
         <div class="chip-wrap" id="bused-${i}" style="padding:4px 0 6px;flex-wrap:wrap">${usedChips}</div>
       </div>`;
     }).join('');
-    body.innerHTML=`<div style="font-size:12px;color:var(--text-2);padding:8px 0 10px">共 ${toAdd.length} 筆待新增，確認後儲存：</div>${html}`;
+    body.innerHTML=bulkPanel+`<div style="font-size:12px;color:var(--text-2);padding:8px 0 10px">共 ${toAdd.length} 筆待新增，確認後儲存：</div>`+html;
     body.scrollTop=0;
   }
 
   window.setBankAction=function(i,action){ bankItems[i]._action=action; renderBankStmtReview(); };
   window.toggleBankHideMatched=function(){ bankHideMatched=!bankHideMatched; renderBankStmtReview(); };
+  window.setBankFilterName=function(v){ bankFilterName=v; renderBankStmtReview(); };
+  window.setBankFilterCat=function(id){ bankFilterCatId=id; renderBankStmtReview(); };
+
+  let bankBulkUsedIds=[];
+
+  window.toggleBankInputSel=function(i,checked){
+    if(checked) bankInputSelected.add(i); else bankInputSelected.delete(i);
+    renderBankStmtInput();
+  };
+  window.bankSelectAll=function(){
+    bankItems.forEach((item,i)=>{ if(item._action==='add') bankInputSelected.add(i); });
+    renderBankStmtInput();
+  };
+  window.bankClearSel=function(){ bankInputSelected.clear(); renderBankStmtInput(); };
+
+  window.toggleBankBulkUsed=function(pid){
+    const idx=bankBulkUsedIds.indexOf(pid);
+    if(idx>=0) bankBulkUsedIds.splice(idx,1); else bankBulkUsedIds.push(pid);
+    document.getElementById('bank-bulk-used-'+pid)?.classList.toggle('sel', bankBulkUsedIds.includes(pid));
+  };
+
+  window.applyBankBulk=function(){
+    if(!bankInputSelected.size){ showToast('請先選擇項目'); return; }
+    const name=(document.getElementById('bank-bulk-name')?.value||'').trim();
+    const usedIds=[...bankBulkUsedIds];
+    bankInputSelected.forEach(i=>{
+      if(name) bankItems[i]._itemName=name;
+      if(usedIds.length) bankItems[i]._usedByIds=[...usedIds];
+    });
+    bankBulkUsedIds=[];
+    bankInputSelected.clear();
+    renderBankStmtInput();
+    showToast('已套用');
+  };
 
   window.setBankItemCat=function(i,catId){
     bankItems[i]._catId=catId;
