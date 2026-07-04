@@ -377,7 +377,6 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
   touch-action:manipulation;
 }
 .fab:active{transform:scale(.92);box-shadow:0 2px 8px rgba(0,122,255,.3)}
-.fab-scan-tab{display:none}
 .tab-scan-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:22px;border:none;flex-shrink:0;position:relative;top:-18px;box-shadow:0 4px 16px rgba(10,132,255,.4);touch-action:manipulation;display:flex;align-items:center;justify-content:center;line-height:1;padding:0 0 1px 1px}
 .tab-scan-btn:active{transform:scale(.92)}
 .scan-tx-row{background:var(--surface-solid);border-radius:14px;padding:14px 16px;margin-bottom:10px;display:flex;flex-direction:column;gap:8px}
@@ -388,7 +387,6 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .scan-tx-toggle{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
 .scan-tx-toggle-lbl{font-size:14px;font-weight:600}
 .scan-spinner{text-align:center;padding:32px;font-size:28px;animation:spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    SETTINGS
@@ -438,20 +436,6 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 
-/* Pull to refresh */
-#pull-refresh{
-  position:fixed;left:50%;top:calc(var(--safe-t) + 10px);
-  transform:translateX(-50%) translateY(-60px);
-  background:rgba(50,50,50,.88);color:#fff;
-  padding:8px 14px;border-radius:18px;font-size:13px;font-weight:700;
-  z-index:997;opacity:0;pointer-events:none;
-  transition:transform .18s ease, opacity .18s ease;
-}
-#pull-refresh.show{opacity:1;transform:translateX(-50%) translateY(0)}
-#pull-refresh.ready{background:var(--accent)}
-
-/* Pull-to-refresh disabled */
-html, body, .page { overscroll-behavior-y: contain; }
 #pull-refresh{display:none!important;}
 
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -486,7 +470,6 @@ html, body, .page { overscroll-behavior-y: contain; }
 .toggle-switch input:checked+.toggle-track{background:var(--accent)}
 .toggle-switch input:checked+.toggle-track::after{transform:translateX(18px)}
 .settings-mini-chip{border:1px solid rgba(0,0,0,.06);background:rgba(255,255,255,.76);border-radius:999px;padding:9px 12px;font-size:13px;font-weight:750;color:var(--text);display:inline-flex;align-items:center;gap:7px;cursor:pointer;box-shadow:inset 0 0 0 1px rgba(255,255,255,.45);transition:transform .06s,background .08s}
-.settings-mini-chip:active{transform:scale(.97);background:#fff}
 .btn-primary,.btn-secondary,.btn-danger{border:none;outline:none;cursor:pointer;touch-action:manipulation;transition:transform .05s,opacity .05s}
 .btn-primary:active,.btn-secondary:active,.btn-danger:active{transform:scale(.98);opacity:.86}
 .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-weight:800}
@@ -499,6 +482,8 @@ html, body, .page { overscroll-behavior-y: contain; }
 .style-preview{margin:0 16px 10px;padding:12px;border-radius:18px;background:rgba(0,0,0,.035);display:flex;align-items:center;gap:10px}
 .style-preview-icon{width:44px;height:44px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:24px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
 .settings-mini-chip:active{transform:scale(.98);opacity:.86}
+.sheet-wide{max-width:100%}
+@media(min-width:600px){.sheet-wide{max-width:80%}}
 .summary-click{cursor:pointer}
 .summary-click:active{opacity:.72}
 .summary-toggle-row{display:flex;justify-content:flex-end;margin:-2px 0 10px}
@@ -618,8 +603,8 @@ html, body, .page { overscroll-behavior-y: contain; }
 </div>
 
 <button class="fab" id="fab" onclick="openAddFlow()">＋</button>
-<button class="fab-scan-tab" id="fab-scan" onclick="openScanReceipt()" title="掃描收據">📷</button>
 <input type="file" id="scan-photo-input" accept="image/*,application/pdf" style="display:none" onchange="handleScanPhoto(this)">
+<input type="file" id="bank-stmt-input" accept="image/*,application/pdf" style="display:none" onchange="handleBankStmt(this)">
 <div class="toast" id="toast"></div>
 <div id="pull-refresh" hidden></div>
 
@@ -940,6 +925,20 @@ html, body, .page { overscroll-behavior-y: contain; }
   </div>
 </div>
 
+<!-- Bank Statement Sheet -->
+<div class="overlay" id="sheet-bank-stmt">
+  <div class="sheet sheet-wide" style="max-height:96dvh">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title" id="bank-stmt-title">對帳銀行結單</div>
+    <div id="bank-stmt-body" style="padding:0 12px;overflow-y:auto;max-height:68dvh"></div>
+    <div style="padding:12px;display:flex;gap:8px" id="bank-stmt-actions">
+      <button onclick="bankStmtBack()" id="bank-stmt-back-btn" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(0,0,0,.05);color:var(--text-2);font-size:15px;font-weight:600">取消</button>
+      <button id="bank-stmt-next-btn" onclick="bankStmtNext()" style="flex:2;padding:13px;border-radius:var(--radius-sm);background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;font-size:16px;font-weight:700">下一步 →</button>
+    </div>
+    <div style="height:8px"></div>
+  </div>
+</div>
+
 <!-- PDF Export Sheet -->
 <div class="overlay" id="sheet-pdf-export">
   <div class="sheet">
@@ -1005,18 +1004,6 @@ const SHARED_LEDGER_ID = 'shared-ledger';
 const SHARED_LEDGER_NAME = '共同帳薄';
 const SHARED_LEDGER_BASE_CURRENCY = 'AUD';
 
-// No default users/categories. They should be added by the user or imported from CSV/Excel.
-const REMOVED_DEFAULT_PEOPLE = new Set();
-const REMOVED_DEFAULT_CATEGORIES = new Set();
-const DEFAULT_PEOPLE = [];
-const DEFAULT_CATEGORIES = [];
-
-function stripOldDefaultEntities(){
-  // No-op: do not hide Firebase entities by hard-coded IDs.
-  // Names like Charlie/Ivan may be real shared users and must be shown if present in meta/config.
-  cfg.people = Array.isArray(cfg.people) ? cfg.people : [];
-  cfg.categories = Array.isArray(cfg.categories) ? cfg.categories : [];
-}
 
 // ════════════════════════════════════════════════
 // LOCAL CONFIG (non-financial, localStorage)
@@ -1046,7 +1033,8 @@ function saveCurrentLedgerState(){
 
 // Initialize required ledger only. Do not auto-create people/categories.
 function seedDefaults(){
-  stripOldDefaultEntities();
+  cfg.people = Array.isArray(cfg.people) ? cfg.people : [];
+  cfg.categories = Array.isArray(cfg.categories) ? cfg.categories : [];
 
   // Keep all local ledgers instead of replacing them. Ensure the original shared ledger exists.
   cfg.ledgers = Array.isArray(cfg.ledgers) ? cfg.ledgers.filter(l=>l&&l.id) : [];
@@ -1072,8 +1060,6 @@ function fmt(n, cur){ const d=DECIMAL[cur]??2; return Number(n).toLocaleString('
 function fmtBase(n){ return fmt(n, baseCur()); }
 function currentLedgerId(){ return cfg.currentLedgerId || SHARED_LEDGER_ID; }
 function currentLedger(){ return cfg.ledgers.find(l=>l.id===currentLedgerId()) || cfg.ledgers.find(l=>l.id===SHARED_LEDGER_ID) || {id:SHARED_LEDGER_ID,name:SHARED_LEDGER_NAME,baseCurrency:SHARED_LEDGER_BASE_CURRENCY}; }
-// Backwards-compatible name used by existing rendering code.
-function sharedLedger(){ return currentLedger(); }
 function baseCur(){ return currentLedger()?.baseCurrency||SHARED_LEDGER_BASE_CURRENCY; }
 function isLedgerArchived(){ return !!currentLedger()?.archived; }
 function personName(id){ return cfg.people.find(p=>p.id===id)?.name||'?'; }
@@ -1309,9 +1295,9 @@ function sortTxList(list=[]){
   return [...list].sort((a,b)=>{
     const dateCmp=String(b.date||'').localeCompare(String(a.date||''));
     if(dateCmp!==0) return dateCmp;
-    const aMs=a._created?.toMillis?a._created.toMillis():(typeof a._created==='number'?a._created:0);
-    const bMs=b._created?.toMillis?b._created.toMillis():(typeof b._created==='number'?b._created:0);
-    return bMs-aMs || String(b.id||'').localeCompare(String(a.id||''));
+    const catCmp=catName(a.categoryId).localeCompare(catName(b.categoryId));
+    if(catCmp!==0) return catCmp;
+    return String(a.itemName||'').localeCompare(String(b.itemName||''));
   });
 }
 function mergeTxLists(base=[], incoming=[]){
@@ -1327,6 +1313,10 @@ function serialisableTx(t){
     if(k.startsWith('_')) return;
     out[k]=v;
   });
+  if(t._created!=null){
+    const ms=t._created?.toMillis?t._created.toMillis():(typeof t._created==='number'?t._created:null);
+    if(ms) out._created=ms;
+  }
   return out;
 }
 function saveTxLocalCache(ledgerId=currentLedgerId(), list=txs, complete=false){
@@ -1520,7 +1510,6 @@ function applyRemoteMeta(data={}){
   cfg.people = cleanMetaPeople(Array.isArray(data.people) ? data.people : []);
   cfg.categories = cleanMetaCategories(Array.isArray(data.categories) ? data.categories : []);
   ledgerStats = data.stats || {};
-  stripOldDefaultEntities();
 
   let remoteLedgers = Array.isArray(data.ledgers) ? data.ledgers.filter(l=>l&&l.id) : [];
   if(!remoteLedgers.length && data.ledger?.id) remoteLedgers=[data.ledger];
@@ -1689,7 +1678,6 @@ function parseIsoDateLocal(dateStr){
   if(!m) return null;
   return new Date(Number(m[1]), Number(m[2])-1, Number(m[3]));
 }
-function isoLocalDate(d){ return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
 function utilityPeriodForTx(tx){
   if(!tx || tx.type!=='expense' || !isUtilityCategoryId(tx.categoryId)) return null;
   let start=String(tx.utilityPeriodStart||'');
@@ -1949,7 +1937,7 @@ async function fbAdd(data){
   const ledgerId=currentLedgerId();
   const saved=stripUndefined({...data,ledgerId,_created:serverTimestamp()});
   const ref=await addDoc(ledgerCol(),saved);
-  const localTx={id:ref.id,...data,ledgerId};
+  const localTx={id:ref.id,...data,ledgerId,_created:Date.now()};
   upsertLocalTx(localTx, ledgerId);
   applyTxToStats(localTx,+1,ledgerId);
   await persistStats();
@@ -1997,8 +1985,6 @@ async function rebuildLedgerStats(){
     showToast(`已載入全部 ${snap.size} 筆到本機`);
   }catch(e){ console.error(e); setSyncDot('err'); showToast('載入失敗'); }
 }
-window.rebuildLedgerStats=rebuildLedgerStats;
-
 window.connectFirebase=async function(){
   const raw=document.getElementById('fb-config-input').value.trim();
   let parsed; try{parsed=JSON.parse(raw);}catch(e){showToast('JSON 格式錯誤');return;}
@@ -2050,7 +2036,6 @@ function switchTab(name,el){
   if(name==='settle') renderSettle();
   if(name==='settings') renderSettings();
 }
-window.switchTab=switchTab;
 
 function setTxTab(tab,el){
   txTab=tab;
@@ -2058,7 +2043,6 @@ function setTxTab(tab,el){
   el.classList.add('active');
   renderHistory();
 }
-window.setTxTab=setTxTab;
 
 window.openFirebaseSheet=function(){
   const el=document.getElementById('fb-config-input');
@@ -2080,7 +2064,6 @@ function openSheet(id){
   });
 }
 function closeSheet(id){ document.getElementById(id)?.classList.remove('open'); }
-window.closeSheet=closeSheet;
 document.querySelectorAll('.overlay').forEach(ov=>{
   ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('open'); });
 });
@@ -2257,7 +2240,6 @@ function openAddFlow(editId=null){
   refreshNumpad();
   openSheet('sheet-numpad');
 }
-window.openAddFlow=openAddFlow;
 
 function refreshNumpad(){
   // currency pills
@@ -2271,7 +2253,6 @@ function refreshNumpad(){
 window.selectNpCur=function(c){ npCur=c; refreshNumpad(); updateFxForCurrentInput(); };
 
 function npTouch(el,k){ el.classList.add('pressed'); setTimeout(()=>el.classList.remove('pressed'),120); }
-window.npTouch=npTouch;
 
 function updateNpDisplay(){
   const val=parseFloat(npVal)||0;
@@ -2500,8 +2481,6 @@ function selectDetailChip(ctx,id){
   if(navigator.vibrate) navigator.vibrate(5);
 }
 
-window.selectDetailChip=selectDetailChip;
-
 window.setTxType=function(type, silent=false){
   flowData.isTransfer=(type==='transfer');
   document.getElementById('expense-fields').style.display=type==='expense'?'':'none';
@@ -2515,8 +2494,6 @@ window.setTxType=function(type, silent=false){
   });
 };
 
-window.toggleRecurring=function(){};
-window.renderRecurEndFields=function(){};
 
 // ════════════════════════════════════════════════
 // PICKER
@@ -2759,7 +2736,7 @@ async function ensureFilteredHistoryLoaded(){
     const incoming=snap.docs.map(d=>({id:d.id,...d.data()}));
     const byId=new Map((txs||[]).map(t=>[t.id,t]));
     incoming.forEach(t=>byId.set(t.id,t));
-    txs=[...byId.values()].sort((a,b)=>String(b.date||'').localeCompare(String(a.date||'')));
+    txs=sortTxList([...byId.values()]);
     lastFilterLoadKey=key;
     renderHistory();
   }catch(e){
@@ -3003,6 +2980,7 @@ function renderHistory(keepPage=false){
   visible.forEach(t=>{ if(!grp[t.date]) grp[t.date]=[]; grp[t.date].push(t); });
   const loadAllBtn=db?`<div style="padding:16px 0 8px;text-align:center"><button onclick="rebuildLedgerStats()" class="btn-secondary" style="padding:10px 24px;border-radius:20px;font-size:13px;font-weight:600;color:var(--text-2)">載入全部記錄</button></div>`:'';
   body.innerHTML=Object.entries(grp).sort((a,b)=>b[0].localeCompare(a[0])).map(([date,items])=>{
+    items=sortTxList(items);
     const dayTotal=items.filter(t=>t.type==='expense').reduce((s,t)=>s+t.baseAmount,0);
     return `<div class="tx-group-hdr"><span>${fmtDate(date)}</span>${dayTotal?`<span class="tx-group-sum">${baseCur()} ${fmtBase(dayTotal)}</span>`:''}</div>`+items.map(t=>renderTxCard(t)).join('');
   }).join('')+(hasMore?'<div id="history-sentinel" style="height:1px;margin-bottom:1px"></div>':'')+loadAllBtn;
@@ -3021,10 +2999,6 @@ function renderHistory(keepPage=false){
   }
 }
 
-function categoryDisplayIcon(catId){
-  return catEmoji(catId);
-}
-
 function renderTxCard(t){
   const isTransfer=t.type==='transfer';
   const expandId='exp-'+t.id;
@@ -3032,7 +3006,7 @@ function renderTxCard(t){
   const mainAmt=`${t.currency!==baseCur()?t.currency+' ':''}${fmt(t.amount,t.currency)}`;
   const fxHint=t.currency!==baseCur()?`<div class="tx-amt-fx">≈ ${fmtBase(t.baseAmount)}</div>`:'';
   let nameHtml='',subParts=[];
-  const avatarText=isTransfer?'↔':categoryDisplayIcon(t.categoryId);
+  const avatarText=isTransfer?'↔':catEmoji(t.categoryId);
   const avatarColor=isTransfer?'var(--purple)':catColor(t.categoryId);
   const avatarClass=`tx-cat-avatar${isTransfer?' transfer':''}`;
   if(isTransfer){
@@ -3080,7 +3054,6 @@ function setStatsMode(mode,el){
   el.classList.add('active');
   renderSummary();
 }
-window.setStatsMode=setStatsMode;
 window.goMonthFromYearView=function(year,monthIndex){
   statsPeriod=new Date(year,monthIndex,1);
   const btns=document.querySelectorAll('#page-summary .seg-ctrl .seg-btn');
@@ -3091,7 +3064,6 @@ function changePeriod(dir){
   else statsYear+=dir;
   renderSummary();
 }
-window.changePeriod=changePeriod;
 
 function completedLedgerTxs(){
   return txs.filter(t=>((t.ledgerId===currentLedgerId())||(!t.ledgerId&&currentLedgerId()===SHARED_LEDGER_ID))&&t.status==='completed'&&t.type==='expense');
@@ -3195,7 +3167,7 @@ function renderSettle(){
   const scope=allScopeForCurrentLedger();
   const balances={};
   cfg.people.forEach(p=>{ balances[p.id]=0; });
-  Object.entries(scope.people||{}).forEach(([pid,d])=>{ balances[pid]=Number(d.paid||0)-Number(d.used||0); });
+  Object.entries(scope.people||{}).forEach(([pid,d])=>{ balances[pid]=Number(d.paid||0)-Number(d.used||0)-Number(d.transferIn||0); });
   const bals=Object.entries(balances).map(([id,v])=>({id,v:Math.round(v*100)/100})).filter(b=>Math.abs(b.v)>0.005);
   bals.sort((a,b)=>a.v-b.v);
   const settlements=[];
@@ -3294,6 +3266,7 @@ function renderSettings(){
 
     <div class="sec-label">匯入</div>
     <div class="card">
+      <div class="settings-row" onclick="openBankStmt()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">對帳銀行結單</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="openImportExcel()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">匯入交易 Excel / CSV</span><span class="settings-arrow">›</span></div>
       <div class="settings-row" onclick="downloadSampleCsv()" style="cursor:pointer"><span class="settings-lbl" style="color:var(--accent)">下載範例 CSV</span><span class="settings-arrow">›</span></div>
     </div>
@@ -3309,7 +3282,6 @@ function renderSettings(){
     <div class="sec-label">API</div>
     <div class="card" style="margin-bottom:8px">
       <div class="settings-row" onclick="openFirebaseSheet()" style="cursor:pointer">
-        <span style="font-size:18px;line-height:1;margin-right:4px">🔥</span>
         <span class="settings-lbl" style="flex:1">Firebase</span>
         <span class="lbl-badge${isConnected?' green':''}" style="font-size:12px;margin-right:6px">${isConnected?'✓ 已連接':'✗ 未連接'}</span>
         <span class="settings-arrow">›</span>
@@ -3328,8 +3300,6 @@ function renderSettings(){
     </div>
   `;
 }
-
-window.downloadFxRates=downloadFxRates;
 
 window.togglePersonVisibility=async function(id, visible){
   if(db){
@@ -3825,19 +3795,7 @@ function renderAll(){
   if(active==='page-settle') renderSettle();
 }
 
-// ════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════
-// ════════════════════════════════════════════════
-// EXPORT ALL HANDLERS TO WINDOW (required for inline onclick in module scripts)
-// ════════════════════════════════════════════════
-// ════════════════════════════════════════════════
-// PULL DOWN TO REFRESH
-// ════════════════════════════════════════════════
-function initPullToRefresh(){
-  // Disabled by request. Manual refresh remains available in Settings/Firebase.
-}
-
+// Export module-scoped functions to window for inline onclick handlers
 Object.assign(window, {
   openSheet,
   closeSheet,
@@ -3851,8 +3809,6 @@ Object.assign(window, {
   selectNpCur,
   backToNumpad,
   setTxType,
-  toggleRecurring,
-  renderRecurEndFields,
   selectDetailChip,
   renderDetailChips,
   onUtilityPeriodChange,
@@ -3910,7 +3866,6 @@ Object.assign(window, {
   const cached=loadTxLocalCache(currentLedgerId());
   if(cached.length) txs=cached;
   showApp();
-  initPullToRefresh();
   renderAll();
 
   // Connect Firebase in background
@@ -4141,7 +4096,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
       scanSharedPaidById=visiblePeople()[0]?.id||cfg.people[0]?.id||'';
       // init per-item usedByIds and categoryId
       scanResults.forEach(t=>{
-        t._usedByIds=['person-charlie','person-ivan'].filter(id=>visiblePeople().some(p=>p.id===id));
+        t._usedByIds=visiblePeople().map(p=>p.id);
         t._catId=cfg.categories.find(c=>c.name.toLowerCase()===String(t.category||'').toLowerCase())?.id||cfg.categories[0]?.id||'';
         t._skip=false;
       });
@@ -4260,6 +4215,327 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency default 
     closeSheet('sheet-scan-confirm');
     showToast(`已儲存 ${saved} 筆交易`);
     if(btn){ btn.disabled=false; btn.textContent='儲存已選交易'; }
+  };
+
+  // ════════════════════════════════════════════════
+  // BANK STATEMENT RECONCILIATION
+  // ════════════════════════════════════════════════
+  let bankItems=[];
+  let bankView='review'; // 'review' | 'input'
+  let bankHideMatched=false;
+
+  window.openBankStmt=function(){
+    if(!cfg.geminiApiKey){ showToast('請先在設定輸入 Gemini API Key'); return; }
+    document.getElementById('bank-stmt-input').value='';
+    document.getElementById('bank-stmt-input').click();
+  };
+
+  window.handleBankStmt=async function(input){
+    const file=input.files?.[0];
+    if(!file) return;
+    bankView='review';
+    bankItems=[];
+    document.getElementById('bank-stmt-title').textContent='對帳銀行結單';
+    document.getElementById('bank-stmt-body').innerHTML=`<div class="scan-spinner">⏳</div>`;
+    document.getElementById('bank-stmt-actions').style.display='none';
+    openSheet('sheet-bank-stmt');
+
+    try{
+      const b64=await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res(e.target.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(file); });
+      const bc=baseCur();
+      const prompt=`Bank statement parser. Return ONLY a JSON array, no markdown, no explanation.
+Format: [{"date":"YYYY-MM-DD","description":"string","amount":number,"currency":"${bc}"}]
+Rules: extract each debit/payment/expense line; for "date" use Value Date if present, otherwise transaction date; date in YYYY-MM-DD; description is merchant or payee name; amount is a positive number; currency default ${bc}; skip incoming credits/refunds.`;
+
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:file.type,data:b64}}]}],generationConfig:{temperature:0,maxOutputTokens:4096}})
+      },30000);
+      if(!resp.ok) throw new Error('Gemini API error '+resp.status);
+      const j=await resp.json();
+      const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
+      const arrMatch=raw.match(/\[[\s\S]*\]/);
+      if(!arrMatch) throw new Error('No JSON array in response');
+      const parsed=JSON.parse(arrMatch[0]);
+      if(!Array.isArray(parsed)||!parsed.length) throw new Error('Empty result');
+
+      const defaultPaidById=visiblePeople()[0]?.id||cfg.people[0]?.id||'';
+      const defaultUsedByIds=visiblePeople().map(p=>p.id);
+      const fallbackUsed=defaultUsedByIds.length?defaultUsedByIds:[defaultPaidById];
+
+      bankItems=parsed.map(item=>{
+        let date=item.date||isoDate();
+        if(/TRANSPORTFORNSW/i.test(String(item.description||''))){
+          const d=new Date(date+'T00:00:00'); d.setDate(d.getDate()-1); date=isoDate(d);
+        }
+        return {date,
+          description:String(item.description||''),
+          amount:Number(item.amount)||0,
+          currency:(item.currency||bc).toUpperCase(),
+          _action:'ignore',
+          _matchedTxIds:[],
+          _itemName:String(item.description||''),
+          _catId:cfg.categories[0]?.id||'',
+          _paidById:defaultPaidById,
+          _usedByIds:[...fallbackUsed],
+        };
+      });
+      computeBankMatches();
+
+      renderBankStmtReview();
+      document.getElementById('bank-stmt-actions').style.display='flex';
+    }catch(e){
+      console.error(e);
+      document.getElementById('bank-stmt-body').innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ 解析失敗<br><span style="font-size:12px;color:var(--text-2)">${e.message}</span></div>`;
+      document.getElementById('bank-stmt-actions').style.display='none';
+    }
+  };
+
+  function findSubsetSum(candidates, target, maxSize=6){
+    function search(start, remaining, chosen){
+      if(Math.abs(remaining)<0.01) return [...chosen];
+      if(chosen.length>=maxSize||start>=candidates.length) return null;
+      for(let i=start;i<candidates.length;i++){
+        const r=search(i+1, remaining-Number(candidates[i].amount||0), [...chosen,candidates[i].id]);
+        if(r) return r;
+      }
+      return null;
+    }
+    return search(0,target,[]);
+  }
+
+  function computeBankMatches(){
+    const ledgerTxs=txs.filter(t=>t.ledgerId===currentLedgerId()&&t.status!=='cancelled');
+    const usedIds=new Set();
+    bankItems.forEach(item=>{
+      item._matchedTxIds=[];
+      const dateTxs=ledgerTxs.filter(t=>t.date===item.date&&!usedIds.has(t.id));
+      // Single exact match
+      const single=dateTxs.find(t=>Math.abs(Number(t.amount||0)-item.amount)<0.01);
+      if(single){
+        item._matchedTxIds=[single.id];
+        usedIds.add(single.id);
+        item._action='exists';
+        return;
+      }
+      // Combination match
+      const combo=findSubsetSum(dateTxs,item.amount);
+      if(combo&&combo.length){
+        item._matchedTxIds=combo;
+        combo.forEach(id=>usedIds.add(id));
+        item._action='exists';
+      }
+    });
+  }
+
+  function renderBankStmtReview(){
+    bankView='review';
+    document.getElementById('bank-stmt-title').textContent='核對銀行結單';
+    document.getElementById('bank-stmt-next-btn').textContent='下一步 →';
+    document.getElementById('bank-stmt-back-btn').textContent='取消';
+    const body=document.getElementById('bank-stmt-body');
+    const groups={};
+    bankItems.forEach((item,i)=>{ if(!groups[item.date]) groups[item.date]=[]; groups[item.date].push({item,i}); });
+    const addCount=bankItems.filter(x=>x._action==='add').length;
+    const matchedCount=bankItems.filter(x=>x._action==='exists').length;
+
+    const colHdr=(label)=>`<div style="font-size:10px;font-weight:700;color:var(--text-2);text-transform:uppercase;letter-spacing:.5px;padding:0 0 4px">${label}</div>`;
+    const matchedTxIds=new Set(bankItems.flatMap(x=>x._matchedTxIds||[]));
+
+    const filterBar=`<div style="display:flex;align-items:center;gap:8px;padding:4px 0 10px">
+      <button onclick="toggleBankHideMatched()" style="padding:6px 12px;border-radius:16px;font-size:12px;font-weight:700;border:none;cursor:pointer;background:${bankHideMatched?'var(--accent)':'rgba(0,0,0,.06)'};color:${bankHideMatched?'#fff':'var(--text-2)'}">
+        ${bankHideMatched?'✓ 隱藏已匹配':'隱藏已匹配'}
+      </button>
+      <span style="font-size:12px;color:var(--text-2)">${matchedCount} 已匹配 · ${addCount} 待新增 · ${bankItems.length-matchedCount-addCount} 略過</span>
+    </div>`;
+
+    const html=Object.entries(groups).sort((a,b)=>b[0].localeCompare(a[0])).map(([date,entries])=>{
+      const visibleEntries=bankHideMatched?entries.filter(({item})=>item._action!=='exists'):entries;
+      if(!visibleEntries.length) return '';
+      const appTxs=txs.filter(t=>t.ledgerId===currentLedgerId()&&t.status!=='cancelled'&&t.date===date);
+
+      const bankCol=visibleEntries.map(({item,i})=>{
+        const a=item._action;
+        const btn=(key,label,col,bg)=>`<button onclick="setBankAction(${i},'${key}')" style="flex:1;padding:5px 2px;border-radius:8px;font-size:11px;font-weight:700;border:1.5px solid ${a===key?col:'var(--sep)'};background:${a===key?bg:'transparent'};color:${a===key?col:'var(--text-3)'}">${label}</button>`;
+        const highlight=a==='add'?'border-left:3px solid var(--accent);':a==='exists'?'border-left:3px solid var(--green);':'border-left:3px solid transparent;';
+        return `<div style="padding:8px 8px 8px 10px;border-bottom:.5px solid var(--sep);${highlight}">
+          <div style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:2px;word-break:break-word">${item.description}</div>
+          <div style="font-size:12px;color:var(--text-2);margin-bottom:6px">${item.currency} ${fmt(item.amount,item.currency)}</div>
+          <div style="display:flex;gap:4px">${btn('exists','✓已有','var(--green)','var(--green-light)')}${btn('add','＋新增','var(--accent)','var(--accent-light)')}${btn('ignore','−略過','var(--text-2)','rgba(0,0,0,.06)')}</div>
+        </div>`;
+      }).join('');
+
+      const appCol=appTxs.length
+        ? appTxs.map(t=>{
+            const matched=matchedTxIds.has(t.id);
+            const name=t.type==='transfer'?`${personName(t.fromPersonId)} → ${personName(t.toPersonId)}`:t.itemName||'—';
+            return `<div style="padding:8px;border-bottom:.5px solid var(--sep);${matched?'border-left:3px solid var(--green);background:var(--green-light);':'border-left:3px solid transparent;'}">
+              <div style="display:flex;align-items:center;gap:5px;margin-bottom:2px">
+                ${matched?`<span style="color:var(--green);font-size:13px;font-weight:800;flex-shrink:0">✓</span>`:''}
+                <span style="font-size:13px;font-weight:600;color:var(--text);word-break:break-word">${name}</span>
+              </div>
+              <div style="font-size:12px;color:var(--text-2)">${t.currency} ${fmt(t.amount,t.currency)}</div>
+            </div>`;
+          }).join('')
+        : `<div style="padding:12px 8px;font-size:12px;color:var(--text-3);text-align:center">—</div>`;
+
+      return `<div style="margin-bottom:8px">
+        <div class="tx-group-hdr" style="margin:14px 2px 6px">${fmtDate(date)}</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <div>${colHdr('🏦 銀行')}
+            <div style="background:var(--surface-solid);border-radius:14px;overflow:hidden;box-shadow:var(--card-shadow)">${bankCol}</div>
+          </div>
+          <div>${colHdr('📋 本帳')}
+            <div style="background:var(--surface-solid);border-radius:14px;overflow:hidden;box-shadow:var(--card-shadow)">${appCol}</div>
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+
+    body.innerHTML=filterBar+html;
+  }
+
+  function renderBankStmtInput(){
+    bankView='input';
+    document.getElementById('bank-stmt-title').textContent='輸入新增項目';
+    document.getElementById('bank-stmt-next-btn').textContent='儲存';
+    document.getElementById('bank-stmt-back-btn').textContent='← 返回';
+    const body=document.getElementById('bank-stmt-body');
+    const toAdd=bankItems.map((item,i)=>({item,i})).filter(({item})=>item._action==='add');
+    if(!toAdd.length){ body.innerHTML=`<div class="empty"><div class="empty-icon">✓</div>沒有需要新增的項目</div>`; return; }
+    const people=visiblePeople();
+    const html=toAdd.map(({item,i})=>{
+      const catChips=cfg.categories.map(c=>`<div class="chip${item._catId===c.id?' sel':''}" data-bcat="${c.id}" onclick="setBankItemCat(${i},'${c.id}')" style="font-size:12px;padding:6px 11px">${catEmoji(c.id)} ${c.name}</div>`).join('');
+      const paidChips=people.map(p=>`<div class="chip${item._paidById===p.id?' sel':''}" data-bpaid="${p.id}" onclick="setBankItemPaid(${i},'${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('');
+      const usedChips=people.map(p=>`<div class="chip${(item._usedByIds||[]).includes(p.id)?' sel':''}" data-bused="${p.id}" onclick="toggleBankItemUsed(${i},'${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('');
+      return `<div class="scan-tx-row" id="bank-row-${i}">
+        <div class="scan-tx-field" style="margin-bottom:6px">
+          <span class="scan-tx-lbl">名稱</span>
+          <input class="scan-tx-input" value="${item._itemName.replace(/"/g,'&quot;')}" oninput="bankItems[${i}]._itemName=this.value">
+        </div>
+        <div class="scan-tx-field" style="margin-bottom:6px">
+          <span class="scan-tx-lbl">日期</span>
+          <input class="scan-tx-input" type="date" value="${item.date}" oninput="bankItems[${i}].date=this.value">
+        </div>
+        <div class="scan-tx-field" style="margin-bottom:6px">
+          <span class="scan-tx-lbl">金額</span>
+          <input class="scan-tx-input" type="number" value="${item.amount}" oninput="bankItems[${i}].amount=Number(this.value)">
+          <input class="scan-tx-input" value="${item.currency}" oninput="bankItems[${i}].currency=this.value.toUpperCase()" style="width:60px;flex:none">
+        </div>
+        <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">種類</div>
+        <div class="chip-wrap" id="bcats-${i}" style="padding:4px 0 6px;flex-wrap:wrap">${catChips}</div>
+        <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Paid by</div>
+        <div class="chip-wrap" id="bpaid-${i}" style="padding:4px 0 6px;flex-wrap:wrap">${paidChips}</div>
+        <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">Used by</div>
+        <div class="chip-wrap" id="bused-${i}" style="padding:4px 0 6px;flex-wrap:wrap">${usedChips}</div>
+      </div>`;
+    }).join('');
+    body.innerHTML=`<div style="font-size:12px;color:var(--text-2);padding:8px 0 10px">共 ${toAdd.length} 筆待新增，確認後儲存：</div>${html}`;
+    body.scrollTop=0;
+  }
+
+  window.setBankAction=function(i,action){ bankItems[i]._action=action; renderBankStmtReview(); };
+  window.toggleBankHideMatched=function(){ bankHideMatched=!bankHideMatched; renderBankStmtReview(); };
+
+  window.setBankItemCat=function(i,catId){
+    bankItems[i]._catId=catId;
+    document.querySelectorAll(`#bcats-${i} [data-bcat]`).forEach(el=>el.classList.toggle('sel',el.dataset.bcat===catId));
+  };
+  window.setBankItemPaid=function(i,pid){
+    bankItems[i]._paidById=pid;
+    document.querySelectorAll(`#bpaid-${i} [data-bpaid]`).forEach(el=>el.classList.toggle('sel',el.dataset.bpaid===pid));
+  };
+  window.toggleBankItemUsed=function(i,pid){
+    const cur=bankItems[i]._usedByIds||[];
+    const next=cur.includes(pid)?cur.filter(x=>x!==pid):[...cur,pid];
+    bankItems[i]._usedByIds=next;
+    document.querySelectorAll(`#bused-${i} [data-bused]`).forEach(el=>el.classList.toggle('sel',next.includes(el.dataset.bused)));
+  };
+
+  async function prefillBankCategories(toAdd){
+    if(!cfg.geminiApiKey||!cfg.categories.length) return;
+    const catNames=cfg.categories.map(c=>c.name).join(', ');
+    const items=toAdd.map((item,idx)=>({index:idx,name:item._itemName||item.description}));
+    const prompt=`You are categorizing bank transactions. Available categories: ${catNames}.
+For each item, pick the single best matching category name exactly as listed.
+Items: ${JSON.stringify(items)}
+Return ONLY a JSON array: [{"index":0,"category":"CategoryName"}]`;
+    try{
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+        method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:512}})
+      },12000);
+      if(!resp.ok) return;
+      const j=await resp.json();
+      const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
+      const m=raw.match(/\[[\s\S]*\]/);
+      if(!m) return;
+      JSON.parse(m[0]).forEach(s=>{
+        const item=toAdd[s.index];
+        if(!item) return;
+        const cat=cfg.categories.find(c=>c.name.toLowerCase()===String(s.category||'').toLowerCase());
+        if(cat) item._catId=cat.id;
+      });
+    }catch(e){ console.error('prefillBankCategories',e); }
+  }
+
+  window.bankStmtBack=function(){
+    if(bankView==='input'){ renderBankStmtReview(); }
+    else{ closeSheet('sheet-bank-stmt'); }
+  };
+
+  window.bankStmtNext=async function(){
+    if(bankView==='review'){
+      const toAdd=bankItems.filter(x=>x._action==='add');
+      if(!toAdd.length){ closeSheet('sheet-bank-stmt'); showToast('已完成核對'); return; }
+      const btn=document.getElementById('bank-stmt-next-btn');
+      const body=document.getElementById('bank-stmt-body');
+      if(btn){ btn.disabled=true; btn.textContent='AI 分析中…'; }
+      body.style.opacity='0.5';
+      await prefillBankCategories(toAdd);
+      body.style.opacity='';
+      if(btn){ btn.disabled=false; }
+      renderBankStmtInput();
+    } else {
+      const btn=document.getElementById('bank-stmt-next-btn');
+      if(btn){ btn.disabled=true; btn.textContent='儲存中…'; }
+      // Sync all editable fields from DOM before reading state
+      bankItems.forEach((item,i)=>{
+        if(item._action!=='add') return;
+        const row=document.getElementById('bank-row-'+i);
+        if(!row) return;
+        const inputs=row.querySelectorAll('.scan-tx-input');
+        if(inputs[0]) item._itemName=inputs[0].value;
+        if(inputs[1]) item.date=inputs[1].value;
+        if(inputs[2]) item.amount=Number(inputs[2].value)||0;
+        if(inputs[3]) item.currency=(inputs[3].value||'').toUpperCase()||baseCur();
+      });
+      const toAdd=bankItems.filter(x=>x._action==='add');
+      let saved=0;
+      for(const item of toAdd){
+        try{
+          const cur=(item.currency||baseCur()).toUpperCase();
+          const date=item.date||isoDate();
+          const rate=await ensureFxRateForDate(cur,date);
+          await fbAdd({
+            type:'expense',
+            itemName:item._itemName||item.description||'',
+            categoryId:item._catId||cfg.categories[0]?.id||'',
+            paidByPersonId:item._paidById||visiblePeople()[0]?.id||'',
+            usedByPersonIds:item._usedByIds?.length?item._usedByIds:[item._paidById],
+            date,currency:cur,
+            amount:Number(item.amount)||0,
+            fxRate:rate,
+            baseAmount:Number(((item.amount||0)*rate).toFixed(6)),
+            remark:'',ledgerId:currentLedgerId(),status:'completed'
+          });
+          saved++;
+        }catch(e){ console.error('bankStmt save',e); }
+      }
+      closeSheet('sheet-bank-stmt');
+      showToast(`已儲存 ${saved} 筆交易`);
+      if(btn){ btn.disabled=false; btn.textContent='儲存'; }
+    }
   };
 
   document.querySelectorAll('.page .nav').forEach(nav=>{
