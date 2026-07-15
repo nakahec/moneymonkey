@@ -1805,10 +1805,7 @@ function summaryMemberUsedTotal(scope){
   const pm = scope?.people || {};
   return Object.entries(pm).reduce((sum,[pid,d])=>{
     if(!isSummaryMemberId(pid)) return sum;
-    // subtract transferIn in case old cached stats stored transfers in 'used'
-    const used = Number(d?.used || 0);
-    const transferIn = Number(d?.transferIn || 0);
-    return sum + Math.max(0, used - transferIn);
+    return sum + Math.max(0, Number(d?.used || 0));
   },0);
 }
 function summaryAllPeople(scope){
