@@ -1701,6 +1701,10 @@ function utilityPeriodForTx(tx){
   return {start,end,ds,de};
 }
 function escapeHtml(v){ return String(v??'').replace(/[&<>"']/g, ch=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[ch])); }
+function renderAiError(title,e,log){
+  const logHtml=log?`<pre style="margin:12px 12px 0;padding:10px;background:var(--surface-solid);border-radius:10px;font-size:11px;line-height:1.5;color:var(--text-2);white-space:pre-wrap;word-break:break-all;max-height:220px;overflow:auto;text-align:left">${escapeHtml(log)}</pre>`:'';
+  return `<div style="padding:24px 24px 12px;text-align:center;color:var(--red)">⚠️ ${title}<br><span style="font-size:12px;color:var(--text-2)">${escapeHtml(e.message)}</span></div>${logHtml}`;
+}
 function utilityItemName(tx){
   const n=String(tx?.itemName||'').trim();
   return n || '未命名';
@@ -3362,7 +3366,7 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.1.0</div>
+      <div>v1.1.1</div>
       <div>Last updated: 2026-08-09</div>
     </div>
   `;
@@ -4129,6 +4133,7 @@ Object.assign(window, {
     actions.style.display='none';
     openSheet('sheet-scan-confirm');
 
+    let aiLog='';
     try{
       const b64=await new Promise((res,rej)=>{
         const r=new FileReader();
@@ -4152,8 +4157,10 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
         })
       },20000);
 
+      const respText=await resp.text();
+      aiLog='HTTP '+resp.status+'\n'+respText;
       if(!resp.ok) throw new Error('Gemini API error '+resp.status);
-      const j=await resp.json();
+      const j=JSON.parse(respText);
       const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
       const objMatch=raw.match(/\{[\s\S]*\}/);
       if(!objMatch) throw new Error('No JSON in response');
@@ -4177,7 +4184,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
       aiCompleteItemNames();
     }catch(e){
       console.error(e);
-      body.innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ 掃描失敗<br><span style="font-size:12px;color:var(--text-2)">${e.message}</span></div>`;
+      body.innerHTML=renderAiError('掃描失敗',e,aiLog);
       actions.style.display='none';
     }
   };
@@ -4365,6 +4372,7 @@ Items: ${JSON.stringify(items)}`;
     const btn=document.getElementById('ai-cat-primary-btn');
     body.innerHTML=`<div class="scan-spinner">⏳</div><div style="text-align:center;color:var(--text-2);font-size:13px;padding-bottom:16px">載入資料中…</div>`;
     btn.disabled=true;
+    let aiLog='';
     try{
       const snap=await getDocs(query(ledgerCol(),where('date','>=',fromVal),where('date','<=',toVal),orderBy('date','desc')));
       aiCatFetchedTxs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(t=>t.status==='completed'&&t.type==='expense');
@@ -4385,8 +4393,10 @@ Return ONLY a JSON array (empty [] if all correct): [{"id":"txId","suggestedCate
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:2048}})
       },30000);
+      const respText=await resp.text();
+      aiLog='HTTP '+resp.status+'\n'+respText;
       if(!resp.ok) throw new Error('Gemini error '+resp.status);
-      const j=await resp.json();
+      const j=JSON.parse(respText);
       const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
       const m=raw.match(/\[[\s\S]*\]/);
       const suggestions=m?JSON.parse(m[0]):[];
@@ -4401,7 +4411,7 @@ Return ONLY a JSON array (empty [] if all correct): [{"id":"txId","suggestedCate
       btn.textContent='套用已選更改'; btn.onclick=applyAiCatSuggestions; btn.disabled=false;
     }catch(e){
       console.error(e);
-      body.innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ 分析失敗<br><span style="font-size:12px;color:var(--text-2)">${escapeHtml(e.message)}</span></div>`;
+      body.innerHTML=renderAiError('分析失敗',e,aiLog);
       btn.textContent='重試'; btn.onclick=runAiCatReview; btn.disabled=false;
     }
   }
@@ -4481,6 +4491,7 @@ Return ONLY a JSON array (empty [] if all correct): [{"id":"txId","suggestedCate
     document.getElementById('bank-stmt-actions').style.display='none';
     openSheet('sheet-bank-stmt');
 
+    let aiLog='';
     try{
       const b64=await new Promise((res,rej)=>{ const r=new FileReader(); r.onload=e=>res(e.target.result.split(',')[1]); r.onerror=rej; r.readAsDataURL(file); });
       const bc=baseCur();
@@ -4492,8 +4503,10 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:file.type,data:b64}}]}],generationConfig:{temperature:0,maxOutputTokens:4096}})
       },30000);
+      const respText=await resp.text();
+      aiLog='HTTP '+resp.status+'\n'+respText;
       if(!resp.ok) throw new Error('Gemini API error '+resp.status);
-      const j=await resp.json();
+      const j=JSON.parse(respText);
       const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
       const cleaned=raw.replace(/```[\w]*\n?/g,'').replace(/```/g,'').trim();
       const arrMatch=cleaned.match(/\[[\s\S]*\]/);
@@ -4528,7 +4541,7 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
       document.getElementById('bank-stmt-actions').style.display='flex';
     }catch(e){
       console.error(e);
-      document.getElementById('bank-stmt-body').innerHTML=`<div style="padding:24px;text-align:center;color:var(--red)">⚠️ 解析失敗<br><span style="font-size:12px;color:var(--text-2)">${e.message}</span></div>`;
+      document.getElementById('bank-stmt-body').innerHTML=renderAiError('解析失敗',e,aiLog);
       document.getElementById('bank-stmt-actions').style.display='none';
     }
   };
