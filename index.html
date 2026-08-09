@@ -1778,7 +1778,7 @@ function applyTxToStats(tx, sign=1, ledgerId=currentLedgerId()){
       const share=users.length?amt/users.length:0;
       users.forEach(pid=>{ const b=personBucket(scope,pid); if(b) b.used=Number(b.used||0)+share; });
     } else if(tx.type==='transfer'){
-      const from=personBucket(scope,tx.fromPersonId); if(from) from.paid=Number(from.paid||0)+amt;
+      const from=personBucket(scope,tx.fromPersonId); if(from) from.transferOut=Number(from.transferOut||0)+amt;
       const to=personBucket(scope,tx.toPersonId); if(to) to.transferIn=Number(to.transferIn||0)+amt;
     }
   });
@@ -1814,7 +1814,7 @@ function summaryAllPeople(scope){
   const unknown = Object.entries(pm).filter(([pid]) => !(cfg.people || []).some(p => p.id === pid));
   return [...known, ...unknown]
     .map(([pid,d]) => [pid, { paid:Number(d?.paid||0), used:Number(d?.used||0) }])
-    .filter(([,d]) => Math.abs(d.paid) > 0.0001 || Math.abs(d.used) > 0.0001)
+    .filter(([,d]) => Math.abs(d.used) > 0.0001)
     .sort((a,b) => (Number(b[1].paid||0)+Number(b[1].used||0)) - (Number(a[1].paid||0)+Number(a[1].used||0)));
 }
 function summaryMemberPeriodTotal(mode, year, monthIndex){
@@ -1847,8 +1847,8 @@ function applyTxToScopeForDisplay(scope, tx){
     const share=users.length?amt/users.length:0;
     users.forEach(pid=>addPersonAmounts(scope, pid, 0, share));
   }else if(tx.type==='transfer'){
-    addPersonAmounts(scope, tx.fromPersonId, amt, 0);
-    // transfers do not count as spending — use transferIn to track without inflating 本期支出
+    const fromB=personBucket(scope, tx.fromPersonId);
+    if(fromB) fromB.transferOut=Number(fromB.transferOut||0)+amt;
     const toB=personBucket(scope, tx.toPersonId);
     if(toB) toB.transferIn=Number(toB.transferIn||0)+amt;
   }
@@ -3208,7 +3208,11 @@ function renderSettle(){
   const scope=allScopeForCurrentLedger();
   const balances={};
   cfg.people.forEach(p=>{ balances[p.id]=0; });
-  Object.entries(scope.people||{}).forEach(([pid,d])=>{ balances[pid]=Number(d.paid||0)-Number(d.used||0)-Number(d.transferIn||0); });
+  // balance = expense_paid - expense_used + transfer_sent - transfer_received
+  // transferOut replaces the old pattern of adding transfers to paid, so both old and new stats work:
+  // old schema: paid=(expense+transfer), transferOut=0  → (expense+transfer) - used - transferIn ✓
+  // new schema: paid=expense, transferOut=transfer      → expense + transfer - used - transferIn ✓
+  Object.entries(scope.people||{}).forEach(([pid,d])=>{ balances[pid]=Number(d.paid||0)+Number(d.transferOut||0)-Number(d.used||0)-Number(d.transferIn||0); });
   const bals=Object.entries(balances).map(([id,v])=>({id,v:Math.round(v*100)/100})).filter(b=>Math.abs(b.v)>0.005);
   bals.sort((a,b)=>a.v-b.v);
   const settlements=[];
@@ -3319,6 +3323,15 @@ function renderSettings(){
     </div>
     <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
 
+    <div class="sec-label">資料</div>
+    <div class="card" style="margin-bottom:8px">
+      <div class="settings-row" onclick="rebuildLedgerStats()" style="cursor:pointer">
+        <span style="font-size:18px;line-height:1;margin-right:4px">🔄</span>
+        <span class="settings-lbl" style="flex:1">重建統計</span>
+        <span class="settings-arrow">›</span>
+      </div>
+    </div>
+
     <div class="sec-label">API</div>
     <div class="card" style="margin-bottom:8px">
       <div class="settings-row" onclick="openFirebaseSheet()" style="cursor:pointer">
@@ -3349,8 +3362,8 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.0.0</div>
-      <div>Last updated: 2026-06-30 18:00</div>
+      <div>v1.1.0</div>
+      <div>Last updated: 2026-08-09</div>
     </div>
   `;
 }
@@ -4130,7 +4143,7 @@ Object.assign(window, {
 Format: {"date":"YYYY-MM-DD","currency":"${bc}","items":[{"itemName":"string","amount":number,"category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
 Rules: date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); split each line item separately.`;
 
-      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
@@ -4223,7 +4236,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
       const items=scanResults.map((t,i)=>({index:i,name:t.itemName||''}));
       const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Return ONLY a JSON array, no markdown: [{"index":0,"name":"Full Name"}]
 Items: ${JSON.stringify(items)}`;
-      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:512}})
       },12000);
@@ -4368,7 +4381,7 @@ Available categories: ${catList}.
 Transactions (JSON): ${JSON.stringify(txList)}
 For each transaction with a WRONG category, suggest the correct one. Only flag transactions where you are confident.
 Return ONLY a JSON array (empty [] if all correct): [{"id":"txId","suggestedCategory":"CategoryName"}]`;
-      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:2048}})
       },30000);
@@ -4475,7 +4488,7 @@ Return ONLY a JSON array (empty [] if all correct): [{"id":"txId","suggestedCate
 Format: [{"date":"YYYY-MM-DD","description":"string","amount":number,"currency":"${bc}"}]
 Rules: extract each debit/payment/expense line; for "date" use Value Date if present, otherwise transaction date; date in YYYY-MM-DD; description is merchant or payee name; amount is a positive number; currency default ${bc}; skip incoming credits/refunds.`;
 
-      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:file.type,data:b64}}]}],generationConfig:{temperature:0,maxOutputTokens:4096}})
       },30000);
@@ -4782,7 +4795,7 @@ For each item, pick the single best matching category name exactly as listed.
 Items: ${JSON.stringify(items)}
 Return ONLY a JSON array: [{"index":0,"category":"CategoryName"}]`;
     try{
-      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
+      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
         body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:512}})
       },12000);
