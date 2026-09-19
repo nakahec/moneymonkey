@@ -4146,7 +4146,7 @@ Object.assign(window, {
       const bc=baseCur();
       const prompt=`Receipt parser. Return ONLY a JSON object, no markdown.
 Format: {"date":"YYYY-MM-DD","currency":"${bc}","items":[{"itemName":"string","amount":number,"category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
-Rules: date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); split each line item separately.`;
+Rules: date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); language: use only the language(s) printed on the receipt for that item, never translate or add a name in a language that isn't printed; if both an English and a Chinese name are printed for the same item, output both once as "English 中文" (single space, no brackets or slashes); split each line item separately.`;
 
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',
@@ -4241,7 +4241,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
     if(btn){ btn.disabled=true; btn.textContent='✨ 補全中…'; }
     try{
       const items=scanResults.map((t,i)=>({index:i,name:t.itemName||''}));
-      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Return ONLY a JSON array, no markdown: [{"index":0,"name":"Full Name"}]
+      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Language: keep each name in the language(s) it already has, never translate or add a missing English/Chinese version; if a name already has both, keep both once as "English 中文". Return ONLY a JSON array, no markdown: [{"index":0,"name":"Full Name"}]
 Items: ${JSON.stringify(items)}`;
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
