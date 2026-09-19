@@ -1,15 +1,15 @@
 {
-  "name": "記帳本",
-  "short_name": "記帳本",
-  "description": "個人記帳 App — Firebase 同步",
+  "name": "記帳",
+  "short_name": "記帳",
+  "description": "共同記帳 app — Charlie & Ivan",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#0f1b2d",
-  "theme_color": "#0f1b2d",
-  "orientation": "portrait-primary",
+  "orientation": "portrait",
+  "background_color": "#f7f4ef",
+  "theme_color": "#0a84ff",
   "icons": [
     {
-      "src": "icon.svg",
+      "src": "logo.svg",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"

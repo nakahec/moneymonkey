@@ -9,8 +9,8 @@
 <meta name="theme-color" content="#f5f5f7">
 <title>記帳</title>
 <link rel="manifest" href="manifest.json">
-<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icons/icon.svg">
+<link rel="icon" href="logo.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="logo.svg">
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TOKENS
@@ -1085,6 +1085,8 @@ function isoDate(d=new Date()){
   const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
   return local.toISOString().split('T')[0];
 }
+const OPAL_RE=/TFNSW\s+OPAL\s+FARE\s+SYDNEY\s+AUS/i;
+function shiftIsoDate(dateStr,days){ const d=new Date(dateStr+'T00:00:00'); d.setDate(d.getDate()+days); return isoDate(d); }
 
 // ════════════════════════════════════════════════
 // FX RATES
@@ -4153,7 +4155,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
           contents:[{parts:[{text:prompt},{inline_data:{mime_type:file.type,data:b64}}]}],
-          generationConfig:{temperature:0,maxOutputTokens:1024}
+          generationConfig:{temperature:0,maxOutputTokens:4096}
         })
       },20000);
 
@@ -4169,6 +4171,10 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
       scanSharedCurrency=(parsed.currency||baseCur()).toUpperCase();
       scanResults=Array.isArray(parsed.items)?parsed.items:Array.isArray(parsed)?parsed:[];
       if(!scanResults.length) throw new Error('Empty result');
+      if(scanResults.some(t=>OPAL_RE.test(String(t.itemName||'')))){
+        scanResults.forEach(t=>{ if(OPAL_RE.test(String(t.itemName||''))) t.itemName='Opal Card'; });
+        scanSharedDate=shiftIsoDate(scanSharedDate,-1);
+      }
 
       scanSharedPaidById=visiblePeople()[0]?.id||cfg.people[0]?.id||'';
       // init per-item usedByIds and categoryId
@@ -4245,7 +4251,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
 Items: ${JSON.stringify(items)}`;
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:512}})
+        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:2048}})
       },12000);
       if(!resp.ok) throw new Error('Gemini error '+resp.status);
       const j=await resp.json();
@@ -4501,7 +4507,7 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
 
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:file.type,data:b64}}]}],generationConfig:{temperature:0,maxOutputTokens:4096}})
+        body:JSON.stringify({contents:[{parts:[{text:prompt},{inline_data:{mime_type:file.type,data:b64}}]}],generationConfig:{temperature:0,maxOutputTokens:8192}})
       },30000);
       const respText=await resp.text();
       aiLog='HTTP '+resp.status+'\n'+respText;
@@ -4523,13 +4529,15 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
         if(/TRANSPORTFORNSW/i.test(String(item.description||''))){
           const d=new Date(date+'T00:00:00'); d.setDate(d.getDate()-1); date=isoDate(d);
         }
+        const isOpal=OPAL_RE.test(String(item.description||''));
+        if(isOpal) date=shiftIsoDate(date,-1);
         return {date,
           description:String(item.description||''),
           amount:Number(item.amount)||0,
           currency:(item.currency||bc).toUpperCase(),
           _action:'ignore',
           _matchedTxIds:[],
-          _itemName:String(item.description||''),
+          _itemName:isOpal?'Opal Card':String(item.description||''),
           _catId:cfg.categories[0]?.id||'',
           _paidById:defaultPaidById,
           _usedByIds:[...fallbackUsed],
@@ -4810,7 +4818,7 @@ Return ONLY a JSON array: [{"index":0,"category":"CategoryName"}]`;
     try{
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:512}})
+        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0,maxOutputTokens:2048}})
       },12000);
       if(!resp.ok) return;
       const j=await resp.json();
