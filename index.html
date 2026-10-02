@@ -238,6 +238,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 }
 .tx-card:active{transform:scale(.985);box-shadow:0 1px 3px rgba(0,0,0,.04)}
 .tx-card.expanded{border-radius:var(--radius) var(--radius) 0 0;box-shadow:none;background:var(--surface-solid)}
+.tx-card.expanded .tx-name{white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
 .tx-card-main{flex:1;min-width:0}
 .tx-name{font-size:15px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .tx-sub{font-size:12px;color:var(--text-2);margin-top:2px;display:flex;align-items:center;gap:5px}
@@ -822,7 +823,7 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
     <div class="sheet-inner">
       <div class="form-row" style="flex-direction:column;align-items:flex-start;gap:8px">
         <label class="form-label wide" style="width:auto">Gemini API Key</label>
-        <input id="gemini-key-input" type="text" placeholder="AIza…" class="form-control left" style="font-size:13px;font-family:ui-monospace,monospace" oninput="cfg.geminiApiKey=this.value.trim();saveCfg()">
+        <input id="gemini-key-input" type="text" placeholder="AIza…" class="form-control left" style="font-size:13px;font-family:ui-monospace,monospace" oninput="setGeminiKey(this.value)">
       </div>
     </div>
     <div style="padding:12px">
@@ -2099,6 +2100,7 @@ window.openFirebaseSheet=function(){
   if(el && cfg.fbConfig) el.value=JSON.stringify(cfg.fbConfig,null,2);
   openSheet('sheet-firebase');
 };
+window.setGeminiKey=function(v){ cfg.geminiApiKey=v.trim(); saveCfg(); };
 window.openGeminiSheet=function(){
   const el=document.getElementById('gemini-key-input');
   if(el) el.value=cfg.geminiApiKey||'';
@@ -4147,8 +4149,8 @@ Object.assign(window, {
       const catNames=cfg.categories.map(c=>c.name);
       const bc=baseCur();
       const prompt=`Receipt parser. Return ONLY a JSON object, no markdown.
-Format: {"date":"YYYY-MM-DD","currency":"${bc}","items":[{"itemName":"string","amount":number,"category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
-Rules: date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); language: if the item name is printed in English and/or Chinese, use only the language(s) printed for that item and never translate or add a name in a language that isn't printed; if both an English and a Chinese name are printed for the same item, output both once as "English 中文" (single space, no brackets or slashes); if the item name is printed in any other language (e.g. Japanese, Korean, Thai), put an English translation in front of the original name as "English 原文" (e.g. "おにぎり 鮭"→"Salmon Rice Ball おにぎり 鮭"); quantity: if the same item appears on several lines or has a quantity above 1, output it once as "ITEM NAME * N" (e.g. "Salmon Rice Ball おにぎり 鮭 * 4") with amount = the total for all N; otherwise one entry per line item.`;
+Format: {"date":"YYYY-MM-DD","currency":"${bc}","shopName":"string","foreign":boolean,"items":[{"itemName":"string","amount":number,"category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
+Rules: shopName: the shop/merchant name; if it is printed in English or Chinese use it exactly in that printed language, if it is only printed in another language translate it to English, "" if unknown; foreign: true only if the item names are printed in a language other than English or Chinese (e.g. Japanese, Korean, Thai); never put the shop name inside itemName; date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); language: if the item name is printed in English and/or Chinese, use only the language(s) printed for that item and never translate or add a name in a language that isn't printed; if both an English and a Chinese name are printed for the same item, output both once as "English 中文" (single space, no brackets or slashes); if the item name is printed in any other language (e.g. Japanese, Korean, Thai), put an English translation in front of the original name as "English 原文" (e.g. "おにぎり 鮭"→"Salmon Rice Ball おにぎり 鮭"); quantity: if the same item appears on several lines or has a quantity above 1, output it once as "ITEM NAME * N" (e.g. "Salmon Rice Ball おにぎり 鮭 * 4") with amount = the total for all N; otherwise one entry per line item.`;
 
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',
@@ -4171,6 +4173,10 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
       scanSharedCurrency=(parsed.currency||baseCur()).toUpperCase();
       scanResults=Array.isArray(parsed.items)?parsed.items:Array.isArray(parsed)?parsed:[];
       if(!scanResults.length) throw new Error('Empty result');
+      // foreign-language receipts: prefix every item with "[Shop Name] "
+      const shop=String(parsed.shopName||'').replace(/[\[\]]/g,'').trim();
+      const isForeign=parsed.foreign===true||scanResults.some(t=>FOREIGN_SCRIPT_RE.test(String(t.itemName||'')));
+      if(shop&&isForeign) scanResults.forEach(t=>{ const n=String(t.itemName||'').trim(); if(n&&!n.startsWith('[')) t.itemName=`[${shop}] ${n}`; });
       scanResults=mergeScanDuplicates(scanResults);
       if(scanResults.some(t=>OPAL_RE.test(String(t.itemName||'')))){
         scanResults.forEach(t=>{ if(OPAL_RE.test(String(t.itemName||''))) t.itemName='Opal Card'; });
@@ -4196,6 +4202,8 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
     }
   };
 
+  // kana / hangul / thai — fallback when the model doesn't flag a foreign receipt
+  const FOREIGN_SCRIPT_RE=/[\u3040-\u30ff\uac00-\ud7af\u0e00-\u0e7f]/;
   // combine same-name items into one "NAME * N" row with the summed amount
   function mergeScanDuplicates(items){
     const groups=new Map();
@@ -4237,12 +4245,12 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
         <div class="chip${(t._usedByIds||[]).includes(p.id)?' sel':''}" onclick="scanToggleUsed(${i},'${p.id}')" style="font-size:12px;padding:6px 11px">${p.name}</div>`).join('');
       return `<div class="scan-tx-row${t._skip?' skip':''}" id="scan-row-${i}">
         <div class="scan-tx-toggle">
-          <input class="scan-tx-input" value="${escapeHtml(t.itemName||'')}" placeholder="Item ${i+1}" oninput="scanResults[${i}].itemName=this.value" style="flex:1;font-weight:700;font-size:14px">
+          <input class="scan-tx-input" value="${escapeHtml(t.itemName||'')}" placeholder="Item ${i+1}" oninput="scanSetName(${i},this.value)" style="flex:1;font-weight:700;font-size:14px">
           <label class="toggle-switch" style="flex-shrink:0;margin-left:8px"><input type="checkbox" ${t._skip?'':'checked'} onchange="toggleScanRow(${i},this.checked)"><span class="toggle-track"></span></label>
         </div>
         <div class="scan-tx-field">
           <span class="scan-tx-lbl">金額</span>
-          <input class="scan-tx-input" type="number" value="${t.amount||0}" oninput="scanResults[${i}].amount=Number(this.value)">
+          <input class="scan-tx-input" type="number" value="${t.amount||0}" oninput="scanSetAmount(${i},this.value)">
         </div>
         <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">種類</div>
         <div class="chip-wrap" style="padding:4px 0 6px;flex-wrap:wrap">${catChips}</div>
@@ -4263,7 +4271,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
     if(btn){ btn.disabled=true; btn.textContent='✨ 補全中…'; }
     try{
       const items=scanResults.map((t,i)=>({index:i,name:t.itemName||''}));
-      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Language: keep each English/Chinese name in the language(s) it already has, never translate or add a missing English/Chinese version; if a name already has both, keep both once as "English 中文"; if a name is in any other language (e.g. Japanese), put an English translation in front as "English 原文", and if it already starts with an English translation keep it as is. Keep any trailing quantity suffix like " * 4" unchanged. Return ONLY a JSON array, no markdown: [{"index":0,"name":"Full Name"}]
+      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Language: keep each English/Chinese name in the language(s) it already has, never translate or add a missing English/Chinese version; if a name already has both, keep both once as "English 中文"; if a name is in any other language (e.g. Japanese), put an English translation in front as "English 原文", and if it already starts with an English translation keep it as is. Keep any leading "[Shop Name]" prefix and any trailing quantity suffix like " * 4" unchanged. Return ONLY a JSON array, no markdown: [{"index":0,"name":"Full Name"}]
 Items: ${JSON.stringify(items)}`;
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
@@ -4274,7 +4282,8 @@ Items: ${JSON.stringify(items)}`;
       const raw=j?.candidates?.[0]?.content?.parts?.[0]?.text||'';
       const m=raw.match(/\[[\s\S]*\]/);
       if(!m) throw new Error('No JSON array');
-      JSON.parse(m[0]).forEach(s=>{ if(scanResults[s.index]&&s.name) scanResults[s.index].itemName=s.name; });
+      // skip rows the user edited while the request was in flight
+      JSON.parse(m[0]).forEach(s=>{ const t=scanResults[s.index]; if(t&&s.name&&(t.itemName||'')===items[s.index]?.name) t.itemName=s.name; });
       renderScanConfirm();
       showToast('名稱已補全');
     }catch(e){
@@ -4286,6 +4295,9 @@ Items: ${JSON.stringify(items)}`;
     }
   };
 
+  // inline handlers can't see module-scoped scanResults, so edits go through window functions
+  window.scanSetName=function(i,v){ if(scanResults[i]) scanResults[i].itemName=v; };
+  window.scanSetAmount=function(i,v){ if(scanResults[i]) scanResults[i].amount=Number(v)||0; };
   window.scanSetPaidBy=function(id){
     scanSharedPaidById=id;
     renderScanConfirm();
@@ -4748,16 +4760,16 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
         </div>
         <div class="scan-tx-field" style="margin-bottom:6px">
           <span class="scan-tx-lbl">名稱</span>
-          <input class="scan-tx-input" value="${item._itemName.replace(/"/g,'&quot;')}" oninput="bankItems[${i}]._itemName=this.value">
+          <input class="scan-tx-input" value="${item._itemName.replace(/"/g,'&quot;')}" oninput="bankSetField(${i},'_itemName',this.value)">
         </div>
         <div class="scan-tx-field" style="margin-bottom:6px">
           <span class="scan-tx-lbl">日期</span>
-          <input class="scan-tx-input" type="date" value="${item.date}" oninput="bankItems[${i}].date=this.value">
+          <input class="scan-tx-input" type="date" value="${item.date}" oninput="bankSetField(${i},'date',this.value)">
         </div>
         <div class="scan-tx-field" style="margin-bottom:6px">
           <span class="scan-tx-lbl">金額</span>
-          <input class="scan-tx-input" type="number" value="${item.amount}" oninput="bankItems[${i}].amount=Number(this.value)">
-          <input class="scan-tx-input" value="${item.currency}" oninput="bankItems[${i}].currency=this.value.toUpperCase()" style="width:60px;flex:none">
+          <input class="scan-tx-input" type="number" value="${item.amount}" oninput="bankSetField(${i},'amount',Number(this.value)||0)">
+          <input class="scan-tx-input" value="${item.currency}" oninput="bankSetField(${i},'currency',this.value.toUpperCase())" style="width:60px;flex:none">
         </div>
         <div style="font-size:11px;color:var(--text-2);padding:4px 0 2px;font-weight:700;text-transform:uppercase;letter-spacing:.4px">種類</div>
         <div class="chip-wrap" id="bcats-${i}" style="padding:4px 0 6px;flex-wrap:wrap">${catChips}</div>
@@ -4771,6 +4783,7 @@ Rules: extract each debit/payment/expense line; for "date" use Value Date if pre
     body.scrollTop=0;
   }
 
+  window.bankSetField=function(i,k,v){ if(bankItems[i]) bankItems[i][k]=v; };
   window.setBankAction=function(i,action){ bankItems[i]._action=action; renderBankStmtReview(); };
   window.toggleBankHideMatched=function(){ bankHideMatched=!bankHideMatched; renderBankStmtReview(); };
   window.setBankFilterName=function(v){ bankFilterName=v; renderBankStmtReview(); };
