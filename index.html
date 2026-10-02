@@ -1085,7 +1085,7 @@ function isoDate(d=new Date()){
   const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
   return local.toISOString().split('T')[0];
 }
-const OPAL_RE=/TFNSW\s+OPAL\s+FARE\s+SYDNEY\s+AUS/i;
+const OPAL_RE=/TFNSW.{0,10}OPAL|OPAL\s*FARE/i;
 function shiftIsoDate(dateStr,days){ const d=new Date(dateStr+'T00:00:00'); d.setDate(d.getDate()+days); return isoDate(d); }
 
 // ════════════════════════════════════════════════
@@ -4148,14 +4148,14 @@ Object.assign(window, {
       const bc=baseCur();
       const prompt=`Receipt parser. Return ONLY a JSON object, no markdown.
 Format: {"date":"YYYY-MM-DD","currency":"${bc}","items":[{"itemName":"string","amount":number,"category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
-Rules: date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); language: use only the language(s) printed on the receipt for that item, never translate or add a name in a language that isn't printed; if both an English and a Chinese name are printed for the same item, output both once as "English 中文" (single space, no brackets or slashes); split each line item separately.`;
+Rules: date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); language: if the item name is printed in English and/or Chinese, use only the language(s) printed for that item and never translate or add a name in a language that isn't printed; if both an English and a Chinese name are printed for the same item, output both once as "English 中文" (single space, no brackets or slashes); if the item name is printed in any other language (e.g. Japanese, Korean, Thai), put an English translation in front of the original name as "English 原文" (e.g. "おにぎり 鮭"→"Salmon Rice Ball おにぎり 鮭"); quantity: if the same item appears on several lines or has a quantity above 1, output it once as "ITEM NAME * N" (e.g. "Salmon Rice Ball おにぎり 鮭 * 4") with amount = the total for all N; otherwise one entry per line item.`;
 
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
         body:JSON.stringify({
           contents:[{parts:[{text:prompt},{inline_data:{mime_type:file.type,data:b64}}]}],
-          generationConfig:{temperature:0,maxOutputTokens:4096}
+          generationConfig:{temperature:0,maxOutputTokens:16384}
         })
       },20000);
 
@@ -4171,6 +4171,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
       scanSharedCurrency=(parsed.currency||baseCur()).toUpperCase();
       scanResults=Array.isArray(parsed.items)?parsed.items:Array.isArray(parsed)?parsed:[];
       if(!scanResults.length) throw new Error('Empty result');
+      scanResults=mergeScanDuplicates(scanResults);
       if(scanResults.some(t=>OPAL_RE.test(String(t.itemName||'')))){
         scanResults.forEach(t=>{ if(OPAL_RE.test(String(t.itemName||''))) t.itemName='Opal Card'; });
         scanSharedDate=shiftIsoDate(scanSharedDate,-1);
@@ -4194,6 +4195,21 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
       actions.style.display='none';
     }
   };
+
+  // combine same-name items into one "NAME * N" row with the summed amount
+  function mergeScanDuplicates(items){
+    const groups=new Map();
+    items.forEach(t=>{
+      const m=String(t.itemName||'').trim().match(/^(.*?)\s*\*\s*(\d+)$/);
+      const name=m?m[1]:String(t.itemName||'').trim();
+      const qty=m?Number(m[2])||1:1;
+      const key=name.toLowerCase();
+      const g=groups.get(key);
+      if(g&&name){ g.qty+=qty; g.item.amount=Math.round(((Number(g.item.amount)||0)+(Number(t.amount)||0))*100)/100; }
+      else groups.set(name?key:Symbol(),{item:{...t},name,qty});
+    });
+    return [...groups.values()].map(g=>{ g.item.itemName=g.qty>1?`${g.name} * ${g.qty}`:g.name; return g.item; });
+  }
 
   function renderScanConfirm(){
     const people=visiblePeople();
@@ -4247,7 +4263,7 @@ Rules: date from receipt, default ${isoDate()} if not visible; currency: detect 
     if(btn){ btn.disabled=true; btn.textContent='✨ 補全中…'; }
     try{
       const items=scanResults.map((t,i)=>({index:i,name:t.itemName||''}));
-      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Language: keep each name in the language(s) it already has, never translate or add a missing English/Chinese version; if a name already has both, keep both once as "English 中文". Return ONLY a JSON array, no markdown: [{"index":0,"name":"Full Name"}]
+      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Language: keep each English/Chinese name in the language(s) it already has, never translate or add a missing English/Chinese version; if a name already has both, keep both once as "English 中文"; if a name is in any other language (e.g. Japanese), put an English translation in front as "English 原文", and if it already starts with an English translation keep it as is. Keep any trailing quantity suffix like " * 4" unchanged. Return ONLY a JSON array, no markdown: [{"index":0,"name":"Full Name"}]
 Items: ${JSON.stringify(items)}`;
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
