@@ -28,7 +28,7 @@
 <script>
 (function(){
   if(window.UI_LANG!=='zh') return;
-  var D={"Who paid?":"邊個付？","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
+  var D={"Who paid?":"邊個付？","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
   var P=[["^Items · (\\d+)$", "項目 · $1"], ["^Paid by (.+)$", "$1 付款"], ["^([\\d,]+) records$", "$1 筆記錄"], ["^Avg / month (.+)$", "平均每月 $1"], ["^Loaded all ([\\d,]+) records$", "已載入全部 $1 筆"], ["^Stats rebuilt from ([\\d,]+) records$", "已用 $1 筆記錄重建統計"], ["^Saved ([\\d,]+) transactions$", "已儲存 $1 筆交易"], ["^Saved · paid by (.+)$", "已儲存 · $1 付款"], ["^Saved · split between (.+)$", "已儲存 · 由 $1 夾錢"], ["^Found ([\\d,]+) items — check them, then save:$", "找到 $1 項，請確認後儲存："], ["^([\\d,]+) of ([\\d,]+) items · (.+)$", "$1/$2 項 · $3"], ["^([\\d,]+) pending$", "$1 項待處理"], ["^(\\d+) min ago$", "$1 分鐘前"], ["^(\\d+) h ago$", "$1 小時前"], ["^(\\d+) d ago$", "$1 日前"], ["^(\\d+) mo ago$", "$1 個月前"], ["^(\\d+) y ago$", "$1 年前"], ["^Each (.+)$", "每人 $1"], ["^([▲▼]) (\\d+)% vs (\\w+) · ([\\d,]+) records$", "$1 $2% 對比 $3 · $4 筆記錄"], ["^Added ([\\d,]+) recurring expenses?$", "已新增 $1 筆定期支出"], ["^(\\d+) days · (.+)/day( · estimated)?$", "$1 日 · 每日 $2$3"], ["^(.+) · so far$", "$1 · 至今"], ["^Next (.+)$", "下次 $1"], ["^(\\d+)/(\\d+) times$", "$1/$2 次"], ["^Rename “(.+)”$", "將「$1」改名"], ["^Delete “(.+)”\\?$", "刪除「$1」？"], ["^Remove “(.+)”\\?$", "移除「$1」？"], ["^Import ([\\d,]+) transactions\\?$", "匯入 $1 筆交易？"], ["^Updated ([\\d,]+) categories$", "已更新 $1 筆交易種類"], ["^Exported ([\\d,]+) transactions$", "已匯出 $1 筆交易"], ["^Imported ([\\d,]+) transactions$", "已匯入 $1 筆交易"], ["^Added (.+)$", "已加入 $1"], ["^Removed (.+)$", "已移除 $1"], ["^Renamed to (.+)$", "已改名為 $1"], ["^Balance \\((.+)\\)$", "結餘（$1）"], ["^(.+) style$", "$1 樣式"], ["^Save failed: (.+)$", "儲存失敗：$1"], ["^Repeats (weekly|fortnightly|monthly|yearly) from (.+?)( until .+?)?(, \\d+ times in total)? · next (.+)\\.$", "由 $2 起$3$4重複（$1）· 下次 $5。"], ["^You’ll be asked who paid on the Summary page each time it’s due\\.$", "每次到期時會喺總覽問你邊個付款。"]].map(function(p){ return [new RegExp(p[0]), p[1]]; });
   var W={weekly:'每週',fortnightly:'每兩週',monthly:'每月',yearly:'每年'};
   function tr(str){
@@ -959,6 +959,103 @@ input,textarea,select{caret-color:var(--accent)}
 /* centred chevron buttons */
 .period-btn,.cat-summary-nav-btn,.pk-nav{display:flex;align-items:center;justify-content:center;padding:0;line-height:0}
 .period-btn .chev,.cat-summary-nav-btn .chev,.pk-nav .chev{width:18px;height:18px;stroke-width:2.4;vertical-align:0;display:block}
+
+/* ── iOS Liquid Glass tab bar ── */
+:root{--lg-tint:rgba(28,28,32,.34);--lg-rim:rgba(255,255,255,.55);--lg-hi:rgba(255,255,255,.22);--lg-lens:#ffffff;--lg-lens-op:.16;--lg-ink:var(--accent)}
+:root[data-theme="light"]{--lg-tint:rgba(255,255,255,.42);--lg-rim:rgba(255,255,255,.95);--lg-hi:rgba(255,255,255,.65);--lg-lens:#000000;--lg-lens-op:.07;--lg-ink:#0a9b78}
+.tab-bar{
+  background:var(--lg-tint)!important;
+  backdrop-filter:blur(18px) saturate(190%) brightness(1.08);
+  -webkit-backdrop-filter:blur(18px) saturate(190%) brightness(1.08);
+  border:none!important;
+  box-shadow:
+    inset 0 1px 1px var(--lg-hi),
+    inset 0 -1px 1px rgba(255,255,255,.06),
+    inset 0 0 14px rgba(255,255,255,.05),
+    0 14px 34px rgba(0,0,0,.32),
+    0 2px 8px rgba(0,0,0,.18)!important;
+  isolation:isolate;
+}
+.tab-bar::before{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.14),rgba(255,255,255,0) 48%),radial-gradient(90% 70% at 20% -20%,rgba(255,255,255,.16),transparent 60%)}
+.tab-bar::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:2;padding:1px;
+  background:linear-gradient(135deg,var(--lg-rim),rgba(255,255,255,0) 28%,rgba(255,255,255,0) 70%,rgba(255,255,255,.35));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.goo-lens{fill:var(--lg-lens);opacity:var(--lg-lens-op)}
+.tab{color:var(--text-2)}
+.tab.active{color:var(--lg-ink)!important}
+.tab.active .ic{transform:scale(1.08);transition:transform .3s cubic-bezier(.34,1.4,.5,1)}
+.tab-scan-btn{
+  background:rgba(255,255,255,.08)!important;color:var(--lg-ink)!important;border:none!important;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,.35),inset 0 0 0 1px rgba(255,255,255,.14),0 4px 12px rgba(0,0,0,.18)!important;
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+:root[data-theme="light"] .tab-scan-btn{background:rgba(255,255,255,.55)!important;box-shadow:inset 0 1px 1px #fff,inset 0 0 0 1px rgba(0,0,0,.06),0 4px 12px rgba(0,0,0,.1)!important}
+:root[data-theme="light"] .tab-bar{box-shadow:inset 0 1px 1px var(--lg-hi),inset 0 0 0 1px rgba(0,0,0,.05),0 14px 34px rgba(0,0,0,.14),0 2px 8px rgba(0,0,0,.06)!important}
+
+/* ── consistent page headers ── */
+.nav{height:calc(var(--safe-t) + 60px);min-height:0;padding:var(--safe-t) 16px 0 20px!important;display:flex;align-items:center;gap:10px;box-sizing:border-box}
+.nav-title{font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;display:flex;align-items:center;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-title .ic{font-size:22px;flex-shrink:0}
+.nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;min-width:0}
+.nav-btn{width:38px;height:38px;border-radius:12px;padding:0;border:none}
+.nav-btn .ic,.nav-btn svg{width:18px!important;height:18px!important;font-size:18px}
+.nav-erase{color:var(--accent);background:rgba(46,242,196,.12);cursor:pointer}
+.ledger-chip{flex:0 1 auto!important;max-width:150px;height:38px;padding:0 10px 0 11px!important;border-radius:12px!important;font-size:13px!important;gap:6px!important;box-shadow:none!important;background:var(--surface-2)!important;border:1px solid rgba(var(--ov),.08)!important;cursor:pointer;color:var(--accent)}
+.ledger-chip .ic{font-size:15px;flex-shrink:0}
+.ledger-chip .chev-down{font-size:12px;stroke-width:2.6;opacity:.8}
+.ledger-chip span{min-width:0}
+:root[data-theme="light"] .nav-erase{color:#0a9b78}
+
+/* ── capsule segmented controls (Month/Trend, Past/Upcoming) ── */
+.seg-ctrl,.future-tabs{position:relative;display:flex;gap:0;padding:4px;margin:12px 16px;border-radius:999px;background:var(--surface-solid);border:none!important;box-shadow:inset 0 0 0 1px rgba(var(--ov),.06)}
+.future-tabs{margin:8px 16px 4px}
+.seg-ctrl .seg-btn,.future-tabs .future-tab{position:relative;z-index:1;flex:1;padding:10px 0;border-radius:999px;border:none!important;font-size:14px;font-weight:700;color:var(--text-2);text-align:center;cursor:pointer;background:transparent!important;box-shadow:none!important;transition:color .25s}
+.seg-ctrl .seg-btn.active,.future-tabs .future-tab.active{color:var(--text)}
+.seg-ctrl .seg-btn.active .ic{color:var(--accent)}
+.future-tabs .future-tab.active{color:var(--accent)}
+.seg-thumb{position:absolute;top:4px;bottom:4px;left:0;border-radius:999px!important;background:var(--surface-3);z-index:0;transition:none!important;pointer-events:none;transform-origin:50% 50%;box-shadow:inset 0 1px 0 rgba(var(--ov),.06),0 2px 8px rgba(0,0,0,.25)}
+:root[data-theme="light"] .seg-ctrl,:root[data-theme="light"] .future-tabs{background:#e7e7ec;box-shadow:none}
+:root[data-theme="light"] .seg-thumb{background:#ffffff;box-shadow:0 0 0 1px rgba(0,0,0,.06),0 2px 6px rgba(0,0,0,.08)}
+:root[data-theme="light"] .future-tabs .future-tab.active{color:#0a9b78}
+
+/* expanded record: amount moves into the header, subtitle swaps to the date */
+.tx-card .tx-x-date,.tx-card .tx-x-amt,.tx-card .tx-x-fx{display:none}
+.tx-card.expanded .tx-sub,.tx-card.expanded .tx-amt-main,.tx-card.expanded .tx-amt-fx{display:none}
+.tx-card.expanded .tx-x-date{display:block;font-size:11.5px;color:var(--text-2);margin-top:2px}
+.tx-card.expanded .tx-x-amt{display:block;font-family:var(--num);font-size:21px;font-weight:700;letter-spacing:-.03em;color:var(--text);white-space:nowrap}
+.tx-card.expanded .tx-x-amt small{font-size:11px;font-weight:700;color:var(--text-2);margin-right:4px;letter-spacing:.04em}
+.tx-card.expanded .tx-x-fx{display:block;font-family:var(--num);font-size:11px;color:var(--text-2);margin-top:2px;text-align:right}
+.tx-card.expanded .tx-name{font-size:15px;font-weight:600}
+.tx-card.expanded{padding:14px 16px 12px}
+.tx-x-badges{display:flex;gap:6px;flex-wrap:wrap;padding:12px 0 2px}
+.tx-expand .tx-x-badges .lbl-badge{background:rgba(0,0,0,.07);color:#3a3a3f}
+.tx-expand .tx-x-badges .lbl-badge.blue{background:var(--accent);color:var(--on-accent)}
+/* flat background (no gradient) */
+body,:root[data-theme="light"] body{background:var(--bg)!important}
+
+/* scan item rows: same row style as the Receipt card */
+.scan-tx-field{display:flex;align-items:center;gap:12px;min-height:44px;border-top:1px solid var(--sep);padding-top:8px}
+.scan-tx-lbl{width:auto!important;font-family:inherit!important;font-size:15px!important;text-transform:none!important;letter-spacing:0!important;color:var(--text)!important;flex-shrink:0;display:flex;align-items:center;gap:8px}
+.scan-tx-lbl::before{content:'';width:16px;height:16px;flex-shrink:0;background:var(--text-3);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='9' cy='7' rx='6' ry='3'/%3E%3Cpath d='M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3'/%3E%3Cellipse cx='17' cy='15' rx='4' ry='2'/%3E%3Cpath d='M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.9' stroke-linecap='round' stroke-linejoin='round'%3E%3Cellipse cx='9' cy='7' rx='6' ry='3'/%3E%3Cpath d='M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3'/%3E%3Cellipse cx='17' cy='15' rx='4' ry='2'/%3E%3Cpath d='M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3'/%3E%3C/svg%3E") center/contain no-repeat}
+.scan-tx-field .scan-tx-input[type=number]{background:none;border:none;text-align:right;font-family:var(--num);font-size:17px!important;font-weight:600;color:var(--text);padding:6px 0}
+.scan-tx-field .scan-tx-input[type=number]:focus{outline:none;color:var(--accent)}
+/* header buttons: one consistent style on every tab */
+.nav-btn,.nav-erase,.ledger-chip{background:rgba(var(--ov),.06)!important;border:1px solid rgba(var(--ov),.08)!important;color:var(--accent)!important;box-shadow:none!important}
+.nav-btn svg,.ledger-chip .ic{color:var(--accent)}
+:root[data-theme="light"] .nav-btn,:root[data-theme="light"] .nav-erase,:root[data-theme="light"] .ledger-chip{background:#ffffff!important;border:1px solid rgba(0,0,0,.1)!important;color:#0a9b78!important}
+:root[data-theme="light"] .nav-btn svg,:root[data-theme="light"] .ledger-chip .ic{color:#0a9b78}
+
+.future-tabs .future-tab{display:flex;align-items:center;justify-content:center}
+.future-tabs .future-tab .ic{font-size:16px;color:var(--text-3);transition:color .25s}
+.future-tabs .future-tab.active .ic{color:var(--accent)}
+:root[data-theme="light"] .future-tabs .future-tab.active .ic{color:#0a9b78}
+
+.sec-label.sec-split{display:flex;justify-content:space-between;align-items:baseline;margin-right:4px}
+
+.bp-total{font-family:var(--num);font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
+.bp-total small{font-size:10.5px;font-weight:700;color:var(--text-2);letter-spacing:.04em;margin-right:4px}
+.person-bal-sub .num{font-family:var(--num);font-variant-numeric:tabular-nums}
 /* ── dialogs ── */
 .ui-dialog-ov{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .18s}
 .ui-dialog-ov.open{opacity:1}
@@ -979,8 +1076,8 @@ input,textarea,select{caret-color:var(--accent)}
 .set-seg button.on{background:var(--accent);color:var(--on-accent)}
 </style>
 <script>
-window.ICONS={"home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "receipt": "<path d=\"M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "chart": "<path d=\"M3 21h18\"/><rect x=\"5\" y=\"11\" width=\"3\" height=\"7\" rx=\"1\"/><rect x=\"10.5\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/><rect x=\"16\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/>", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "camera": "<path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.5\"/>", "book": "<path d=\"M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3\"/><path d=\"M8 7h8\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "calendarRange": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4M7 14h5M12 17.5h5\"/>", "clipboard": "<path d=\"M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2\"/><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"3\" rx=\"1\"/><path d=\"M9 11h6M9 15h4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "sparkles": "<path d=\"M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z\"/><path d=\"M18.5 14.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z\"/>", "expense": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 15l6-6M10 9h5v5\"/>", "transfer": "<path d=\"M17 3l4 4-4 4\"/><path d=\"M3 7h18\"/><path d=\"M7 21l-4-4 4-4\"/><path d=\"M21 17H3\"/>", "tag": "<path d=\"M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1.2\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "alert": "<path d=\"M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9v4M12 17h.01\"/>", "edit": "<path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\"/>", "refresh": "<path d=\"M21 12a9 9 0 0 1-15.5 6.2L3 16\"/><path d=\"M3 21v-5h5\"/><path d=\"M3 12a9 9 0 0 1 15.5-6.2L21 8\"/><path d=\"M21 3v5h-5\"/>", "bank": "<path d=\"M3 10l9-6 9 6\"/><path d=\"M5 10v8M9.5 10v8M14.5 10v8M19 10v8\"/><path d=\"M3 21h18\"/>", "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>", "checkCircle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7L16 9.8\"/>", "x": "<path d=\"M6 6l12 12M18 6 6 18\"/>", "bulb": "<path d=\"M9 18h6M10 21h4\"/><path d=\"M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/>", "loader": "<path d=\"M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5 6.8 15M17.2 9l2.6-1.5\"/>", "listChecks": "<path d=\"M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17\"/><path d=\"M11 6h10M11 12h10M11 18h10\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "copy": "<rect x=\"8\" y=\"8\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3\"/>", "trash": "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M9 7V4h6v3\"/>", "note": "<path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6M8 13h8M8 17h5\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6\"/>", "repeat": "<path d=\"M17 2l4 4-4 4\"/><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\"/><path d=\"M7 22l-4-4 4-4\"/><path d=\"M21 13v1a4 4 0 0 1-4 4H3\"/>", "download": "<path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\"/>", "deleteLeft": "<path d=\"M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z\"/><path d=\"M12 9l6 6M18 9l-6 6\"/>", "hourglass": "<path d=\"M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9\"/>", "food": "<path d=\"M6 3v6a3 3 0 0 0 6 0V3M9 3v18\"/><path d=\"M18 21V3c-2 1-3 4-3 7v4h3\"/>", "coffee": "<path d=\"M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z\"/><path d=\"M17 10h1.5a2.5 2.5 0 0 1 0 5H17\"/><path d=\"M8 2.5V5M12 2.5V5\"/>", "drink": "<path d=\"M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z\"/><path d=\"M6.5 8h11\"/>", "cart": "<circle cx=\"9\" cy=\"20\" r=\"1.4\"/><circle cx=\"18\" cy=\"20\" r=\"1.4\"/><path d=\"M2.5 3h2.6l2.3 11.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6\"/>", "bag": "<path d=\"M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z\"/><path d=\"M9 10V6a3 3 0 0 1 6 0v4\"/>", "car": "<path d=\"M5 17H3v-5l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 7l2 5v5h-2\"/><path d=\"M3 12h18M9.5 17h5\"/><circle cx=\"7.5\" cy=\"17\" r=\"2\"/><circle cx=\"16.5\" cy=\"17\" r=\"2\"/>", "bus": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"3\"/><path d=\"M4 11h16M8 21v-3M16 21v-3\"/><path d=\"M8 14.5h.01M16 14.5h.01\"/>", "train": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"14\" rx=\"3\"/><path d=\"M5 10h14M12 3v7M8 21l2-4M16 21l-2-4\"/><path d=\"M8.5 13.5h.01M15.5 13.5h.01\"/>", "plane": "<path d=\"M21 12a1.5 1.5 0 0 0-1.5-1.5H15L10.5 3h-2l2 7.5H6L4.5 8H3l1 4-1 4h1.5L6 13.5h4.5l-2 7.5h2l4.5-7.5h4.5A1.5 1.5 0 0 0 21 12z\"/>", "house": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5\"/><path d=\"M10 21v-6h4v6\"/>", "building": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"1\"/><path d=\"M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3\"/>", "bolt": "<path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/>", "droplet": "<path d=\"M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z\"/>", "phone": "<rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>", "wifi": "<path d=\"M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01\"/>", "heart": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/>", "medical": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M12 8v8M8 12h8\"/>", "pill": "<path d=\"M10.5 20.5a5 5 0 0 1-7-7l6-6a5 5 0 0 1 7 7z\"/><path d=\"M8.5 8.5l7 7\"/>", "film": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4\"/>", "gamepad": "<path d=\"M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L15 14H9l-.7 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z\"/><path d=\"M7 10.5v3M5.5 12h3M16 11.5h.01M18 13h.01\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "gift": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>", "education": "<path d=\"M22 9 12 4 2 9l10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6\"/>", "shirt": "<path d=\"M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3z\"/>", "dumbbell": "<path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11\"/>", "paw": "<circle cx=\"5.5\" cy=\"10\" r=\"2\"/><circle cx=\"9.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"14.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"10\" r=\"2\"/><path d=\"M12 11c-2.8 0-6 4.2-6 7a2.5 2.5 0 0 0 2.5 2.5c1.3 0 2.2-.7 3.5-.7s2.2.7 3.5.7A2.5 2.5 0 0 0 18 18c0-2.8-3.2-7-6-7z\"/>", "scissors": "<circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/>", "umbrella": "<path d=\"M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z\"/><path d=\"M12 12v6.5a2.5 2.5 0 0 1-5 0\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18\"/>", "wallet": "<path d=\"M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><path d=\"M17 14h.01\"/>", "coins": "<ellipse cx=\"9\" cy=\"7\" rx=\"6\" ry=\"3\"/><path d=\"M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3\"/><ellipse cx=\"17\" cy=\"15\" rx=\"4\" ry=\"2\"/><path d=\"M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3\"/>", "card": "<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 10h19M6 15h4\"/>", "dots": "<path d=\"M5 12h.01M12 12h.01M19 12h.01\"/>"};
-window.CAT_ICON_KEYS=["food", "coffee", "drink", "cart", "bag", "car", "bus", "train", "plane", "house", "building", "bolt", "droplet", "phone", "wifi", "heart", "medical", "pill", "film", "gamepad", "music", "gift", "education", "shirt", "dumbbell", "paw", "scissors", "sparkles", "umbrella", "briefcase", "wallet", "coins", "card", "repeat", "tag", "dots"];
+window.ICONS={"home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "receipt": "<path d=\"M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "chart": "<path d=\"M3 21h18\"/><rect x=\"5\" y=\"11\" width=\"3\" height=\"7\" rx=\"1\"/><rect x=\"10.5\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/><rect x=\"16\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/>", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "camera": "<path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.5\"/>", "book": "<path d=\"M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3\"/><path d=\"M8 7h8\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "calendarRange": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4M7 14h5M12 17.5h5\"/>", "clipboard": "<path d=\"M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2\"/><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"3\" rx=\"1\"/><path d=\"M9 11h6M9 15h4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "sparkles": "<path d=\"M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z\"/><path d=\"M18.5 14.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z\"/>", "expense": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 15l6-6M10 9h5v5\"/>", "transfer": "<path d=\"M17 3l4 4-4 4\"/><path d=\"M3 7h18\"/><path d=\"M7 21l-4-4 4-4\"/><path d=\"M21 17H3\"/>", "tag": "<path d=\"M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1.2\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "alert": "<path d=\"M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9v4M12 17h.01\"/>", "edit": "<path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\"/>", "refresh": "<path d=\"M21 12a9 9 0 0 1-15.5 6.2L3 16\"/><path d=\"M3 21v-5h5\"/><path d=\"M3 12a9 9 0 0 1 15.5-6.2L21 8\"/><path d=\"M21 3v5h-5\"/>", "bank": "<path d=\"M3 10l9-6 9 6\"/><path d=\"M5 10v8M9.5 10v8M14.5 10v8M19 10v8\"/><path d=\"M3 21h18\"/>", "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>", "checkCircle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7L16 9.8\"/>", "x": "<path d=\"M6 6l12 12M18 6 6 18\"/>", "bulb": "<path d=\"M9 18h6M10 21h4\"/><path d=\"M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/>", "loader": "<path d=\"M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5 6.8 15M17.2 9l2.6-1.5\"/>", "listChecks": "<path d=\"M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17\"/><path d=\"M11 6h10M11 12h10M11 18h10\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "copy": "<rect x=\"8\" y=\"8\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3\"/>", "trash": "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M9 7V4h6v3\"/>", "note": "<path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6M8 13h8M8 17h5\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6\"/>", "repeat": "<path d=\"M17 2l4 4-4 4\"/><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\"/><path d=\"M7 22l-4-4 4-4\"/><path d=\"M21 13v1a4 4 0 0 1-4 4H3\"/>", "download": "<path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\"/>", "deleteLeft": "<path d=\"M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z\"/><path d=\"M12 9l6 6M18 9l-6 6\"/>", "hourglass": "<path d=\"M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9\"/>", "food": "<path d=\"M6 3v6a3 3 0 0 0 6 0V3M9 3v18\"/><path d=\"M18 21V3c-2 1-3 4-3 7v4h3\"/>", "coffee": "<path d=\"M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z\"/><path d=\"M17 10h1.5a2.5 2.5 0 0 1 0 5H17\"/><path d=\"M8 2.5V5M12 2.5V5\"/>", "drink": "<path d=\"M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z\"/><path d=\"M6.5 8h11\"/>", "cart": "<circle cx=\"9\" cy=\"20\" r=\"1.4\"/><circle cx=\"18\" cy=\"20\" r=\"1.4\"/><path d=\"M2.5 3h2.6l2.3 11.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6\"/>", "bag": "<path d=\"M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z\"/><path d=\"M9 10V6a3 3 0 0 1 6 0v4\"/>", "car": "<path d=\"M5 17H3v-5l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 7l2 5v5h-2\"/><path d=\"M3 12h18M9.5 17h5\"/><circle cx=\"7.5\" cy=\"17\" r=\"2\"/><circle cx=\"16.5\" cy=\"17\" r=\"2\"/>", "bus": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"3\"/><path d=\"M4 11h16M8 21v-3M16 21v-3\"/><path d=\"M8 14.5h.01M16 14.5h.01\"/>", "train": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"14\" rx=\"3\"/><path d=\"M5 10h14M12 3v7M8 21l2-4M16 21l-2-4\"/><path d=\"M8.5 13.5h.01M15.5 13.5h.01\"/>", "plane": "<path d=\"M21 12a1.5 1.5 0 0 0-1.5-1.5H15L10.5 3h-2l2 7.5H6L4.5 8H3l1 4-1 4h1.5L6 13.5h4.5l-2 7.5h2l4.5-7.5h4.5A1.5 1.5 0 0 0 21 12z\"/>", "house": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5\"/><path d=\"M10 21v-6h4v6\"/>", "building": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"1\"/><path d=\"M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3\"/>", "bolt": "<path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/>", "droplet": "<path d=\"M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z\"/>", "phone": "<rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>", "wifi": "<path d=\"M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01\"/>", "heart": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/>", "medical": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M12 8v8M8 12h8\"/>", "pill": "<path d=\"M10.5 20.5a5 5 0 0 1-7-7l6-6a5 5 0 0 1 7 7z\"/><path d=\"M8.5 8.5l7 7\"/>", "film": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4\"/>", "gamepad": "<path d=\"M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L15 14H9l-.7 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z\"/><path d=\"M7 10.5v3M5.5 12h3M16 11.5h.01M18 13h.01\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "gift": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>", "education": "<path d=\"M22 9 12 4 2 9l10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6\"/>", "shirt": "<path d=\"M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3z\"/>", "dumbbell": "<path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11\"/>", "paw": "<circle cx=\"5.5\" cy=\"10\" r=\"2\"/><circle cx=\"9.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"14.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"10\" r=\"2\"/><path d=\"M12 11c-2.8 0-6 4.2-6 7a2.5 2.5 0 0 0 2.5 2.5c1.3 0 2.2-.7 3.5-.7s2.2.7 3.5.7A2.5 2.5 0 0 0 18 18c0-2.8-3.2-7-6-7z\"/>", "scissors": "<circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/>", "umbrella": "<path d=\"M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z\"/><path d=\"M12 12v6.5a2.5 2.5 0 0 1-5 0\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18\"/>", "wallet": "<path d=\"M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><path d=\"M17 14h.01\"/>", "coins": "<ellipse cx=\"9\" cy=\"7\" rx=\"6\" ry=\"3\"/><path d=\"M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3\"/><ellipse cx=\"17\" cy=\"15\" rx=\"4\" ry=\"2\"/><path d=\"M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3\"/>", "card": "<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 10h19M6 15h4\"/>", "dots": "<path d=\"M5 12h.01M12 12h.01M19 12h.01\"/>", "noodles": "<path d=\"M4 11h16a8 8 0 0 1-16 0z\"/><path d=\"M9 11V4M13 11V3M17 11l2-7\"/><path d=\"M8 19.5h8\"/>", "pizza": "<path d=\"M12 3c3.6 0 6.9 1.4 9 3.7L12 21 3 6.7C5.1 4.4 8.4 3 12 3z\"/><path d=\"M4.6 9.2C6.7 7.8 9.3 7 12 7s5.3.8 7.4 2.2\"/><path d=\"M10 11.5h.01M14 14h.01M11.5 16h.01\"/>", "icecream": "<path d=\"M7 11a5 5 0 0 1 10 0\"/><path d=\"M6.5 11h11L12 22z\"/>", "bread": "<path d=\"M5 10a4 4 0 0 1 2-7.5h10a4 4 0 0 1 2 7.5V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/>", "cake": "<path d=\"M4 21V12a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9\"/><path d=\"M4 15c1.5 1 3 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M3 21h18M12 10V7\"/><path d=\"M12 4.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z\"/>", "apple": "<path d=\"M12 7c-1.5-1-5-1.3-6.5 1.5S5 16 7 19s3.5 2.5 5 1.8c1.5.7 3 1.2 5-1.8s3-7.7 1.5-10.5S13.5 6 12 7z\"/><path d=\"M12 7c0-2 1-3.5 3-4\"/>", "fish": "<path d=\"M3 12c3-5 9-6.5 13-4l5-3v14l-5-3c-4 2.5-10 1-13-4z\"/><path d=\"M15.5 11.5h.01\"/>", "meat": "<path d=\"M15.5 4.5a5 5 0 0 1 4 7.5l-6.5 6.5a4 4 0 0 1-6.5-1L5 19l-2-2 1.5-1.5a4 4 0 0 1-1-6.5L10 2.5a5 5 0 0 1 5.5 2z\"/><circle cx=\"14\" cy=\"9\" r=\"2\"/>", "beer": "<path d=\"M5 8h10v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/><path d=\"M15 11h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2M5 8a3 3 0 0 1 3-4 3 3 0 0 1 5 1 2.5 2.5 0 0 1 2 3M9 12v5M12 12v5\"/>", "bike": "<circle cx=\"5.5\" cy=\"17\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17\" r=\"3.5\"/><path d=\"M5.5 17l4-8h6l3 8M9.5 9 8 6H6M12 17l3.5-8\"/>", "fuel": "<path d=\"M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M3 21h13M4 10h11\"/><path d=\"M15 8l3 3v6a1.5 1.5 0 0 0 3 0V9l-3-3\"/>", "parking": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>", "ship": "<path d=\"M3 17l2 4h14l2-4-9-3z\"/><path d=\"M5 15V9h14v6M9 9V5h6v4M12 3v2\"/>", "bed": "<path d=\"M3 20V6M21 20v-6a3 3 0 0 0-3-3H9v6M3 17h18\"/><circle cx=\"6.5\" cy=\"12.5\" r=\"2\"/>", "ticket": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M14 6v2M14 11v2M14 16v2\"/>", "laptop": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 19h20\"/>", "headphones": "<path d=\"M3 15v-3a9 9 0 0 1 18 0v3\"/><rect x=\"2\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/>", "baby": "<circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M10 7.5h.01M14 7.5h.01M10.5 10c.8.6 2.2.6 3 0\"/><path d=\"M7 21v-3a5 5 0 0 1 10 0v3\"/>", "tools": "<path d=\"M14.7 6.3a4 4 0 0 0 5 5L22 9l-2-2-2.3 2.3-2-2L18 5l-2-2-2.3 2.3a4 4 0 0 0 1 1z\"/><path d=\"M15 9 4 20l-1-1L14 8\"/>", "plant": "<path d=\"M7 20h10M12 20v-8\"/><path d=\"M12 12c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5z\"/>", "tooth": "<path d=\"M12 5.5C10 3.5 6 3 4.5 5.5S4 11 5.5 13s1.5 8 3 8 1.5-5 3.5-5 2 5 3.5 5 1.5-6 3-8 2.5-5 1-7.5S14 3.5 12 5.5z\"/>", "glasses": "<circle cx=\"6.5\" cy=\"15\" r=\"3.5\"/><circle cx=\"17.5\" cy=\"15\" r=\"3.5\"/><path d=\"M10 15h4M3 15 5 6h2M21 15l-2-9h-2\"/>", "sofa": "<path d=\"M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3\"/><path d=\"M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zM5 19v2M19 19v2\"/>", "washer": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><circle cx=\"12\" cy=\"13\" r=\"4.5\"/><path d=\"M8 6.5h.01M11 6.5h3\"/>", "flame": "<path d=\"M12 22c4 0 7-2.8 7-6.5 0-3-2-5.5-3.5-7 0 2-1 3.5-2.5 3.5C13 9 13 5 9.5 2c.5 3-1.5 5-3 7S5 12.5 5 15.5C5 19.2 8 22 12 22z\"/>", "piggy": "<path d=\"M19 9.5c1 0 2 .8 2 2M5 11.5C5 7.9 8.1 5 12 5c1.6 0 3.1.5 4.3 1.3L19 5v4c.6.8 1 1.5 1 2.5H21v3h-1.5c-.6 1.3-1.6 2.3-2.9 3V20h-3v-1.6a8 8 0 0 1-3.2 0V20h-3v-2.2C5.9 16.6 5 14.2 5 11.5z\"/><path d=\"M15.5 10h.01M3 10c0 1 .8 2 2 2\"/>", "church": "<path d=\"M12 2v4M10 4h4M6 21V11l6-5 6 5v10M3 21h18M10 21v-4a2 2 0 0 1 4 0v4\"/>", "run": "<circle cx=\"14\" cy=\"4.5\" r=\"2\"/><path d=\"M7 21l3-6 3 2v5M5 12l3-4 4-.5 3 3.5 3 1M10.5 15 9.5 9\"/>", "necessities": "<ellipse cx=\"9\" cy=\"7\" rx=\"5\" ry=\"3\"/><path d=\"M4 7v10c0 1.7 2.2 3 5 3s5-1.3 5-3V7\"/><path d=\"M14 9.5h5.5a.5.5 0 0 1 .5.5v9.5l-1.5-1-1.5 1-1.5-1-1.5 1\"/><circle cx=\"9\" cy=\"7\" r=\"1\"/>", "pot": "<path d=\"M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z\"/><path d=\"M2 11h2M20 11h2M6.5 8h11M12 5.5V8\"/>", "pulse": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/><path d=\"M5.5 12.5h3l1.5-2.5 2 5 1.5-2.5h5\"/>", "plug": "<path d=\"M9 2v5M15 2v5\"/><path d=\"M6 7h12v4a6 6 0 0 1-12 0z\"/><path d=\"M12 17v5\"/>", "key": "<circle cx=\"8\" cy=\"15\" r=\"4.5\"/><path d=\"M11.2 11.8 20 3M16.5 6.5l3 3M14 9l2.5 2.5\"/>", "bill": "<path d=\"M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z\"/><path d=\"M14 2v6h6\"/><path d=\"M12 10.5v8M14.2 12.3h-3a1.6 1.6 0 0 0 0 3.2h1.6a1.6 1.6 0 0 1 0 3.2H9.8\"/>", "voucher": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M9.5 14.5l5-5\"/><circle cx=\"9.5\" cy=\"9.8\" r=\".9\"/><circle cx=\"14.5\" cy=\"14.2\" r=\".9\"/>"};
+window.CAT_ICON_KEYS=["voucher", "bill", "key", "plug", "pulse", "pot", "necessities", "food", "coffee", "drink", "cart", "bag", "car", "bus", "train", "plane", "house", "building", "bolt", "droplet", "phone", "wifi", "heart", "medical", "pill", "film", "gamepad", "music", "gift", "education", "shirt", "dumbbell", "paw", "scissors", "sparkles", "umbrella", "briefcase", "wallet", "coins", "card", "repeat", "noodles", "pizza", "icecream", "bread", "cake", "apple", "fish", "meat", "beer", "bike", "fuel", "parking", "ship", "bed", "ticket", "camera", "laptop", "headphones", "baby", "tools", "plant", "tooth", "glasses", "sofa", "washer", "flame", "trash", "piggy", "church", "run", "tag", "dots"];
 window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="ic'+(cls?' '+cls:'')+'" viewBox="0 0 24 24" aria-hidden="true"'+(style?' style="'+style+'"':'')+'>'+p+'</svg>';};
 </script>
 </head>
@@ -997,13 +1094,16 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   <!-- ══ SUMMARY ══ -->
   <div id="page-summary" class="page active">
     <div class="nav">
-      <div class="ledger-chip" onclick="openLedgerSheet()">
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="font-size:16px"><path d="M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3"/><path d="M8 7h8"/></svg>
-        <span id="ledger-name-top">Ledger</span>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="width:10px;height:10px;margin-left:1px"><path d="M6 9l6 6 6-6"/></svg>
-      </div>
-      <div class="nav-btn" id="sync-btn" onclick="manualSync()" title="Sync">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Summary</span>
+      <div class="nav-actions">
+        <button class="ledger-chip" onclick="openLedgerSheet()" aria-label="Switch ledger">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3"/><path d="M8 7h8"/></svg>
+          <span id="ledger-name-top">Ledger</span>
+          <svg class="ic chev-down" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="nav-btn" id="sync-btn" onclick="manualSync()" title="Sync" role="button" aria-label="Sync">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+        </div>
       </div>
     </div>
 
@@ -1025,16 +1125,16 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   <div id="page-history" class="page">
     <div class="nav">
       <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Records</span>
-      <div style="display:flex;align-items:center;gap:7px">
-        <button class="nav-clear-btn" onclick="clearFilters()">Clear</button>
+      <div class="nav-actions">
+        <button class="nav-btn nav-erase" onclick="clearFilters()" title="Clear filters and search" aria-label="Clear filters and search"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21h10"/><path d="M5.6 15.4 14.8 6.2a2 2 0 0 1 2.8 0l2.2 2.2a2 2 0 0 1 0 2.8L12 19H8.5z"/><path d="M10.5 9.5l5 5"/></svg></button>
         <div class="nav-btn" onclick="openFilterSheet()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></svg>
         </div>
       </div>
     </div>
     <div class="future-tabs">
-      <div class="future-tab active" onclick="setTxTab('history',this)">Past</div>
-      <div class="future-tab" onclick="setTxTab('future',this)">Upcoming</div>
+      <div class="future-tab active" onclick="setTxTab('history',this)"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/><path d="M12 7v5l3 2"/></svg>Past</div>
+      <div class="future-tab" onclick="setTxTab('future',this)"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5 12 18l2.5-2.5"/></svg>Upcoming</div>
     </div>
     <div class="search-wrap">
       <div class="search-inner">
@@ -1066,7 +1166,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
 
   <!-- Tab bar -->
   <div class="tab-bar">
-    <svg class="tab-goo-svg" id="tab-goo" aria-hidden="true" focusable="false"><defs><filter id="goo" x="-20%" y="-60%" width="140%" height="220%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11" result="g"/><feComposite in="SourceGraphic" in2="g" operator="atop"/></filter></defs><g filter="url(#goo)" style="fill:var(--accent)"><rect id="goo-neck" x="0" y="0" width="0" height="0"/><circle id="goo-trail" cx="-100" cy="0" r="22"/><circle id="goo-lead" cx="-100" cy="0" r="22"/></g></svg>
+    <svg class="tab-goo-svg" id="tab-goo" aria-hidden="true" focusable="false"><defs><filter id="goo" x="-20%" y="-60%" width="140%" height="220%" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="6" result="b"/><feColorMatrix in="b" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 24 -11" result="g"/><feComposite in="SourceGraphic" in2="g" operator="atop"/></filter></defs><g class="goo-lens" filter="url(#goo)"><circle id="goo-b5" cx="-100" cy="0" r="22"/><circle id="goo-b4" cx="-100" cy="0" r="22"/><circle id="goo-b3" cx="-100" cy="0" r="22"/><circle id="goo-b2" cx="-100" cy="0" r="22"/><circle id="goo-b1" cx="-100" cy="0" r="22"/><circle id="goo-b0" cx="-100" cy="0" r="22"/></g></svg>
     <div class="tab active" role="button" aria-label="Summary" onclick="switchTab('summary',this)">
       <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>
       Summary
@@ -1606,7 +1706,17 @@ const EMOJI_ICON_MAP=[
   ['education','📚📖🎓✏📝📒📓🏫'],['shirt','👕👗👟👚👖🧥👔🧦'],['dumbbell','🏋💪⚽🏀🏃🏊🚴🎾🏸🧘'],['paw','🐶🐱🐾🐕🐈🐟🐦'],['scissors','💇✂💈'],
   ['sparkles','💄💅✨🧴🧼🪥'],['umbrella','☂🛡☔'],['briefcase','💼🗂📎'],['coins','💰💵💸🪙📈'],['card','💳🧾'],['repeat','🔁🔄📅'],['tag','🏷']
 ];
+// these category names always get their dedicated icon (even if an old emoji is saved)
+const PRIORITY_NAME_RULES=[
+  ['necessities',/日用品|日常用品|necessit|household|toiletr/i],['pot',/廚具|廚房用品|kitchen|cookware/i],['pulse',/^健康$|^health$/i],
+  ['plug',/電器|家電|appliance|electronic/i],['key',/交租|租金|^rent$/i],['bill',/水電雜費|帳單|^bills?$|utilit/i],['voucher',/voucher|禮券|現金券|coupon|gift card/i]
+];
 const NAME_ICON_RULES=[
+  ['noodles',/麵|麪|拉麵|ramen|noodle|pho|laksa/i],['pizza',/pizza|薄餅/i],['icecream',/雪糕|ice ?cream|gelato/i],['bread',/麵包|bakery|bread|包點/i],['cake',/蛋糕|甜品|dessert|cake/i],
+  ['apple',/水果|生果|fruit/i],['fish',/海鮮|魚|seafood|fish/i],['meat',/肉|meat|butcher/i],['beer',/啤酒|beer|pub/i],['bike',/單車|bike|cycling/i],['fuel',/油費|加油|fuel|petrol|gas station/i],
+  ['parking',/泊車|parking/i],['ship',/渡輪|船|ferry|cruise/i],['bed',/住宿|酒店|hotel|airbnb|accommodation/i],['ticket',/門票|ticket|event|concert/i],['laptop',/電腦|computer|laptop|software|app/i],
+  ['headphones',/耳機|audio|headphone/i],['baby',/嬰|baby|kid|小朋友/i],['tools',/維修|工具|repair|hardware|tool/i],['plant',/花|植物|garden|plant|flower/i],['tooth',/牙/i],['glasses',/眼鏡|optical|glasses/i],
+  ['sofa',/傢俬|家具|furniture|homeware|家居/i],['washer',/洗衣|laundry/i],['flame',/煤氣|gas bill/i],['piggy',/儲蓄|saving/i],['run',/跑步|running/i],
   ['coffee',/咖啡|奶茶|飲品|cafe|coffee|tea/i],['drink',/酒|bar|beer|wine|drink/i],['food',/食|餐|飯|午|晚|早|宵夜|外賣|food|meal|dining|lunch|dinner|breakfast|restaurant/i],
   ['cart',/超市|買餸|雜貨|grocer|supermarket/i],['bag',/購物|shopping|網購|淘寶/i],['bus',/巴士|小巴|bus/i],['train',/港鐵|地鐵|鐵路|mtr|train|metro/i],
   ['plane',/旅|機票|酒店|travel|trip|flight|hotel/i],['car',/交通|車|的士|油|泊|taxi|uber|transport|parking|petrol/i],['bolt',/水電|電費|煤氣|utility|utilities|electric/i],
@@ -1620,6 +1730,8 @@ const NAME_ICON_RULES=[
 function catIconKey(id){
   const c=catObj(id);
   if(c?.svgIcon && ICONS[c.svgIcon]) return c.svgIcon;
+  const pr=PRIORITY_NAME_RULES.find(([,re])=>re.test(String(c?.name||'')));
+  if(pr) return pr[0];
   const em=String(c?.emoji||c?.icon||'').replace(/️/g,'');
   if(em){ const first=[...em][0]; const hit=EMOJI_ICON_MAP.find(([,list])=>list.includes(first)); if(hit) return hit[0]; }
   const name=String(c?.name||'');
@@ -2518,7 +2630,7 @@ function renderByPersonCats(byPerson){
     if(!pTotal) return;
     const pMax=Math.max(...Object.values(pCats));
     html+=`<div class="card" style="margin-bottom:10px">`;
-    html+=`<div style="padding:10px 16px 4px;display:flex;align-items:center;gap:8px"><span class="person-avatar" style="width:24px;height:24px;font-size:11px;background:${personColor(p.id)}20;color:${personColor(p.id)}">${String(p.name||'?').charAt(0)}</span><span style="font-size:14px;font-weight:700;flex:1">${p.name}</span><span style="font-size:13px;color:var(--text-2)">${baseCur()} ${fmtBase(pTotal)}</span></div>`;
+    html+=`<div style="padding:10px 16px 4px;display:flex;align-items:center;gap:8px"><span class="person-avatar" style="width:24px;height:24px;font-size:11px;background:${personColor(p.id)}20;color:${personColor(p.id)}">${String(p.name||'?').charAt(0)}</span><span style="font-size:14px;font-weight:700;flex:1">${p.name}</span><span class="bp-total"><small>${baseCur()}</small>${fmtBase(pTotal)}</span></div>`;
     Object.entries(pCats).sort((a,b)=>b[1]-a[1]).forEach(([catId,amt])=>{
       const color=catColor(catId);
       html+=`<div class="cat-bar-row summary-click" style="padding:6px 16px" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name" style="font-size:13px">${catIcon(catId,true)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(amt/pMax*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val" style="font-size:12px">${fmtBase(amt)}</div></div>`;
@@ -2576,6 +2688,16 @@ async function fbAdd(data){
   renderHistory();
   return true;
 }
+// Edit a few fields of an existing record through the normal save path (keeps stats and timestamps right)
+window.patchTx=async function(id,patch){
+  const old=txs.find(t=>t.id===id);
+  if(!old) throw new Error('Record not loaded: '+id);
+  const data={};
+  Object.entries(old).forEach(([k,v])=>{ if(k==='id'||k.startsWith('_')) return; data[k]=v; });
+  Object.assign(data,patch);
+  await fbSet(id,data);
+  return true;
+};
 async function fbSet(id,data){
   if(!db) return;
   const ledgerId=currentLedgerId();
@@ -2671,31 +2793,33 @@ let filterActive=false;
 let _indX=null, _indRaf=0;
 function moveTabIndicator(animate=true){
   const svg=document.getElementById('tab-goo');
-  const lead=document.getElementById('goo-lead'), trail=document.getElementById('goo-trail'), neck=document.getElementById('goo-neck');
+  const blobs=[0,1,2,3,4,5].map(i=>document.getElementById('goo-b'+i));
   const act=document.querySelector('.tab-bar .tab.active');
-  if(!svg||!lead||!act) return;
-  const R=22, cy=svg.clientHeight/2||28;
+  if(!svg||!blobs[0]||!act) return;
+  const R=22, cy=svg.clientHeight/2||28, N=blobs.length;
   const x1=act.offsetLeft+act.offsetWidth/2;
   const x0=_indX; _indX=x1;
   cancelAnimationFrame(_indRaf);
-  const draw=(L,T,rL,rT,neckH)=>{
-    lead.setAttribute('cx',L.toFixed(2)); lead.setAttribute('cy',cy); lead.setAttribute('r',rL.toFixed(2));
-    trail.setAttribute('cx',T.toFixed(2)); trail.setAttribute('cy',cy); trail.setAttribute('r',rT.toFixed(2));
-    const left=Math.min(L,T), len=Math.abs(L-T);
-    neck.setAttribute('x',left.toFixed(2)); neck.setAttribute('width',len.toFixed(2));
-    neck.setAttribute('y',(cy-neckH/2).toFixed(2)); neck.setAttribute('height',(len>0.5?neckH:0).toFixed(2));
-  };
-  if(!animate||x0==null||Math.abs(x1-x0)<1||matchMedia('(prefers-reduced-motion: reduce)').matches){ draw(x1,x1,R,R,0); return; }
-  const dx=x1-x0, dur=620, t0=performance.now();
-  const backOut=t=>{ const c=1.35; return 1+(c+1)*Math.pow(t-1,3)+c*Math.pow(t-1,2); };
+  const place=(i,x,r)=>{ const b=blobs[i]; b.setAttribute('cx',x.toFixed(2)); b.setAttribute('cy',cy); b.setAttribute('r',Math.max(0,r).toFixed(2)); };
+  const rest=()=>blobs.forEach((_,i)=>place(i,x1,R));
+  if(!animate||x0==null||Math.abs(x1-x0)<1||matchMedia('(prefers-reduced-motion: reduce)').matches){ rest(); return; }
+  const dx=x1-x0, dist=Math.abs(dx);
+  const dur=Math.min(760,460+dist*1.1), t0=performance.now();
+  // all droplets ride the same curve, slightly staggered; the stagger is sized so neighbours always overlap
+  const lag=Math.min(.05,26/(dist*3)), span=1-(N-1)*lag;
   const inOut=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+  const clamp=v=>Math.max(0,Math.min(1,v));
   const step=now=>{
     const t=Math.min(1,(now-t0)/dur);
-    const sw=Math.sin(Math.PI*Math.min(1,t*1.15));
-    const L=x0+dx*backOut(Math.min(1,t/0.78));
-    const T=x0+dx*inOut(Math.max(0,Math.min(1,(t-0.1)/0.9)));
-    draw(L,T,R*(1-0.1*sw),R*(1-0.38*sw),20*(1-0.45*sw));
-    if(t<1) _indRaf=requestAnimationFrame(step); else draw(x1,x1,R,R,0);
+    for(let i=0;i<N;i++){
+      const local=clamp((t-i*lag)/span);
+      let e=inOut(local);
+      if(i===0) e+=0.035*Math.sin(Math.PI*clamp((local-.7)/.3)); // small overshoot, then settle
+      const swell=Math.sin(Math.PI*local);
+      const r=i===0?R*(1-.08*swell):R*(1-(.06+i*.075)*swell);
+      place(i,x0+dx*e,r);
+    }
+    if(t<1) _indRaf=requestAnimationFrame(step); else rest();
   };
   _indRaf=requestAnimationFrame(step);
 }
@@ -2706,6 +2830,7 @@ function switchTab(name,el){
   document.getElementById('page-'+name).classList.add('active');
   el.classList.add('active');
   moveTabIndicator(true);
+  requestAnimationFrame(()=>{ document.querySelectorAll('.page.active .seg-ctrl,.page.active .future-tabs').forEach(c=>segThumb(c,false)); });
   if(name==='summary') renderSummary();
   if(name==='history') renderHistory();
   if(name==='settle') renderSettle();
@@ -2713,10 +2838,13 @@ function switchTab(name,el){
 }
 
 function setTxTab(tab,el){
+  const prev=txTab;
   txTab=tab;
   document.querySelectorAll('.future-tab').forEach(t=>t.classList.remove('active'));
   el.classList.add('active');
+  segThumb(document.querySelector('.future-tabs'),true);
   renderHistory();
+  if(prev!==tab) slideIn(document.getElementById('tx-body'),tab==='future'?1:-1);
 }
 
 window.openFirebaseSheet=function(){
@@ -3825,15 +3953,9 @@ function renderTxCard(t){
   if(t.status==='scheduled') badges.push(`<span class="lbl-badge">${t._virtual?'Upcoming':'Scheduled'}</span>`);
   if(t.recurringRuleId) badges.push('<span class="lbl-badge blue">Recurring</span>');
   if(t._imported) badges.push('<span class="lbl-badge">Imported</span>');
-  const hero=`<div class="tx-detail-hero">
-      <div>
-        <div class="tx-hero-amt">${foreign?`<small>${t.currency}</small>`:`<small>${baseCur()}</small>`}${fmt(t.amount,t.currency)}</div>
-        <div class="tx-hero-sub">${foreign?`≈ ${baseCur()} ${fmtBase(t.baseAmount)} · 1 ${t.currency} = ${Number(t.fxRate||0).toFixed(4)} ${baseCur()}`:fmtDateLong(t.date)}</div>
-      </div>
-      <div class="tx-hero-badges">${badges.join('')}</div>
-    </div>`;
+  const hero=badges.length?`<div class="tx-x-badges">${badges.join('')}</div>`:'';
   let rows='';
-  if(foreign) rows+=row('calendar','Date',fmtDateLong(t.date));
+  if(foreign) rows+=row('coins','Rate',`1 ${t.currency} = ${Number(t.fxRate||0).toFixed(4)} ${baseCur()}`);
   if(isTransfer){
     rows+=row('user','From',personName(t.fromPersonId));
     rows+=row('user','To',personName(t.toPersonId));
@@ -3869,8 +3991,8 @@ function renderTxCard(t){
   </div>`;
   return `<div class="${cardClass}" onclick="toggleTxExpand('${t.id}')">
     <div class="${avatarClass}" style="background:${avatarColor}22;color:${avatarColor}">${avatarText}</div>
-    <div class="tx-card-main">${nameHtml}<div class="tx-sub">${subHtml}</div></div>
-    <div class="tx-amt"><div class="tx-amt-main">${mainAmt}</div>${fxHint}</div>
+    <div class="tx-card-main">${nameHtml}<div class="tx-sub">${subHtml}</div><div class="tx-x-date">${fmtDateLong(t.date)}</div></div>
+    <div class="tx-amt"><div class="tx-amt-main">${mainAmt}</div>${fxHint}<div class="tx-x-amt"><small>${t.currency}</small>${fmt(t.amount,t.currency)}</div>${foreign?`<div class="tx-x-fx">≈ ${baseCur()} ${fmtBase(t.baseAmount)}</div>`:''}</div>
   </div>${detail}`;
 }
 
@@ -3885,16 +4007,34 @@ window.toggleTxExpand=function(id){
 // ════════════════════════════════════════════════
 // RENDER — SUMMARY
 // ════════════════════════════════════════════════
-function moveSegThumb(animate=true){
-  const ctrl=document.querySelector('#page-summary .seg-ctrl'); if(!ctrl) return;
-  let th=ctrl.querySelector('.seg-thumb');
+// Capsule segmented control: a pill that stretches like liquid toward the new option, then springs into place
+function segThumb(ctrl, animate=true){
+  if(!ctrl||!ctrl.offsetParent) return;
+  let th=ctrl.querySelector(':scope > .seg-thumb');
   if(!th){ th=document.createElement('div'); th.className='seg-thumb'; ctrl.prepend(th); ctrl.classList.add('has-thumb'); }
-  const act=ctrl.querySelector('.seg-btn.active'); if(!act) return;
-  th.style.transition=animate?'':'none';
-  th.style.width=act.offsetWidth+'px';
-  th.style.transform=`translateX(${act.offsetLeft}px)`;
-  if(!animate) requestAnimationFrame(()=>{ th.style.transition=''; });
+  const act=ctrl.querySelector(':scope > .active'); if(!act) return;
+  const x1=act.offsetLeft, w1=act.offsetWidth;
+  const x0=th._x, w0=th._w;
+  th.getAnimations?.().forEach(a=>a.cancel());
+  th.style.width=w1+'px'; th.style.transform=`translateX(${x1}px)`;
+  th._x=x1; th._w=w1;
+  if(!animate||x0==null||Math.abs(x1-x0)<1||!th.animate||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const dir=Math.sign(x1-x0);
+  const left=Math.min(x0,x1), span=Math.abs(x1-x0)+Math.max(w0,w1);
+  th.animate([
+    {transform:`translateX(${x0}px) scaleY(1)`,width:w0+'px',offset:0},
+    {transform:`translateX(${dir>0?x0+ (x1-x0)*.12:left}px) scaleY(.86)`,width:(span*.82)+'px',offset:.38,easing:'cubic-bezier(.4,0,.2,1)'},
+    {transform:`translateX(${x1+dir*6}px) scaleY(1.04)`,width:(w1-4)+'px',offset:.72},
+    {transform:`translateX(${x1-dir*2}px) scaleY(.99)`,width:(w1+2)+'px',offset:.87},
+    {transform:`translateX(${x1}px) scaleY(1)`,width:w1+'px',offset:1}
+  ],{duration:520,easing:'cubic-bezier(.3,.7,.25,1)'});
 }
+function moveSegThumb(animate=true){ segThumb(document.querySelector('#page-summary .seg-ctrl'),animate); }
+function slideIn(el,dir){
+  if(!el||!el.animate||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  el.animate([{transform:`translateX(${dir*44}px)`,opacity:0},{transform:'translateX(0)',opacity:1}],{duration:340,easing:'cubic-bezier(.22,1,.36,1)'});
+}
+window.addEventListener('resize',()=>{ document.querySelectorAll('.seg-ctrl,.future-tabs').forEach(c=>segThumb(c,false)); });
 function setStatsMode(mode,el){
   const prev=statsMode;
   statsMode=mode;
@@ -3906,12 +4046,12 @@ function setStatsMode(mode,el){
     const dir=mode==='year'?1:-1;
     ['summary-body','period-nav'].forEach(id=>{
       const el2=document.getElementById(id); if(!el2||el2.style.display==='none') return;
-      el2.animate([{transform:`translateX(${dir*48}px)`,opacity:0},{transform:'translateX(0)',opacity:1}],{duration:340,easing:'cubic-bezier(.22,1,.36,1)'});
+      slideIn(el2,dir);
     });
     document.getElementById('page-summary').scrollTo({top:0,behavior:'smooth'});
   }
 }
-window.addEventListener('resize',()=>moveSegThumb(false));
+
 window.goMonthFromYearView=function(year,monthIndex){
   statsPeriod=new Date(year,monthIndex,1);
   const btns=document.querySelectorAll('#page-summary .seg-ctrl .seg-btn');
@@ -4006,7 +4146,7 @@ function renderSummary(){
         <div class="person-avatar" style="background:${personColor(pid)}20;color:${personColor(pid)}">${personName(pid).charAt(0)}</div>
         <div class="person-bal-info">
           <div class="person-bal-name">${personName(pid)}</div>
-          <div class="person-bal-sub">Paid ${fmtBase(paid)} · Use ${fmtBase(used)}</div>
+          <div class="person-bal-sub">Paid <span class="num">${fmtBase(paid)}</span> · Use <span class="num">${fmtBase(used)}</span></div>
         </div>
         <div class="person-bal-net" style="color:var(--text)">${fmtBase(used)}</div>
       </div>`;
@@ -4454,7 +4594,7 @@ function renderTrend(body){
       <div class="trend-legend grid" id="tc-bill-legend">${items.map((it,k)=>`<span data-item="${k}"><i style="background:${it.color}"></i><em>${escapeHtml(it.name)}</em><b>${fmtBase(it.vals[selIdx]||0)}</b></span>`).join('')}</div>`;
   }
 
-  const cats=Object.entries(sel.cats).filter(([id,v])=>Math.abs(v)>0.0001&&!(summaryExcludeRent&&id==='cat-rent')).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const cats=Object.entries(sel.cats).filter(([id,v])=>Math.abs(v)>0.0001&&!(summaryExcludeRent&&id==='cat-rent')).sort((a,b)=>b[1]-a[1]);
   const isCur=sel.key===curKey;
   let html=renderDuePanel()+`<div class="card hero-light">
     <div class="hero-top"><span class="eyebrow">Last 12 months</span><span class="eyebrow">${baseCur()}</span></div>
@@ -4519,7 +4659,7 @@ function renderSettle(){
     if(Math.abs(owed.v)<0.005) hi--;
   }
   const body=document.getElementById('settle-body');
-  let html=`<div class="sec-label">Balance (${bc})</div><div class="card">`;
+  let html=`<div class="sec-label sec-split"><span>Balance</span><span>${bc}</span></div><div class="card">`;
   Object.entries(balances).forEach(([pid,v])=>{
     const net=Math.round(v*100)/100;
     if(Math.abs(net)<0.005) return;
@@ -4531,13 +4671,13 @@ function renderSettle(){
   });
   html+=`</div>`;
   if(settlements.length){
-    html+=`<div class="sec-label">Suggested payments</div><div class="card">`;
+    html+=`<div class="sec-label sec-split"><span>Suggested payments</span><span>${bc}</span></div><div class="card">`;
     settlements.forEach(s=>{
       html+=`<div class="settle-row">
         <span class="settle-from">${personName(s.from)}</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px;color:var(--text-3);flex-shrink:0"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         <span class="settle-to">${personName(s.to)}</span>
-        <span class="settle-amt">${bc} ${fmtBase(s.amount)}</span>
+        <span class="settle-amt">${fmtBase(s.amount)}</span>
       </div>`;
     });
     html+=`</div>`;
@@ -4672,8 +4812,8 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.1.1</div>
-      <div>Last updated: 2026-08-09</div>
+      <div>v1.2.0</div>
+      <div>Last updated: 2026-11-11</div>
     </div>
   `;
 }
@@ -5640,7 +5780,7 @@ Object.assign(window, {
       const bc=baseCur();
       const prompt=`Receipt parser. Return ONLY a JSON object, no markdown. There is no limit on input or output length: include every item, never truncate, summarise or stop early, however long the list is.
 Format: {"date":"YYYY-MM-DD","time":"HH:MM","currency":"${bc}","shopName":"string","foreign":boolean,"items":[{"itemName":"string","amount":number,"category":"MUST be one of: ${catNames.join('|')}","remark":""}]}
-Rules: time: the purchase time printed on the receipt in 24-hour HH:MM, "" if not printed; shopName: the shop/merchant name; if it is printed in English or Chinese use it exactly in that printed language, if it is only printed in another language translate it to English, "" if unknown; foreign: true only if the item names are printed in a language other than English or Chinese (e.g. Japanese, Korean, Thai); never put the shop name inside itemName; date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); language: if the item name is printed in English and/or Chinese, use only the language(s) printed for that item and never translate or add a name in a language that isn't printed; if both an English and a Chinese name are printed for the same item, output both once with the Chinese name first, then the English name, as "中文 English" (single space, no brackets or slashes); if the item name is printed in any other language (e.g. Japanese, Korean, Thai), put an English translation in front of the original name as "English 原文" (e.g. "おにぎり 鮭"→"Salmon Rice Ball おにぎり 鮭"); quantity: if the same item appears on several lines or has a quantity above 1, output it once as "ITEM NAME * N" (e.g. "Salmon Rice Ball おにぎり 鮭 * 4") with amount = the total for all N; otherwise one entry per line item.`;
+Rules: time: the purchase time printed on the receipt in 24-hour HH:MM, "" if not printed; shopName: the shop/merchant name; if it is printed in English or Chinese use it exactly in that printed language, if it is only printed in another language translate it to English, "" if unknown; foreign: true only if the item names are printed in a language other than English or Chinese (e.g. Japanese, Korean, Thai); never put the shop name inside itemName or in front of it; date from receipt, default ${isoDate()} if not visible; currency: detect from receipt header/symbols (default ${bc}); amount: positive number per line item; itemName: full human-readable name (expand abbreviations e.g. "WOOLWTHS"→"Woolworths", "MCDNLDs"→"McDonald's", "AMZN"→"Amazon"); language: if the item name is printed in English and/or Chinese, use only the language(s) printed for that item and never translate or add a name in a language that isn't printed; if both an English and a Chinese name are printed for the same item, output both once with the Chinese name first, then the English name, as "中文 English" (single space, no brackets or slashes); if the item name is printed in any other language (e.g. Japanese, Korean, Thai), put an English translation in front of the original name as "English 原文" (e.g. "おにぎり 鮭"→"Salmon Rice Ball おにぎり 鮭"); quantity: if the same item appears on several lines or has a quantity above 1, output it once as "ITEM NAME * N" (e.g. "Salmon Rice Ball おにぎり 鮭 * 4") with amount = the total for all N; otherwise one entry per line item.`;
 
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',
@@ -5668,7 +5808,7 @@ Rules: time: the purchase time printed on the receipt in 24-hour HH:MM, "" if no
       scanSharedShop=shop;
       scanSharedTime=/^\d{1,2}:\d{2}/.test(String(parsed.time||''))?String(parsed.time).slice(0,5).padStart(5,'0'):'';
       const isForeign=parsed.foreign===true||scanResults.some(t=>FOREIGN_SCRIPT_RE.test(String(t.itemName||'')));
-      if(shop&&isForeign) scanResults.forEach(t=>{ const n=String(t.itemName||'').trim(); if(n&&!n.startsWith('[')) t.itemName=`[${shop}] ${n}`; });
+      // shop name is stored separately (Shop field); item names are kept clean
       scanResults=mergeScanDuplicates(scanResults);
       if(scanResults.some(t=>OPAL_RE.test(String(t.itemName||'')))){
         scanResults.forEach(t=>{ if(OPAL_RE.test(String(t.itemName||''))) t.itemName='Opal Card'; });
@@ -5778,7 +5918,7 @@ Rules: time: the purchase time printed on the receipt in 24-hour HH:MM, "" if no
     if(btn){ btn.disabled=true; btn.innerHTML=ic('sparkles','lead')+'Completing…'; }
     try{
       const items=scanResults.map((t,i)=>({index:i,name:t.itemName||''}));
-      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Language: keep each English/Chinese name in the language(s) it already has, never translate or add a missing English/Chinese version; if a name already has both, keep both once with Chinese first, then English, as "中文 English" (reorder it if English comes first); if a name is in any other language (e.g. Japanese), put an English translation in front as "English 原文", and if it already starts with an English translation keep it as is. Keep any leading "[Shop Name]" prefix and any trailing quantity suffix like " * 4" unchanged. Return ONLY a JSON array, no markdown, with an entry for every item. There is no limit on input or output length: include every item, never truncate, summarise or stop early, however long the list is. [{"index":0,"name":"Full Name"}]
+      const prompt=`Expand abbreviated or incomplete merchant/item names from a receipt into full human-readable names. Keep names that are already complete. Language: keep each English/Chinese name in the language(s) it already has, never translate or add a missing English/Chinese version; if a name already has both, keep both once with Chinese first, then English, as "中文 English" (reorder it if English comes first); if a name is in any other language (e.g. Japanese), put an English translation in front as "English 原文", and if it already starts with an English translation keep it as is. Remove any leading "[Shop Name]" prefix; keep any trailing quantity suffix like " * 4" unchanged. Return ONLY a JSON array, no markdown, with an entry for every item. There is no limit on input or output length: include every item, never truncate, summarise or stop early, however long the list is. [{"index":0,"name":"Full Name"}]
 Items: ${JSON.stringify(items)}`;
       const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
         method:'POST',headers:{'Content-Type':'application/json'},
