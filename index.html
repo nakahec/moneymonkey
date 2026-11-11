@@ -28,9 +28,9 @@
 <script>
 (function(){
   if(window.UI_LANG!=='zh') return;
-  var D={"Who paid?":"邊個付？","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
-  var P=[["^Items · (\\d+)$", "項目 · $1"], ["^Paid by (.+)$", "$1 付款"], ["^([\\d,]+) records$", "$1 筆記錄"], ["^Avg / month (.+)$", "平均每月 $1"], ["^Loaded all ([\\d,]+) records$", "已載入全部 $1 筆"], ["^Stats rebuilt from ([\\d,]+) records$", "已用 $1 筆記錄重建統計"], ["^Saved ([\\d,]+) transactions$", "已儲存 $1 筆交易"], ["^Saved · paid by (.+)$", "已儲存 · $1 付款"], ["^Saved · split between (.+)$", "已儲存 · 由 $1 夾錢"], ["^Found ([\\d,]+) items — check them, then save:$", "找到 $1 項，請確認後儲存："], ["^([\\d,]+) of ([\\d,]+) items · (.+)$", "$1/$2 項 · $3"], ["^([\\d,]+) pending$", "$1 項待處理"], ["^(\\d+) min ago$", "$1 分鐘前"], ["^(\\d+) h ago$", "$1 小時前"], ["^(\\d+) d ago$", "$1 日前"], ["^(\\d+) mo ago$", "$1 個月前"], ["^(\\d+) y ago$", "$1 年前"], ["^Each (.+)$", "每人 $1"], ["^([▲▼]) (\\d+)% vs (\\w+) · ([\\d,]+) records$", "$1 $2% 對比 $3 · $4 筆記錄"], ["^Added ([\\d,]+) recurring expenses?$", "已新增 $1 筆定期支出"], ["^(\\d+) days · (.+)/day( · estimated)?$", "$1 日 · 每日 $2$3"], ["^(.+) · so far$", "$1 · 至今"], ["^Next (.+)$", "下次 $1"], ["^(\\d+)/(\\d+) times$", "$1/$2 次"], ["^Rename “(.+)”$", "將「$1」改名"], ["^Delete “(.+)”\\?$", "刪除「$1」？"], ["^Remove “(.+)”\\?$", "移除「$1」？"], ["^Import ([\\d,]+) transactions\\?$", "匯入 $1 筆交易？"], ["^Updated ([\\d,]+) categories$", "已更新 $1 筆交易種類"], ["^Exported ([\\d,]+) transactions$", "已匯出 $1 筆交易"], ["^Imported ([\\d,]+) transactions$", "已匯入 $1 筆交易"], ["^Added (.+)$", "已加入 $1"], ["^Removed (.+)$", "已移除 $1"], ["^Renamed to (.+)$", "已改名為 $1"], ["^Balance \\((.+)\\)$", "結餘（$1）"], ["^(.+) style$", "$1 樣式"], ["^Save failed: (.+)$", "儲存失敗：$1"], ["^Repeats (weekly|fortnightly|monthly|yearly) from (.+?)( until .+?)?(, \\d+ times in total)? · next (.+)\\.$", "由 $2 起$3$4重複（$1）· 下次 $5。"], ["^You’ll be asked who paid on the Summary page each time it’s due\\.$", "每次到期時會喺總覽問你邊個付款。"]].map(function(p){ return [new RegExp(p[0]), p[1]]; });
-  var W={weekly:'每週',fortnightly:'每兩週',monthly:'每月',yearly:'每年'};
+  var D={"Who paid?":"邊個付？","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
+  var P=[["^Items · (\\d+)$", "項目 · $1"], ["^Paid by (.+)$", "$1 付款"], ["^([\\d,]+) records$", "$1 筆記錄"], ["^Avg / month (.+)$", "平均每月 $1"], ["^Loaded all ([\\d,]+) records$", "已載入全部 $1 筆"], ["^Stats rebuilt from ([\\d,]+) records$", "已用 $1 筆記錄重建統計"], ["^Saved ([\\d,]+) transactions$", "已儲存 $1 筆交易"], ["^Saved · paid by (.+)$", "已儲存 · $1 付款"], ["^Saved · split between (.+)$", "已儲存 · 由 $1 夾錢"], ["^Found ([\\d,]+) items — check them, then save:$", "找到 $1 項，請確認後儲存："], ["^([\\d,]+) of ([\\d,]+) items · (.+)$", "$1/$2 項 · $3"], ["^([\\d,]+) pending$", "$1 項待處理"], ["^(\\d+) min ago$", "$1 分鐘前"], ["^(\\d+) h ago$", "$1 小時前"], ["^(\\d+) d ago$", "$1 日前"], ["^(\\d+) mo ago$", "$1 個月前"], ["^(\\d+) y ago$", "$1 年前"], ["^Each (.+)$", "每人 $1"], ["^([▲▼]) (\\d+)% vs (\\w+) · ([\\d,]+) records$", "$1 $2% 對比 $3 · $4 筆記錄"], ["^Added ([\\d,]+) recurring expenses?$", "已新增 $1 筆定期支出"], ["^(\\d+) days · (.+)/day( · estimated)?$", "$1 日 · 每日 $2$3"], ["^(.+) · so far$", "$1 · 至今"], ["^Next (.+)$", "下次 $1"], ["^(\\d+)/(\\d+) times$", "$1/$2 次"], ["^Rename “(.+)”$", "將「$1」改名"], ["^Delete “(.+)”\\?$", "刪除「$1」？"], ["^Remove “(.+)”\\?$", "移除「$1」？"], ["^Import ([\\d,]+) transactions\\?$", "匯入 $1 筆交易？"], ["^Updated ([\\d,]+) categories$", "已更新 $1 筆交易種類"], ["^Exported ([\\d,]+) transactions$", "已匯出 $1 筆交易"], ["^Imported ([\\d,]+) transactions$", "已匯入 $1 筆交易"], ["^Added (.+)$", "已加入 $1"], ["^Removed (.+)$", "已移除 $1"], ["^Renamed to (.+)$", "已改名為 $1"], ["^Balance \\((.+)\\)$", "結餘（$1）"], ["^(.+) style$", "$1 樣式"], ["^Save failed: (.+)$", "儲存失敗：$1"], ["^Repeats (weekly|fortnightly|every 28 days|monthly|yearly) from (.+?)( until .+?)?(, \\d+ times in total)? · next (.+)\\.$", "由 $2 起$3$4重複（$1）· 下次 $5。"], ["^You’ll be asked who paid on the Summary page each time it’s due\\.$", "每次到期時會喺總覽問你邊個付款。"]].map(function(p){ return [new RegExp(p[0]), p[1]]; });
+  var W={weekly:'每週',fortnightly:'每兩週','every 28 days':'每 28 日',monthly:'每月',yearly:'每年'};
   function tr(str){
     var t=str.trim(); if(!t||!/[A-Za-z]/.test(t)) return null;
     var out=null;
@@ -64,7 +64,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.3.6">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png?v=1.3.6">
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TOKENS
@@ -1056,6 +1057,32 @@ body,:root[data-theme="light"] body{background:var(--bg)!important}
 .bp-total{font-family:var(--num);font-size:14px;font-weight:600;color:var(--text);font-variant-numeric:tabular-nums}
 .bp-total small{font-size:10.5px;font-weight:700;color:var(--text-2);letter-spacing:.04em;margin-right:4px}
 .person-bal-sub .num{font-family:var(--num);font-variant-numeric:tabular-nums}
+
+#sheet-recurring-edit{z-index:240}
+.rec-row{display:grid!important;grid-template-columns:32px minmax(0,1fr) auto;column-gap:10px;row-gap:8px;align-items:center}
+.rec-row .rec-main{min-width:0}
+.rec-row .rec-actions{grid-column:2 / 4;display:flex;gap:8px;justify-content:flex-end}
+.rec-row .rec-actions .entity-mini-btn{display:inline-flex;align-items:center;gap:4px;padding:7px 12px}
+
+#sheet-recurring-edit .sheet-title{padding:0 22px 6px}
+#sheet-recurring-edit .sheet-inner{margin:0 14px 12px}
+#sheet-recurring-edit .form-row{padding:14px 16px;min-height:50px}
+#sheet-recurring-edit .form-row .form-control{min-width:0}
+#sheet-recurring-edit .form-label.wide{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:var(--text-2)}
+#sheet-recurring-edit .form-row:has(.form-label.wide){padding:14px 16px 2px;min-height:0}
+#sheet-recurring-edit .chip-wrap{gap:8px;padding:10px 16px 14px}
+#sheet-recurring-edit .chip{padding:8px 13px;border-radius:12px}
+#sheet-recurring-edit .form-row span[style*="var(--num)"]{flex-shrink:0;padding-right:2px}
+
+/* transfer cards: same look as expense cards */
+.tx-card.transfer{border-left:3px solid var(--purple)!important}
+.tx-cat-avatar.transfer{background:rgba(183,148,246,.16)!important;color:var(--purple)!important;box-shadow:none}
+.tx-transfer-name{display:flex;align-items:center;gap:6px;min-width:0}
+.tx-transfer-name span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tx-transfer-name .tx-arrow{font-size:13px;color:var(--text-3);flex-shrink:0;stroke-width:2.2}
+.tx-sub-transfer{color:var(--purple)}
+.tx-amt-main small{font-size:10.5px;font-weight:700;color:var(--text-2);letter-spacing:.04em;margin-right:4px}
+:root[data-theme="light"] .tx-sub-transfer{color:#7c3aed}
 /* ── dialogs ── */
 .ui-dialog-ov{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .18s}
 .ui-dialog-ov.open{opacity:1}
@@ -1472,6 +1499,19 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   </div>
 </div>
 
+<!-- Recurring Edit Sheet -->
+<div class="overlay" id="sheet-recurring-edit">
+  <div class="sheet">
+    <div class="sheet-handle"></div>
+    <div class="sheet-title">Edit recurring</div>
+    <div id="rec-edit-body"></div>
+    <div class="detail-actions">
+      <button onclick="closeSheet('sheet-recurring-edit')" class="ui-dialog-btn cancel" style="flex:1">Cancel</button>
+      <button onclick="saveRecurringEdit()" class="ui-dialog-btn ok" style="flex:2">Save</button>
+    </div>
+  </div>
+</div>
+
 <!-- Recurring Sheet -->
 <div class="overlay" id="sheet-recurring">
   <div class="sheet">
@@ -1631,7 +1671,7 @@ function cleanEmoji(v){ return String(v||'').trim().slice(0,4); }
 const SHARED_LEDGER_ID = 'shared-ledger';
 const SHARED_LEDGER_NAME = '共同帳薄';
 let recurringRules=[];
-const RECUR_FREQ={weekly:'Weekly',fortnightly:'Fortnightly',monthly:'Monthly',yearly:'Yearly'};
+const RECUR_FREQ={weekly:'Weekly',fortnightly:'Fortnightly',every28:'Every 28 days',monthly:'Monthly',yearly:'Yearly'};
 const SHARED_LEDGER_BASE_CURRENCY = 'AUD';
 
 
@@ -3309,7 +3349,7 @@ function renderDetailChips(){
   if(repWrap) repWrap.style.display=editTxId?'none':'';
   const repEl=document.getElementById('d-repeat-chips');
   if(repEl){
-    repEl.innerHTML=[['','Off'],['weekly','Weekly'],['fortnightly','Fortnightly'],['monthly','Monthly']].map(([v,l])=>chipBtn(l,(flowData.repeat||'')===v,`selectDetailChip('repeat','${v}')`)).join('');
+    repEl.innerHTML=[['','Off'],['weekly','Weekly'],['fortnightly','Fortnightly'],['every28','Every 28 days'],['monthly','Monthly']].map(([v,l])=>chipBtn(l,(flowData.repeat||'')===v,`selectDetailChip('repeat','${v}')`)).join('');
     const endWrap=document.getElementById('d-repeat-end');
     if(endWrap){
       endWrap.style.display=flowData.repeat?'':'none';
@@ -3927,15 +3967,16 @@ function renderTxCard(t){
   const expandId='exp-'+t.id;
   const cardClass=`tx-card${isTransfer?' transfer':''}${t.status==='scheduled'&&!t._virtual?' scheduled':''}${t._virtual?' virtual':''}`;
   const foreign=t.currency!==baseCur();
-  const mainAmt=`${foreign?t.currency+' ':''}${fmt(t.amount,t.currency)}`;
-  const fxHint=foreign?`<div class="tx-amt-fx">≈ ${fmtBase(t.baseAmount)}</div>`:'';
+  const mainAmt=`${foreign?`<small>${t.currency}</small>`:''}${fmt(t.amount,t.currency)}`;
+  const fxHint=foreign?`<div class="tx-amt-fx">≈ ${baseCur()} ${fmtBase(t.baseAmount)}</div>`:'';
   let nameHtml='',subParts=[];
   const avatarText=isTransfer?ic('transfer'):catIcon(t.categoryId);
   const avatarColor=isTransfer?'var(--purple)':catColor(t.categoryId);
   const avatarClass=`tx-cat-avatar${isTransfer?' transfer':''}`;
   if(isTransfer){
-    nameHtml=`<div class="tx-name">${personName(t.fromPersonId)} → ${personName(t.toPersonId)}</div>`;
-    subParts.push('<span class="lbl-badge purple">Transfer</span>');
+    nameHtml=`<div class="tx-name tx-transfer-name"><span>${escapeHtml(personName(t.fromPersonId))}</span><svg class="ic tx-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg><span>${escapeHtml(personName(t.toPersonId))}</span></div>`;
+    subParts.push(`<span class="tx-sub-transfer">Transfer</span>`);
+    if(t.remark) subParts.push(escapeHtml(String(t.remark)));
   } else {
     nameHtml=`<div class="tx-name">${t.itemName||'—'}</div>`;
     subParts.push(catName(t.categoryId));
@@ -4166,6 +4207,7 @@ function addPeriod(dateStr,freq,anchorDay){
   const [y,m,d]=String(dateStr).split('-').map(Number);
   if(freq==='weekly') return isoDate(new Date(y,m-1,d+7));
   if(freq==='fortnightly') return isoDate(new Date(y,m-1,d+14));
+  if(freq==='every28') return isoDate(new Date(y,m-1,d+28));
   if(freq==='yearly') return ymd(y+1,m,Math.min(anchorDay||d,daysIn(y+1,m)));
   let ny=y, nm=m+1; if(nm>12){ nm=1; ny++; }
   return ymd(ny,nm,Math.min(anchorDay||d,daysIn(ny,nm)));
@@ -4271,7 +4313,9 @@ window.assignRecurringSplit=async function(ruleId,date){
     const ok=await mutateRecurring(list=>{
       const r=list.find(x=>x.id===ruleId);
       if(!r||!(r.pending||[]).includes(date)) return false;
-      r.pending=r.pending.filter(x=>x!==date); rule={...r}; return true;
+      r.pending=r.pending.filter(x=>x!==date); rule={...r, ...((r.pendingSnap||{})[date]||{})};
+      if(r.pendingSnap) delete r.pendingSnap[date];
+      return true;
     });
     if(!ok){ showToast('Already handled on another device'); delete dueSplit[key]; renderSummary(); return; }
     const parts=splitAmounts(Number(rule.amount)||0,pids.length,rule.currency);
@@ -4287,7 +4331,7 @@ window.assignRecurringSplit=async function(ruleId,date){
 function renderDuePanel(){
   const lid=currentLedgerId();
   const items=[];
-  recurringRules.forEach(r=>{ if(r.ledgerId===lid) (r.pending||[]).forEach(d=>items.push({r,d})); });
+  recurringRules.forEach(r=>{ if(r.ledgerId===lid) (r.pending||[]).forEach(d=>items.push({r:{...r,...((r.pendingSnap||{})[d]||{})},d})); });
   if(!items.length) return '';
   items.sort((a,b)=>a.d.localeCompare(b.d));
   const people=visiblePeople();
@@ -4317,7 +4361,9 @@ window.assignRecurring=async function(ruleId,date,pid){
       const r=list.find(x=>x.id===ruleId);
       if(!r||!(r.pending||[]).includes(date)) return false;
       r.pending=r.pending.filter(x=>x!==date);
-      rule={...r}; return true;
+      rule={...r, ...((r.pendingSnap||{})[date]||{})};
+      if(r.pendingSnap) delete r.pendingSnap[date];
+      return true;
     });
     if(!ok){ showToast('Already handled on another device'); renderSummary(); return; }
     await createRecurringTx(rule,date,pid);
@@ -4345,11 +4391,114 @@ function renderRecurringList(){
       <div class="rec-main"><div class="rec-name">${escapeHtml(r.itemName||'Recurring')}</div>
         <div class="rec-sub">${RECUR_FREQ[r.freq]||''}${ruleEndText(r)?' · '+ruleEndText(r):''} · ${r.ended?'Ended':paused?'Paused':'Next '+fmtDate(r.nextDue)} · ${escapeHtml(payer)}${pend?` · <span style="color:var(--orange)">${pend} pending</span>`:''}</div></div>
       <div class="rec-amt">${r.currency!==baseCur()?r.currency+' ':''}${fmt(r.amount,r.currency)}</div>
-      <button class="entity-mini-btn" style="color:var(--accent)" onclick="toggleRecurringActive('${r.id}')">${paused?'Resume':'Pause'}</button>
-      <button class="entity-mini-btn" style="color:var(--red)" onclick="deleteRecurring('${r.id}')">Delete</button>
+      <div class="rec-actions">
+        <button class="entity-mini-btn" style="color:var(--accent)" onclick="openRecurringEdit('${r.id}')">${ic('edit')} Edit</button>
+        <button class="entity-mini-btn" style="color:var(--accent)" onclick="toggleRecurringActive('${r.id}')">${paused?'Resume':'Pause'}</button>
+        <button class="entity-mini-btn" style="color:var(--red)" onclick="deleteRecurring('${r.id}')">Delete</button>
+      </div>
     </div>`;
   }).join('');
 }
+
+// ── Edit a recurring rule (future occurrences only) ──
+let recEdit=null;
+// Add a recurring rule directly (used for converting existing records into a recurring series)
+window.addRecurringRule=async function(rule){
+  if(!rule||!rule.itemName||!rule.nextDue||!rule.freq) throw new Error('Incomplete rule');
+  const r={id:'rr-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6), ledgerId:currentLedgerId(), active:true, pending:[], done:0,
+    createdAt:Date.now(), currency:baseCur(), remark:'', anchorDay:Number(String(rule.nextDue).slice(8,10)), ...rule};
+  await mutateRecurring(list=>{ list.push(r); });
+  renderRecurringList(); renderSettings();
+  return r.id;
+};
+// Fill in past occurrences of a rule between two dates, skipping any week that already has a matching record
+function backfillPlan(ruleId,fromDate,toDate){
+  const r=recurringRules.find(x=>x.id===ruleId); if(!r) throw new Error('Rule not found');
+  const lid=r.ledgerId, name=String(r.itemName||'').toLowerCase().trim();
+  const mine=txs.filter(t=>(t.ledgerId===lid||(!t.ledgerId&&lid===SHARED_LEDGER_ID))&&t.type==='expense'&&t.status!=='cancelled'&&
+    (t.recurringRuleId===r.id||(String(t.itemName||'').toLowerCase().includes(name)&&t.paidByPersonId===r.paidByPersonId)));
+  const near=(d)=>mine.find(t=>Math.abs((new Date(t.date+'T00:00:00')-new Date(d+'T00:00:00'))/86400000)<=3);
+  const plan=[]; let d=fromDate, k=0;
+  while(d&&d<=toDate&&k<400){ const hit=near(d); plan.push({date:d, skip:!!hit, existing:hit?`${hit.date} ${hit.itemName} ${hit.amount}`:''}); d=addPeriod(d,r.freq,r.anchorDay); k++; }
+  return {rule:r, plan};
+}
+window.backfillPreview=function(ruleId,fromDate,toDate){ const {plan}=backfillPlan(ruleId,fromDate,toDate); return plan; };
+window.backfillRecurring=async function(ruleId,fromDate,toDate){
+  const {rule,plan}=backfillPlan(ruleId,fromDate,toDate);
+  let added=0;
+  for(const p of plan){ if(p.skip) continue; await createRecurringTx(rule,p.date,rule.paidByPersonId||visiblePeople()[0]?.id); added++; }
+  return {added, skipped:plan.filter(p=>p.skip).length};
+};
+window.openRecurringEdit=function(id){
+  const r=recurringRules.find(x=>x.id===id); if(!r) return;
+  recEdit={id, itemName:r.itemName||'', amount:r.amount, currency:r.currency||baseCur(), categoryId:r.categoryId||'',
+    paidByPersonId:r.paidByPersonId||'__ask', usedByPersonIds:[...(r.usedByPersonIds||[])], freq:r.freq||'monthly',
+    nextDue:(r.nextDue&&r.nextDue>=isoDate())?r.nextDue:addPeriod(isoDate(),r.freq||'monthly',r.anchorDay),
+    end:r.endDate?'date':r.endCount?'count':'', endDate:r.endDate||'', endCount:r.endCount||12, done:r.done||0, remark:r.remark||''};
+  renderRecurringEdit();
+  openSheet('sheet-recurring-edit');
+};
+function recChip(label,on,fn,extra=''){ return `<div class="chip${on?' sel':''}${extra}" onclick="${fn}">${label}</div>`; }
+function renderRecurringEdit(){
+  const e=recEdit; if(!e) return;
+  const people=visiblePeople();
+  const body=document.getElementById('rec-edit-body');
+  body.innerHTML=`
+    <div class="repeat-hint" style="padding:0 18px 12px">${ic('repeat','lead')}Changes apply to future occurrences only. Past records stay as they are.</div>
+    <div class="sheet-inner">
+      <div class="form-row"><label class="form-label">Item</label><input class="form-control" value="${escapeHtml(e.itemName)}" oninput="recEdit.itemName=this.value" placeholder="Item name"></div>
+      <div class="form-row" style="border-top:.5px solid var(--sep)"><label class="form-label">Amount</label><input class="form-control" type="number" inputmode="decimal" step="0.01" value="${e.amount}" oninput="recEdit.amount=this.value" style="font-family:var(--num);font-weight:600"><span style="font-family:var(--num);font-size:12px;color:var(--text-2);margin-left:6px">${e.currency}</span></div>
+      <div class="form-row" style="border-top:.5px solid var(--sep)"><label class="form-label">Next date</label><input type="date" class="form-control" value="${e.nextDue}" oninput="recEdit.nextDue=this.value"></div>
+    </div>
+    <div class="sheet-inner"><div class="chip-wrap" style="padding:14px">${cfg.categories.map(c=>recChip(`<span class="chip-emoji">${catIcon(c.id)}</span><span class="chip-label">${escapeHtml(c.name)}</span>`,e.categoryId===c.id,`recEditSet('categoryId','${c.id}')`)).join('')}</div></div>
+    <div class="sheet-inner">
+      <div class="form-row" style="padding-bottom:4px"><label class="form-label wide">Paid by</label></div>
+      <div class="chip-wrap">${people.map(p=>recChip(escapeHtml(p.name),e.paidByPersonId===p.id,`recEditSet('paidByPersonId','${p.id}')`)).join('')}${recChip('Ask when due',e.paidByPersonId==='__ask',`recEditSet('paidByPersonId','__ask')`,' ask')}</div>
+      <div class="form-row" style="padding-bottom:4px"><label class="form-label wide">Used by</label></div>
+      <div class="chip-wrap">${people.map(p=>recChip(escapeHtml(p.name),e.usedByPersonIds.includes(p.id),`recEditToggleUsed('${p.id}')`)).join('')}</div>
+    </div>
+    <div class="sheet-inner">
+      <div class="form-row" style="padding-bottom:4px"><label class="form-label wide">Repeat</label></div>
+      <div class="chip-wrap">${[['weekly','Weekly'],['fortnightly','Fortnightly'],['every28','Every 28 days'],['monthly','Monthly']].map(([v,l])=>recChip(l,e.freq===v,`recEditSet('freq','${v}')`)).join('')}</div>
+      <div class="form-row" style="padding-bottom:4px"><label class="form-label wide">Ends</label></div>
+      <div class="chip-wrap">${[['','Never'],['date','On date'],['count','After']].map(([v,l])=>recChip(l,e.end===v,`recEditSet('end','${v}')`)).join('')}</div>
+      ${e.end==='date'?`<div class="repeat-sub"><label>Last date</label><input type="date" value="${e.endDate}" oninput="recEdit.endDate=this.value"></div>`:''}
+      ${e.end==='count'?`<div class="repeat-sub"><label>Number of times</label><input type="number" min="1" max="120" value="${e.endCount}" inputmode="numeric" oninput="recEdit.endCount=this.value"></div><div class="repeat-hint">${e.done} already done</div>`:''}
+    </div>
+    <div class="sheet-inner"><div class="form-row remark-row"><label class="form-label">Note</label><input class="form-control" value="${escapeHtml(e.remark)}" oninput="recEdit.remark=this.value" placeholder="Optional"></div></div>`;
+}
+window.recEditSet=function(k,v){ if(!recEdit) return; recEdit[k]=v; renderRecurringEdit(); };
+window.recEditToggleUsed=function(pid){ if(!recEdit) return; const a=recEdit.usedByPersonIds; const i=a.indexOf(pid); if(i>=0) a.splice(i,1); else a.push(pid); renderRecurringEdit(); };
+window.saveRecurringEdit=async function(){
+  const e=recEdit; if(!e) return;
+  const name=String(e.itemName||'').trim();
+  const amount=Number(e.amount);
+  if(!name) return showToast('Enter an item name');
+  if(!(amount>0)) return showToast('Enter an amount');
+  if(!e.categoryId) return showToast('Choose a category');
+  if(!e.usedByPersonIds.length) return showToast('Choose who it was for');
+  if(!e.nextDue||e.nextDue<isoDate()) return showToast('Choose a next date from today on');
+  if(e.end==='date'&&(!e.endDate||e.endDate<e.nextDue)) return showToast('The last date is before the first one');
+  try{
+    await mutateRecurring(list=>{
+      const r=list.find(x=>x.id===e.id); if(!r) return;
+      // already-due items waiting for a payer keep their original details
+      (r.pending||[]).forEach(d=>{ r.pendingSnap=r.pendingSnap||{}; if(!r.pendingSnap[d]) r.pendingSnap[d]={itemName:r.itemName,amount:r.amount,currency:r.currency,categoryId:r.categoryId,usedByPersonIds:r.usedByPersonIds,remark:r.remark||''}; });
+      r.itemName=name; r.amount=amount; r.categoryId=e.categoryId;
+      r.paidByPersonId=e.paidByPersonId==='__ask'?'':e.paidByPersonId;
+      r.usedByPersonIds=[...e.usedByPersonIds]; r.freq=e.freq; r.remark=String(e.remark||'').trim();
+      r.nextDue=e.nextDue; r.anchorDay=Number(e.nextDue.slice(8,10));
+      delete r.endDate; delete r.endCount;
+      if(e.end==='date') r.endDate=e.endDate;
+      if(e.end==='count') r.endCount=Math.max(1,Math.min(120,Number(e.endCount)||1));
+      const wasEnded=!!r.ended, can=ruleCanOccur(r,r.nextDue,r.done);
+      r.ended=!can; if(!can) r.active=false; else if(wasEnded) r.active=true;
+    });
+    closeSheet('sheet-recurring-edit');
+    renderRecurringList(); renderSettings(); renderSummary(); renderHistory();
+    showToast('Recurring expense updated');
+  }catch(err){ console.error('saveRecurringEdit',err); showToast('Update failed'); }
+};
 window.openRecurringSheet=function(){ renderRecurringList(); openSheet('sheet-recurring'); };
 window.toggleRecurringActive=async function(id){
   try{ await mutateRecurring(list=>{ const r=list.find(x=>x.id===id); if(r){ r.active=r.active===false; if(r.active&&r.nextDue<isoDate()) { while(r.nextDue<isoDate()) r.nextDue=addPeriod(r.nextDue,r.freq,r.anchorDay); } } }); renderRecurringList(); renderSettings(); }
@@ -4812,7 +4961,7 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.2.0</div>
+      <div>v1.3.6</div>
       <div>Last updated: 2026-11-11</div>
     </div>
   `;
