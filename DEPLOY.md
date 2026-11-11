@@ -12,6 +12,7 @@ index.html             — entire app (HTML + CSS + JS)
 manifest.json          — PWA manifest
 logo.svg               — browser-tab / loading icon
 apple-touch-icon.png   — iPhone home-screen icon (180×180) — must be uploaded!
+sw.js                  — offline support (keeps the app usable without internet)
 icons/
   icon-192.png         — PWA icon (192×192)
   icon-512.png         — PWA icon (512×512)
@@ -32,7 +33,7 @@ icons/
 
 ```bash
 git init
-git add index.html manifest.json logo.svg apple-touch-icon.png icons/
+git add index.html manifest.json logo.svg apple-touch-icon.png sw.js icons/
 git commit -m "init"
 git remote add origin https://github.com/cheungcm/budget.git
 git push -u origin main

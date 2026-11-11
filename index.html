@@ -12,6 +12,7 @@
 (function(){
   var t='dark', l='en';
   try{ t=localStorage.getItem('ui-theme')||'dark'; l=localStorage.getItem('ui-lang')||'en'; }catch(e){}
+  if(t!=='light') t='dark';
   var mq=window.matchMedia&&matchMedia('(prefers-color-scheme: light)');
   function apply(){
     var light = t==='light' || (t==='system' && mq && mq.matches);
@@ -28,8 +29,8 @@
 <script>
 (function(){
   if(window.UI_LANG!=='zh') return;
-  var D={"Who paid?":"邊個付？","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
-  var P=[["^Items · (\\d+)$", "項目 · $1"], ["^Paid by (.+)$", "$1 付款"], ["^([\\d,]+) records$", "$1 筆記錄"], ["^Avg / month (.+)$", "平均每月 $1"], ["^Loaded all ([\\d,]+) records$", "已載入全部 $1 筆"], ["^Stats rebuilt from ([\\d,]+) records$", "已用 $1 筆記錄重建統計"], ["^Saved ([\\d,]+) transactions$", "已儲存 $1 筆交易"], ["^Saved · paid by (.+)$", "已儲存 · $1 付款"], ["^Saved · split between (.+)$", "已儲存 · 由 $1 夾錢"], ["^Found ([\\d,]+) items — check them, then save:$", "找到 $1 項，請確認後儲存："], ["^([\\d,]+) of ([\\d,]+) items · (.+)$", "$1/$2 項 · $3"], ["^([\\d,]+) pending$", "$1 項待處理"], ["^(\\d+) min ago$", "$1 分鐘前"], ["^(\\d+) h ago$", "$1 小時前"], ["^(\\d+) d ago$", "$1 日前"], ["^(\\d+) mo ago$", "$1 個月前"], ["^(\\d+) y ago$", "$1 年前"], ["^Each (.+)$", "每人 $1"], ["^([▲▼]) (\\d+)% vs (\\w+) · ([\\d,]+) records$", "$1 $2% 對比 $3 · $4 筆記錄"], ["^Added ([\\d,]+) recurring expenses?$", "已新增 $1 筆定期支出"], ["^(\\d+) days · (.+)/day( · estimated)?$", "$1 日 · 每日 $2$3"], ["^(.+) · so far$", "$1 · 至今"], ["^Next (.+)$", "下次 $1"], ["^(\\d+)/(\\d+) times$", "$1/$2 次"], ["^Rename “(.+)”$", "將「$1」改名"], ["^Delete “(.+)”\\?$", "刪除「$1」？"], ["^Remove “(.+)”\\?$", "移除「$1」？"], ["^Import ([\\d,]+) transactions\\?$", "匯入 $1 筆交易？"], ["^Updated ([\\d,]+) categories$", "已更新 $1 筆交易種類"], ["^Exported ([\\d,]+) transactions$", "已匯出 $1 筆交易"], ["^Imported ([\\d,]+) transactions$", "已匯入 $1 筆交易"], ["^Added (.+)$", "已加入 $1"], ["^Removed (.+)$", "已移除 $1"], ["^Renamed to (.+)$", "已改名為 $1"], ["^Balance \\((.+)\\)$", "結餘（$1）"], ["^(.+) style$", "$1 樣式"], ["^Save failed: (.+)$", "儲存失敗：$1"], ["^Repeats (weekly|fortnightly|every 28 days|monthly|yearly) from (.+?)( until .+?)?(, \\d+ times in total)? · next (.+)\\.$", "由 $2 起$3$4重複（$1）· 下次 $5。"], ["^You’ll be asked who paid on the Summary page each time it’s due\\.$", "每次到期時會喺總覽問你邊個付款。"]].map(function(p){ return [new RegExp(p[0]), p[1]]; });
+  var D={"Who paid?":"邊個付？","Possible duplicate":"可能重複","Save anyway":"仍然儲存","Save this one anyway?":"仍要儲存呢筆？","You already have this record:":"已經有呢筆記錄：","You already have these records:":"已經有以下記錄：","Recurring changes need an internet connection":"定期支出改動需要網絡","Back online — syncing":"已重新連線 — 同步中","Offline · changes will sync when you’re back online":"離線 · 恢復網絡後會自動同步","All time":"全部時間","This month":"本月","Last month":"上月","Last 3 months":"近 3 個月","This year":"今年","Custom":"自訂","Everyone":"所有人","Reset":"重設","Show results":"顯示結果","Minimum amount":"最低金額","Maximum amount":"最高金額","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
+  var P=[["^Show ([\\d,]+) records?$", "顯示 $1 筆記錄"], ["^Items · (\\d+)$", "項目 · $1"], ["^Paid by (.+)$", "$1 付款"], ["^([\\d,]+) records$", "$1 筆記錄"], ["^Avg / month (.+)$", "平均每月 $1"], ["^Loaded all ([\\d,]+) records$", "已載入全部 $1 筆"], ["^Stats rebuilt from ([\\d,]+) records$", "已用 $1 筆記錄重建統計"], ["^Saved ([\\d,]+) transactions$", "已儲存 $1 筆交易"], ["^Saved · paid by (.+)$", "已儲存 · $1 付款"], ["^Saved · split between (.+)$", "已儲存 · 由 $1 夾錢"], ["^Found ([\\d,]+) items — check them, then save:$", "找到 $1 項，請確認後儲存："], ["^([\\d,]+) of ([\\d,]+) items · (.+)$", "$1/$2 項 · $3"], ["^([\\d,]+) pending$", "$1 項待處理"], ["^(\\d+) min ago$", "$1 分鐘前"], ["^(\\d+) h ago$", "$1 小時前"], ["^(\\d+) d ago$", "$1 日前"], ["^(\\d+) mo ago$", "$1 個月前"], ["^(\\d+) y ago$", "$1 年前"], ["^Each (.+)$", "每人 $1"], ["^([▲▼]) (\\d+)% vs (\\w+) · ([\\d,]+) records$", "$1 $2% 對比 $3 · $4 筆記錄"], ["^Added ([\\d,]+) recurring expenses?$", "已新增 $1 筆定期支出"], ["^(\\d+) days · (.+)/day( · estimated)?$", "$1 日 · 每日 $2$3"], ["^(.+) · so far$", "$1 · 至今"], ["^Next (.+)$", "下次 $1"], ["^(\\d+)/(\\d+) times$", "$1/$2 次"], ["^Rename “(.+)”$", "將「$1」改名"], ["^Delete “(.+)”\\?$", "刪除「$1」？"], ["^Remove “(.+)”\\?$", "移除「$1」？"], ["^Import ([\\d,]+) transactions\\?$", "匯入 $1 筆交易？"], ["^Updated ([\\d,]+) categories$", "已更新 $1 筆交易種類"], ["^Exported ([\\d,]+) transactions$", "已匯出 $1 筆交易"], ["^Imported ([\\d,]+) transactions$", "已匯入 $1 筆交易"], ["^Added (.+)$", "已加入 $1"], ["^Removed (.+)$", "已移除 $1"], ["^Renamed to (.+)$", "已改名為 $1"], ["^Balance \\((.+)\\)$", "結餘（$1）"], ["^(.+) style$", "$1 樣式"], ["^Save failed: (.+)$", "儲存失敗：$1"], ["^Repeats (weekly|fortnightly|every 28 days|monthly|yearly) from (.+?)( until .+?)?(, \\d+ times in total)? · next (.+)\\.$", "由 $2 起$3$4重複（$1）· 下次 $5。"], ["^You’ll be asked who paid on the Summary page each time it’s due\\.$", "每次到期時會喺總覽問你邊個付款。"]].map(function(p){ return [new RegExp(p[0]), p[1]]; });
   var W={weekly:'每週',fortnightly:'每兩週','every 28 days':'每 28 日',monthly:'每月',yearly:'每年'};
   function tr(str){
     var t=str.trim(); if(!t||!/[A-Za-z]/.test(t)) return null;
@@ -64,8 +65,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.3.6">
-<link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png?v=1.3.6">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.5.0">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png?v=1.5.0">
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TOKENS
@@ -1083,6 +1084,60 @@ body,:root[data-theme="light"] body{background:var(--bg)!important}
 .tx-sub-transfer{color:var(--purple)}
 .tx-amt-main small{font-size:10.5px;font-weight:700;color:var(--text-2);letter-spacing:.04em;margin-right:4px}
 :root[data-theme="light"] .tx-sub-transfer{color:#7c3aed}
+
+/* smooth record expand */
+.tx-card{transition:border-radius .25s ease,background-color .25s ease,padding .25s ease,margin .25s ease}
+.tx-card.expanded .tx-x-date,.tx-card.expanded .tx-x-amt,.tx-card.expanded .tx-x-fx{animation:txFadeUp .28s cubic-bezier(.2,.8,.2,1) both}
+.tx-card.collapsing .tx-x-date,.tx-card.collapsing .tx-x-amt,.tx-card.collapsing .tx-x-fx{opacity:.4;transition:opacity .2s}
+@keyframes txFadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* same gap under the header on every tab */
+.page .nav + .seg-ctrl,.page .nav + .future-tabs{margin-top:12px!important}
+.page-body > .sec-label:first-child{margin-top:12px!important}
+#sync-btn.sync-busy svg{animation:spin 1s linear infinite}
+
+/* ── filter sheet: chips + slider ── */
+#sheet-filter .sheet-title{padding:0 22px 4px}
+#filter-body{padding:0 16px}
+.fsec{background:var(--surface-solid);border:1px solid rgba(var(--ov),.06);border-radius:18px;padding:12px 14px 14px;margin-bottom:10px}
+.fsec-h{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:1.1px;text-transform:uppercase;color:var(--text-2);margin-bottom:10px}
+.fsec-v{font-family:var(--num);font-size:12px;letter-spacing:0;text-transform:none;color:var(--text)}
+.fchips{display:flex;flex-wrap:wrap;gap:7px}
+.fchip{display:inline-flex;align-items:center;gap:5px;padding:7px 12px!important;border-radius:999px!important;font-size:13px!important;border:none}
+.fchip.sel{background:var(--accent)!important;color:var(--on-accent)!important}
+.fchip .ic{font-size:14px;color:var(--c,currentColor)}
+.fchip.sel .ic{color:var(--on-accent)}
+.fseg{display:flex;background:rgba(var(--ov),.06);border-radius:999px;padding:3px}
+.fseg button{flex:1;padding:8px 0;border-radius:999px;font-size:13px;font-weight:700;color:var(--text-2);transition:background .2s,color .2s}
+.fseg button.on{background:var(--accent);color:var(--on-accent)}
+.frange{display:flex;align-items:center;gap:8px;margin-top:12px}
+.frange label{flex:1;display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--text-2);background:rgba(var(--ov),.05);border-radius:12px;padding:8px 10px}
+.frange label .pick-btn{justify-content:space-between;font-size:13px;min-height:22px}
+.frange>span{color:var(--text-3)}
+.dual{position:relative;height:30px;margin:4px 4px 0}
+.dual-track,.dual-fill{position:absolute;top:13px;height:4px;border-radius:2px}
+.dual-track{left:0;right:0;background:rgba(var(--ov),.12)}
+.dual-fill{left:var(--lo);right:calc(100% - var(--hi));background:var(--accent)}
+.dual input[type=range]{position:absolute;left:0;top:0;width:100%;height:30px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
+.dual input[type=range]::-webkit-slider-thumb{pointer-events:auto;-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;border:2px solid var(--accent);box-shadow:0 2px 6px rgba(0,0,0,.35);cursor:pointer}
+.dual input[type=range]::-moz-range-thumb{pointer-events:auto;width:22px;height:22px;border-radius:50%;background:#fff;border:2px solid var(--accent);cursor:pointer}
+.dual input[type=range]::-webkit-slider-runnable-track{background:none;height:30px}
+.dual-scale{display:flex;justify-content:space-between;font-family:var(--num);font-size:10px;color:var(--text-3);margin:2px 4px 0}
+.nav-btn.has-filter{position:relative}
+.nav-btn.has-filter::after{content:'';position:absolute;top:6px;right:6px;width:7px;height:7px;border-radius:50%;background:var(--orange)}
+
+/* duplicate warning */
+.dup-list{margin:10px 0;display:flex;flex-direction:column;gap:6px}
+.dup-item{display:flex;gap:8px;align-items:flex-start;background:rgba(245,184,75,.12);border:1px solid rgba(245,184,75,.35);border-radius:12px;padding:9px 10px;font-size:13px;color:var(--text);line-height:1.45}
+.dup-item .ic{color:var(--orange);font-size:15px;margin-top:2px;flex-shrink:0}
+.dup-note{display:flex;gap:7px;align-items:flex-start;font-size:12px;color:var(--orange);background:rgba(245,184,75,.10);border-radius:10px;padding:7px 9px;line-height:1.4}
+.dup-note .ic{flex-shrink:0;margin-top:1px}
+.dup-note b{font-weight:600;color:var(--text)}
+/* offline banner */
+#offline-banner{position:fixed;left:50%;top:calc(var(--safe-t) + 66px);transform:translate(-50%,-8px);z-index:950;display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:999px;background:var(--surface-3);color:var(--text);font-size:12.5px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.35);border:1px solid rgba(var(--ov),.1);opacity:0;pointer-events:none;transition:opacity .25s,transform .25s;white-space:nowrap;max-width:calc(100vw - 32px)}
+#offline-banner.show{opacity:1;transform:translate(-50%,0)}
+#offline-banner .ic{color:var(--orange);font-size:15px}
+#offline-banner.syncing .ic{color:var(--accent);animation:spin 1s linear infinite}
 /* ── dialogs ── */
 .ui-dialog-ov{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .18s}
 .ui-dialog-ov.open{opacity:1}
@@ -1172,7 +1227,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
     <div class="filter-bar">
       <div class="filter-chip" id="chip-recent" onclick="toggleRecentFilter()"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Recently added</div>
     </div>
-    <div class="page-body" id="tx-body" style="padding-top:4px"></div>
+    <div class="page-body" id="tx-body"></div>
   </div>
 
   <!-- ══ STATS ══ -->
@@ -1188,7 +1243,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
     <div class="nav">
       <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>Settings</span>
     </div>
-    <div class="page-body" id="settings-body" style="padding-top:16px"></div>
+    <div class="page-body" id="settings-body"></div>
   </div>
 
   <!-- Tab bar -->
@@ -1527,41 +1582,11 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   <div class="sheet">
     <div class="sheet-handle"></div>
     <div class="sheet-title">Filter</div>
-    <div class="sheet-inner">
-      <div class="form-row" onclick="openPickerSheet('filter-cat')" style="cursor:pointer">
-        <label class="form-label">Category</label>
-        <span class="form-value blue" id="filter-cat-val">All</span>
-        <span class="form-arrow">›</span>
-      </div>
-      <div class="form-row" onclick="openPickerSheet('filter-person')" style="cursor:pointer">
-        <label class="form-label">Person</label>
-        <span class="form-value blue" id="filter-person-val">All</span>
-        <span class="form-arrow">›</span>
-      </div>
-      <div class="form-row" onclick="openPickerSheet('filter-type')" style="cursor:pointer">
-        <label class="form-label">Type</label>
-        <span class="form-value blue" id="filter-type-val">All</span>
-        <span class="form-arrow">›</span>
-      </div>
-      <div class="form-row" onclick="openPickerSheet('filter-cur')" style="cursor:pointer">
-        <label class="form-label">Currency</label>
-        <span class="form-value blue" id="filter-cur-val">All</span>
-        <span class="form-arrow">›</span>
-      </div>
-      <div class="form-row">
-        <label class="form-label">From</label>
-        <input type="date" class="form-control" id="filter-from-date">
-      </div>
-      <div class="form-row">
-        <label class="form-label">To</label>
-        <input type="date" class="form-control" id="filter-to-date">
-      </div>
+    <div id="filter-body"></div>
+    <div class="detail-actions">
+      <button onclick="filterReset()" class="ui-dialog-btn cancel" style="flex:1">Reset</button>
+      <button onclick="applyFilters()" class="ui-dialog-btn ok" style="flex:2" id="filter-apply-btn">Show results</button>
     </div>
-    <div style="padding:12px;display:flex;gap:8px">
-      <button onclick="clearFilters()" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(var(--ov),0.077);color:var(--text-2);font-size:15px;font-weight:600">Clear</button>
-      <button onclick="applyFilters()" style="flex:2;padding:13px;border-radius:var(--radius-sm);background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:700">Apply</button>
-    </div>
-    <div style="height:8px"></div>
   </div>
 </div>
 
@@ -1651,7 +1676,8 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
 <script type="module">
 import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js';
 import {
-  getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, getDoc,
+  getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
+  collection, doc, addDoc, setDoc, updateDoc, deleteDoc, getDoc,
   getDocs, onSnapshot, query, orderBy, where, writeBatch, serverTimestamp, limit, runTransaction
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
@@ -1855,7 +1881,7 @@ function uiDialog({title='',message='',ok='OK',cancel='Cancel',danger=false,inpu
     ov.className='ui-dialog-ov';
     ov.innerHTML=`<div class="ui-dialog" role="alertdialog" aria-modal="true">
       ${title?`<div class="ui-dialog-title">${escapeHtml(title)}</div>`:''}
-      ${message?`<div class="ui-dialog-msg">${escapeHtml(message)}</div>`:''}
+      ${message?`<div class="ui-dialog-msg">${escapeHtml(message)}</div>`:''}${arguments[0].html||''}
       ${input!=null?`<input class="ui-dialog-input" type="text" value="${escapeHtml(input)}">`:''}
       <div class="ui-dialog-actions">
         ${cancel?`<button class="ui-dialog-btn cancel">${escapeHtml(cancel)}</button>`:''}
@@ -1882,6 +1908,7 @@ function geminiText(j){
   return parts.filter(p=>p&&!p.thought&&typeof p.text==='string').map(p=>p.text).join('');
 }
 async function fetchWithTimeout(url, options={}, timeoutMs=4500){
+  if(!navigator.onLine && /generativelanguage|frankfurter|yahoo/.test(String(url))) throw new Error('You’re offline — this needs an internet connection');
   const controller=new AbortController();
   const timer=setTimeout(()=>controller.abort(), timeoutMs);
   try{
@@ -2036,10 +2063,28 @@ let localFullLedgerIds = new Set();
 let ledgerStats = {}; // aggregate summary cache from Firebase meta/config; keeps Summary accurate without reading every tx
 
 function txCacheKey(ledgerId=currentLedgerId()){ return TX_LOCAL_CACHE_PREFIX + ledgerId; }
+function txShopKey(t){
+  const s=t?.shop||((String(t?.itemName||'').match(/^\s*\[(.+?)\]/)||[])[1])||'';
+  return String(s).trim().toLowerCase();
+}
+function txTimeKey(t){
+  if(t?.time&&/^\d{1,2}:\d{2}/.test(t.time)) return String(t.time).slice(0,5).padStart(5,'0');
+  const v=t?._created; let ms=null;
+  if(typeof v==='number') ms=v; else if(v&&typeof v.toMillis==='function') ms=v.toMillis(); else if(v&&typeof v.seconds==='number') ms=v.seconds*1000;
+  if(!ms) return '';
+  const d=new Date(ms);
+  if(isoDate(d)!==t.date) return '';
+  return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+}
 function sortTxList(list=[]){
   return [...list].sort((a,b)=>{
     const dateCmp=String(b.date||'').localeCompare(String(a.date||''));
     if(dateCmp!==0) return dateCmp;
+    // within a day: time (latest first; untimed last) → shop (A–Z; none last) → category → item
+    const ta=txTimeKey(a), tb=txTimeKey(b);
+    if(ta!==tb){ if(!ta) return 1; if(!tb) return -1; return tb.localeCompare(ta); }
+    const sa=txShopKey(a), sb=txShopKey(b);
+    if(sa!==sb){ if(!sa) return 1; if(!sb) return -1; return sa.localeCompare(sb); }
     const catCmp=catName(a.categoryId).localeCompare(catName(b.categoryId));
     if(catCmp!==0) return catCmp;
     return String(a.itemName||'').localeCompare(String(b.itemName||''));
@@ -2372,11 +2417,13 @@ async function initFb(config){
     const existing=getApps();
     const found=existing.find(a=>a.name==='splits');
     app=found||initializeApp(config,'splits');
-    db=getFirestore(app);
-    setSyncDot('pending');
-    await syncSharedMeta();
+    // keep a copy of the data on the phone so the app works offline; writes queue and sync later
+    try{ db=initializeFirestore(app,{localCache:persistentLocalCache({tabManager:persistentMultipleTabManager()})}); }
+    catch(e){ db=getFirestore(app); }
+    setSyncDot(navigator.onLine?'pending':'offline');
+    try{ await syncSharedMeta(); }catch(e){ console.warn('Meta sync deferred (offline?)',e); }
     subscribeToMeta();
-    setSyncDot('ok');
+    setSyncDot(navigator.onLine?'ok':'offline');
     subscribeToTx();
     return true;
   }catch(e){
@@ -2698,20 +2745,23 @@ function monthMemberTotalForSummary(year, monthIndex){
   return summaryMemberUsedTotal(st.month?.[key] || {people:{}});
 }
 
+// Writes don't wait for the server: they're saved on the phone at once and Firestore syncs them when online.
+let pendingWrites=0;
+function fire(p,what='change'){
+  pendingWrites++; updateOfflineBanner();
+  Promise.resolve(p).then(()=>{}).catch(e=>{ console.error('Sync failed:',what,e); showToast('Couldn’t sync a '+what+': '+(e?.code||e?.message||e)); })
+    .finally(()=>{ pendingWrites=Math.max(0,pendingWrites-1); updateOfflineBanner(); });
+}
 async function persistStats(){
   if(!db) return;
   const payload = stripUndefined({
     stats: ledgerStats || {},
     updatedAt: serverTimestamp()
   });
-  try{
-    // Important: updateDoc overwrites the whole top-level stats map.
-    // setDoc(..., {merge:true}) can leave deleted nested cat/person totals behind,
-    // which caused ghost categories like "其他 1500" in Summary.
-    await updateDoc(sharedMetaDoc(), payload);
-  }catch(e){
-    await setDoc(sharedMetaDoc(), payload, {merge:true});
-  }
+  // Important: updateDoc overwrites the whole top-level stats map.
+  // setDoc(..., {merge:true}) can leave deleted nested cat/person totals behind,
+  // which caused ghost categories like "其他 1500" in Summary.
+  fire(updateDoc(sharedMetaDoc(), payload).catch(()=>setDoc(sharedMetaDoc(), payload, {merge:true})),'stats update');
 }
 
 async function fbAdd(data){
@@ -2720,7 +2770,8 @@ async function fbAdd(data){
   const ledgerId=currentLedgerId();
   const saved=stripUndefined({...data,ledgerId});
   saved._created=serverTimestamp();
-  const ref=await addDoc(ledgerCol(),saved);
+  const ref=doc(ledgerCol());
+  fire(setDoc(ref,saved),'new record');
   const localTx={id:ref.id,...data,ledgerId,_created:Date.now()};
   upsertLocalTx(localTx, ledgerId);
   applyTxToStats(localTx,+1,ledgerId);
@@ -2749,7 +2800,7 @@ async function fbSet(id,data){
   if(old?._created?.toMillis) saved._created=old._created;
   else if(createdMs) saved._created=new Date(createdMs);
   if(old?._imported) saved._imported=true;
-  await setDoc(ledgerDoc(id),saved);
+  fire(setDoc(ledgerDoc(id),saved),'record edit');
   const localTx={id,...data,ledgerId,_updated:Date.now()};
   if(old?._created!=null) localTx._created=old._created;
   if(old?._imported) localTx._imported=true;
@@ -2763,7 +2814,7 @@ async function fbDel(id){
   if(!db) return;
   const ledgerId=currentLedgerId();
   const old=txs.find(t=>t.id===id);
-  await deleteDoc(ledgerDoc(id));
+  fire(deleteDoc(ledgerDoc(id)),'delete');
   if(old){ applyTxToStats(old,-1,ledgerId); await persistStats(); }
   removeLocalTx(id, ledgerId);
   renderHistory();
@@ -2816,7 +2867,7 @@ let flowData={}; // {name,categoryId,paidById,usedByIds,date,remark,isTransfer,f
 // picker context
 let pickerCtx='';
 // filters
-let filters={catId:'',personId:'',type:'',currency:'',dateFrom:'',dateTo:''};
+let filters={catId:'',personId:'',type:'',currency:'',dateFrom:'',dateTo:'',amtMin:'',amtMax:''};
 let filterRecent=false;
 function toggleRecentFilter(){
   filterRecent=!filterRecent;
@@ -2922,7 +2973,8 @@ function showApp(){ document.getElementById('loading-screen').classList.add('gon
 
 function setSyncDot(s){
   const btn=document.getElementById('sync-btn');
-  btn.style.color=s==='ok'?'var(--green)':s==='pending'?'var(--orange)':'var(--red)';
+  btn.style.color=s==='ok'?'':s==='pending'?'var(--orange)':s==='offline'?'var(--text-3)':'var(--red)';
+  btn.classList.toggle('sync-busy',s==='pending');
 }
 
 async function fetchRecentTx(limitN=100, showMsg=false){
@@ -3566,6 +3618,10 @@ window.saveTx=async function(){
     }
   }
 
+  if(!editTxId){
+    const ok=await confirmIfDuplicate(data);
+    if(!ok){ if(btn){ btn.disabled=false; btn.textContent='Save'; } return; }
+  }
   try{
     if(!editTxId && !flowData.isTransfer && flowData.repeat){
       const ask=flowData.paidById==='__ask';
@@ -3647,31 +3703,109 @@ window.deleteTx=async function(id){
 // ════════════════════════════════════════════════
 // FILTER
 // ════════════════════════════════════════════════
-window.openFilterSheet=function(){
+let fd=null; // draft filters while the sheet is open
+const FD_EMPTY=()=>({catId:'',personId:'',type:'',currency:'',dateFrom:'',dateTo:'',amtMin:'',amtMax:'',datePreset:''});
+function ymdOf(d){ return isoDate(d); }
+function datePresetRange(key){
+  const n=new Date(), y=n.getFullYear(), m=n.getMonth();
+  if(key==='this-month') return [ymdOf(new Date(y,m,1)), ymdOf(new Date(y,m+1,0))];
+  if(key==='last-month') return [ymdOf(new Date(y,m-1,1)), ymdOf(new Date(y,m,0))];
+  if(key==='last-3') return [ymdOf(new Date(y,m-2,1)), ymdOf(new Date(y,m+1,0))];
+  if(key==='this-year') return [`${y}-01-01`,`${y}-12-31`];
+  return ['',''];
+}
+function detectPreset(f){
+  if(!f.dateFrom&&!f.dateTo) return '';
+  for(const k of ['this-month','last-month','last-3','this-year']){ const [a,b]=datePresetRange(k); if(a===f.dateFrom&&b===f.dateTo) return k; }
+  return 'custom';
+}
+function ledgerTxsForFilter(){
+  return txs.filter(t=>(t.ledgerId===currentLedgerId()||(t.ledgerId==null&&currentLedgerId()===SHARED_LEDGER_ID))&&t.status!=='cancelled');
+}
+function amountCeil(){
+  const mx=Math.max(10,...ledgerTxsForFilter().map(t=>Number(t.baseAmount||0)));
+  const steps=[50,100,200,500,1000,2000,5000,10000,20000,50000,100000];
+  return steps.find(x=>x>=Math.min(mx,100000))||mx;
+}
+function countWith(f){
+  const today=isoDate(), q=(document.getElementById('tx-search')?.value||'').trim().toLowerCase();
+  return ledgerTxsForFilter().filter(t=>{
+    if(txTab==='future'?!(String(t.date||'')>today):!(String(t.date||'')<=today)) return false;
+    if(q&&!((t.itemName||'').toLowerCase().includes(q)||(t.remark||'').toLowerCase().includes(q))) return false;
+    if(f.catId&&t.categoryId!==f.catId) return false;
+    if(f.personId&&!(t.paidByPersonId===f.personId||(t.usedByPersonIds||[]).includes(f.personId)||t.fromPersonId===f.personId||t.toPersonId===f.personId)) return false;
+    if(f.type&&t.type!==f.type) return false;
+    if(f.currency&&t.currency!==f.currency) return false;
+    if(f.dateFrom&&String(t.date||'')<f.dateFrom) return false;
+    if(f.dateTo&&String(t.date||'')>f.dateTo) return false;
+    if(f.amtMin!==''&&Number(t.baseAmount||0)<Number(f.amtMin)) return false;
+    if(f.amtMax!==''&&Number(t.baseAmount||0)>Number(f.amtMax)) return false;
+    return true;
+  }).length;
+}
+function fchip(label,on,fn,extra=''){ return `<button class="chip fchip${on?' sel':''}" onclick="${fn}" ${extra}>${label}</button>`; }
+function renderFilterSheet(){
+  const f=fd, body=document.getElementById('filter-body'); if(!f||!body) return;
   const curs=[...new Set([baseCur(), ...txs.map(t=>t.currency).filter(Boolean)])];
-  filterCurrencyItems=curs;
-  document.getElementById('filter-cat-val').textContent=filters.catId?catName(filters.catId):'All';
-  document.getElementById('filter-person-val').textContent=filters.personId?personName(filters.personId):'All';
-  document.getElementById('filter-type-val').textContent=filterTypeLabel(filters.type);
-  document.getElementById('filter-cur-val').textContent=filters.currency||'All';
-  document.getElementById('filter-from-date').value=filters.dateFrom||'';
-  document.getElementById('filter-to-date').value=filters.dateTo||'';
+  const ceil=amountCeil();
+  const lo=f.amtMin===''?0:Number(f.amtMin), hi=f.amtMax===''?ceil:Number(f.amtMax);
+  const step=ceil<=200?1:ceil<=2000?5:ceil<=20000?50:500;
+  const pct=v=>Math.max(0,Math.min(100,v/ceil*100));
+  body.innerHTML=`
+    <div class="fsec"><div class="fsec-h">Type</div>
+      <div class="fseg">${[['','All'],['expense','Expense'],['transfer','Transfer']].map(([v,l])=>`<button class="${f.type===v?'on':''}" onclick="fdSet('type','${v}')">${l}</button>`).join('')}</div></div>
+    <div class="fsec"><div class="fsec-h">Date</div>
+      <div class="fchips">${[['','All time'],['this-month','This month'],['last-month','Last month'],['last-3','Last 3 months'],['this-year','This year'],['custom','Custom']].map(([v,l])=>fchip(l,f.datePreset===v,`fdPreset('${v}')`)).join('')}</div>
+      ${f.datePreset==='custom'?`<div class="frange"><label>From<input type="date" value="${f.dateFrom}" oninput="fdSet('dateFrom',this.value,true)"></label><span>→</span><label>To<input type="date" value="${f.dateTo}" oninput="fdSet('dateTo',this.value,true)"></label></div>`:''}</div>
+    <div class="fsec"><div class="fsec-h"><span>Amount</span><span class="fsec-v" id="famt-lbl">${baseCur()} ${fmtBase(lo)} – ${hi>=ceil?fmtBase(ceil)+'+':fmtBase(hi)}</span></div>
+      <div class="dual" style="--lo:${pct(lo)}%;--hi:${pct(hi)}%">
+        <div class="dual-track"></div><div class="dual-fill"></div>
+        <input type="range" min="0" max="${ceil}" step="${step}" value="${lo}" oninput="fdAmt('lo',this.value,${ceil})" aria-label="Minimum amount">
+        <input type="range" min="0" max="${ceil}" step="${step}" value="${hi}" oninput="fdAmt('hi',this.value,${ceil})" aria-label="Maximum amount">
+      </div>
+      <div class="dual-scale"><span>0</span><span>${fmtBase(ceil/2)}</span><span>${fmtBase(ceil)}+</span></div></div>
+    <div class="fsec"><div class="fsec-h">Category</div>
+      <div class="fchips">${fchip('All',!f.catId,`fdSet('catId','')`)}${cfg.categories.map(c=>fchip(`${catIcon(c.id)}<span>${escapeHtml(c.name)}</span>`,f.catId===c.id,`fdSet('catId','${c.id}')`,`style="--c:${catColor(c.id)}"`)).join('')}</div></div>
+    <div class="fsec"><div class="fsec-h">Person</div>
+      <div class="fchips">${fchip('Everyone',!f.personId,`fdSet('personId','')`)}${visiblePeople().map(p=>fchip(escapeHtml(p.name),f.personId===p.id,`fdSet('personId','${p.id}')`)).join('')}</div></div>
+    <div class="fsec"><div class="fsec-h">Currency</div>
+      <div class="fchips">${fchip('All',!f.currency,`fdSet('currency','')`)}${curs.map(c=>fchip(c,f.currency===c,`fdSet('currency','${c}')`,'style="font-family:var(--num)"')).join('')}</div></div>`;
+  updateFilterCount();
+}
+function updateFilterCount(){
+  const n=countWith(fd), btn=document.getElementById('filter-apply-btn');
+  if(btn) btn.textContent=n===1?'Show 1 record':`Show ${n.toLocaleString('en-US')} records`;
+}
+window.fdSet=function(k,v,quiet){ if(!fd) return; fd[k]=v; if(k==='dateFrom'||k==='dateTo') fd.datePreset='custom'; if(quiet) updateFilterCount(); else renderFilterSheet(); };
+window.fdPreset=function(k){ if(!fd) return; fd.datePreset=k; if(k!=='custom'){ const [a,b]=datePresetRange(k); fd.dateFrom=a; fd.dateTo=b; } renderFilterSheet(); };
+window.fdAmt=function(which,v,ceil){
+  if(!fd) return; v=Number(v);
+  let lo=fd.amtMin===''?0:Number(fd.amtMin), hi=fd.amtMax===''?ceil:Number(fd.amtMax);
+  if(which==='lo') lo=Math.min(v,hi); else hi=Math.max(v,lo);
+  fd.amtMin=lo<=0?'':lo; fd.amtMax=hi>=ceil?'':hi;
+  const box=document.querySelector('#filter-body .dual');
+  if(box){ box.style.setProperty('--lo',(lo/ceil*100)+'%'); box.style.setProperty('--hi',(hi/ceil*100)+'%'); const r=box.querySelectorAll('input'); r[0].value=lo; r[1].value=hi; }
+  const lbl=document.getElementById('famt-lbl'); if(lbl) lbl.textContent=`${baseCur()} ${fmtBase(lo)} – ${hi>=ceil?fmtBase(ceil)+'+':fmtBase(hi)}`;
+  updateFilterCount();
+};
+window.filterReset=function(){ fd=FD_EMPTY(); renderFilterSheet(); };
+window.openFilterSheet=function(){
+  fd={...FD_EMPTY(),...filters}; fd.datePreset=detectPreset(fd);
+  renderFilterSheet();
   openSheet('sheet-filter');
 };
 window.applyFilters=function(){
-  filters.dateFrom=document.getElementById('filter-from-date')?.value||'';
-  filters.dateTo=document.getElementById('filter-to-date')?.value||'';
-  filterActive=!!(filters.catId||filters.personId||filters.type||filters.currency||filters.dateFrom||filters.dateTo);
+  if(fd){ const {datePreset,...rest}=fd; filters={...FD_EMPTY(),...rest}; delete filters.datePreset; }
+  filterActive=!!(filters.catId||filters.personId||filters.type||filters.currency||filters.dateFrom||filters.dateTo||filters.amtMin!==''||filters.amtMax!=='');
+  document.querySelector('.nav-btn[onclick="openFilterSheet()"]')?.classList.toggle('has-filter',filterActive);
   closeSheet('sheet-filter'); renderHistory(); ensureFilteredHistoryLoaded();
 };
 window.clearFilters=function(){
-  filters={catId:'',personId:'',type:'',currency:'',dateFrom:'',dateTo:''};
+  filters=FD_EMPTY(); delete filters.datePreset; fd=null;
   filterActive=false;
   filterRecent=false;
   lastFilterLoadKey='';
-  ['filter-cat-val','filter-person-val','filter-type-val','filter-cur-val'].forEach(id=>{ const el=document.getElementById(id); if(el) el.textContent='All'; });
-  const f=document.getElementById('filter-from-date'); if(f) f.value='';
-  const t=document.getElementById('filter-to-date'); if(t) t.value='';
+  document.querySelector('.nav-btn[onclick="openFilterSheet()"]')?.classList.remove('has-filter');
   const chip=document.getElementById('chip-recent'); if(chip) chip.classList.remove('active');
   const q=document.getElementById('tx-search'); if(q) q.value='';
   closeSheet('sheet-filter'); renderHistory();
@@ -3720,7 +3854,7 @@ function periodDateRange(){
 }
 function goHistoryWithFilter(extra={}){
   const r=periodDateRange();
-  filters={catId:'',personId:'',type:'expense',currency:'',dateFrom:r.from,dateTo:r.to,...extra};
+  filters={catId:'',personId:'',type:'expense',currency:'',dateFrom:r.from,dateTo:r.to,amtMin:'',amtMax:'',...extra};
   filterActive=true;
   const tab=[...document.querySelectorAll('.tab')].find(t=>t.getAttribute('onclick')?.includes('history')) || document.querySelector('.tab');
   switchTab('history', tab);
@@ -3919,6 +4053,8 @@ function renderHistory(keepPage=false){
   if(filters.currency) list=list.filter(t=>t.currency===filters.currency);
   if(filters.dateFrom) list=list.filter(t=>String(t.date||'')>=filters.dateFrom);
   if(filters.dateTo) list=list.filter(t=>String(t.date||'')<=filters.dateTo);
+  if(filters.amtMin!==''&&filters.amtMin!=null) list=list.filter(t=>Number(t.baseAmount||0)>=Number(filters.amtMin));
+  if(filters.amtMax!==''&&filters.amtMax!=null) list=list.filter(t=>Number(t.baseAmount||0)<=Number(filters.amtMax));
   if(filterRecent){
     const cutoff=new Date(Date.now()-7*24*3600*1000).toISOString();
     list=list.filter(t=>t._created && (t._created?.toDate?.()?.toISOString()||String(t._created))>=cutoff);
@@ -3937,12 +4073,14 @@ function renderHistory(keepPage=false){
     }
     return;
   }
+  // Upcoming: soonest first (Past stays newest first)
+  if(isFuture) list=[...list].sort((a,b)=>String(a.date||'').localeCompare(String(b.date||'')));
   const visible=list.slice(0,historyShown);
   const hasMore=list.length>historyShown;
   const grp={};
   visible.forEach(t=>{ if(!grp[t.date]) grp[t.date]=[]; grp[t.date].push(t); });
   const loadAllBtn=db?`<div style="padding:16px 0 8px;text-align:center"><button onclick="rebuildLedgerStats()" class="btn-secondary" style="padding:10px 24px;border-radius:20px;font-size:13px;font-weight:600;color:var(--text-2)">Load all records</button></div>`:'';
-  body.innerHTML=Object.entries(grp).sort((a,b)=>b[0].localeCompare(a[0])).map(([date,items])=>{
+  body.innerHTML=Object.entries(grp).sort((a,b)=>isFuture?a[0].localeCompare(b[0]):b[0].localeCompare(a[0])).map(([date,items])=>{
     items=sortTxList(items);
     const dayTotal=items.filter(t=>t.type==='expense').reduce((s,t)=>s+t.baseAmount,0);
     return `<div class="tx-group-hdr"><span>${fmtDate(date)}</span>${dayTotal?`<span class="tx-group-sum">${baseCur()} ${fmtBase(dayTotal)}</span>`:''}</div>`+items.map(t=>renderTxCard(t)).join('');
@@ -4013,14 +4151,13 @@ function renderTxCard(t){
     }
     rows+=row('wallet','Paid by',t._virtual&&!t.paidByPersonId?'<span class="muted">Ask when due</span>':personName(t.paidByPersonId));
     const share=users.length?t.baseAmount/users.length:0;
-    rows+=row('users','Used by',users.length?`${users.map(personName).join(', ')}${users.length>1?`<br><span class="muted">Each ${baseCur()} ${fmtBase(share)}</span>`:''}`:'<span class="muted">—</span>');
+    rows+=row('users','Used by',users.length?users.map(personName).join(', '):'<span class="muted">—</span>');
   }
   if(t.shop) rows+=row('bag','Shop',escapeHtml(String(t.shop)));
-  if(t.time) rows+=row('clock','Time',escapeHtml(String(t.time)));
   if(t.remark) rows+=row('note','Note',escapeHtml(String(t.remark)));
   if(t.recurringRuleId) rows+=row('repeat','Repeats',(RECUR_FREQ[t.recurringFreq]||'Recurring'));
-  if(!t._virtual) rows+=row('clock','Added',createdMs?`${fmtStamp(createdMs)}<br><span class="muted">${fmtAgo(createdMs)}</span>`:'<span class="muted">Not recorded (older entry)</span>');
-  if(updatedMs) rows+=row('edit','Edited',`${fmtStamp(updatedMs)}<br><span class="muted">${fmtAgo(updatedMs)}</span>`);
+  if(!t._virtual) rows+=row('clock','Added',createdMs?fmtStamp(createdMs):'<span class="muted">Not recorded (older entry)</span>');
+  if(updatedMs) rows+=row('edit','Edited',fmtStamp(updatedMs));
   const detail=`<div class="tx-expand" id="${expandId}" onclick="event.stopPropagation()">
     ${hero}
     ${rows}
@@ -4032,17 +4169,37 @@ function renderTxCard(t){
   </div>`;
   return `<div class="${cardClass}" onclick="toggleTxExpand('${t.id}')">
     <div class="${avatarClass}" style="background:${avatarColor}22;color:${avatarColor}">${avatarText}</div>
-    <div class="tx-card-main">${nameHtml}<div class="tx-sub">${subHtml}</div><div class="tx-x-date">${fmtDateLong(t.date)}</div></div>
+    <div class="tx-card-main">${nameHtml}<div class="tx-sub">${subHtml}</div><div class="tx-x-date">${t.time&&/^\d{1,2}:\d{2}/.test(t.time)?`${t.date} ${String(t.time).slice(0,5).padStart(5,'0')}`:fmtDateLong(t.date)}</div></div>
     <div class="tx-amt"><div class="tx-amt-main">${mainAmt}</div>${fxHint}<div class="tx-x-amt"><small>${t.currency}</small>${fmt(t.amount,t.currency)}</div>${foreign?`<div class="tx-x-fx">≈ ${baseCur()} ${fmtBase(t.baseAmount)}</div>`:''}</div>
   </div>${detail}`;
 }
 
+const _reduceMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
+function collapseTx(el,animate=true){
+  const card=el.previousElementSibling;
+  el.getAnimations?.().forEach(a=>a.cancel());
+  if(!animate||_reduceMotion()||!el.animate){ el.classList.remove('open'); card?.classList.remove('expanded'); return; }
+  const h=el.offsetHeight;
+  el.style.overflow='hidden';
+  const a=el.animate([{height:h+'px',opacity:1},{height:'0px',opacity:0,paddingTop:'0px',paddingBottom:'0px',marginBottom:'0px'}],{duration:220,easing:'cubic-bezier(.4,0,.6,1)'});
+  card?.classList.add('collapsing');
+  a.onfinish=()=>{ el.classList.remove('open'); el.style.overflow=''; card?.classList.remove('expanded','collapsing'); };
+}
+function expandTx(el){
+  const card=el.previousElementSibling;
+  card?.classList.add('expanded');
+  el.classList.add('open');
+  if(_reduceMotion()||!el.animate) return;
+  const h=el.offsetHeight;
+  el.style.overflow='hidden';
+  el.animate([{height:'0px',opacity:0,paddingTop:'0px',paddingBottom:'0px'},{height:h+'px',opacity:1}],{duration:320,easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish=()=>{ el.style.overflow=''; };
+  el.querySelectorAll('.tx-detail-row,.tx-x-badges,.tx-expand-actions').forEach((r,i)=>r.animate([{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'none'}],{duration:260,delay:60+i*22,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'}));
+}
 window.toggleTxExpand=function(id){
   const el=document.getElementById('exp-'+id); if(!el) return;
-  const card=el.previousElementSibling;
   const open=el.classList.contains('open');
-  document.querySelectorAll('.tx-expand.open').forEach(e=>{ e.classList.remove('open'); e.previousElementSibling?.classList.remove('expanded'); });
-  if(!open){ el.classList.add('open'); card?.classList.add('expanded'); }
+  document.querySelectorAll('.tx-expand.open').forEach(e=>{ if(e!==el) collapseTx(e); });
+  if(open) collapseTx(el); else expandTx(el);
 };
 
 // ════════════════════════════════════════════════
@@ -4225,6 +4382,7 @@ function ruleEndText(r){
 }
 async function mutateRecurring(mutator){
   if(!db) throw new Error('Firebase not connected');
+  if(!navigator.onLine){ showToast('Recurring changes need an internet connection'); throw new Error('offline'); }
   let out, next;
   await runTransaction(db, async tx=>{
     const ref=sharedMetaDoc();
@@ -4875,7 +5033,7 @@ function renderSettings(){
       <div class="settings-row" style="border-top:.5px solid var(--sep)">
         <span class="row-ic purple">${ic('sparkles')}</span>
         <span class="settings-lbl" style="flex:1">Theme</span>
-        <div class="set-seg">${[['dark','Dark'],['light','Light'],['system','Auto']].map(([v,l])=>`<button class="${(window.UI_THEME||'dark')===v?'on':''}" onclick="setUiTheme('${v}')">${l}</button>`).join('')}</div>
+        <div class="set-seg">${[['dark','Dark'],['light','Light']].map(([v,l])=>`<button class="${(window.UI_THEME||'dark')===v?'on':''}" onclick="setUiTheme('${v}')">${l}</button>`).join('')}</div>
       </div>
     </div>
 
@@ -4961,7 +5119,7 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.3.6</div>
+      <div>v1.5.0</div>
       <div>Last updated: 2026-11-11</div>
     </div>
   `;
@@ -5639,6 +5797,60 @@ new MutationObserver(ms=>{ ms.forEach(m=>m.addedNodes.forEach(n=>{ if(n.nodeType
 enhanceAllPickers();
 
 // ════════════════════════════════════════════════
+// OFFLINE BANNER
+// ════════════════════════════════════════════════
+function updateOfflineBanner(){
+  let b=document.getElementById('offline-banner');
+  if(!b){ b=document.createElement('div'); b.id='offline-banner'; b.setAttribute('role','status'); document.body.appendChild(b); }
+  const off=!navigator.onLine;
+  if(off){
+    b.innerHTML=`${ic('wifi')}<span>Offline${pendingWrites?` · ${pendingWrites} change${pendingWrites>1?'s':''} will sync later`:' · changes will sync when you’re back online'}</span>`;
+    b.classList.add('show');
+  } else if(pendingWrites>0){
+    b.innerHTML=`${ic('refresh')}<span>Syncing ${pendingWrites} change${pendingWrites>1?'s':''}…</span>`;
+    b.classList.add('show','syncing');
+  } else { b.classList.remove('show','syncing'); }
+}
+window.addEventListener('offline',()=>{ setSyncDot('offline'); updateOfflineBanner(); });
+window.addEventListener('online',()=>{ setSyncDot(db?'ok':'err'); updateOfflineBanner(); if(pendingWrites) showToast('Back online — syncing'); });
+document.addEventListener('DOMContentLoaded',updateOfflineBanner);
+if('serviceWorker' in navigator && location.protocol!=='file:'){
+  window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW register failed',e)); });
+}
+
+// ════════════════════════════════════════════════
+// DUPLICATE CHECK
+// ════════════════════════════════════════════════
+function normName(s){ return String(s||'').toLowerCase().replace(/^\s*\[.+?\]\s*/,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim(); }
+function nameTokens(s){ const n=normName(s); const out=new Set(); n.split(' ').forEach(w=>{ if(!w) return; if(/[぀-ヿ㐀-鿿]/.test(w)) [...w].forEach(c=>out.add(c)); else out.add(w); }); return out; }
+function namesSimilar(a,b){
+  const x=normName(a), y=normName(b); if(!x||!y) return false;
+  if(x===y) return true;
+  if(x.length>=4&&y.length>=4&&(x.includes(y)||y.includes(x))) return true;
+  const A=nameTokens(a), B=nameTokens(b); let inter=0; A.forEach(t=>{ if(B.has(t)) inter++; });
+  return inter/Math.max(1,new Set([...A,...B]).size)>=0.6;
+}
+function dayGap(a,b){ return Math.abs((new Date(a+'T00:00:00')-new Date(b+'T00:00:00'))/86400000); }
+function findDuplicates(d, excludeId){
+  const lid=currentLedgerId();
+  return txs.filter(t=>{
+    if(t.id===excludeId||t.status==='cancelled'||t._virtual) return false;
+    if(!(t.ledgerId===lid||(!t.ledgerId&&lid===SHARED_LEDGER_ID))) return false;
+    if(!t.date||!d.date||t.date!==d.date) return false;   // same day only, so daily repeats (Opal, lunch) don't trigger it
+    if((t.currency||'')!==(d.currency||'')||Math.abs(Number(t.amount)-Number(d.amount))>0.005) return false;
+    if(d.type==='transfer') return t.type==='transfer'&&t.fromPersonId===d.fromPersonId&&t.toPersonId===d.toPersonId;
+    return t.type==='expense'&&namesSimilar(t.itemName,d.itemName);
+  }).slice(0,3);
+}
+function dupLine(t){ return `${t.type==='transfer'?`${personName(t.fromPersonId)} → ${personName(t.toPersonId)}`:t.itemName} · ${t.date} · ${t.currency} ${fmt(t.amount,t.currency)}${t.paidByPersonId?` · Paid by ${personName(t.paidByPersonId)}`:''}`; }
+async function confirmIfDuplicate(d, excludeId){
+  const dups=findDuplicates(d, excludeId);
+  if(!dups.length) return true;
+  return uiDialog({title:'Possible duplicate', html:`<div class="ui-dialog-msg">You already have ${dups.length>1?'these records':'this record'}:</div><div class="dup-list">${dups.map(t=>`<div class="dup-item">${ic('alert')}<span>${escapeHtml(dupLine(t))}</span></div>`).join('')}</div><div class="ui-dialog-msg">Save this one anyway?</div>`, ok:'Save anyway', cancel:'Cancel'});
+}
+window.findDuplicates=findDuplicates;
+
+// ════════════════════════════════════════════════
 // RENDER ALL
 // ════════════════════════════════════════════════
 function renderAll(){
@@ -5971,6 +6183,7 @@ Rules: time: the purchase time printed on the receipt in 24-hour HH:MM, "" if no
         t._catId=cfg.categories.find(c=>c.name.toLowerCase()===String(t.category||'').toLowerCase())?.id||cfg.categories[0]?.id||'';
         t._skip=false;
       });
+      markScanDuplicates(true);   // items already recorded start unticked
 
       renderScanConfirm();
       actions.style.display='flex';
@@ -6028,6 +6241,7 @@ Rules: time: the purchase time printed on the receipt in 24-hour HH:MM, "" if no
           <input class="scan-tx-input" value="${escapeHtml(t.itemName||'')}" placeholder="Item ${i+1}" oninput="scanSetName(${i},this.value)" style="flex:1;font-weight:700;font-size:14px">
           <label class="toggle-switch" style="flex-shrink:0;margin-left:8px"><input type="checkbox" ${t._skip?'':'checked'} onchange="toggleScanRow(${i},this.checked)"><span class="toggle-track"></span></label>
         </div>
+        ${t._dup?`<div class="dup-note">${ic('alert')}<span>Possible duplicate of <b>${escapeHtml(t._dup)}</b>${t._skip?' — unticked':''}</span></div>`:''}
         <div class="scan-tx-field">
           <span class="scan-tx-lbl">Amount</span>
           <input class="scan-tx-input" type="number" value="${t.amount||0}" oninput="scanSetAmount(${i},this.value)">
@@ -6056,10 +6270,18 @@ Rules: time: the purchase time printed on the receipt in 24-hour HH:MM, "" if no
       <div class="scan-total-split">${payer?`<span>Paid by <b>${escapeHtml(personName(payer))}</b></span>`:''}${Object.keys(per).length>1?split:''}</div>`;
   }
 
-  window.setScanDate=function(v){ scanSharedDate=v; };
+  function markScanDuplicates(initial){
+    const cur=scanSharedCurrency||baseCur();
+    scanResults.forEach(t=>{
+      const d=findDuplicates({type:'expense',date:scanSharedDate,currency:cur,amount:Number(t.amount)||0,itemName:t.itemName})[0];
+      t._dup=d?dupLine(d):'';
+      if(initial&&d) t._skip=true;
+    });
+  }
+  window.setScanDate=function(v){ scanSharedDate=v; markScanDuplicates(false); renderScanConfirm(); };
   window.setScanTime=function(v){ scanSharedTime=v; };
   window.setScanShop=function(v){ scanSharedShop=v; };
-  window.setScanCurrency=function(c){ scanSharedCurrency=c; renderScanConfirm(); };
+  window.setScanCurrency=function(c){ scanSharedCurrency=c; markScanDuplicates(false); renderScanConfirm(); };
 
   window.aiCompleteItemNames=async function(){
     if(!cfg.geminiApiKey){ showToast('Add a Gemini API key in Settings first'); return; }
