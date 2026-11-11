@@ -1,137 +1,100 @@
-# Splits — Deploy Guide
+# Deploy Guide
 
-## Files needed
+This app is a single-file PWA (`index.html`) backed by Firebase Firestore.  
+No build step required — just serve the files over HTTPS.
+
+---
+
+## Files
+
 ```
-index.html
-manifest.json
-icon.svg
-```
-
----
-
-## Step 1 — GitHub Repository
-
-1. Go to **github.com** → sign in → click **New repository**
-2. Name it (e.g. `splits`) → set to **Public** → click **Create repository**
-3. Upload files:
-   - Click **Add file → Upload files**
-   - Drag in `index.html`, `manifest.json`, `icon.svg`
-   - Click **Commit changes**
-
----
-
-## Step 2 — GitHub Pages
-
-1. In your repo → **Settings** tab
-2. Left sidebar → **Pages**
-3. Under **Source** → select **Deploy from a branch**
-4. Branch: **main** → Folder: **/ (root)** → **Save**
-5. Wait ~1 minute → your URL appears:
-   `https://YOUR_USERNAME.github.io/splits/`
-
----
-
-## Step 3 — Firebase Setup
-
-### 3a. Create Firebase Project
-1. Go to **console.firebase.google.com**
-2. Click **Add project** → name it → click through setup
-3. Disable Google Analytics (optional) → **Create project**
-
-### 3b. Create Firestore Database
-1. Left sidebar → **Firestore Database** → **Create database**
-2. Choose **Start in test mode** → select a region → **Done**
-3. Test mode allows all reads/writes for 30 days (fine for personal use)
-
-### 3c. Register Web App
-1. Project overview → click **</>** (Web) icon
-2. App nickname: `splits` → **Register app**
-3. Copy the `firebaseConfig` object — looks like:
-```json
-{
-  "apiKey": "AIza...",
-  "authDomain": "your-project.firebaseapp.com",
-  "projectId": "your-project-id",
-  "storageBucket": "your-project.appspot.com",
-  "messagingSenderId": "123456789",
-  "appId": "1:123:web:abc123"
-}
+index.html             — entire app (HTML + CSS + JS)
+manifest.json          — PWA manifest
+logo.svg               — browser-tab / loading icon
+apple-touch-icon.png   — iPhone home-screen icon (180×180) — must be uploaded!
+icons/
+  icon-192.png         — PWA icon (192×192)
+  icon-512.png         — PWA icon (512×512)
 ```
 
-### 3d. Connect in the App
-1. Open your GitHub Pages URL
-2. Tap **Settings** tab → **Connect Firebase**
-3. Paste the JSON config → tap **Connect**
-4. Green "Live" badge = connected ✓
+> After changing the icon on iPhone: delete the old home-screen shortcut, open the site in Safari, then Share → Add to Home Screen. iOS only reads the icon when the shortcut is created.
+
+> **Icons** are included (generated from `logo.svg`). Upload all of the files above —  
+> if `apple-touch-icon.png` is missing on the server, iPhone shows a page screenshot instead of the icon.
 
 ---
 
-## Step 4 — Install as iPhone App (PWA)
+## Option 1 — GitHub Pages (free, recommended)
 
-1. Open your GitHub Pages URL in **Safari** (must be Safari)
-2. Tap the **Share** button (box with arrow)
-3. Scroll down → **Add to Home Screen**
-4. Tap **Add**
-5. App icon appears on your home screen
+1. Push the files to a GitHub repo (e.g. `cheungcm/budget`).
+2. Go to **Settings → Pages → Source** → select `main` branch, `/ (root)`.
+3. Your app is live at `https://cheungcm.github.io/budget/`.
 
----
-
-## Step 5 — Exchange Rates
-
-1. Settings → **Update Now** under Exchange Rates
-2. Downloads 2 years of daily rates from Yahoo Finance via proxy
-3. Rates are stored locally — historical transactions are never recalculated
+```bash
+git init
+git add index.html manifest.json logo.svg apple-touch-icon.png icons/
+git commit -m "init"
+git remote add origin https://github.com/cheungcm/budget.git
+git push -u origin main
+```
 
 ---
 
-## Firestore Security Rules (after testing)
+## Option 2 — Netlify (drag & drop)
 
-Once you're ready to lock down your database, replace test mode rules:
+1. Go to [netlify.com](https://netlify.com) → **Add new site → Deploy manually**.
+2. Drag the `files/` folder onto the drop zone.
+3. Done — Netlify gives you a `*.netlify.app` URL instantly.
 
-1. Firestore → **Rules** tab → paste:
+---
+
+## Option 3 — Firebase Hosting (same project as Firestore)
+
+```bash
+npm install -g firebase-tools
+firebase login
+firebase init hosting   # public dir = . (current folder), SPA = no
+firebase deploy
+```
+
+---
+
+## Firebase Setup
+
+1. Go to [console.firebase.google.com](https://console.firebase.google.com).
+2. Create a project → add a **Web App** → copy the config JSON.
+3. **Firestore** → Create database → **Start in test mode**.
+4. Open the app → **Settings → 連接 Firebase** → paste the config JSON.
+
+### Firestore Security Rules (production)
+
+Replace test-mode rules with:
 
 ```
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /ledgers/{ledgerId}/transactions/{txId} {
-      allow read, write: if true;
+    match /ledgers/{ledgerId}/{document=**} {
+      allow read, write: if request.auth != null;
     }
   }
 }
 ```
 
-For proper auth, add Firebase Authentication and restrict by user.
+Enable **Email/Password** authentication in Firebase Auth if you want login-gating.
 
 ---
 
-## Update the App
+## PWA Install (iOS)
 
-To update after changes to `index.html`:
-1. Go to your GitHub repo
-2. Click `index.html` → pencil icon (edit) → or upload new version
-3. GitHub Pages auto-deploys in ~30 seconds
-4. Refresh Safari → the PWA gets the update on next load
+1. Open the app URL in Safari.
+2. Tap **Share → Add to Home Screen**.
+3. The app runs fullscreen with offline support from the local cache.
 
 ---
 
-## Data Architecture Summary
+## Gemini AI Scan
 
-```
-localStorage (device-only, fast)
-├── Firebase config
-├── People (with UUIDs)
-├── Categories (with UUIDs)
-├── Ledger list
-└── FX rates (date → currency → rate)
-
-Firestore (synced, multi-device)
-└── /ledgers/{ledgerId}/transactions/{txId}
-    ├── type: "expense" | "transfer"
-    ├── itemName, categoryId, paidByPersonId, usedByPersonIds
-    ├── currency, amount, fxRate, baseAmount (immutable after save)
-    ├── date, remark, status
-    └── recurringRuleId (optional)
-```
-
-**Key design principle:** Transaction amounts are stored with the FX rate at time of creation. Updating exchange rates never modifies historical data.
+1. Get a free API key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
+2. Open the app → **Settings** → paste the key into the Gemini API Key field.
+3. Tap the 📷 camera button in the tab bar to scan receipts.
