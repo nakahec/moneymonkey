@@ -65,8 +65,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.5.0">
-<link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png?v=1.5.0">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.5.1">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png?v=1.5.1">
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TOKENS
@@ -2390,7 +2390,7 @@ function repaintAfterEntityChange(){
   renderSettings();
   renderDetailChips();
   renderSummary();
-  renderHistory();
+  renderHistoryStay();
   renderSettle();
 }
 
@@ -2403,7 +2403,7 @@ function subscribeToMeta(){
       renderSettings();
       renderDetailChips();
       renderSummary();
-      renderHistory();
+      renderHistoryStay();
       renderSettle();
       document.getElementById('ledger-name-top').textContent=currentLedger().name||'Ledger';
       clearTimeout(window._recurT); window._recurT=setTimeout(processRecurring,900);
@@ -2776,7 +2776,7 @@ async function fbAdd(data){
   upsertLocalTx(localTx, ledgerId);
   applyTxToStats(localTx,+1,ledgerId);
   await persistStats();
-  renderHistory();
+  renderHistoryStay();
   return true;
 }
 // Edit a few fields of an existing record through the normal save path (keeps stats and timestamps right)
@@ -2808,7 +2808,7 @@ async function fbSet(id,data){
   applyTxToStats(localTx,+1,ledgerId);
   upsertLocalTx(localTx, ledgerId);
   await persistStats();
-  renderHistory();
+  renderHistoryStay();
 }
 async function fbDel(id){
   if(!db) return;
@@ -2817,7 +2817,7 @@ async function fbDel(id){
   fire(deleteDoc(ledgerDoc(id)),'delete');
   if(old){ applyTxToStats(old,-1,ledgerId); await persistStats(); }
   removeLocalTx(id, ledgerId);
-  renderHistory();
+  renderHistoryStay();
 }
 async function rebuildLedgerStats(mode){
   if(!db){ showToast('Connect Firebase first'); return; }
@@ -4036,6 +4036,16 @@ const HISTORY_PAGE = 100;
 let historyShown = HISTORY_PAGE;
 let _historyObs = null;
 
+// Redraw after data changes without losing your place: keeps loaded pages, scroll position and the open record
+function renderHistoryStay(){
+  const pg=document.getElementById('page-history');
+  const st=pg?pg.scrollTop:0;
+  const openId=document.querySelector('#tx-body .tx-expand.open')?.id;
+  renderHistory(true);
+  if(openId){ const el=document.getElementById(openId); if(el){ el.classList.add('open'); el.previousElementSibling?.classList.add('expanded'); } }
+  if(pg) pg.scrollTop=st;
+}
+window.renderHistoryStay=renderHistoryStay;
 function renderHistory(keepPage=false){
   if(!keepPage) historyShown=HISTORY_PAGE;
   if(_historyObs){ _historyObs.disconnect(); _historyObs=null; }
@@ -4653,7 +4663,7 @@ window.saveRecurringEdit=async function(){
       r.ended=!can; if(!can) r.active=false; else if(wasEnded) r.active=true;
     });
     closeSheet('sheet-recurring-edit');
-    renderRecurringList(); renderSettings(); renderSummary(); renderHistory();
+    renderRecurringList(); renderSettings(); renderSummary(); renderHistoryStay();
     showToast('Recurring expense updated');
   }catch(err){ console.error('saveRecurringEdit',err); showToast('Update failed'); }
 };
@@ -5119,7 +5129,7 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.5.0</div>
+      <div>v1.5.1</div>
       <div>Last updated: 2026-11-11</div>
     </div>
   `;
