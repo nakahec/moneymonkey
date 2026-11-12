@@ -65,8 +65,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&display=swap">
 <link rel="icon" href="logo.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.5.1">
-<link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png?v=1.5.1">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=1.5.2">
+<link rel="apple-touch-icon-precomposed" sizes="180x180" href="apple-touch-icon.png?v=1.5.2">
 <style>
 /* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
    TOKENS
@@ -156,7 +156,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .tab.active{color:var(--on-accent);background:transparent}
 .tab:active{transform:scale(.96)}
 .tab .ic{width:22px;height:22px;stroke-width:1.8}
-.tab.active .ic{stroke-width:2.2}
+.tab.active .ic{stroke-width:1.8}
 .page::after{content:'';display:block;flex:0 0 calc(var(--tab-h) + var(--safe-b) + 28px)}
 /* SVG icons */
 .ic{width:1em;height:1em;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;vertical-align:-.14em;display:inline-block}
@@ -722,6 +722,7 @@ input,textarea,select{caret-color:var(--accent)}
 .tx-detail-hero{padding:14px 0 12px;margin:0;border-bottom:1px solid rgba(0,0,0,.08)}
 .tx-detail-row{padding:11px 0;align-items:center;border-top:none!important;border-bottom:1px solid rgba(0,0,0,.08)}
 .tx-dl{width:92px}
+.tx-x-time{font-size:12px;color:var(--text-2);margin-top:2px}
 .tx-expand .tx-dv{text-align:right}
 .tx-expand-actions{margin-top:14px}
 /* due recurring panel */
@@ -1094,7 +1095,6 @@ body,:root[data-theme="light"] body{background:var(--bg)!important}
 /* same gap under the header on every tab */
 .page .nav + .seg-ctrl,.page .nav + .future-tabs{margin-top:12px!important}
 .page-body > .sec-label:first-child{margin-top:12px!important}
-#sync-btn.sync-busy svg{animation:spin 1s linear infinite}
 
 /* ── filter sheet: chips + slider ── */
 #sheet-filter .sheet-title{padding:0 22px 4px}
@@ -1156,6 +1156,22 @@ body,:root[data-theme="light"] body{background:var(--bg)!important}
 .set-seg{display:flex;gap:4px;background:var(--surface-2);border-radius:12px;padding:3px}
 .set-seg button{padding:7px 12px;border-radius:9px;font-size:13px;font-weight:600;color:var(--text-2)}
 .set-seg button.on{background:var(--accent);color:var(--on-accent)}
+
+/* ledger switcher: bookmark tab sticking out from the right screen edge */
+.nav .ledger-chip.ledger-tab{height:40px;max-width:170px;margin-right:-16px;padding:0 18px 0 14px!important;border-radius:12px 0 0 12px!important;border:none!important;background:var(--accent)!important;color:var(--on-accent)!important;font-weight:700!important;gap:6px!important;box-shadow:-3px 3px 10px rgba(0,0,0,.28)!important;transition:transform .2s cubic-bezier(.32,.72,0,1)}
+.nav .ledger-chip.ledger-tab .ic{color:var(--on-accent)!important;font-size:15px}
+.nav .ledger-chip.ledger-tab:active{transform:translateX(-4px)}
+:root[data-theme="light"] .nav .ledger-chip.ledger-tab{background:#0a9b78!important;color:#fff!important;border:none!important;box-shadow:-2px 2px 8px rgba(0,0,0,.14)!important}
+:root[data-theme="light"] .nav .ledger-chip.ledger-tab .ic{color:#fff!important}
+
+/* ── Liquid Glass tab bar: clear lens, bright rim, specular sheen ── */
+:root{--lg-tint:rgba(20,20,24,.06);--lg-rim:rgba(255,255,255,.85)}
+:root[data-theme="light"]{--lg-tint:rgba(255,255,255,.10)}
+.tab-bar{backdrop-filter:blur(3px) saturate(210%) brightness(1.12) contrast(1.05)!important;-webkit-backdrop-filter:blur(3px) saturate(210%) brightness(1.12) contrast(1.05)!important;
+  box-shadow:inset 0 1.5px 0 rgba(255,255,255,.55),inset 0 -1px 0 rgba(255,255,255,.18),inset 1px 0 0 rgba(255,255,255,.12),inset -1px 0 0 rgba(255,255,255,.12),inset 0 0 18px rgba(255,255,255,.10),inset 0 -8px 16px rgba(255,255,255,.06),0 10px 30px rgba(0,0,0,.28),0 1px 3px rgba(0,0,0,.15)!important}
+.tab-bar::before{background:radial-gradient(60% 120% at 18% -30%,rgba(255,255,255,.32),transparent 55%),radial-gradient(40% 90% at 90% 130%,rgba(255,255,255,.14),transparent 60%),linear-gradient(180deg,rgba(255,255,255,.10),rgba(255,255,255,0) 40%)!important}
+.tab-bar::after{padding:1.2px!important;background:linear-gradient(140deg,rgba(255,255,255,.9),rgba(255,255,255,.08) 30%,rgba(255,255,255,0) 60%,rgba(255,255,255,.55))!important}
+:root[data-theme="light"] .tab-bar{box-shadow:inset 0 1.5px 0 #fff,inset 0 -1px 0 rgba(255,255,255,.7),inset 0 0 18px rgba(255,255,255,.35),0 10px 28px rgba(0,0,0,.12),0 1px 3px rgba(0,0,0,.08)!important}
 </style>
 <script>
 window.ICONS={"home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "receipt": "<path d=\"M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "chart": "<path d=\"M3 21h18\"/><rect x=\"5\" y=\"11\" width=\"3\" height=\"7\" rx=\"1\"/><rect x=\"10.5\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/><rect x=\"16\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/>", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "camera": "<path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.5\"/>", "book": "<path d=\"M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3\"/><path d=\"M8 7h8\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "calendarRange": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4M7 14h5M12 17.5h5\"/>", "clipboard": "<path d=\"M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2\"/><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"3\" rx=\"1\"/><path d=\"M9 11h6M9 15h4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "sparkles": "<path d=\"M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z\"/><path d=\"M18.5 14.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z\"/>", "expense": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 15l6-6M10 9h5v5\"/>", "transfer": "<path d=\"M17 3l4 4-4 4\"/><path d=\"M3 7h18\"/><path d=\"M7 21l-4-4 4-4\"/><path d=\"M21 17H3\"/>", "tag": "<path d=\"M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1.2\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "alert": "<path d=\"M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9v4M12 17h.01\"/>", "edit": "<path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\"/>", "refresh": "<path d=\"M21 12a9 9 0 0 1-15.5 6.2L3 16\"/><path d=\"M3 21v-5h5\"/><path d=\"M3 12a9 9 0 0 1 15.5-6.2L21 8\"/><path d=\"M21 3v5h-5\"/>", "bank": "<path d=\"M3 10l9-6 9 6\"/><path d=\"M5 10v8M9.5 10v8M14.5 10v8M19 10v8\"/><path d=\"M3 21h18\"/>", "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>", "checkCircle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7L16 9.8\"/>", "x": "<path d=\"M6 6l12 12M18 6 6 18\"/>", "bulb": "<path d=\"M9 18h6M10 21h4\"/><path d=\"M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/>", "loader": "<path d=\"M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5 6.8 15M17.2 9l2.6-1.5\"/>", "listChecks": "<path d=\"M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17\"/><path d=\"M11 6h10M11 12h10M11 18h10\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "copy": "<rect x=\"8\" y=\"8\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3\"/>", "trash": "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M9 7V4h6v3\"/>", "note": "<path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6M8 13h8M8 17h5\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6\"/>", "repeat": "<path d=\"M17 2l4 4-4 4\"/><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\"/><path d=\"M7 22l-4-4 4-4\"/><path d=\"M21 13v1a4 4 0 0 1-4 4H3\"/>", "download": "<path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\"/>", "deleteLeft": "<path d=\"M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z\"/><path d=\"M12 9l6 6M18 9l-6 6\"/>", "hourglass": "<path d=\"M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9\"/>", "food": "<path d=\"M6 3v6a3 3 0 0 0 6 0V3M9 3v18\"/><path d=\"M18 21V3c-2 1-3 4-3 7v4h3\"/>", "coffee": "<path d=\"M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z\"/><path d=\"M17 10h1.5a2.5 2.5 0 0 1 0 5H17\"/><path d=\"M8 2.5V5M12 2.5V5\"/>", "drink": "<path d=\"M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z\"/><path d=\"M6.5 8h11\"/>", "cart": "<circle cx=\"9\" cy=\"20\" r=\"1.4\"/><circle cx=\"18\" cy=\"20\" r=\"1.4\"/><path d=\"M2.5 3h2.6l2.3 11.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6\"/>", "bag": "<path d=\"M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z\"/><path d=\"M9 10V6a3 3 0 0 1 6 0v4\"/>", "car": "<path d=\"M5 17H3v-5l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 7l2 5v5h-2\"/><path d=\"M3 12h18M9.5 17h5\"/><circle cx=\"7.5\" cy=\"17\" r=\"2\"/><circle cx=\"16.5\" cy=\"17\" r=\"2\"/>", "bus": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"3\"/><path d=\"M4 11h16M8 21v-3M16 21v-3\"/><path d=\"M8 14.5h.01M16 14.5h.01\"/>", "train": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"14\" rx=\"3\"/><path d=\"M5 10h14M12 3v7M8 21l2-4M16 21l-2-4\"/><path d=\"M8.5 13.5h.01M15.5 13.5h.01\"/>", "plane": "<path d=\"M21 12a1.5 1.5 0 0 0-1.5-1.5H15L10.5 3h-2l2 7.5H6L4.5 8H3l1 4-1 4h1.5L6 13.5h4.5l-2 7.5h2l4.5-7.5h4.5A1.5 1.5 0 0 0 21 12z\"/>", "house": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5\"/><path d=\"M10 21v-6h4v6\"/>", "building": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"1\"/><path d=\"M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3\"/>", "bolt": "<path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/>", "droplet": "<path d=\"M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z\"/>", "phone": "<rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>", "wifi": "<path d=\"M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01\"/>", "heart": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/>", "medical": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M12 8v8M8 12h8\"/>", "pill": "<path d=\"M10.5 20.5a5 5 0 0 1-7-7l6-6a5 5 0 0 1 7 7z\"/><path d=\"M8.5 8.5l7 7\"/>", "film": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4\"/>", "gamepad": "<path d=\"M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L15 14H9l-.7 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z\"/><path d=\"M7 10.5v3M5.5 12h3M16 11.5h.01M18 13h.01\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "gift": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>", "education": "<path d=\"M22 9 12 4 2 9l10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6\"/>", "shirt": "<path d=\"M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3z\"/>", "dumbbell": "<path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11\"/>", "paw": "<circle cx=\"5.5\" cy=\"10\" r=\"2\"/><circle cx=\"9.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"14.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"10\" r=\"2\"/><path d=\"M12 11c-2.8 0-6 4.2-6 7a2.5 2.5 0 0 0 2.5 2.5c1.3 0 2.2-.7 3.5-.7s2.2.7 3.5.7A2.5 2.5 0 0 0 18 18c0-2.8-3.2-7-6-7z\"/>", "scissors": "<circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/>", "umbrella": "<path d=\"M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z\"/><path d=\"M12 12v6.5a2.5 2.5 0 0 1-5 0\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18\"/>", "wallet": "<path d=\"M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><path d=\"M17 14h.01\"/>", "coins": "<ellipse cx=\"9\" cy=\"7\" rx=\"6\" ry=\"3\"/><path d=\"M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3\"/><ellipse cx=\"17\" cy=\"15\" rx=\"4\" ry=\"2\"/><path d=\"M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3\"/>", "card": "<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 10h19M6 15h4\"/>", "dots": "<path d=\"M5 12h.01M12 12h.01M19 12h.01\"/>", "noodles": "<path d=\"M4 11h16a8 8 0 0 1-16 0z\"/><path d=\"M9 11V4M13 11V3M17 11l2-7\"/><path d=\"M8 19.5h8\"/>", "pizza": "<path d=\"M12 3c3.6 0 6.9 1.4 9 3.7L12 21 3 6.7C5.1 4.4 8.4 3 12 3z\"/><path d=\"M4.6 9.2C6.7 7.8 9.3 7 12 7s5.3.8 7.4 2.2\"/><path d=\"M10 11.5h.01M14 14h.01M11.5 16h.01\"/>", "icecream": "<path d=\"M7 11a5 5 0 0 1 10 0\"/><path d=\"M6.5 11h11L12 22z\"/>", "bread": "<path d=\"M5 10a4 4 0 0 1 2-7.5h10a4 4 0 0 1 2 7.5V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/>", "cake": "<path d=\"M4 21V12a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9\"/><path d=\"M4 15c1.5 1 3 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M3 21h18M12 10V7\"/><path d=\"M12 4.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z\"/>", "apple": "<path d=\"M12 7c-1.5-1-5-1.3-6.5 1.5S5 16 7 19s3.5 2.5 5 1.8c1.5.7 3 1.2 5-1.8s3-7.7 1.5-10.5S13.5 6 12 7z\"/><path d=\"M12 7c0-2 1-3.5 3-4\"/>", "fish": "<path d=\"M3 12c3-5 9-6.5 13-4l5-3v14l-5-3c-4 2.5-10 1-13-4z\"/><path d=\"M15.5 11.5h.01\"/>", "meat": "<path d=\"M15.5 4.5a5 5 0 0 1 4 7.5l-6.5 6.5a4 4 0 0 1-6.5-1L5 19l-2-2 1.5-1.5a4 4 0 0 1-1-6.5L10 2.5a5 5 0 0 1 5.5 2z\"/><circle cx=\"14\" cy=\"9\" r=\"2\"/>", "beer": "<path d=\"M5 8h10v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/><path d=\"M15 11h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2M5 8a3 3 0 0 1 3-4 3 3 0 0 1 5 1 2.5 2.5 0 0 1 2 3M9 12v5M12 12v5\"/>", "bike": "<circle cx=\"5.5\" cy=\"17\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17\" r=\"3.5\"/><path d=\"M5.5 17l4-8h6l3 8M9.5 9 8 6H6M12 17l3.5-8\"/>", "fuel": "<path d=\"M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M3 21h13M4 10h11\"/><path d=\"M15 8l3 3v6a1.5 1.5 0 0 0 3 0V9l-3-3\"/>", "parking": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>", "ship": "<path d=\"M3 17l2 4h14l2-4-9-3z\"/><path d=\"M5 15V9h14v6M9 9V5h6v4M12 3v2\"/>", "bed": "<path d=\"M3 20V6M21 20v-6a3 3 0 0 0-3-3H9v6M3 17h18\"/><circle cx=\"6.5\" cy=\"12.5\" r=\"2\"/>", "ticket": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M14 6v2M14 11v2M14 16v2\"/>", "laptop": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 19h20\"/>", "headphones": "<path d=\"M3 15v-3a9 9 0 0 1 18 0v3\"/><rect x=\"2\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/>", "baby": "<circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M10 7.5h.01M14 7.5h.01M10.5 10c.8.6 2.2.6 3 0\"/><path d=\"M7 21v-3a5 5 0 0 1 10 0v3\"/>", "tools": "<path d=\"M14.7 6.3a4 4 0 0 0 5 5L22 9l-2-2-2.3 2.3-2-2L18 5l-2-2-2.3 2.3a4 4 0 0 0 1 1z\"/><path d=\"M15 9 4 20l-1-1L14 8\"/>", "plant": "<path d=\"M7 20h10M12 20v-8\"/><path d=\"M12 12c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5z\"/>", "tooth": "<path d=\"M12 5.5C10 3.5 6 3 4.5 5.5S4 11 5.5 13s1.5 8 3 8 1.5-5 3.5-5 2 5 3.5 5 1.5-6 3-8 2.5-5 1-7.5S14 3.5 12 5.5z\"/>", "glasses": "<circle cx=\"6.5\" cy=\"15\" r=\"3.5\"/><circle cx=\"17.5\" cy=\"15\" r=\"3.5\"/><path d=\"M10 15h4M3 15 5 6h2M21 15l-2-9h-2\"/>", "sofa": "<path d=\"M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3\"/><path d=\"M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zM5 19v2M19 19v2\"/>", "washer": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><circle cx=\"12\" cy=\"13\" r=\"4.5\"/><path d=\"M8 6.5h.01M11 6.5h3\"/>", "flame": "<path d=\"M12 22c4 0 7-2.8 7-6.5 0-3-2-5.5-3.5-7 0 2-1 3.5-2.5 3.5C13 9 13 5 9.5 2c.5 3-1.5 5-3 7S5 12.5 5 15.5C5 19.2 8 22 12 22z\"/>", "piggy": "<path d=\"M19 9.5c1 0 2 .8 2 2M5 11.5C5 7.9 8.1 5 12 5c1.6 0 3.1.5 4.3 1.3L19 5v4c.6.8 1 1.5 1 2.5H21v3h-1.5c-.6 1.3-1.6 2.3-2.9 3V20h-3v-1.6a8 8 0 0 1-3.2 0V20h-3v-2.2C5.9 16.6 5 14.2 5 11.5z\"/><path d=\"M15.5 10h.01M3 10c0 1 .8 2 2 2\"/>", "church": "<path d=\"M12 2v4M10 4h4M6 21V11l6-5 6 5v10M3 21h18M10 21v-4a2 2 0 0 1 4 0v4\"/>", "run": "<circle cx=\"14\" cy=\"4.5\" r=\"2\"/><path d=\"M7 21l3-6 3 2v5M5 12l3-4 4-.5 3 3.5 3 1M10.5 15 9.5 9\"/>", "necessities": "<ellipse cx=\"9\" cy=\"7\" rx=\"5\" ry=\"3\"/><path d=\"M4 7v10c0 1.7 2.2 3 5 3s5-1.3 5-3V7\"/><path d=\"M14 9.5h5.5a.5.5 0 0 1 .5.5v9.5l-1.5-1-1.5 1-1.5-1-1.5 1\"/><circle cx=\"9\" cy=\"7\" r=\"1\"/>", "pot": "<path d=\"M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z\"/><path d=\"M2 11h2M20 11h2M6.5 8h11M12 5.5V8\"/>", "pulse": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/><path d=\"M5.5 12.5h3l1.5-2.5 2 5 1.5-2.5h5\"/>", "plug": "<path d=\"M9 2v5M15 2v5\"/><path d=\"M6 7h12v4a6 6 0 0 1-12 0z\"/><path d=\"M12 17v5\"/>", "key": "<circle cx=\"8\" cy=\"15\" r=\"4.5\"/><path d=\"M11.2 11.8 20 3M16.5 6.5l3 3M14 9l2.5 2.5\"/>", "bill": "<path d=\"M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z\"/><path d=\"M14 2v6h6\"/><path d=\"M12 10.5v8M14.2 12.3h-3a1.6 1.6 0 0 0 0 3.2h1.6a1.6 1.6 0 0 1 0 3.2H9.8\"/>", "voucher": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M9.5 14.5l5-5\"/><circle cx=\"9.5\" cy=\"9.8\" r=\".9\"/><circle cx=\"14.5\" cy=\"14.2\" r=\".9\"/>"};
@@ -1178,14 +1194,10 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
     <div class="nav">
       <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Summary</span>
       <div class="nav-actions">
-        <button class="ledger-chip" onclick="openLedgerSheet()" aria-label="Switch ledger">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3"/><path d="M8 7h8"/></svg>
+        <button class="ledger-chip ledger-tab" onclick="openLedgerSheet()" aria-label="Switch ledger">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>
           <span id="ledger-name-top">Ledger</span>
-          <svg class="ic chev-down" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
         </button>
-        <div class="nav-btn" id="sync-btn" onclick="manualSync()" title="Sync" role="button" aria-label="Sync">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-        </div>
       </div>
     </div>
 
@@ -1208,9 +1220,9 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
     <div class="nav">
       <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Records</span>
       <div class="nav-actions">
-        <button class="nav-btn nav-erase" onclick="clearFilters()" title="Clear filters and search" aria-label="Clear filters and search"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 21h10"/><path d="M5.6 15.4 14.8 6.2a2 2 0 0 1 2.8 0l2.2 2.2a2 2 0 0 1 0 2.8L12 19H8.5z"/><path d="M10.5 9.5l5 5"/></svg></button>
+        <button class="nav-btn nav-erase" onclick="clearFilters()" title="Clear filters and search" aria-label="Clear filters and search"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h13l-5 6.5V18l-3 2v-9.5z"/><path d="m16 13 5 5M21 13l-5 5"/></svg></button>
         <div class="nav-btn" onclick="openFilterSheet()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;height:16px"><path d="M22 3H2l8 9.46V19l4 2v-8.54z"/></svg>
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg>
         </div>
       </div>
     </div>
@@ -2972,7 +2984,7 @@ function setMsg(m){ document.getElementById('loading-msg').textContent=m||'Loadi
 function showApp(){ document.getElementById('loading-screen').classList.add('gone'); document.getElementById('app').style.display=''; }
 
 function setSyncDot(s){
-  const btn=document.getElementById('sync-btn');
+  const btn=document.getElementById('sync-btn'); if(!btn) return;
   btn.style.color=s==='ok'?'':s==='pending'?'var(--orange)':s==='offline'?'var(--text-3)':'var(--red)';
   btn.classList.toggle('sync-busy',s==='pending');
 }
@@ -3005,7 +3017,6 @@ async function refreshNow(showDone=true){
     showToast('Refresh failed');
   }
 }
-window.manualSync=()=>refreshNow(true);
 
 function selectedBoxValue(groupId){
   return document.querySelector(`#${groupId} .option-box.selected`)?.dataset.value || '';
@@ -4144,6 +4155,8 @@ function renderTxCard(t){
   if(t._imported) badges.push('<span class="lbl-badge">Imported</span>');
   const hero=badges.length?`<div class="tx-x-badges">${badges.join('')}</div>`:'';
   let rows='';
+  rows+=row('calendar','Date',fmtDateLong(t.date));
+  if(t.time&&/^\d{1,2}:\d{2}/.test(t.time)) rows+=row('clock','Time',String(t.time).slice(0,5).padStart(5,'0'));
   if(foreign) rows+=row('coins','Rate',`1 ${t.currency} = ${Number(t.fxRate||0).toFixed(4)} ${baseCur()}`);
   if(isTransfer){
     rows+=row('user','From',personName(t.fromPersonId));
@@ -4179,7 +4192,7 @@ function renderTxCard(t){
   </div>`;
   return `<div class="${cardClass}" onclick="toggleTxExpand('${t.id}')">
     <div class="${avatarClass}" style="background:${avatarColor}22;color:${avatarColor}">${avatarText}</div>
-    <div class="tx-card-main">${nameHtml}<div class="tx-sub">${subHtml}</div><div class="tx-x-date">${t.time&&/^\d{1,2}:\d{2}/.test(t.time)?`${t.date} ${String(t.time).slice(0,5).padStart(5,'0')}`:fmtDateLong(t.date)}</div></div>
+    <div class="tx-card-main">${nameHtml}<div class="tx-sub">${subHtml}</div></div>
     <div class="tx-amt"><div class="tx-amt-main">${mainAmt}</div>${fxHint}<div class="tx-x-amt"><small>${t.currency}</small>${fmt(t.amount,t.currency)}</div>${foreign?`<div class="tx-x-fx">≈ ${baseCur()} ${fmtBase(t.baseAmount)}</div>`:''}</div>
   </div>${detail}`;
 }
@@ -4191,7 +4204,7 @@ function collapseTx(el,animate=true){
   if(!animate||_reduceMotion()||!el.animate){ el.classList.remove('open'); card?.classList.remove('expanded'); return; }
   const h=el.offsetHeight;
   el.style.overflow='hidden';
-  const a=el.animate([{height:h+'px',opacity:1},{height:'0px',opacity:0,paddingTop:'0px',paddingBottom:'0px',marginBottom:'0px'}],{duration:220,easing:'cubic-bezier(.4,0,.6,1)'});
+  const a=el.animate([{height:h+'px',opacity:1},{height:'0px',opacity:0,paddingTop:'0px',paddingBottom:'0px'}],{duration:240,easing:'cubic-bezier(.4,0,.2,1)'});
   card?.classList.add('collapsing');
   a.onfinish=()=>{ el.classList.remove('open'); el.style.overflow=''; card?.classList.remove('expanded','collapsing'); };
 }
@@ -4200,10 +4213,10 @@ function expandTx(el){
   card?.classList.add('expanded');
   el.classList.add('open');
   if(_reduceMotion()||!el.animate) return;
-  const h=el.offsetHeight;
+  const h=el.offsetHeight, cs=getComputedStyle(el);
   el.style.overflow='hidden';
-  el.animate([{height:'0px',opacity:0,paddingTop:'0px',paddingBottom:'0px'},{height:h+'px',opacity:1}],{duration:320,easing:'cubic-bezier(.2,.8,.2,1)'}).onfinish=()=>{ el.style.overflow=''; };
-  el.querySelectorAll('.tx-detail-row,.tx-x-badges,.tx-expand-actions').forEach((r,i)=>r.animate([{opacity:0,transform:'translateY(-6px)'},{opacity:1,transform:'none'}],{duration:260,delay:60+i*22,easing:'cubic-bezier(.2,.8,.2,1)',fill:'backwards'}));
+  el.animate([{height:'0px',opacity:0,paddingTop:'0px',paddingBottom:'0px'},{height:h+'px',opacity:1,paddingTop:cs.paddingTop,paddingBottom:cs.paddingBottom}],{duration:380,easing:'cubic-bezier(.32,.72,0,1)'}).onfinish=()=>{ el.style.overflow=''; };
+  el.querySelectorAll('.tx-detail-row,.tx-x-badges,.tx-expand-actions').forEach((r,i)=>r.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:320,delay:60+Math.min(i,8)*22,easing:'cubic-bezier(.32,.72,0,1)',fill:'backwards'}));
 }
 window.toggleTxExpand=function(id){
   const el=document.getElementById('exp-'+id); if(!el) return;
@@ -4227,15 +4240,7 @@ function segThumb(ctrl, animate=true){
   th.style.width=w1+'px'; th.style.transform=`translateX(${x1}px)`;
   th._x=x1; th._w=w1;
   if(!animate||x0==null||Math.abs(x1-x0)<1||!th.animate||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  const dir=Math.sign(x1-x0);
-  const left=Math.min(x0,x1), span=Math.abs(x1-x0)+Math.max(w0,w1);
-  th.animate([
-    {transform:`translateX(${x0}px) scaleY(1)`,width:w0+'px',offset:0},
-    {transform:`translateX(${dir>0?x0+ (x1-x0)*.12:left}px) scaleY(.86)`,width:(span*.82)+'px',offset:.38,easing:'cubic-bezier(.4,0,.2,1)'},
-    {transform:`translateX(${x1+dir*6}px) scaleY(1.04)`,width:(w1-4)+'px',offset:.72},
-    {transform:`translateX(${x1-dir*2}px) scaleY(.99)`,width:(w1+2)+'px',offset:.87},
-    {transform:`translateX(${x1}px) scaleY(1)`,width:w1+'px',offset:1}
-  ],{duration:520,easing:'cubic-bezier(.3,.7,.25,1)'});
+  th.animate([{transform:`translateX(${x0}px) scaleX(${w0/w1})`,transformOrigin:'0 50%'},{transform:`translateX(${x1}px)`,transformOrigin:'0 50%'}],{duration:340,easing:'cubic-bezier(.32,.72,0,1)'});
 }
 function moveSegThumb(animate=true){ segThumb(document.querySelector('#page-summary .seg-ctrl'),animate); }
 function slideIn(el,dir){
@@ -4249,15 +4254,18 @@ function setStatsMode(mode,el){
   document.querySelectorAll('#page-summary .seg-ctrl .seg-btn').forEach(b=>b.classList.remove('active'));
   el.classList.add('active');
   moveSegThumb(true);
-  renderSummary();
-  if(prev!==mode&&document.body.animate&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  if(prev===mode){ renderSummary(); return; }
+  const go=()=>{
+    renderSummary();
+    document.getElementById('page-summary').scrollTop=0;
+    if(!document.body.animate||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const dir=mode==='year'?1:-1;
     ['summary-body','period-nav'].forEach(id=>{
       const el2=document.getElementById(id); if(!el2||el2.style.display==='none') return;
-      slideIn(el2,dir);
+      el2.animate([{transform:`translate3d(${dir*14}px,0,0)`,opacity:0},{transform:'none',opacity:1}],{duration:280,easing:'cubic-bezier(.32,.72,0,1)'});
     });
-    document.getElementById('page-summary').scrollTo({top:0,behavior:'smooth'});
-  }
+  };
+  requestAnimationFrame(()=>requestAnimationFrame(go));
 }
 
 window.goMonthFromYearView=function(year,monthIndex){
@@ -4918,7 +4926,7 @@ function renderTrend(body){
     <div class="hero-num">${fmtBase(sum12)}</div>
     <div class="hero-sub"><span></span><span class="hero-tag">${cnt12} records</span></div>
   </div>
-  <div class="summary-tools"><div style="display:flex;gap:5px"><button class="summary-toggle-btn ${summaryExcludeRent?'active':''}" onclick="toggleSummaryExcludeRent()" style="font-size:10px;padding:4px 9px">Excl. rent</button></div></div>
+  <div class="summary-tools"><div style="display:flex;gap:5px"><button class="summary-toggle-btn ${summaryExcludeRent?'active':''}" onclick="toggleSummaryExcludeRent()" style="font-size:10px;padding:4px 9px">Excl. rent</button><button class="summary-toggle-btn ${summaryCatByPerson?'active':''}" onclick="toggleSummaryCatByPerson()" style="font-size:10px;padding:4px 9px">By person</button></div></div>
   <div class="card trend-card">
     <div class="trend-head"><span class="eyebrow" style="color:var(--text-2)">Monthly spending</span><span class="trend-key"><span><i class="k-dash"></i>avg in view</span>${projAll?`<span><i class="k-dot"></i>projected</span>`:''}</span></div>
     <div class="trend-scroll" data-chart="tc-all">${overall}${snapMarks(months.length)}</div>
@@ -4930,8 +4938,9 @@ function renderTrend(body){
 </div>
       <button class="trend-go" onclick="goMonthFromYearView(${sel.y},${sel.m})">View month →</button>
     </div>
-    ${cats.map(([catId,amt])=>`<div class="cat-bar-row summary-click" onclick="goMonthFromYearView(${sel.y},${sel.m})"><div class="cat-swatch" style="background:${catColor(catId)}"></div><div class="cat-name">${catIcon(catId,true)} ${catName(catId)}</div><div class="cat-val">${fmtBase(amt)}</div></div>`).join('')||`<div style="padding:16px;text-align:center;color:var(--text-3);font-size:13px">No spending this month</div>`}
+    ${summaryCatByPerson?'':cats.map(([catId,amt])=>`<div class="cat-bar-row summary-click" onclick="goMonthFromYearView(${sel.y},${sel.m})"><div class="cat-swatch" style="background:${catColor(catId)}"></div><div class="cat-name">${catIcon(catId,true)} ${catName(catId)}</div><div class="cat-val">${fmtBase(amt)}</div></div>`).join('')||`<div style="padding:16px;text-align:center;color:var(--text-3);font-size:13px">No spending this month</div>`}
   </div>
+  ${summaryCatByPerson?trendByPersonHtml(sel):''}
   <div class="sec-label">By category</div>
   <div class="card trend-card">${catHtml}</div>
   <div class="sec-label">Bills</div>
@@ -4948,6 +4957,12 @@ function renderTrend(body){
   wireTrendScroll();
 }
 window.selectTrendCat=function(id){ trendCat=id; window._trendKeepScroll=true; renderSummary(); };
+function trendByPersonHtml(sel){
+  const yk=`${currentLedgerId()}:${sel.y}`;
+  if(!_yearTxsCache[yk]){ ensureYearTxs(sel.y).then(()=>{ window._trendKeepScroll=true; renderSummary(); }).catch(()=>{}); }
+  const list=(_yearTxsCache[yk]||txs||[]).filter(t=>String(t.date||'').startsWith(sel.key));
+  return renderByPersonCats(catsByPersonFromList(list))||`<div class="card" style="padding:16px;text-align:center;color:var(--text-3);font-size:13px">No spending this month</div>`;
+}
 window.selectTrendMonth=function(key){ trendSel=key; window._trendKeepScroll=true; renderSummary(); };
 
 // ════════════════════════════════════════════════
@@ -5129,8 +5144,8 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.5.1</div>
-      <div>Last updated: 2026-11-11</div>
+      <div>v1.5.8</div>
+      <div>Last updated: 2026-11-12</div>
     </div>
   `;
 }
@@ -5912,7 +5927,6 @@ Object.assign(window, {
   openFilterSheet,
   applyFilters,
   clearFilters,
-  manualSync,
   saveSharedMeta,
   syncSharedMeta,
   loadEntityStateFromFirebase,
