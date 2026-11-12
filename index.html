@@ -29,7 +29,7 @@
 <script>
 (function(){
   if(window.UI_LANG!=='zh') return;
-  var D={"Who paid?":"邊個付？","Possible duplicate":"可能重複","Save anyway":"仍然儲存","Save this one anyway?":"仍要儲存呢筆？","You already have this record:":"已經有呢筆記錄：","You already have these records:":"已經有以下記錄：","Recurring changes need an internet connection":"定期支出改動需要網絡","Back online — syncing":"已重新連線 — 同步中","Offline · changes will sync when you’re back online":"離線 · 恢復網絡後會自動同步","All time":"全部時間","This month":"本月","Last month":"上月","Last 3 months":"近 3 個月","This year":"今年","Custom":"自訂","Everyone":"所有人","Reset":"重設","Show results":"顯示結果","Minimum amount":"最低金額","Maximum amount":"最高金額","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
+  var D={"Water":"水費","Electricity":"電費","Gas":"煤氣","Broadband":"上網","Other bills":"其他帳單","Bill type":"帳單類型","Choose the bill type":"請揀帳單類型","Projected":"預計","Possible duplicate":"可能重複","Save anyway":"仍然儲存","Save this one anyway?":"仍要儲存呢筆？","You already have this record:":"已經有呢筆記錄：","You already have these records:":"已經有以下記錄：","Recurring changes need an internet connection":"定期支出改動需要網絡","Back online — syncing":"已重新連線 — 同步中","Offline · changes will sync when you’re back online":"離線 · 恢復網絡後會自動同步","All time":"全部時間","This month":"本月","Last month":"上月","Last 3 months":"近 3 個月","This year":"今年","Custom":"自訂","Everyone":"所有人","Reset":"重設","Show results":"顯示結果","Minimum amount":"最低金額","Maximum amount":"最高金額","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
   var P=[["^Show ([\\d,]+) records?$", "顯示 $1 筆記錄"], ["^Items · (\\d+)$", "項目 · $1"], ["^Paid by (.+)$", "$1 付款"], ["^([\\d,]+) records$", "$1 筆記錄"], ["^Avg / month (.+)$", "平均每月 $1"], ["^Loaded all ([\\d,]+) records$", "已載入全部 $1 筆"], ["^Stats rebuilt from ([\\d,]+) records$", "已用 $1 筆記錄重建統計"], ["^Saved ([\\d,]+) transactions$", "已儲存 $1 筆交易"], ["^Saved · paid by (.+)$", "已儲存 · $1 付款"], ["^Saved · split between (.+)$", "已儲存 · 由 $1 夾錢"], ["^Found ([\\d,]+) items — check them, then save:$", "找到 $1 項，請確認後儲存："], ["^([\\d,]+) of ([\\d,]+) items · (.+)$", "$1/$2 項 · $3"], ["^([\\d,]+) pending$", "$1 項待處理"], ["^(\\d+) min ago$", "$1 分鐘前"], ["^(\\d+) h ago$", "$1 小時前"], ["^(\\d+) d ago$", "$1 日前"], ["^(\\d+) mo ago$", "$1 個月前"], ["^(\\d+) y ago$", "$1 年前"], ["^Each (.+)$", "每人 $1"], ["^([▲▼]) (\\d+)% vs (\\w+) · ([\\d,]+) records$", "$1 $2% 對比 $3 · $4 筆記錄"], ["^Added ([\\d,]+) recurring expenses?$", "已新增 $1 筆定期支出"], ["^(\\d+) days · (.+)/day( · estimated)?$", "$1 日 · 每日 $2$3"], ["^(.+) · so far$", "$1 · 至今"], ["^Next (.+)$", "下次 $1"], ["^(\\d+)/(\\d+) times$", "$1/$2 次"], ["^Rename “(.+)”$", "將「$1」改名"], ["^Delete “(.+)”\\?$", "刪除「$1」？"], ["^Remove “(.+)”\\?$", "移除「$1」？"], ["^Import ([\\d,]+) transactions\\?$", "匯入 $1 筆交易？"], ["^Updated ([\\d,]+) categories$", "已更新 $1 筆交易種類"], ["^Exported ([\\d,]+) transactions$", "已匯出 $1 筆交易"], ["^Imported ([\\d,]+) transactions$", "已匯入 $1 筆交易"], ["^Added (.+)$", "已加入 $1"], ["^Removed (.+)$", "已移除 $1"], ["^Renamed to (.+)$", "已改名為 $1"], ["^Balance \\((.+)\\)$", "結餘（$1）"], ["^(.+) style$", "$1 樣式"], ["^Save failed: (.+)$", "儲存失敗：$1"], ["^Repeats (weekly|fortnightly|every 28 days|monthly|yearly) from (.+?)( until .+?)?(, \\d+ times in total)? · next (.+)\\.$", "由 $2 起$3$4重複（$1）· 下次 $5。"], ["^You’ll be asked who paid on the Summary page each time it’s due\\.$", "每次到期時會喺總覽問你邊個付款。"]].map(function(p){ return [new RegExp(p[0]), p[1]]; });
   var W={weekly:'每週',fortnightly:'每兩週','every 28 days':'每 28 日',monthly:'每月',yearly:'每年'};
   function tr(str){
@@ -41,7 +41,7 @@
     var lead=str.match(/^\s*/)[0], trail=str.match(/\s*$/)[0];
     return lead+out+trail;
   }
-  var SKIP='.tx-name,.due-name,.rec-name,.person-bal-name,.chip-label,.cat-name,script,style,textarea,input,.settings-lbl[data-raw],#ledger-name-top,.trend-legend em';
+  var SKIP='.tx-name,.due-name,.rec-name,.person-bal-name,.chip-label,.cat-name,script,style,textarea,input,.settings-lbl[data-raw],#ledger-name-top,.trend-legend em:not(.tr-ok)';
   function walk(root){
     if(root.nodeType===3){ fixText(root); return; }
     if(root.nodeType!==1) return;
@@ -606,8 +606,8 @@ input[type=checkbox]{width:0;height:0;opacity:0;position:absolute}
 
 
 /* Light "pass" cards on black (reference style) */
-.light-scope,.tx-card.expanded,.tx-expand{--text:#111113;--text-2:#5d5d63;--text-3:#8e8e94;--sep:rgba(0,0,0,.09);--surface-solid:var(--light-card);--accent-light:rgba(0,0,0,.06);--red-light:rgba(214,48,40,.10);--red:#d63028;--purple:#7c4dcc;--orange:#b7791f;--green:#15803d;color:var(--text)}
-.tx-card.expanded{background:var(--light-card);border-left-color:transparent}
+.light-scope,.tx-card.expanded,.tx-card.whiten,.tx-expand{--text:#111113;--text-2:#5d5d63;--text-3:#8e8e94;--sep:rgba(0,0,0,.09);--surface-solid:var(--light-card);--accent-light:rgba(0,0,0,.06);--red-light:rgba(214,48,40,.10);--red:#d63028;--purple:#7c4dcc;--orange:#b7791f;--green:#15803d;color:var(--text)}
+.tx-card.expanded,.tx-card.whiten{background:var(--light-card);border-left-color:transparent}
 .tx-expand{background:var(--light-card);border-top:1px dashed rgba(0,0,0,.14)}
 .tx-expand .lbl-badge{background:rgba(0,0,0,.07);color:#3a3a3f}
 .tx-expand .lbl-badge.blue{background:var(--accent);color:var(--on-accent)}
@@ -1030,7 +1030,6 @@ input,textarea,select{caret-color:var(--accent)}
 .tx-card.expanded .tx-x-amt small{font-size:11px;font-weight:700;color:var(--text-2);margin-right:4px;letter-spacing:.04em}
 .tx-card.expanded .tx-x-fx{display:block;font-family:var(--num);font-size:11px;color:var(--text-2);margin-top:2px;text-align:right}
 .tx-card.expanded .tx-name{font-size:15px;font-weight:600}
-.tx-card.expanded{padding:14px 16px 12px}
 .tx-x-badges{display:flex;gap:6px;flex-wrap:wrap;padding:12px 0 2px}
 .tx-expand .tx-x-badges .lbl-badge{background:rgba(0,0,0,.07);color:#3a3a3f}
 .tx-expand .tx-x-badges .lbl-badge.blue{background:var(--accent);color:var(--on-accent)}
@@ -1087,7 +1086,7 @@ body,:root[data-theme="light"] body{background:var(--bg)!important}
 :root[data-theme="light"] .tx-sub-transfer{color:#7c3aed}
 
 /* smooth record expand */
-.tx-card{transition:border-radius .25s ease,background-color .25s ease,padding .25s ease,margin .25s ease}
+.tx-card{transition:padding .3s cubic-bezier(.32,.72,0,1)}
 .tx-card.expanded .tx-x-date,.tx-card.expanded .tx-x-amt,.tx-card.expanded .tx-x-fx{animation:txFadeUp .28s cubic-bezier(.2,.8,.2,1) both}
 .tx-card.collapsing .tx-x-date,.tx-card.collapsing .tx-x-amt,.tx-card.collapsing .tx-x-fx{opacity:.4;transition:opacity .2s}
 @keyframes txFadeUp{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
@@ -1198,6 +1197,35 @@ body,:root[data-theme="light"] body{background:var(--bg)!important}
 /* light theme: plain solid tab bar (liquid glass is dark-mode only) */
 :root[data-theme="light"] .tab-bar{background:var(--surface-solid)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:0 6px 20px rgba(60,45,10,.10),0 0 0 1px rgba(60,45,10,.08)!important}
 :root[data-theme="light"] .tab-bar::before,:root[data-theme="light"] .tab-bar::after{display:none}
+
+/* softer category colours on Summary */
+#summary-body .cat-name .ic{margin-right:2px}
+/* by-person budget bars (budget = 3-month average) */
+:root{--bud-over:#c97b6f}
+:root[data-theme="light"]{--bud-over:#c4705f}
+.bp-row{padding:7px 16px!important;gap:10px}
+.bp-row .cat-name{flex:0 0 6.6em;font-size:13px}
+.bud-bar{position:relative;flex:1;min-width:40px;height:6px;border-radius:3px;background:rgba(var(--ov),.08)}
+.bud-bar.loading{background:linear-gradient(90deg,rgba(var(--ov),.05),rgba(var(--ov),.12),rgba(var(--ov),.05));background-size:200% 100%;animation:budShimmer 1.2s linear infinite}
+@keyframes budShimmer{to{background-position:-200% 0}}
+.bud-fill{height:100%;border-radius:3px;transition:width .5s cubic-bezier(.32,.72,0,1)}
+.bud-mark{position:absolute;top:-3px;bottom:-3px;width:2px;margin-left:-1px;border-radius:1px;background:var(--text)}
+.bud-new{position:absolute;right:0;top:-15px;font-size:9px;font-family:var(--mono);letter-spacing:.5px;color:var(--text-3);text-transform:uppercase}
+.bud-bar:has(.bud-new) .bud-fill{opacity:.35}
+.bp-val{display:flex;flex-direction:column;align-items:flex-end;font-size:12px!important;line-height:1.25;min-width:72px!important}
+.bp-val small{font-size:10px;color:var(--text-3)}
+.bp-val small.over{color:var(--bud-over)}
+
+.bud-over{position:absolute;top:0;bottom:0;right:0;border-radius:0 3px 3px 0;background:repeating-linear-gradient(-45deg,var(--c) 0 3px,transparent 3px 6px)}
+
+/* calculator quick slide-up from the + button */
+.overlay.morph .sheet{transition:none!important}
+
+/* bills projection */
+.trend-svg .t-val.proj{fill:var(--text-2);font-style:italic}
+.trend-12 .proj-sub{display:inline;margin-left:6px;font-size:11px;font-weight:500;color:var(--text-3)}
+
+.trend-key i.k-hatch{width:10px;height:10px;border:none;border-radius:2px;background:repeating-linear-gradient(45deg,var(--text-2) 0 2px,transparent 2px 4px)}
 </style>
 <script>
 window.ICONS={"home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "receipt": "<path d=\"M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "chart": "<path d=\"M3 21h18\"/><rect x=\"5\" y=\"11\" width=\"3\" height=\"7\" rx=\"1\"/><rect x=\"10.5\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/><rect x=\"16\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/>", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "camera": "<path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.5\"/>", "book": "<path d=\"M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3\"/><path d=\"M8 7h8\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "calendarRange": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4M7 14h5M12 17.5h5\"/>", "clipboard": "<path d=\"M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2\"/><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"3\" rx=\"1\"/><path d=\"M9 11h6M9 15h4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "sparkles": "<path d=\"M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z\"/><path d=\"M18.5 14.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z\"/>", "expense": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 15l6-6M10 9h5v5\"/>", "transfer": "<path d=\"M17 3l4 4-4 4\"/><path d=\"M3 7h18\"/><path d=\"M7 21l-4-4 4-4\"/><path d=\"M21 17H3\"/>", "tag": "<path d=\"M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1.2\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "alert": "<path d=\"M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9v4M12 17h.01\"/>", "edit": "<path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\"/>", "refresh": "<path d=\"M21 12a9 9 0 0 1-15.5 6.2L3 16\"/><path d=\"M3 21v-5h5\"/><path d=\"M3 12a9 9 0 0 1 15.5-6.2L21 8\"/><path d=\"M21 3v5h-5\"/>", "bank": "<path d=\"M3 10l9-6 9 6\"/><path d=\"M5 10v8M9.5 10v8M14.5 10v8M19 10v8\"/><path d=\"M3 21h18\"/>", "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>", "checkCircle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7L16 9.8\"/>", "x": "<path d=\"M6 6l12 12M18 6 6 18\"/>", "bulb": "<path d=\"M9 18h6M10 21h4\"/><path d=\"M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/>", "loader": "<path d=\"M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5 6.8 15M17.2 9l2.6-1.5\"/>", "listChecks": "<path d=\"M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17\"/><path d=\"M11 6h10M11 12h10M11 18h10\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "copy": "<rect x=\"8\" y=\"8\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3\"/>", "trash": "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M9 7V4h6v3\"/>", "note": "<path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6M8 13h8M8 17h5\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6\"/>", "repeat": "<path d=\"M17 2l4 4-4 4\"/><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\"/><path d=\"M7 22l-4-4 4-4\"/><path d=\"M21 13v1a4 4 0 0 1-4 4H3\"/>", "download": "<path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\"/>", "deleteLeft": "<path d=\"M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z\"/><path d=\"M12 9l6 6M18 9l-6 6\"/>", "hourglass": "<path d=\"M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9\"/>", "food": "<path d=\"M6 3v6a3 3 0 0 0 6 0V3M9 3v18\"/><path d=\"M18 21V3c-2 1-3 4-3 7v4h3\"/>", "coffee": "<path d=\"M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z\"/><path d=\"M17 10h1.5a2.5 2.5 0 0 1 0 5H17\"/><path d=\"M8 2.5V5M12 2.5V5\"/>", "drink": "<path d=\"M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z\"/><path d=\"M6.5 8h11\"/>", "cart": "<circle cx=\"9\" cy=\"20\" r=\"1.4\"/><circle cx=\"18\" cy=\"20\" r=\"1.4\"/><path d=\"M2.5 3h2.6l2.3 11.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6\"/>", "bag": "<path d=\"M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z\"/><path d=\"M9 10V6a3 3 0 0 1 6 0v4\"/>", "car": "<path d=\"M5 17H3v-5l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 7l2 5v5h-2\"/><path d=\"M3 12h18M9.5 17h5\"/><circle cx=\"7.5\" cy=\"17\" r=\"2\"/><circle cx=\"16.5\" cy=\"17\" r=\"2\"/>", "bus": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"3\"/><path d=\"M4 11h16M8 21v-3M16 21v-3\"/><path d=\"M8 14.5h.01M16 14.5h.01\"/>", "train": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"14\" rx=\"3\"/><path d=\"M5 10h14M12 3v7M8 21l2-4M16 21l-2-4\"/><path d=\"M8.5 13.5h.01M15.5 13.5h.01\"/>", "plane": "<path d=\"M21 12a1.5 1.5 0 0 0-1.5-1.5H15L10.5 3h-2l2 7.5H6L4.5 8H3l1 4-1 4h1.5L6 13.5h4.5l-2 7.5h2l4.5-7.5h4.5A1.5 1.5 0 0 0 21 12z\"/>", "house": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5\"/><path d=\"M10 21v-6h4v6\"/>", "building": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"1\"/><path d=\"M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3\"/>", "bolt": "<path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/>", "droplet": "<path d=\"M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z\"/>", "phone": "<rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>", "wifi": "<path d=\"M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01\"/>", "heart": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/>", "medical": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M12 8v8M8 12h8\"/>", "pill": "<path d=\"M10.5 20.5a5 5 0 0 1-7-7l6-6a5 5 0 0 1 7 7z\"/><path d=\"M8.5 8.5l7 7\"/>", "film": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4\"/>", "gamepad": "<path d=\"M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L15 14H9l-.7 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z\"/><path d=\"M7 10.5v3M5.5 12h3M16 11.5h.01M18 13h.01\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "gift": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>", "education": "<path d=\"M22 9 12 4 2 9l10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6\"/>", "shirt": "<path d=\"M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3z\"/>", "dumbbell": "<path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11\"/>", "paw": "<circle cx=\"5.5\" cy=\"10\" r=\"2\"/><circle cx=\"9.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"14.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"10\" r=\"2\"/><path d=\"M12 11c-2.8 0-6 4.2-6 7a2.5 2.5 0 0 0 2.5 2.5c1.3 0 2.2-.7 3.5-.7s2.2.7 3.5.7A2.5 2.5 0 0 0 18 18c0-2.8-3.2-7-6-7z\"/>", "scissors": "<circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/>", "umbrella": "<path d=\"M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z\"/><path d=\"M12 12v6.5a2.5 2.5 0 0 1-5 0\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18\"/>", "wallet": "<path d=\"M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><path d=\"M17 14h.01\"/>", "coins": "<ellipse cx=\"9\" cy=\"7\" rx=\"6\" ry=\"3\"/><path d=\"M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3\"/><ellipse cx=\"17\" cy=\"15\" rx=\"4\" ry=\"2\"/><path d=\"M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3\"/>", "card": "<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 10h19M6 15h4\"/>", "dots": "<path d=\"M5 12h.01M12 12h.01M19 12h.01\"/>", "noodles": "<path d=\"M4 11h16a8 8 0 0 1-16 0z\"/><path d=\"M9 11V4M13 11V3M17 11l2-7\"/><path d=\"M8 19.5h8\"/>", "pizza": "<path d=\"M12 3c3.6 0 6.9 1.4 9 3.7L12 21 3 6.7C5.1 4.4 8.4 3 12 3z\"/><path d=\"M4.6 9.2C6.7 7.8 9.3 7 12 7s5.3.8 7.4 2.2\"/><path d=\"M10 11.5h.01M14 14h.01M11.5 16h.01\"/>", "icecream": "<path d=\"M7 11a5 5 0 0 1 10 0\"/><path d=\"M6.5 11h11L12 22z\"/>", "bread": "<path d=\"M5 10a4 4 0 0 1 2-7.5h10a4 4 0 0 1 2 7.5V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/>", "cake": "<path d=\"M4 21V12a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9\"/><path d=\"M4 15c1.5 1 3 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M3 21h18M12 10V7\"/><path d=\"M12 4.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z\"/>", "apple": "<path d=\"M12 7c-1.5-1-5-1.3-6.5 1.5S5 16 7 19s3.5 2.5 5 1.8c1.5.7 3 1.2 5-1.8s3-7.7 1.5-10.5S13.5 6 12 7z\"/><path d=\"M12 7c0-2 1-3.5 3-4\"/>", "fish": "<path d=\"M3 12c3-5 9-6.5 13-4l5-3v14l-5-3c-4 2.5-10 1-13-4z\"/><path d=\"M15.5 11.5h.01\"/>", "meat": "<path d=\"M15.5 4.5a5 5 0 0 1 4 7.5l-6.5 6.5a4 4 0 0 1-6.5-1L5 19l-2-2 1.5-1.5a4 4 0 0 1-1-6.5L10 2.5a5 5 0 0 1 5.5 2z\"/><circle cx=\"14\" cy=\"9\" r=\"2\"/>", "beer": "<path d=\"M5 8h10v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/><path d=\"M15 11h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2M5 8a3 3 0 0 1 3-4 3 3 0 0 1 5 1 2.5 2.5 0 0 1 2 3M9 12v5M12 12v5\"/>", "bike": "<circle cx=\"5.5\" cy=\"17\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17\" r=\"3.5\"/><path d=\"M5.5 17l4-8h6l3 8M9.5 9 8 6H6M12 17l3.5-8\"/>", "fuel": "<path d=\"M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M3 21h13M4 10h11\"/><path d=\"M15 8l3 3v6a1.5 1.5 0 0 0 3 0V9l-3-3\"/>", "parking": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>", "ship": "<path d=\"M3 17l2 4h14l2-4-9-3z\"/><path d=\"M5 15V9h14v6M9 9V5h6v4M12 3v2\"/>", "bed": "<path d=\"M3 20V6M21 20v-6a3 3 0 0 0-3-3H9v6M3 17h18\"/><circle cx=\"6.5\" cy=\"12.5\" r=\"2\"/>", "ticket": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M14 6v2M14 11v2M14 16v2\"/>", "laptop": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 19h20\"/>", "headphones": "<path d=\"M3 15v-3a9 9 0 0 1 18 0v3\"/><rect x=\"2\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/>", "baby": "<circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M10 7.5h.01M14 7.5h.01M10.5 10c.8.6 2.2.6 3 0\"/><path d=\"M7 21v-3a5 5 0 0 1 10 0v3\"/>", "tools": "<path d=\"M14.7 6.3a4 4 0 0 0 5 5L22 9l-2-2-2.3 2.3-2-2L18 5l-2-2-2.3 2.3a4 4 0 0 0 1 1z\"/><path d=\"M15 9 4 20l-1-1L14 8\"/>", "plant": "<path d=\"M7 20h10M12 20v-8\"/><path d=\"M12 12c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5z\"/>", "tooth": "<path d=\"M12 5.5C10 3.5 6 3 4.5 5.5S4 11 5.5 13s1.5 8 3 8 1.5-5 3.5-5 2 5 3.5 5 1.5-6 3-8 2.5-5 1-7.5S14 3.5 12 5.5z\"/>", "glasses": "<circle cx=\"6.5\" cy=\"15\" r=\"3.5\"/><circle cx=\"17.5\" cy=\"15\" r=\"3.5\"/><path d=\"M10 15h4M3 15 5 6h2M21 15l-2-9h-2\"/>", "sofa": "<path d=\"M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3\"/><path d=\"M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zM5 19v2M19 19v2\"/>", "washer": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><circle cx=\"12\" cy=\"13\" r=\"4.5\"/><path d=\"M8 6.5h.01M11 6.5h3\"/>", "flame": "<path d=\"M12 22c4 0 7-2.8 7-6.5 0-3-2-5.5-3.5-7 0 2-1 3.5-2.5 3.5C13 9 13 5 9.5 2c.5 3-1.5 5-3 7S5 12.5 5 15.5C5 19.2 8 22 12 22z\"/>", "piggy": "<path d=\"M19 9.5c1 0 2 .8 2 2M5 11.5C5 7.9 8.1 5 12 5c1.6 0 3.1.5 4.3 1.3L19 5v4c.6.8 1 1.5 1 2.5H21v3h-1.5c-.6 1.3-1.6 2.3-2.9 3V20h-3v-1.6a8 8 0 0 1-3.2 0V20h-3v-2.2C5.9 16.6 5 14.2 5 11.5z\"/><path d=\"M15.5 10h.01M3 10c0 1 .8 2 2 2\"/>", "church": "<path d=\"M12 2v4M10 4h4M6 21V11l6-5 6 5v10M3 21h18M10 21v-4a2 2 0 0 1 4 0v4\"/>", "run": "<circle cx=\"14\" cy=\"4.5\" r=\"2\"/><path d=\"M7 21l3-6 3 2v5M5 12l3-4 4-.5 3 3.5 3 1M10.5 15 9.5 9\"/>", "necessities": "<ellipse cx=\"9\" cy=\"7\" rx=\"5\" ry=\"3\"/><path d=\"M4 7v10c0 1.7 2.2 3 5 3s5-1.3 5-3V7\"/><path d=\"M14 9.5h5.5a.5.5 0 0 1 .5.5v9.5l-1.5-1-1.5 1-1.5-1-1.5 1\"/><circle cx=\"9\" cy=\"7\" r=\"1\"/>", "pot": "<path d=\"M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z\"/><path d=\"M2 11h2M20 11h2M6.5 8h11M12 5.5V8\"/>", "pulse": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/><path d=\"M5.5 12.5h3l1.5-2.5 2 5 1.5-2.5h5\"/>", "plug": "<path d=\"M9 2v5M15 2v5\"/><path d=\"M6 7h12v4a6 6 0 0 1-12 0z\"/><path d=\"M12 17v5\"/>", "key": "<circle cx=\"8\" cy=\"15\" r=\"4.5\"/><path d=\"M11.2 11.8 20 3M16.5 6.5l3 3M14 9l2.5 2.5\"/>", "bill": "<path d=\"M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z\"/><path d=\"M14 2v6h6\"/><path d=\"M12 10.5v8M14.2 12.3h-3a1.6 1.6 0 0 0 0 3.2h1.6a1.6 1.6 0 0 1 0 3.2H9.8\"/>", "voucher": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M9.5 14.5l5-5\"/><circle cx=\"9.5\" cy=\"9.8\" r=\".9\"/><circle cx=\"14.5\" cy=\"14.2\" r=\".9\"/>"};
@@ -1307,7 +1335,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   </div>
 </div>
 
-<button class="fab" id="fab" onclick="openAddFlow()" aria-label="Add"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width:2.4"><path d="M12 5v14M5 12h14"/></svg></button>
+<button class="fab" id="fab" onclick="openAddFlow(null,true)" aria-label="Add"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width:2.4"><path d="M12 5v14M5 12h14"/></svg></button>
 <input type="file" id="scan-photo-input" accept="image/*,application/pdf" style="display:none" onchange="handleScanPhoto(this)">
 <input type="file" id="bank-stmt-input" accept="image/*,application/pdf,.csv,text/csv" style="display:none" onchange="handleBankStmt(this)">
 <div class="toast" id="toast"></div>
@@ -1387,6 +1415,10 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
           <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')" style="text-align:right">
         </div>
         <div id="utility-period-wrap" style="display:none">
+          <div class="form-row" style="border-top:.5px solid var(--sep);flex-wrap:wrap;gap:8px">
+            <label class="form-label">Bill type</label>
+            <div class="chip-wrap" id="d-utility-sub" style="padding:0!important;gap:6px;flex:1;justify-content:flex-end"></div>
+          </div>
           <div class="form-row utility-period-row">
             <label class="form-label">Bill period</label>
             <div class="utility-period-inputs">
@@ -1725,7 +1757,8 @@ import {
 const CURRENCIES = ['AUD','HKD','JPY','NTD','USD','GBP','EUR','SGD','TWD','CNY'];
 const DECIMAL = { AUD:2, HKD:1, JPY:0, NTD:0, USD:2, GBP:2, EUR:2, SGD:2, TWD:0, CNY:2 };
 const COLORS = ['#007aff','#34c759','#ff9500','#ff3b30','#bf5af2','#5ac8fa','#ff2d55','#ac8e68','#30b0c7','#34aadc'];
-const CATEGORY_COLORS = ['#ff9500','#34c759','#0a84ff','#bf5af2','#ff2d55','#30b0c7','#ac8e68','#ff453a','#64d2ff','#ffd60a','#5e5ce6','#00c7be'];
+// Category palette: muted blue, green, terracotta, gold, rose, slate grey
+const CATEGORY_COLORS = ['#3b6bc4','#44834f','#c27335','#c9a64c','#cf6067','#a3a9b4'];
 function hashString(s){ let h=0; for(const ch of String(s||'')){ h=((h<<5)-h)+ch.charCodeAt(0); h|=0; } return Math.abs(h); }
 function randomCategoryColor(){ return CATEGORY_COLORS[Math.floor(Math.random()*CATEGORY_COLORS.length)]; }
 function stableCategoryColor(id,name){ return CATEGORY_COLORS[hashString(id||name)%CATEGORY_COLORS.length]; }
@@ -1800,7 +1833,14 @@ function personName(id){ return cfg.people.find(p=>p.id===id)?.name||'?'; }
 function personColor(id){ return cfg.people.find(p=>p.id===id)?.color||COLORS[0]; }
 function catObj(id){ return cfg.categories.find(c=>c.id===id); }
 function catName(id){ return catObj(id)?.name||'Uncategorised'; }
-function catColor(id){ const c=catObj(id); return c?.color || stableCategoryColor(id, c?.name||id||'cat'); }
+function catColor(id){
+  const c=catObj(id);
+  const stored=String(c?.color||'').toLowerCase();
+  if(CATEGORY_COLORS.includes(stored)) return stored;
+  // older saved colours: spread categories across the palette in list order so neighbours differ
+  const i=(cfg.categories||[]).findIndex(x=>x.id===id);
+  return i>=0?CATEGORY_COLORS[i%CATEGORY_COLORS.length]:stableCategoryColor(id, c?.name||id||'cat');
+}
 function catEmoji(id){ const c=catObj(id); return cleanEmoji(c?.emoji || c?.icon || ''); }
 const EMOJI_ICON_MAP=[
   ['food','🍔🍜🍱🍚🍕🍣🍽🥢🍲🥡🍝🍛🥘🍗🥟🍞🥐🍰🍩🍪🍫🍦🍧🍙🍘🍢🥗🌮🌯🥪🍳🥩🍖'],['coffee','☕🧋🍵'],['drink','🍺🍻🍷🥂🍸🍹🥤🧃🍶🥃'],
@@ -2525,16 +2565,24 @@ function renderAiError(title,e,log){
   const logHtml=log?`<pre style="margin:12px 12px 0;padding:10px;background:var(--surface-solid);border-radius:10px;font-size:11px;line-height:1.5;color:var(--text-2);white-space:pre-wrap;word-break:break-all;max-height:220px;overflow:auto;text-align:left">${escapeHtml(log)}</pre>`:'';
   return `<div style="padding:24px 24px 12px;text-align:center;color:var(--red)">${ic('alert','lead')}${title}<br><span style="font-size:12px;color:var(--text-2)">${escapeHtml(e.message)}</span></div>${logHtml}`;
 }
+// Utility bill types: chosen on the form (tx.utilitySub); older records are sorted by their item name
+const UTILITY_TYPES=[
+  {id:'water',label:'Water',color:'#3b6bc4',re:/water|水/i},
+  {id:'electricity',label:'Electricity',color:'#c9a64c',re:/elec|power|電(?!話)/i},
+  {id:'gas',label:'Gas',color:'#c27335',re:/gas|煤氣|石油氣/i},
+  {id:'broadband',label:'Broadband',color:'#44834f',re:/broad|board|internet|nbn|wifi|wi-fi|上網|寬頻/i}
+];
+function utilityTypeOf(tx){
+  if(UTILITY_TYPES.some(t=>t.id===tx?.utilitySub)) return tx.utilitySub;
+  const n=String(tx?.itemName||'');
+  return UTILITY_TYPES.find(t=>t.re.test(n))?.id||'other';
+}
 function utilityItemName(tx){
-  const n=String(tx?.itemName||'').trim();
-  return n || 'Untitled';
+  const id=utilityTypeOf(tx);
+  return UTILITY_TYPES.find(t=>t.id===id)?.label||'Other bills';
 }
 function utilityItemColor(name){
-  const palette=['#007aff','#34c759','#ff9500','#ff2d55','#af52de','#5ac8fa','#ffcc00','#5856d6','#30d158','#bf5af2','#64d2ff','#ff9f0a'];
-  const text=String(name||'');
-  let h=0;
-  for(let i=0;i<text.length;i++) h=((h*31)+text.charCodeAt(i))>>>0;
-  return palette[h%palette.length];
+  return UTILITY_TYPES.find(t=>t.label===name)?.color||'#a3a9b4';
 }
 function utilityMonthlyBreakdownForYear(year){
   const months=Array.from({length:12},()=>({total:0,items:{}}));
@@ -2746,7 +2794,47 @@ function catsByPersonForPeriod(){
   return catsByPersonFromList(list);
 }
 
-function renderByPersonCats(byPerson){
+// Budget = each person's average spend per category over the 3 months before monthKey ("YYYY-MM")
+const _budgetLoading=new Set();
+function budgetsForMonth(monthKey){
+  if(!monthKey) return null;
+  const [y,m]=monthKey.split('-').map(Number);
+  const keys=[1,2,3].map(k=>{ const d=new Date(y,m-1-k,1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; });
+  const years=[...new Set(keys.map(k=>k.slice(0,4)))];
+  const lid=currentLedgerId();
+  const missing=years.filter(yr=>!_yearTxsCache[`${lid}:${yr}`]);
+  if(missing.length){
+    if(!db) return null; // Firebase not connected yet; the next render will load it
+    missing.forEach(yr=>{ const k=`${lid}:${yr}`; if(_budgetLoading.has(k)) return; _budgetLoading.add(k);
+      ensureYearTxs(Number(yr)).then(()=>{ keepTrendAnchor(()=>{ window._trendKeepScroll=true; renderSummary(); }); }).catch(e=>{ _budgetLoading.delete(k); console.warn('budget load',e); }); });
+    return null;
+  }
+  const list=years.flatMap(yr=>_yearTxsCache[`${lid}:${yr}`]).filter(t=>keys.some(k=>String(t.date||'').startsWith(k)));
+  const sums=catsByPersonFromList(list), out={};
+  Object.entries(sums).forEach(([pid,cats])=>{ out[pid]={}; Object.entries(cats).forEach(([c,v])=>{ out[pid][c]=v/3; }); });
+  return out;
+}
+// One category row with a budget bar: bud = budget amount, 0 = no history ("new"), null = still loading
+function budgetRow(catId,amt,bud){
+  const color=catColor(catId);
+  let bar;
+  if(bud==null) bar=`<div class="bud-bar loading"></div>`;
+  else if(bud<=0.005) bar=`<div class="bud-bar"><div class="bud-fill" style="width:100%;background:${color}"></div><span class="bud-new">new</span></div>`;
+  else {
+    const scale=Math.max(amt,bud), over=amt>bud;
+    const bp=(bud/scale*100).toFixed(1);
+    bar=over
+      ?`<div class="bud-bar over" title="3-month average ${fmtBase(bud)}"><div class="bud-fill" style="width:${bp}%;background:${color};border-radius:3px 0 0 3px"></div><div class="bud-over" style="left:${bp}%;--c:${color}"></div><i class="bud-mark" style="left:${bp}%"></i></div>`
+      :`<div class="bud-bar" title="3-month average ${fmtBase(bud)}"><div class="bud-fill" style="width:${(amt/scale*100).toFixed(1)}%;background:${color}"></div></div>`;
+  }
+  return `<div class="cat-bar-row bp-row summary-click" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catIcon(catId,true)} ${catName(catId)}</div>${bar}<div class="cat-val bp-val">${fmtBase(amt)}</div></div>`;
+}
+function prev3MonthKeys(monthKey){
+  const [y,m]=monthKey.split('-').map(Number);
+  return [1,2,3].map(k=>{ const d=new Date(y,m-1-k,1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; });
+}
+function renderByPersonCats(byPerson,monthKey=null){
+  const budgets=budgetsForMonth(monthKey);
   const members=visiblePeople().filter(p=>isSummaryMemberId(p.id));
   let html='';
   members.forEach(p=>{
@@ -2758,6 +2846,7 @@ function renderByPersonCats(byPerson){
     html+=`<div style="padding:10px 16px 4px;display:flex;align-items:center;gap:8px"><span class="person-avatar" style="width:24px;height:24px;font-size:11px;background:${personColor(p.id)}20;color:${personColor(p.id)}">${String(p.name||'?').charAt(0)}</span><span style="font-size:14px;font-weight:700;flex:1">${p.name}</span><span class="bp-total"><small>${baseCur()}</small>${fmtBase(pTotal)}</span></div>`;
     Object.entries(pCats).sort((a,b)=>b[1]-a[1]).forEach(([catId,amt])=>{
       const color=catColor(catId);
+      if(monthKey){ html+=budgetRow(catId,amt,budgets?Number(budgets[p.id]?.[catId]||0):null); return; }
       html+=`<div class="cat-bar-row summary-click" style="padding:6px 16px" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name" style="font-size:13px">${catIcon(catId,true)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(amt/pMax*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val" style="font-size:12px">${fmtBase(amt)}</div></div>`;
     });
     html+=`</div>`;
@@ -2990,15 +3079,28 @@ window.openGeminiSheet=function(){
 function openSheet(id){
   if(id==='sheet-ledger') renderLedgerList();
   const ov=document.getElementById(id);
+  if(ov?._closing){ ov._closing=false; ov.getAnimations().forEach(a=>a.cancel()); ov.querySelector('.sheet')?.getAnimations().forEach(a=>a.cancel()); ov.classList.remove('morph'); }
   ov?.classList.add('open');
   requestAnimationFrame(()=>{
     const sheet=ov?.querySelector('.sheet');
     if(sheet) sheet.scrollTop=0;
   });
 }
-function closeSheet(id){ document.getElementById(id)?.classList.remove('open'); }
+// Sheets slide back down before hiding (the overlay is display:none once closed, so animate first)
+function closeSheet(id){
+  const ov=document.getElementById(id);
+  if(!ov||!ov.classList.contains('open')||ov._closing) return;
+  const sh=ov.querySelector('.sheet');
+  if(!sh?.animate||matchMedia('(prefers-reduced-motion: reduce)').matches){ ov.classList.remove('open'); return; }
+  ov._closing=true; ov.classList.add('morph');
+  ov.animate([{},{backgroundColor:'rgba(0,0,0,0)'}],{duration:220,easing:'ease-in'});
+  sh.animate([{transform:getComputedStyle(sh).transform==='none'?'none':getComputedStyle(sh).transform},{transform:'translateY(100%)'}],{duration:220,easing:'cubic-bezier(.4,0,.9,.6)'}).onfinish=()=>{
+    if(!ov._closing) return;
+    ov._closing=false; ov.classList.remove('open','morph');
+  };
+}
 document.querySelectorAll('.overlay').forEach(ov=>{
-  ov.addEventListener('click',e=>{ if(e.target===ov) ov.classList.remove('open'); });
+  ov.addEventListener('click',e=>{ if(e.target===ov) closeSheet(ov.id); });
 });
 
 function showToast(msg,dur=2400){
@@ -3142,7 +3244,7 @@ window.toggleLedgerArchive=async function(id=currentLedgerId()){
 // ════════════════════════════════════════════════
 // ADD FLOW — NUMPAD
 // ════════════════════════════════════════════════
-function openAddFlow(editId=null){
+function openAddFlow(editId=null,fromFab=false){
   if(!editId && isLedgerArchived()) return showToast('This ledger is archived — you can’t add transactions');
   editTxId=editId;
   flowData={};
@@ -3159,6 +3261,7 @@ function openAddFlow(editId=null){
       recurringFreq:tx.recurringFreq||'monthly',
       utilityPeriodStart:tx.utilityPeriodStart||'',
       utilityPeriodEnd:tx.utilityPeriodEnd||'',
+      utilitySub:tx.utilitySub||'',
       time:tx.time||'', shop:tx.shop||''
     };
     npCur=tx.currency||baseCur();
@@ -3172,7 +3275,15 @@ function openAddFlow(editId=null){
   npVal='0'; npCur=baseCur();
   flowData={date:isoDate(),usedByIds:[],utilityPeriodStart:'',utilityPeriodEnd:''};
   refreshNumpad();
-  openSheet('sheet-numpad');
+  if(fromFab) openNumpadFromFab(); else openSheet('sheet-numpad');
+}
+// + button → calculator: a quick slide up from below
+function openNumpadFromFab(){
+  const ov=document.getElementById('sheet-numpad'), sheet=ov?.querySelector('.sheet');
+  if(!sheet||!sheet.animate||_reduceMotion()){ openSheet('sheet-numpad'); return; }
+  ov.classList.add('morph'); openSheet('sheet-numpad');
+  ov.animate([{backgroundColor:'rgba(0,0,0,0)'},{}],{duration:220,easing:'ease-out'});
+  sheet.animate([{transform:'translateY(100%)'},{transform:'none'}],{duration:260,easing:'cubic-bezier(.2,.9,.25,1)'}).onfinish=()=>ov.classList.remove('morph');
 }
 
 function refreshNumpad(){
@@ -3300,7 +3411,7 @@ function openAmountNumpadFromDetail(){
 }
 window.openAmountNumpadFromDetail=openAmountNumpadFromDetail;
 function handleNumpadKeyboard(e){
-  const npOpen=document.getElementById('sheet-numpad')?.classList.contains('open');
+  const npEl=document.getElementById('sheet-numpad'); const npOpen=npEl?.classList.contains('open')&&!npEl._closing;
   if(!npOpen) return;
   const target=e.target;
   if(target && ['INPUT','TEXTAREA','SELECT'].includes(target.tagName)) return;
@@ -3316,7 +3427,7 @@ function handleNumpadKeyboard(e){
 document.addEventListener('keydown', handleNumpadKeyboard);
 document.addEventListener('keydown', function(e){
   if(e.key!=='Enter') return;
-  const detailOpen=document.getElementById('sheet-detail')?.classList.contains('open');
+  const dEl=document.getElementById('sheet-detail'); const detailOpen=dEl?.classList.contains('open')&&!dEl._closing;
   if(!detailOpen) return;
   const target=e.target;
   if(target && target.tagName==='TEXTAREA') return;
@@ -3367,6 +3478,7 @@ window.onTxDateChange=function(kind){
   refreshDetailAmountOnly();
   updateFxForCurrentInput({force:false});
 };
+window.selectUtilitySub=function(id){ flowData.utilitySub=id; renderUtilityPeriodFields(); if(navigator.vibrate) navigator.vibrate(5); };
 window.onUtilityPeriodChange=function(){
   flowData.utilityPeriodStart=document.getElementById('d-utility-start')?.value||'';
   flowData.utilityPeriodEnd=document.getElementById('d-utility-end')?.value||'';
@@ -3376,6 +3488,11 @@ function renderUtilityPeriodFields(){
   if(!wrap) return;
   const show=!flowData.isTransfer && isUtilityCategoryId(flowData.categoryId);
   wrap.style.display=show?'':'none';
+  const subBox=document.getElementById('d-utility-sub');
+  if(subBox&&show){
+    if(!flowData.utilitySub){ const g=utilityTypeOf({itemName:document.getElementById('d-name')?.value||flowData.name}); if(g!=='other') flowData.utilitySub=g; }
+    subBox.innerHTML=UTILITY_TYPES.map(t=>`<div class="chip${flowData.utilitySub===t.id?' sel':''}" onclick="selectUtilitySub('${t.id}')">${t.label}</div>`).join('');
+  }
   const sEl=document.getElementById('d-utility-start');
   const eEl=document.getElementById('d-utility-end');
   if(sEl && sEl.value!==(flowData.utilityPeriodStart||'')) sEl.value=flowData.utilityPeriodStart||'';
@@ -3489,6 +3606,7 @@ function selectDetailChip(ctx,id){
   if(ctx==='from') flowData.fromId=id;
   if(ctx==='to') flowData.toId=id;
   renderDetailChips();
+  renderUtilityPeriodFields();
   if(navigator.vibrate) navigator.vibrate(5);
 }
 
@@ -3595,6 +3713,8 @@ window.saveTx=async function(){
   flowData.date=date;
   const btn=document.getElementById('save-tx-btn');
   if(btn){ btn.disabled=true; btn.textContent=editTxId?'Updating…':'Saving…'; }
+  // any check that stops the save must give the button back
+  const fail=msg=>{ if(btn){ btn.disabled=false; btn.textContent=editTxId?'Update':'Save'; } showToast(msg); };
   let rate=await ensureFxRateForDate(npCur,date,{force:false,quiet:false});
   rate=Number(rate);
   if(!Number.isFinite(rate) || rate<=0) rate=1;
@@ -3602,8 +3722,8 @@ window.saveTx=async function(){
 
   let data;
   if(flowData.isTransfer){
-    if(!flowData.fromId||!flowData.toId) return showToast('Choose who sent and who received');
-    if(flowData.fromId===flowData.toId) return showToast('Sender and receiver can’t be the same');
+    if(!flowData.fromId||!flowData.toId) return fail('Choose who sent and who received');
+    if(flowData.fromId===flowData.toId) return fail('Sender and receiver can’t be the same');
     data={
       type:'transfer',
       ledgerId:currentLedgerId(),
@@ -3619,11 +3739,11 @@ window.saveTx=async function(){
     };
   } else {
     const name=document.getElementById('d-name').value.trim();
-    if(!name) return showToast('Enter an item name');
-    if(!flowData.categoryId) return showToast('Choose a category');
-    if(!flowData.paidById) return showToast('Choose who paid');
-    if(flowData.paidById==='__ask' && !flowData.repeat) return showToast('Choose who paid');
-    if(!flowData.usedByIds?.length) return showToast('Choose who it was for');
+    if(!name) return fail('Enter an item name');
+    if(!flowData.categoryId) return fail('Choose a category');
+    if(!flowData.paidById) return fail('Choose who paid');
+    if(flowData.paidById==='__ask' && !flowData.repeat) return fail('Choose who paid');
+    if(!flowData.usedByIds?.length) return fail('Choose who it was for');
 
     data={
       type:'expense',
@@ -3644,11 +3764,13 @@ window.saveTx=async function(){
     if(editTxId){ if(flowData.time) data.time=flowData.time; if(flowData.shop) data.shop=flowData.shop; }
 
     if(isUtilityCategoryId(flowData.categoryId)){
+      if(!flowData.utilitySub) return fail('Choose the bill type');
+      data.utilitySub=flowData.utilitySub;
       const ps=document.getElementById('d-utility-start')?.value||'';
       const pe=document.getElementById('d-utility-end')?.value||'';
-      if((ps&&!pe)||(!ps&&pe)) return showToast('Fill in both bill period dates');
+      if((ps&&!pe)||(!ps&&pe)) return fail('Fill in both bill period dates');
       if(ps && pe){
-        if(pe<ps) return showToast('Bill period ends before it starts');
+        if(pe<ps) return fail('Bill period ends before it starts');
         data.utilityPeriodStart=ps;
         data.utilityPeriodEnd=pe;
       }
@@ -3723,7 +3845,8 @@ window.duplicateTx=function(id){
     fromId:tx.fromPersonId||'',toId:tx.toPersonId||'',
     isRecurring:false,recurringFreq:tx.recurringFreq||'monthly',
     utilityPeriodStart:tx.utilityPeriodStart||'',
-    utilityPeriodEnd:tx.utilityPeriodEnd||''
+    utilityPeriodEnd:tx.utilityPeriodEnd||'',
+    utilitySub:tx.utilitySub||''
   };
   npCur=tx.currency||baseCur();
   npVal=String(tx.amount);
@@ -4227,21 +4350,29 @@ const _reduceMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
 function collapseTx(el,animate=true){
   const card=el.previousElementSibling;
   el.getAnimations?.().forEach(a=>a.cancel());
-  if(!animate||_reduceMotion()||!el.animate){ el.classList.remove('open'); card?.classList.remove('expanded'); return; }
+  clearTimeout(el._xt);
+  if(!animate||_reduceMotion()||!el.animate||!el.classList.contains('open')){ el.classList.remove('open'); card?.classList.remove('expanded','whiten'); return; }
   const h=el.offsetHeight;
   el.style.overflow='hidden';
-  const a=el.animate([{height:h+'px',opacity:1},{height:'0px',opacity:0,paddingTop:'0px',paddingBottom:'0px'}],{duration:240,easing:'cubic-bezier(.4,0,.2,1)'});
+  const a=el.animate([{height:h+'px'},{height:'0px',paddingTop:'0px',paddingBottom:'0px'}],{duration:240,easing:'cubic-bezier(.4,0,.2,1)'});
+  el.querySelectorAll('.tx-detail-row,.tx-x-badges,.tx-expand-actions').forEach(r=>r.animate([{opacity:1},{opacity:0}],{duration:140,fill:'forwards'}));
   card?.classList.add('collapsing');
-  a.onfinish=()=>{ el.classList.remove('open'); el.style.overflow=''; card?.classList.remove('expanded','collapsing'); };
+  a.onfinish=()=>{ el.classList.remove('open'); el.style.overflow=''; card?.classList.remove('expanded','collapsing','whiten'); txRowAnims(el).forEach(x=>x.cancel()); };
 }
 function expandTx(el){
   const card=el.previousElementSibling;
-  card?.classList.add('expanded');
-  el.classList.add('open');
-  if(_reduceMotion()||!el.animate) return;
+  if(_reduceMotion()||!el.animate){ card?.classList.add('expanded'); el.classList.add('open'); return; }
+  // step 1: the card turns white in place; step 2: the details unfold downward from it
+  card?.classList.add('whiten');
+  clearTimeout(el._xt);
+  el._xt=setTimeout(()=>{ if(!card?.classList.contains('whiten')) return; card.classList.add('expanded'); el.classList.add('open'); unfoldTx(el); },120);
+}
+function txRowAnims(el){ return [...el.querySelectorAll('.tx-detail-row,.tx-x-badges,.tx-expand-actions')].flatMap(r=>r.getAnimations?r.getAnimations():[]); }
+function unfoldTx(el){
+  txRowAnims(el).forEach(x=>x.cancel()); // clear the fade-out left over from the last close
   const h=el.offsetHeight, cs=getComputedStyle(el);
   el.style.overflow='hidden';
-  el.animate([{height:'0px',opacity:0,paddingTop:'0px',paddingBottom:'0px'},{height:h+'px',opacity:1,paddingTop:cs.paddingTop,paddingBottom:cs.paddingBottom}],{duration:380,easing:'cubic-bezier(.32,.72,0,1)'}).onfinish=()=>{ el.style.overflow=''; };
+  el.animate([{height:'0px',paddingTop:'0px',paddingBottom:'0px'},{height:h+'px',paddingTop:cs.paddingTop,paddingBottom:cs.paddingBottom}],{duration:380,easing:'cubic-bezier(.32,.72,0,1)'}).onfinish=()=>{ el.style.overflow=''; };
   el.querySelectorAll('.tx-detail-row,.tx-x-badges,.tx-expand-actions').forEach((r,i)=>r.animate([{opacity:0,transform:'translateY(6px)'},{opacity:1,transform:'none'}],{duration:320,delay:60+Math.min(i,8)*22,easing:'cubic-bezier(.32,.72,0,1)',fill:'backwards'}));
 }
 window.toggleTxExpand=function(id){
@@ -4256,17 +4387,21 @@ window.toggleTxExpand=function(id){
 // ════════════════════════════════════════════════
 // Capsule segmented control: a pill that stretches like liquid toward the new option, then springs into place
 function segThumb(ctrl, animate=true){
-  if(!ctrl||!ctrl.offsetParent) return;
+  // sized in % of the control (all options are equal width), so it stays aligned even if the page was laid out while hidden or resized
+  if(!ctrl) return;
   let th=ctrl.querySelector(':scope > .seg-thumb');
   if(!th){ th=document.createElement('div'); th.className='seg-thumb'; ctrl.prepend(th); ctrl.classList.add('has-thumb'); }
-  const act=ctrl.querySelector(':scope > .active'); if(!act) return;
-  const x1=act.offsetLeft, w1=act.offsetWidth;
-  const x0=th._x, w0=th._w;
+  const opts=[...ctrl.children].filter(c=>c!==th);
+  const idx=opts.findIndex(c=>c.classList.contains('active')); if(idx<0) return;
+  const cs=getComputedStyle(ctrl), pl=parseFloat(cs.paddingLeft)||0, pr=parseFloat(cs.paddingRight)||0;
+  const prev=th._i;
   th.getAnimations?.().forEach(a=>a.cancel());
-  th.style.width=w1+'px'; th.style.transform=`translateX(${x1}px)`;
-  th._x=x1; th._w=w1;
-  if(!animate||x0==null||Math.abs(x1-x0)<1||!th.animate||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  th.animate([{transform:`translateX(${x0}px) scaleX(${w0/w1})`,transformOrigin:'0 50%'},{transform:`translateX(${x1}px)`,transformOrigin:'0 50%'}],{duration:340,easing:'cubic-bezier(.32,.72,0,1)'});
+  th.style.left=pl+'px';
+  th.style.width=`calc((100% - ${pl+pr}px) / ${opts.length})`;
+  th.style.transform=`translateX(${idx*100}%)`;
+  th._i=idx;
+  if(!animate||prev==null||prev===idx||!th.animate||matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  th.animate([{transform:`translateX(${prev*100}%)`},{transform:`translateX(${idx*100}%)`}],{duration:340,easing:'cubic-bezier(.32,.72,0,1)'});
 }
 function moveSegThumb(animate=true){ segThumb(document.querySelector('#page-summary .seg-ctrl'),animate); }
 function slideIn(el,dir){
@@ -4407,13 +4542,15 @@ function renderSummary(){
           html+=renderByPersonCats(byPerson);
         }
       } else {
-        html+=renderByPersonCats(catsByPersonForPeriod());
+        html+=renderByPersonCats(catsByPersonForPeriod(),`${statsPeriod.getFullYear()}-${String(statsPeriod.getMonth()+1).padStart(2,'0')}`);
       }
     } else {
       html+=`<div class="card">`;
+      const bst=statsForLedger(currentLedgerId());
+      const bkeys=prev3MonthKeys(`${statsPeriod.getFullYear()}-${String(statsPeriod.getMonth()+1).padStart(2,'0')}`);
       cats.forEach(([catId,amt])=>{
-        const color=catColor(catId);
-        html+=`<div class="cat-bar-row summary-click" data-summary-cat-id="${catId}" onclick="summaryCategoryClick('${catId}')"><div class="cat-swatch" style="background:${color}"></div><div class="cat-name">${catIcon(catId,true)} ${catName(catId)}</div><div class="cat-track"><div class="cat-fill" style="width:${(Number(amt)/maxCat*100).toFixed(0)}%;background:${color}"></div></div><div class="cat-val">${fmtBase(amt)}</div></div>`;
+        const bud=bkeys.reduce((a,k)=>a+Number(bst.month?.[k]?.cats?.[catId]||0),0)/3;
+        html+=budgetRow(catId,Number(amt),bud);
       });
       html+=`</div>`;
     }
@@ -4894,10 +5031,77 @@ function lineChart(id, months, series, opts={}){
   window._trendCharts[id]={avgVals:opts.avg||null, yOf, W, n:months.length};
   return svg;
 }
-function stackBarChart(id, months, items, totals){
+// Per bill type: daily rate from the last 90 days of its bill periods, used for any month (or part of one) not yet billed
+function utilityProjections(months){
+  const lid=currentLedgerId(), DAY=86400000, byType={};
+  (txs||[]).forEach(tx=>{
+    if(tx.ledgerId&&tx.ledgerId!==lid) return;
+    if(tx.status!=='completed'||tx.type!=='expense'||!isUtilityCategoryId(tx.categoryId)) return;
+    const p=utilityPeriodForTx(tx); const amt=Number(tx.baseAmount||0); if(!p||!amt) return;
+    (byType[utilityItemName(tx)]||(byType[utilityItemName(tx)]=[])).push({ds:p.ds,de:p.de,amt,days:Math.floor((p.de-p.ds)/DAY)+1});
+  });
+  const out={};
+  Object.entries(byType).forEach(([name,list])=>{
+    const last=new Date(Math.max(...list.map(x=>+x.de)));
+    const first=new Date(Math.min(...list.map(x=>+x.ds)));
+    const ws=new Date(Math.max(+first,+last-89*DAY));
+    const span=Math.floor((last-ws)/DAY)+1;
+    let sum=0;
+    list.forEach(x=>{ const os=x.ds>ws?x.ds:ws, oe=x.de<last?x.de:last; if(oe>=os) sum+=x.amt*((Math.floor((oe-os)/DAY)+1)/x.days); });
+    const rate=span>0?sum/span:0;
+    const vals=months.map(m=>{
+      const ms=new Date(m.y,m.m,1), me=new Date(m.y,m.m+1,0);
+      if(me<=last) return null;
+      const from=ms>last?ms:new Date(+last+DAY);
+      return Math.floor((me-from)/DAY)+1;
+    });
+    // a type with no bill for over 6 months (e.g. moved or cancelled) isn't projected
+    if(!rate||vals.every(v=>v==null)||Date.now()-last>183*DAY) return;
+    out[name]=vals.map((d,i)=>d==null?null:d*rate+(utilityMonthlyBreakdownForYear(months[i].y).months[months[i].m].items[name]||0));
+  });
+  return out;
+}
+// Stacked bars of bill types with the total on top; any part not billed yet is drawn faded and striped
+function billBarChart(id, months, items){
+  const {COL,H,TOP,BOT,PADX}=TC;
+  const n=months.length, W=PADX*2+COL*(n-1), BW=24;
+  const tot=months.map((_,i)=>items.reduce((a,it)=>a+(Number(it.disp[i])||0),0));
+  const max=Math.max(1,...tot)*1.12;
+  const hOf=v=>(Number(v)||0)/max*(H-TOP-BOT);
+  const xOf=i=>PADX+i*COL;
+  let svg=`<svg class="trend-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><defs>${items.map((it,k)=>`<pattern id="${id}-h${k}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="${it.color}" opacity=".28"/><rect width="2.4" height="6" fill="${it.color}" opacity=".85"/></pattern>`).join('')}</defs><line class="t-grid" x1="0" x2="${W}" y1="${H-BOT}" y2="${H-BOT}"/>`;
+  months.forEach((x,i)=>{ if(x.key===trendSel) svg+=`<rect class="t-sel-bar" x="${xOf(i)-COL/2+4}" y="8" width="${COL-8}" height="${H-16}" rx="14"/>`; });
+  months.forEach((x,i)=>{
+    const cx=xOf(i), sel=x.key===trendSel;
+    const segs=[];
+    items.forEach((it,k)=>{
+      const act=Number(it.vals[i])||0, full=Number(it.disp[i])||0;
+      if(act>0.005) segs.push({h:hOf(act),fill:it.color});
+      if(full-act>0.005) segs.push({h:hOf(full-act),fill:`url(#${id}-h${k})`,proj:true});
+    });
+    const totH=segs.reduce((a,z)=>a+z.h,0);
+    if(totH>0.3){
+      let y=H-BOT;
+      svg+=`<clipPath id="${id}-c${i}"><rect x="${cx-BW/2}" y="${(H-BOT-totH).toFixed(1)}" width="${BW}" height="${(totH+8).toFixed(1)}" rx="7"/></clipPath><g clip-path="url(#${id}-c${i})" opacity="${sel?1:.85}">`;
+      segs.forEach(z=>{ y-=z.h; svg+=`<rect x="${cx-BW/2}" y="${y.toFixed(1)}" width="${BW}" height="${(z.h+.5).toFixed(1)}" fill="${z.fill}"/>`; });
+      svg+=`</g><rect x="${cx-BW/2}" y="${H-BOT}" width="${BW}" height="8" fill="var(--surface-solid)"/>`;
+      const pr=segs.some(z=>z.proj);
+      svg+=`<text class="t-val${sel?' sel':''}${pr?' proj':''}" x="${cx}" y="${(H-BOT-totH-8).toFixed(1)}" text-anchor="middle">${pr?'~':''}${shortNum(tot[i])}</text>`;
+    }
+    svg+=`<text class="t-lbl${sel?' sel':''}" x="${cx}" y="${H-BOT+18}" text-anchor="middle">${MON[x.m].toUpperCase()}</text>`;
+    if(x.m===0||i===0) svg+=`<text class="t-yr" x="${cx}" y="${H-BOT+32}" text-anchor="middle">${x.y}</text>`;
+    svg+=`<rect class="t-hit" x="${cx-COL/2}" y="0" width="${COL}" height="${H}" onclick="selectTrendMonth('${x.key}')"/>`;
+  });
+  svg+=`</svg>`;
+  window._trendCharts=window._trendCharts||{};
+  window._trendCharts[id]={avgVals:null, W, n, legend:items.map(it=>({...it,vals:it.disp}))};
+  return svg;
+}
+function stackBarChart(id, months, items, totals, opts={}){
   const {COL,H,TOP,BOT,PADX}=TC;
   const W=PADX*2+COL*(months.length-1);
-  const max=Math.max(1,...totals)*1.1;
+  const proj=opts.proj||null;
+  const max=Math.max(1,...totals,proj||0)*1.1;
   const hOf=v=>(Number(v)||0)/max*(H-TOP-BOT);
   const xOf=i=>PADX+i*COL;
   const BW=24;
@@ -4909,11 +5113,16 @@ function stackBarChart(id, months, items, totals){
     let y=H-BOT;
     const segs=items.map(it=>({c:it.color,h:hOf(it.vals[i])})).filter(z=>z.h>0.3);
     const totH=segs.reduce((a,z)=>a+z.h,0);
+    if(proj&&i===months.length-1){
+      const pH=hOf(proj);
+      svg+=`<rect x="${cx-BW/2+.75}" y="${(H-BOT-pH).toFixed(1)}" width="${BW-1.5}" height="${(pH).toFixed(1)}" rx="7" fill="rgba(var(--ov),.05)" stroke="rgba(var(--ov),.45)" stroke-width="1.2" stroke-dasharray="3 3"/>`;
+      svg+=`<text class="t-val proj" x="${cx}" y="${(H-BOT-pH-8).toFixed(1)}" text-anchor="middle">~${shortNum(proj)}</text>`;
+    }
     if(totH>0){
       svg+=`<clipPath id="${id}-c${i}"><rect x="${cx-BW/2}" y="${H-BOT-totH}" width="${BW}" height="${totH+8}" rx="7"/></clipPath><g clip-path="url(#${id}-c${i})" opacity="${sel?1:.82}">`;
       segs.forEach(z=>{ y-=z.h; svg+=`<rect x="${cx-BW/2}" y="${y.toFixed(1)}" width="${BW}" height="${(z.h+.5).toFixed(1)}" fill="${z.c}"/>`; });
       svg+=`</g><rect x="${cx-BW/2}" y="${H-BOT}" width="${BW}" height="8" fill="var(--surface-solid)"/>`;
-      svg+=`<text class="t-val${sel?' sel':''}" x="${cx}" y="${H-BOT-totH-8}" text-anchor="middle">${shortNum(totals[i])}</text>`;
+      if(!(proj&&i===months.length-1&&hOf(proj)-totH<18)) svg+=`<text class="t-val${sel?' sel':''}" x="${cx}" y="${H-BOT-totH-8}" text-anchor="middle">${shortNum(totals[i])}</text>`;
     }
     svg+=`<text class="t-lbl${sel?' sel':''}" x="${cx}" y="${H-BOT+18}" text-anchor="middle">${MON[x.m].toUpperCase()}</text>`;
     if(x.m===0||i===0) svg+=`<text class="t-yr" x="${cx}" y="${H-BOT+32}" text-anchor="middle">${x.y}</text>`;
@@ -4935,12 +5144,13 @@ function syncLegend(sc,from,to){
   });
 }
 function syncAvg(sc){
-  const id=sc.dataset.chart, c=window._trendCharts?.[id]; if(!c||!c.avgVals) return;
-  const g=document.getElementById(id+'-avg'); if(!g) return;
+  const id=sc.dataset.chart, c=window._trendCharts?.[id]; if(!c) return;
   const {COL,PADX}=TC;
   const from=Math.max(0,Math.ceil((sc.scrollLeft-PADX+COL*0.3)/COL));
   const to=Math.min(c.n-1,Math.floor((sc.scrollLeft+sc.clientWidth-PADX-COL*0.3)/COL));
   syncLegend(sc,from,to);
+  if(!c.avgVals) return;
+  const g=document.getElementById(id+'-avg'); if(!g) return;
   const vals=c.avgVals.slice(from,to+1).filter((v,k)=>v!=null);
   const used=vals.filter(v=>v>0);
   if(!used.length){ g.style.display='none'; return; }
@@ -5019,14 +5229,20 @@ function renderTrend(body){
   let billHtml=`<div style="padding:18px 16px;color:var(--text-3);font-size:13px;line-height:1.5">No bills found in the loaded records. Bills are expenses in the Utilities category; tap “Load all records” on the Records page to include older ones.</div>`;
   if(billItems.length){
     const billTotals=months.map(x=>byYear[x.y].months[x.m].total||0);
-    const BILL_PAL=['#3ddc97','#a78bfa','#f5b84b','#60a5fa','#fb7185','#a3e635','#fb923c','#f472b6','#94a3b8'];
-    const items=billItems.map((n,k)=>({name:n,color:BILL_PAL[k%BILL_PAL.length],vals:months.map(x=>Number(byYear[x.y].months[x.m].items[n]||0))}));
+    const order=[...UTILITY_TYPES.map(t=>t.label),'Other bills'];
+    const items=billItems.sort((a,b)=>order.indexOf(a)-order.indexOf(b)).map(n=>({name:n,color:utilityItemColor(n),vals:months.map(x=>Number(byYear[x.y].months[x.m].items[n]||0))}));
+    // months a bill type hasn't been billed for yet are projected from its own recent bill-period average
+    const projs=utilityProjections(months);
+    items.forEach(it=>{ it.proj=projs[it.name]||null; it.disp=it.vals.map((v,i)=>it.proj?.[i]??v); });
+    const dispTotals=months.map((_,i)=>items.reduce((a,it)=>a+(it.disp[i]||0),0));
+    const anyProj=i=>items.some(it=>it.proj?.[i]!=null);
     const bSel=billTotals[selIdx]||0;
     const b12=billTotals.slice(-12).reduce((a,b)=>a+b,0);
     const bAct=billTotals.slice(-12).filter(v=>v>0).length;
-    billHtml=`<div class="trend-12"><div><span class="k">12-mo total</span><span class="n">${fmtBase(b12)}</span></div><div><span class="k">Avg / month</span><span class="n">${fmtBase(bAct?b12/bAct:0)}</span></div><div><span class="k">${MON[sel.m]} ${sel.y}</span><span class="n">${fmtBase(bSel)}</span></div></div>
-      <div class="trend-scroll" data-chart="tc-bill">${snapMarks(months.length)}${stackBarChart('tc-bill',months,items,billTotals)}</div>
-      <div class="trend-legend grid" id="tc-bill-legend">${items.map((it,k)=>`<span data-item="${k}"><i style="background:${it.color}"></i><em>${escapeHtml(it.name)}</em><b>${fmtBase(it.vals[selIdx]||0)}</b></span>`).join('')}</div>`;
+    billHtml=`<div class="trend-12"><div><span class="k">12-mo total</span><span class="n">${fmtBase(b12)}</span></div><div><span class="k">Avg / month</span><span class="n">${fmtBase(bAct?b12/bAct:0)}</span></div><div><span class="k">${MON[sel.m]} ${sel.y}</span><span class="n">${anyProj(selIdx)?`~${fmtBase(dispTotals[selIdx])}`:fmtBase(bSel)}</span></div></div>
+      <div class="trend-head" style="padding-top:2px"><span></span><span class="trend-key"><span><i class="k-hatch"></i>projected</span></span></div>
+      <div class="trend-scroll" data-chart="tc-bill">${snapMarks(months.length)}${billBarChart('tc-bill',months,items)}</div>
+      <div class="trend-legend grid" id="tc-bill-legend">${items.map((it,k)=>`<span data-item="${k}"><i style="background:${it.color}"></i><em class="tr-ok">${escapeHtml(it.name)}</em><b>${it.proj?.[selIdx]!=null?'~':''}${fmtBase(it.disp[selIdx]||0)}</b></span>`).join('')}</div>`;
   }
 
   const cats=Object.entries(sel.cats).filter(([id,v])=>Math.abs(v)>0.0001&&!(summaryExcludeRent&&id==='cat-rent')).sort((a,b)=>b[1]-a[1]);
@@ -5067,14 +5283,28 @@ function renderTrend(body){
   window._trendKeepScroll=false;
   wireTrendScroll();
 }
-window.selectTrendCat=function(id){ trendCat=id; window._trendKeepScroll=true; renderSummary(); };
+window.selectTrendCat=function(id){ keepTrendAnchor(()=>{ trendCat=id; window._trendKeepScroll=true; renderSummary(); }); };
 function trendByPersonHtml(sel){
   const yk=`${currentLedgerId()}:${sel.y}`;
-  if(!_yearTxsCache[yk]){ ensureYearTxs(sel.y).then(()=>{ window._trendKeepScroll=true; renderSummary(); }).catch(()=>{}); }
+  if(!_yearTxsCache[yk]){ ensureYearTxs(sel.y).then(()=>{ keepTrendAnchor(()=>{ window._trendKeepScroll=true; renderSummary(); }); }).catch(()=>{}); }
   const list=(_yearTxsCache[yk]||txs||[]).filter(t=>String(t.date||'').startsWith(sel.key));
-  return renderByPersonCats(catsByPersonFromList(list))||`<div class="card" style="padding:16px;text-align:center;color:var(--text-3);font-size:13px">No spending this month</div>`;
+  return renderByPersonCats(catsByPersonFromList(list),sel.key)||`<div class="card" style="padding:16px;text-align:center;color:var(--text-3);font-size:13px">No spending this month</div>`;
 }
-window.selectTrendMonth=function(key){ trendSel=key; window._trendKeepScroll=true; renderSummary(); };
+// keep the chart you tapped in the same spot on screen (the cards above it change height between months)
+function keepTrendAnchor(fn){
+  const page=document.getElementById('page-summary');
+  // the tapped chart, or (for background refreshes) the first chart currently on screen
+  const chart=window.event?.target?.closest?.('.trend-scroll')?.dataset.chart
+    ||[...document.querySelectorAll('#summary-body .trend-scroll[data-chart]')].find(e=>e.getBoundingClientRect().bottom>0)?.dataset.chart;
+  const before=chart&&document.querySelector(`.trend-scroll[data-chart="${chart}"]`)?.getBoundingClientRect().top;
+  const top=page.scrollTop;
+  const chipX=[...document.querySelectorAll('#summary-body .trend-chips')].map(c=>c.scrollLeft); // keep the chip rows where they were
+  fn();
+  page.scrollTop=top;
+  document.querySelectorAll('#summary-body .trend-chips').forEach((c,i)=>{ if(chipX[i]!=null) c.scrollLeft=chipX[i]; });
+  if(before!=null){ const after=document.querySelector(`.trend-scroll[data-chart="${chart}"]`)?.getBoundingClientRect().top; if(after!=null) page.scrollTop+=after-before; }
+}
+window.selectTrendMonth=function(key){ keepTrendAnchor(()=>{ trendSel=key; window._trendKeepScroll=true; renderSummary(); }); };
 
 // ════════════════════════════════════════════════
 // RENDER — SETTLEMENT
@@ -5255,7 +5485,7 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.7.2</div>
+      <div>v1.8.9</div>
       <div>Last updated: 2026-11-12</div>
     </div>
   `;
@@ -5405,7 +5635,7 @@ function renderCategoryStyleSheet(){
   const preview=document.getElementById('cat-style-preview');
   const palette=document.getElementById('cat-style-palette');
   const grid=document.getElementById('cat-style-icons');
-  const col=categoryStyleColor||c.color||catColor(c.id);
+  const col=categoryStyleColor||catColor(c.id);
   const nameEl=document.getElementById('cat-style-name'); if(nameEl) nameEl.textContent=c.name||'Category';
   if(grid){
     grid.style.setProperty('--c',col);
@@ -5413,8 +5643,8 @@ function renderCategoryStyleSheet(){
   }
   if(preview){
     preview.innerHTML=ic(categoryStyleIcon||'tag');
-    preview.style.background=(categoryStyleColor||c.color||catColor(c.id))+'22';
-    preview.style.color=categoryStyleColor||c.color||catColor(c.id);
+    preview.style.background=(categoryStyleColor||catColor(c.id))+'22';
+    preview.style.color=categoryStyleColor||catColor(c.id);
   }
   if(palette){
     palette.innerHTML=CATEGORY_COLORS.map(col=>`<button class="color-dot ${col===(categoryStyleColor||c.color)?'sel':''}" style="background:${col}" onclick="pickCategoryColor('${col}')" aria-label="${col}"></button>`).join('');
@@ -5425,7 +5655,7 @@ window.startCategoryStyle=function(id){
   const current=(cfg.categories||[]).find(c=>c.id===id);
   if(!current) return;
   categoryStyleId=id;
-  categoryStyleColor=current.color||catColor(id);
+  categoryStyleColor=catColor(id);
   document.getElementById('cat-style-title').textContent=`${current.name} style`;
   categoryStyleIcon=catIconKey(id);
   renderCategoryStyleSheet();
