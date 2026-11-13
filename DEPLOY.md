@@ -99,3 +99,31 @@ Enable **Email/Password** authentication in Firebase Auth if you want login-gati
 1. Get a free API key at [aistudio.google.com/apikey](https://aistudio.google.com/apikey).
 2. Open the app → **Settings** → paste the key into the Gemini API Key field.
 3. Tap the 📷 camera button in the tab bar to scan receipts.
+
+---
+
+## Daily stock prices (GitHub Actions)
+
+Investment holdings on the **Balance** tab are valued at each ticker's last closing price.
+Browsers can't call Yahoo Finance directly, so a small scheduled job does it and saves the
+prices into Firestore (`ledgers/shared-ledger/meta/assets` → `prices`), which every device reads.
+
+Files: `.github/workflows/update-prices.yml` and `scripts/update_prices.py` (Python, no packages).
+
+1. Push both files with the rest of the app (note the hidden `.github` folder):
+   ```bash
+   git add .github scripts
+   git commit -m "Daily stock prices"
+   git push
+   ```
+2. On GitHub: **Settings → Secrets and variables → Actions → New repository secret**
+   - `FIREBASE_PROJECT_ID` — the `projectId` from your Firebase config
+   - `FIREBASE_API_KEY` — the `apiKey` from your Firebase config (optional while Firestore is in test mode)
+3. **Actions → Update stock prices → Run workflow** to test it once. The log lists each ticker and its close.
+
+It then runs automatically Monday–Friday after the ASX/HK close (08:30 UTC) and after the US close (22:15 UTC).
+Only the `prices` fields are written; nobody's assets are changed.
+
+> If you switch Firestore to the production rules above (`request.auth != null`), this job can no
+> longer write without signing in — keep test-mode rules for `ledgers/shared-ledger/meta/assets`
+> or tell Claude to add a service-account login to the script.
