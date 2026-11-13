@@ -29,7 +29,7 @@
 <script>
 (function(){
   if(window.UI_LANG!=='zh') return;
-  var D={"Use this ledger":"使用此帳薄","Rename / base currency":"改名 / 基本貨幣","Archive":"封存","Unarchive":"取消封存","Drag to reorder":"拖動排序"," · Archived":" · 已封存","Icon & colour":"圖示及顏色","Move up":"上移","Move down":"下移","More":"更多","Show assets in":"資產顯示貨幣","Ticker":"代號","Add at least one holding":"請加入最少一項持倉","Enter the number of units for each holding":"請輸入每項持倉嘅數量","Price not loaded yet — it will update automatically":"未有價格，會自動更新","Stock prices":"股票價格","Yahoo only":"只用 Yahoo","Closing prices · ":"收市價 · ","No price found — check the ticker or enter the value":"搵唔到價格，請檢查代號或輸入市值","Currency":"貨幣","Refresh":"更新","Updating prices…":"更新價格中…","Prices not loaded yet":"未載入價格","Ticker or name":"股票代號或名稱","Looking up…":"搜尋中…","No live price — enter the value":"搵唔到即時價格，請輸入市值","Assets":"資產","Net worth":"淨資產","Bank":"銀行","Credit card":"信用卡","Investment":"投資","Add asset":"新增資產","Edit asset":"編輯資產","Holdings":"持倉","Add holding":"新增持倉","Or total value":"或輸入總值","Amount owing":"欠款","Balance":"結餘","Units":"數量","Value":"市值","Enter a name":"請輸入名稱","This asset will be removed.":"呢項資產會被刪除。","Remove holding":"移除持倉","Electricity":"電費","Gas":"煤氣","Broadband":"上網","Other bills":"其他帳單","Bill type":"帳單類型","Choose the bill type":"請揀帳單類型","Projected":"預計","Possible duplicate":"可能重複","Save anyway":"仍然儲存","Save this one anyway?":"仍要儲存呢筆？","You already have this record:":"已經有呢筆記錄：","You already have these records:":"已經有以下記錄：","Recurring changes need an internet connection":"定期支出改動需要網絡","Back online — syncing":"已重新連線 — 同步中","Offline · changes will sync when you’re back online":"離線 · 恢復網絡後會自動同步","All time":"全部時間","This month":"本月","Last month":"上月","Last 3 months":"近 3 個月","This year":"今年","Custom":"自訂","Everyone":"所有人","Reset":"重設","Show results":"顯示結果","Minimum amount":"最低金額","Maximum amount":"最高金額","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
+  var D={"Creating PDF…":"製作 PDF 中…","PDF saved":"已儲存 PDF","Rename / base currency":"改名 / 基本貨幣","Archive":"封存","Unarchive":"取消封存","Drag to reorder":"拖動排序"," · Archived":" · 已封存","Icon & colour":"圖示及顏色","Move up":"上移","Move down":"下移","More":"更多","Show assets in":"資產顯示貨幣","Ticker":"代號","Add at least one holding":"請加入最少一項持倉","Enter the number of units for each holding":"請輸入每項持倉嘅數量","Price not loaded yet — it will update automatically":"未有價格，會自動更新","Stock prices":"股票價格","Yahoo only":"只用 Yahoo","Closing prices · ":"收市價 · ","No price found — check the ticker or enter the value":"搵唔到價格，請檢查代號或輸入市值","Currency":"貨幣","Refresh":"更新","Updating prices…":"更新價格中…","Prices not loaded yet":"未載入價格","Ticker or name":"股票代號或名稱","Looking up…":"搜尋中…","No live price — enter the value":"搵唔到即時價格，請輸入市值","Assets":"資產","Net worth":"淨資產","Bank":"銀行","Credit card":"信用卡","Investment":"投資","Add asset":"新增資產","Edit asset":"編輯資產","Holdings":"持倉","Add holding":"新增持倉","Or total value":"或輸入總值","Amount owing":"欠款","Balance":"結餘","Units":"數量","Value":"市值","Enter a name":"請輸入名稱","This asset will be removed.":"呢項資產會被刪除。","Remove holding":"移除持倉","Electricity":"電費","Gas":"煤氣","Broadband":"上網","Other bills":"其他帳單","Bill type":"帳單類型","Choose the bill type":"請揀帳單類型","Projected":"預計","Possible duplicate":"可能重複","Save anyway":"仍然儲存","Save this one anyway?":"仍要儲存呢筆？","You already have this record:":"已經有呢筆記錄：","You already have these records:":"已經有以下記錄：","Recurring changes need an internet connection":"定期支出改動需要網絡","Back online — syncing":"已重新連線 — 同步中","Offline · changes will sync when you’re back online":"離線 · 恢復網絡後會自動同步","All time":"全部時間","This month":"本月","Last month":"上月","Last 3 months":"近 3 個月","This year":"今年","Custom":"自訂","Everyone":"所有人","Reset":"重設","Show results":"顯示結果","Minimum amount":"最低金額","Maximum amount":"最高金額","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
   var P=[["^Show ([\\d,]+) records?$", "顯示 $1 筆記錄"], ["^Items · (\\d+)$", "項目 · $1"], ["^Paid by (.+)$", "$1 付款"], ["^([\\d,]+) records$", "$1 筆記錄"], ["^Avg / month (.+)$", "平均每月 $1"], ["^Loaded all ([\\d,]+) records$", "已載入全部 $1 筆"], ["^Stats rebuilt from ([\\d,]+) records$", "已用 $1 筆記錄重建統計"], ["^Saved ([\\d,]+) transactions$", "已儲存 $1 筆交易"], ["^Saved · paid by (.+)$", "已儲存 · $1 付款"], ["^Saved · split between (.+)$", "已儲存 · 由 $1 夾錢"], ["^Found ([\\d,]+) items — check them, then save:$", "找到 $1 項，請確認後儲存："], ["^([\\d,]+) of ([\\d,]+) items · (.+)$", "$1/$2 項 · $3"], ["^([\\d,]+) pending$", "$1 項待處理"], ["^(\\d+) min ago$", "$1 分鐘前"], ["^(\\d+) h ago$", "$1 小時前"], ["^(\\d+) d ago$", "$1 日前"], ["^(\\d+) mo ago$", "$1 個月前"], ["^(\\d+) y ago$", "$1 年前"], ["^Each (.+)$", "每人 $1"], ["^([▲▼]) (\\d+)% vs (\\w+) · ([\\d,]+) records$", "$1 $2% 對比 $3 · $4 筆記錄"], ["^Added ([\\d,]+) recurring expenses?$", "已新增 $1 筆定期支出"], ["^(\\d+) days · (.+)/day( · estimated)?$", "$1 日 · 每日 $2$3"], ["^(.+) · so far$", "$1 · 至今"], ["^Next (.+)$", "下次 $1"], ["^(\\d+)/(\\d+) times$", "$1/$2 次"], ["^Rename “(.+)”$", "將「$1」改名"], ["^Delete “(.+)”\\?$", "刪除「$1」？"], ["^Remove “(.+)”\\?$", "移除「$1」？"], ["^Import ([\\d,]+) transactions\\?$", "匯入 $1 筆交易？"], ["^Updated ([\\d,]+) categories$", "已更新 $1 筆交易種類"], ["^Exported ([\\d,]+) transactions$", "已匯出 $1 筆交易"], ["^Imported ([\\d,]+) transactions$", "已匯入 $1 筆交易"], ["^Added (.+)$", "已加入 $1"], ["^Removed (.+)$", "已移除 $1"], ["^Renamed to (.+)$", "已改名為 $1"], ["^Balance \\((.+)\\)$", "結餘（$1）"], ["^(.+) style$", "$1 樣式"], ["^Save failed: (.+)$", "儲存失敗：$1"], ["^Repeats (weekly|fortnightly|every 28 days|monthly|yearly) from (.+?)( until .+?)?(, \\d+ times in total)? · next (.+)\\.$", "由 $2 起$3$4重複（$1）· 下次 $5。"], ["^You’ll be asked who paid on the Summary page each time it’s due\\.$", "每次到期時會喺總覽問你邊個付款。"]].map(function(p){ return [new RegExp(p[0]), p[1]]; });
   var W={weekly:'每週',fortnightly:'每兩週','every 28 days':'每 28 日',monthly:'每月',yearly:'每年'};
   function tr(str){
@@ -1323,9 +1323,91 @@ body::after{content:'';display:block;height:1px}
 #settings-body .settings-mini-chip{padding:7px 11px;font-size:12.5px}
 #settings-body .btn-secondary{padding:10px!important}
 #settings-body .person-avatar{width:28px!important;height:28px!important}
+
+/* Recurring tag in an open record: same orange as the list's recurring dot */
+.tx-expand .tx-x-badges .lbl-badge.recur,.tx-expand .lbl-badge.recur{background:color-mix(in srgb,var(--orange) 18%,transparent);color:var(--orange)}
+
+/* Recurring expenses list */
+#sheet-recurring #recurring-list{background:none;box-shadow:none;border:none;margin:0 14px}
+.rcx-sum{display:flex;gap:10px;margin-bottom:12px}
+.rcx-sum>div{flex:1;background:var(--surface-solid);border:1px solid rgba(var(--ov),.08);border-radius:14px;padding:10px 14px;display:flex;flex-direction:column;gap:2px}
+.rcx-sum span{font-family:var(--mono);font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--text-3)}
+.rcx-sum b{font-family:var(--num);font-size:18px;font-weight:700;letter-spacing:-.02em}
+.rcx-list{background:var(--surface-solid);border:1px solid rgba(var(--ov),.08);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.rcx-hd{font-family:var(--mono);font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;color:var(--text-3);margin:4px 4px 6px}
+.rcx{display:flex;align-items:center;gap:12px;padding:11px 8px 11px 14px;border-bottom:1px solid var(--sep);cursor:pointer}
+.rcx:last-child{border-bottom:none}
+.rcx:active{background:rgba(var(--ov),.04)}
+.rcx.off{opacity:.5}
+.rcx-ic{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.rcx-main{flex:1;min-width:0}
+.rcx-top{display:flex;align-items:center;gap:8px;min-width:0}
+.rcx-top .rec-name{font-size:15px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rcx-pend{flex-shrink:0;font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:999px;background:color-mix(in srgb,var(--orange) 18%,transparent);color:var(--orange)}
+.rcx-sub{display:flex;flex-wrap:wrap;gap:0 6px;font-size:12px;color:var(--text-2);margin-top:2px}
+.rcx-sub span+span::before{content:'·';margin-right:6px;color:var(--text-3)}
+.rcx-freq{color:var(--text)}
+.rcx-when{font-size:11.5px;color:var(--text-3);margin-top:2px}
+.rcx-when.on{color:var(--accent)}
+.rcx-amt{font-family:var(--num);font-size:15px;font-weight:700;white-space:nowrap;text-align:right}
+.rcx-amt small{font-size:10px;font-weight:600;color:var(--text-3);margin-right:3px}
+
+.rcx-wrap{border-bottom:1px solid var(--sep)}
+.rcx-wrap:last-child{border-bottom:none}
+.rcx-wrap .rcx{border-bottom:none}
+.rcx-chev{width:16px;height:16px;color:var(--text-3);flex-shrink:0;margin-right:4px;transition:transform .25s cubic-bezier(.32,.72,0,1)}
+.rcx-wrap.open .rcx-chev{transform:rotate(180deg)}
+.rcx-wrap.open{background:var(--light-card)}
+.rcx-wrap.open,.rcx-wrap.open *{--text:#111113;--text-2:#5d5d63;--text-3:#8e8e94;--sep:rgba(0,0,0,.09)}
+.rcx-wrap.open .rcx{opacity:1}
+.rcx-wrap.open .rec-name,.rcx-wrap.open .rcx-amt,.rcx-wrap.open .rcx-freq{color:#111113!important}
+.rcx-wrap.open .rcx-sub{color:#5d5d63}
+.rcx-x{display:none;padding:2px 16px 14px}
+.rcx-x.open{display:block}
+.rcx-dl{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:13px}
+.rcx-dl span{font-family:var(--mono);font-size:10.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--text-2);flex-shrink:0}
+.rcx-dl b{font-weight:500;text-align:right;color:var(--text)}
+.rcx-dl small{color:var(--text-3);font-weight:400}
+.rcx-btns{display:flex;gap:8px;margin-top:12px}
+.rcx-btns .tx-btn{flex:1;justify-content:center}
+.rcx-btns .tx-btn-edit{background:var(--accent);color:var(--on-accent)}
+.rcx-btns .tx-btn-dup{background:rgba(0,0,0,.07);color:#3a3a3f}
+.rcx-btns .tx-btn-del{background:rgba(214,48,40,.1);color:#d63028}
+.rcx-btns .ic{width:15px;height:15px}
+
+/* + button: dark glass (matches the bottom bar), jade + */
+.fab{width:52px!important;height:52px!important;border-radius:26px!important;background:rgba(40,40,46,.72)!important;color:var(--accent)!important;
+  border:1px solid rgba(255,255,255,.22)!important;backdrop-filter:blur(14px) saturate(160%);-webkit-backdrop-filter:blur(14px) saturate(160%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.25),inset 0 -1px 0 rgba(255,255,255,.06),0 10px 24px rgba(0,0,0,.5)!important}
+.fab .ic{color:var(--accent);width:24px;height:24px}
+.fab:active{transform:scale(.94)}
+:root[data-theme="light"] .fab{background:rgba(255,253,247,.86)!important;border:1px solid rgba(60,45,10,.12)!important;color:#9a7417!important;
+  box-shadow:inset 0 1px 0 #fff,0 8px 20px rgba(60,45,10,.16)!important}
+:root[data-theme="light"] .fab .ic{color:#9a7417}
+
+/* + menu: app card style, rising from the bottom-bar button */
+.am-ov{position:fixed;inset:0;z-index:950;background:rgba(0,0,0,0);transition:background .2s}
+.am-ov.open{background:rgba(0,0,0,.45)}
+.am{position:absolute;transform:translate(-50%,14px);opacity:0;width:min(300px,calc(100vw - 32px));padding:6px;border-radius:20px;
+  background:var(--surface-solid);border:1px solid rgba(var(--ov),.08);box-shadow:0 18px 44px rgba(0,0,0,.45);
+  transition:transform .3s cubic-bezier(.32,.72,0,1),opacity .2s}
+.am-ov.open .am{transform:translate(-50%,0);opacity:1}
+.am button{display:flex;align-items:center;gap:12px;width:100%;padding:10px;border-radius:14px;text-align:left;background:none;color:var(--text)}
+.am button+button{margin-top:2px}
+.am button:active{background:rgba(var(--ov),.06)}
+.am-ic{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--accent-light);color:var(--accent)}
+.am-ic .ic{width:19px;height:19px}
+.am-tx{display:flex;flex-direction:column;gap:1px;min-width:0}
+.am-tx b{font-size:15px;font-weight:600}
+.am-tx small{font-size:12px;color:var(--text-3)}
+:root[data-theme="light"] .am-ic{color:#9a7417}
+.tab-scan-btn .ic{transition:transform .3s cubic-bezier(.32,1.25,.5,1)}
+.tab-scan-btn.am-open .ic{transform:rotate(45deg)}
+/* the floating + is replaced by the bottom-bar + */
+#fab{display:none!important}
 </style>
 <script>
-window.ICONS={"home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "receipt": "<path d=\"M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "chart": "<path d=\"M3 21h18\"/><rect x=\"5\" y=\"11\" width=\"3\" height=\"7\" rx=\"1\"/><rect x=\"10.5\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/><rect x=\"16\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/>", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "camera": "<path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.5\"/>", "book": "<path d=\"M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3\"/><path d=\"M8 7h8\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "calendarRange": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4M7 14h5M12 17.5h5\"/>", "clipboard": "<path d=\"M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2\"/><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"3\" rx=\"1\"/><path d=\"M9 11h6M9 15h4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "sparkles": "<path d=\"M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z\"/><path d=\"M18.5 14.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z\"/>", "expense": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 15l6-6M10 9h5v5\"/>", "transfer": "<path d=\"M17 3l4 4-4 4\"/><path d=\"M3 7h18\"/><path d=\"M7 21l-4-4 4-4\"/><path d=\"M21 17H3\"/>", "tag": "<path d=\"M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1.2\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "alert": "<path d=\"M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9v4M12 17h.01\"/>", "edit": "<path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\"/>", "refresh": "<path d=\"M21 12a9 9 0 0 1-15.5 6.2L3 16\"/><path d=\"M3 21v-5h5\"/><path d=\"M3 12a9 9 0 0 1 15.5-6.2L21 8\"/><path d=\"M21 3v5h-5\"/>", "bank": "<path d=\"M3 10l9-6 9 6\"/><path d=\"M5 10v8M9.5 10v8M14.5 10v8M19 10v8\"/><path d=\"M3 21h18\"/>", "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>", "checkCircle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7L16 9.8\"/>", "x": "<path d=\"M6 6l12 12M18 6 6 18\"/>", "bulb": "<path d=\"M9 18h6M10 21h4\"/><path d=\"M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/>", "loader": "<path d=\"M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5 6.8 15M17.2 9l2.6-1.5\"/>", "listChecks": "<path d=\"M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17\"/><path d=\"M11 6h10M11 12h10M11 18h10\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "copy": "<rect x=\"8\" y=\"8\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3\"/>", "trash": "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M9 7V4h6v3\"/>", "note": "<path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6M8 13h8M8 17h5\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6\"/>", "repeat": "<path d=\"M17 2l4 4-4 4\"/><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\"/><path d=\"M7 22l-4-4 4-4\"/><path d=\"M21 13v1a4 4 0 0 1-4 4H3\"/>", "download": "<path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\"/>", "deleteLeft": "<path d=\"M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z\"/><path d=\"M12 9l6 6M18 9l-6 6\"/>", "hourglass": "<path d=\"M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9\"/>", "food": "<path d=\"M6 3v6a3 3 0 0 0 6 0V3M9 3v18\"/><path d=\"M18 21V3c-2 1-3 4-3 7v4h3\"/>", "coffee": "<path d=\"M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z\"/><path d=\"M17 10h1.5a2.5 2.5 0 0 1 0 5H17\"/><path d=\"M8 2.5V5M12 2.5V5\"/>", "drink": "<path d=\"M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z\"/><path d=\"M6.5 8h11\"/>", "cart": "<circle cx=\"9\" cy=\"20\" r=\"1.4\"/><circle cx=\"18\" cy=\"20\" r=\"1.4\"/><path d=\"M2.5 3h2.6l2.3 11.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6\"/>", "bag": "<path d=\"M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z\"/><path d=\"M9 10V6a3 3 0 0 1 6 0v4\"/>", "car": "<path d=\"M5 17H3v-5l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 7l2 5v5h-2\"/><path d=\"M3 12h18M9.5 17h5\"/><circle cx=\"7.5\" cy=\"17\" r=\"2\"/><circle cx=\"16.5\" cy=\"17\" r=\"2\"/>", "bus": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"3\"/><path d=\"M4 11h16M8 21v-3M16 21v-3\"/><path d=\"M8 14.5h.01M16 14.5h.01\"/>", "train": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"14\" rx=\"3\"/><path d=\"M5 10h14M12 3v7M8 21l2-4M16 21l-2-4\"/><path d=\"M8.5 13.5h.01M15.5 13.5h.01\"/>", "plane": "<path d=\"M21 12a1.5 1.5 0 0 0-1.5-1.5H15L10.5 3h-2l2 7.5H6L4.5 8H3l1 4-1 4h1.5L6 13.5h4.5l-2 7.5h2l4.5-7.5h4.5A1.5 1.5 0 0 0 21 12z\"/>", "house": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5\"/><path d=\"M10 21v-6h4v6\"/>", "building": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"1\"/><path d=\"M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3\"/>", "bolt": "<path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/>", "droplet": "<path d=\"M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z\"/>", "phone": "<rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>", "wifi": "<path d=\"M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01\"/>", "heart": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/>", "medical": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M12 8v8M8 12h8\"/>", "pill": "<path d=\"M10.5 20.5a5 5 0 0 1-7-7l6-6a5 5 0 0 1 7 7z\"/><path d=\"M8.5 8.5l7 7\"/>", "film": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4\"/>", "gamepad": "<path d=\"M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L15 14H9l-.7 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z\"/><path d=\"M7 10.5v3M5.5 12h3M16 11.5h.01M18 13h.01\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "gift": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>", "education": "<path d=\"M22 9 12 4 2 9l10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6\"/>", "shirt": "<path d=\"M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3z\"/>", "dumbbell": "<path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11\"/>", "paw": "<circle cx=\"5.5\" cy=\"10\" r=\"2\"/><circle cx=\"9.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"14.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"10\" r=\"2\"/><path d=\"M12 11c-2.8 0-6 4.2-6 7a2.5 2.5 0 0 0 2.5 2.5c1.3 0 2.2-.7 3.5-.7s2.2.7 3.5.7A2.5 2.5 0 0 0 18 18c0-2.8-3.2-7-6-7z\"/>", "scissors": "<circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/>", "umbrella": "<path d=\"M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z\"/><path d=\"M12 12v6.5a2.5 2.5 0 0 1-5 0\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18\"/>", "wallet": "<path d=\"M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><path d=\"M17 14h.01\"/>", "coins": "<ellipse cx=\"9\" cy=\"7\" rx=\"6\" ry=\"3\"/><path d=\"M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3\"/><ellipse cx=\"17\" cy=\"15\" rx=\"4\" ry=\"2\"/><path d=\"M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3\"/>", "card": "<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 10h19M6 15h4\"/>", "dots": "<path d=\"M5 12h.01M12 12h.01M19 12h.01\"/>", "noodles": "<path d=\"M4 11h16a8 8 0 0 1-16 0z\"/><path d=\"M9 11V4M13 11V3M17 11l2-7\"/><path d=\"M8 19.5h8\"/>", "pizza": "<path d=\"M12 3c3.6 0 6.9 1.4 9 3.7L12 21 3 6.7C5.1 4.4 8.4 3 12 3z\"/><path d=\"M4.6 9.2C6.7 7.8 9.3 7 12 7s5.3.8 7.4 2.2\"/><path d=\"M10 11.5h.01M14 14h.01M11.5 16h.01\"/>", "icecream": "<path d=\"M7 11a5 5 0 0 1 10 0\"/><path d=\"M6.5 11h11L12 22z\"/>", "bread": "<path d=\"M5 10a4 4 0 0 1 2-7.5h10a4 4 0 0 1 2 7.5V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/>", "cake": "<path d=\"M4 21V12a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9\"/><path d=\"M4 15c1.5 1 3 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M3 21h18M12 10V7\"/><path d=\"M12 4.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z\"/>", "apple": "<path d=\"M12 7c-1.5-1-5-1.3-6.5 1.5S5 16 7 19s3.5 2.5 5 1.8c1.5.7 3 1.2 5-1.8s3-7.7 1.5-10.5S13.5 6 12 7z\"/><path d=\"M12 7c0-2 1-3.5 3-4\"/>", "fish": "<path d=\"M3 12c3-5 9-6.5 13-4l5-3v14l-5-3c-4 2.5-10 1-13-4z\"/><path d=\"M15.5 11.5h.01\"/>", "meat": "<path d=\"M15.5 4.5a5 5 0 0 1 4 7.5l-6.5 6.5a4 4 0 0 1-6.5-1L5 19l-2-2 1.5-1.5a4 4 0 0 1-1-6.5L10 2.5a5 5 0 0 1 5.5 2z\"/><circle cx=\"14\" cy=\"9\" r=\"2\"/>", "beer": "<path d=\"M5 8h10v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/><path d=\"M15 11h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2M5 8a3 3 0 0 1 3-4 3 3 0 0 1 5 1 2.5 2.5 0 0 1 2 3M9 12v5M12 12v5\"/>", "bike": "<circle cx=\"5.5\" cy=\"17\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17\" r=\"3.5\"/><path d=\"M5.5 17l4-8h6l3 8M9.5 9 8 6H6M12 17l3.5-8\"/>", "fuel": "<path d=\"M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M3 21h13M4 10h11\"/><path d=\"M15 8l3 3v6a1.5 1.5 0 0 0 3 0V9l-3-3\"/>", "parking": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>", "ship": "<path d=\"M3 17l2 4h14l2-4-9-3z\"/><path d=\"M5 15V9h14v6M9 9V5h6v4M12 3v2\"/>", "bed": "<path d=\"M3 20V6M21 20v-6a3 3 0 0 0-3-3H9v6M3 17h18\"/><circle cx=\"6.5\" cy=\"12.5\" r=\"2\"/>", "ticket": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M14 6v2M14 11v2M14 16v2\"/>", "laptop": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 19h20\"/>", "headphones": "<path d=\"M3 15v-3a9 9 0 0 1 18 0v3\"/><rect x=\"2\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/>", "baby": "<circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M10 7.5h.01M14 7.5h.01M10.5 10c.8.6 2.2.6 3 0\"/><path d=\"M7 21v-3a5 5 0 0 1 10 0v3\"/>", "tools": "<path d=\"M14.7 6.3a4 4 0 0 0 5 5L22 9l-2-2-2.3 2.3-2-2L18 5l-2-2-2.3 2.3a4 4 0 0 0 1 1z\"/><path d=\"M15 9 4 20l-1-1L14 8\"/>", "plant": "<path d=\"M7 20h10M12 20v-8\"/><path d=\"M12 12c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5z\"/>", "tooth": "<path d=\"M12 5.5C10 3.5 6 3 4.5 5.5S4 11 5.5 13s1.5 8 3 8 1.5-5 3.5-5 2 5 3.5 5 1.5-6 3-8 2.5-5 1-7.5S14 3.5 12 5.5z\"/>", "glasses": "<circle cx=\"6.5\" cy=\"15\" r=\"3.5\"/><circle cx=\"17.5\" cy=\"15\" r=\"3.5\"/><path d=\"M10 15h4M3 15 5 6h2M21 15l-2-9h-2\"/>", "sofa": "<path d=\"M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3\"/><path d=\"M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zM5 19v2M19 19v2\"/>", "washer": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><circle cx=\"12\" cy=\"13\" r=\"4.5\"/><path d=\"M8 6.5h.01M11 6.5h3\"/>", "flame": "<path d=\"M12 22c4 0 7-2.8 7-6.5 0-3-2-5.5-3.5-7 0 2-1 3.5-2.5 3.5C13 9 13 5 9.5 2c.5 3-1.5 5-3 7S5 12.5 5 15.5C5 19.2 8 22 12 22z\"/>", "piggy": "<path d=\"M19 9.5c1 0 2 .8 2 2M5 11.5C5 7.9 8.1 5 12 5c1.6 0 3.1.5 4.3 1.3L19 5v4c.6.8 1 1.5 1 2.5H21v3h-1.5c-.6 1.3-1.6 2.3-2.9 3V20h-3v-1.6a8 8 0 0 1-3.2 0V20h-3v-2.2C5.9 16.6 5 14.2 5 11.5z\"/><path d=\"M15.5 10h.01M3 10c0 1 .8 2 2 2\"/>", "church": "<path d=\"M12 2v4M10 4h4M6 21V11l6-5 6 5v10M3 21h18M10 21v-4a2 2 0 0 1 4 0v4\"/>", "run": "<circle cx=\"14\" cy=\"4.5\" r=\"2\"/><path d=\"M7 21l3-6 3 2v5M5 12l3-4 4-.5 3 3.5 3 1M10.5 15 9.5 9\"/>", "necessities": "<ellipse cx=\"9\" cy=\"7\" rx=\"5\" ry=\"3\"/><path d=\"M4 7v10c0 1.7 2.2 3 5 3s5-1.3 5-3V7\"/><path d=\"M14 9.5h5.5a.5.5 0 0 1 .5.5v9.5l-1.5-1-1.5 1-1.5-1-1.5 1\"/><circle cx=\"9\" cy=\"7\" r=\"1\"/>", "pot": "<path d=\"M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z\"/><path d=\"M2 11h2M20 11h2M6.5 8h11M12 5.5V8\"/>", "pulse": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/><path d=\"M5.5 12.5h3l1.5-2.5 2 5 1.5-2.5h5\"/>", "plug": "<path d=\"M9 2v5M15 2v5\"/><path d=\"M6 7h12v4a6 6 0 0 1-12 0z\"/><path d=\"M12 17v5\"/>", "key": "<circle cx=\"8\" cy=\"15\" r=\"4.5\"/><path d=\"M11.2 11.8 20 3M16.5 6.5l3 3M14 9l2.5 2.5\"/>", "bill": "<path d=\"M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z\"/><path d=\"M14 2v6h6\"/><path d=\"M12 10.5v8M14.2 12.3h-3a1.6 1.6 0 0 0 0 3.2h1.6a1.6 1.6 0 0 1 0 3.2H9.8\"/>", "voucher": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M9.5 14.5l5-5\"/><circle cx=\"9.5\" cy=\"9.8\" r=\".9\"/><circle cx=\"14.5\" cy=\"14.2\" r=\".9\"/>"};
+window.ICONS={"home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "receipt": "<path d=\"M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "chart": "<path d=\"M3 21h18\"/><rect x=\"5\" y=\"11\" width=\"3\" height=\"7\" rx=\"1\"/><rect x=\"10.5\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/><rect x=\"16\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/>", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "camera": "<path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.5\"/>", "book": "<path d=\"M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3\"/><path d=\"M8 7h8\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "calendarRange": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4M7 14h5M12 17.5h5\"/>", "clipboard": "<path d=\"M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2\"/><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"3\" rx=\"1\"/><path d=\"M9 11h6M9 15h4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "sparkles": "<path d=\"M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z\"/><path d=\"M18.5 14.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z\"/>", "expense": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 15l6-6M10 9h5v5\"/>", "transfer": "<path d=\"M17 3l4 4-4 4\"/><path d=\"M3 7h18\"/><path d=\"M7 21l-4-4 4-4\"/><path d=\"M21 17H3\"/>", "tag": "<path d=\"M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1.2\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "alert": "<path d=\"M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9v4M12 17h.01\"/>", "edit": "<path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\"/>", "refresh": "<path d=\"M21 12a9 9 0 0 1-15.5 6.2L3 16\"/><path d=\"M3 21v-5h5\"/><path d=\"M3 12a9 9 0 0 1 15.5-6.2L21 8\"/><path d=\"M21 3v5h-5\"/>", "bank": "<path d=\"M3 10l9-6 9 6\"/><path d=\"M5 10v8M9.5 10v8M14.5 10v8M19 10v8\"/><path d=\"M3 21h18\"/>", "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>", "checkCircle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7L16 9.8\"/>", "x": "<path d=\"M6 6l12 12M18 6 6 18\"/>", "bulb": "<path d=\"M9 18h6M10 21h4\"/><path d=\"M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/>", "loader": "<path d=\"M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5 6.8 15M17.2 9l2.6-1.5\"/>", "listChecks": "<path d=\"M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17\"/><path d=\"M11 6h10M11 12h10M11 18h10\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "copy": "<rect x=\"8\" y=\"8\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3\"/>", "trash": "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M9 7V4h6v3\"/>", "note": "<path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6M8 13h8M8 17h5\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6\"/>", "repeat": "<path d=\"M17 2l4 4-4 4\"/><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\"/><path d=\"M7 22l-4-4 4-4\"/><path d=\"M21 13v1a4 4 0 0 1-4 4H3\"/>", "download": "<path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\"/>", "deleteLeft": "<path d=\"M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z\"/><path d=\"M12 9l6 6M18 9l-6 6\"/>", "hourglass": "<path d=\"M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9\"/>", "food": "<path d=\"M6 3v6a3 3 0 0 0 6 0V3M9 3v18\"/><path d=\"M18 21V3c-2 1-3 4-3 7v4h3\"/>", "coffee": "<path d=\"M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z\"/><path d=\"M17 10h1.5a2.5 2.5 0 0 1 0 5H17\"/><path d=\"M8 2.5V5M12 2.5V5\"/>", "drink": "<path d=\"M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z\"/><path d=\"M6.5 8h11\"/>", "cart": "<circle cx=\"9\" cy=\"20\" r=\"1.4\"/><circle cx=\"18\" cy=\"20\" r=\"1.4\"/><path d=\"M2.5 3h2.6l2.3 11.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6\"/>", "bag": "<path d=\"M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z\"/><path d=\"M9 10V6a3 3 0 0 1 6 0v4\"/>", "car": "<path d=\"M5 17H3v-5l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 7l2 5v5h-2\"/><path d=\"M3 12h18M9.5 17h5\"/><circle cx=\"7.5\" cy=\"17\" r=\"2\"/><circle cx=\"16.5\" cy=\"17\" r=\"2\"/>", "bus": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"3\"/><path d=\"M4 11h16M8 21v-3M16 21v-3\"/><path d=\"M8 14.5h.01M16 14.5h.01\"/>", "train": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"14\" rx=\"3\"/><path d=\"M5 10h14M12 3v7M8 21l2-4M16 21l-2-4\"/><path d=\"M8.5 13.5h.01M15.5 13.5h.01\"/>", "plane": "<path d=\"M21 12a1.5 1.5 0 0 0-1.5-1.5H15L10.5 3h-2l2 7.5H6L4.5 8H3l1 4-1 4h1.5L6 13.5h4.5l-2 7.5h2l4.5-7.5h4.5A1.5 1.5 0 0 0 21 12z\"/>", "house": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5\"/><path d=\"M10 21v-6h4v6\"/>", "building": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"1\"/><path d=\"M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3\"/>", "bolt": "<path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/>", "droplet": "<path d=\"M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z\"/>", "phone": "<rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>", "wifi": "<path d=\"M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01\"/>", "heart": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/>", "medical": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M12 8v8M8 12h8\"/>", "pill": "<rect x=\"2.5\" y=\"8.25\" width=\"19\" height=\"7.5\" rx=\"3.75\" transform=\"rotate(-45 12 12)\"/><path d=\"M12 8.25v7.5\" transform=\"rotate(-45 12 12)\"/>", "film": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4\"/>", "gamepad": "<path d=\"M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L15 14H9l-.7 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z\"/><path d=\"M7 10.5v3M5.5 12h3M16 11.5h.01M18 13h.01\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "gift": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>", "education": "<path d=\"M22 9 12 4 2 9l10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6\"/>", "shirt": "<path d=\"M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3z\"/>", "dumbbell": "<path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11\"/>", "paw": "<circle cx=\"5.5\" cy=\"10\" r=\"2\"/><circle cx=\"9.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"14.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"10\" r=\"2\"/><path d=\"M12 11c-2.8 0-6 4.2-6 7a2.5 2.5 0 0 0 2.5 2.5c1.3 0 2.2-.7 3.5-.7s2.2.7 3.5.7A2.5 2.5 0 0 0 18 18c0-2.8-3.2-7-6-7z\"/>", "scissors": "<circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/>", "umbrella": "<path d=\"M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z\"/><path d=\"M12 12v6.5a2.5 2.5 0 0 1-5 0\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18\"/>", "wallet": "<path d=\"M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><path d=\"M17 14h.01\"/>", "coins": "<ellipse cx=\"9\" cy=\"7\" rx=\"6\" ry=\"3\"/><path d=\"M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3\"/><ellipse cx=\"17\" cy=\"15\" rx=\"4\" ry=\"2\"/><path d=\"M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3\"/>", "card": "<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 10h19M6 15h4\"/>", "dots": "<path d=\"M5 12h.01M12 12h.01M19 12h.01\"/>", "noodles": "<path d=\"M4 11h16a8 8 0 0 1-16 0z\"/><path d=\"M9 11V4M13 11V3M17 11l2-7\"/><path d=\"M8 19.5h8\"/>", "pizza": "<path d=\"M12 3c3.6 0 6.9 1.4 9 3.7L12 21 3 6.7C5.1 4.4 8.4 3 12 3z\"/><path d=\"M4.6 9.2C6.7 7.8 9.3 7 12 7s5.3.8 7.4 2.2\"/><path d=\"M10 11.5h.01M14 14h.01M11.5 16h.01\"/>", "icecream": "<path d=\"M7 11a5 5 0 0 1 10 0\"/><path d=\"M6.5 11h11L12 22z\"/>", "bread": "<path d=\"M5 10a4 4 0 0 1 2-7.5h10a4 4 0 0 1 2 7.5V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/>", "cake": "<path d=\"M4 21V12a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9\"/><path d=\"M4 15c1.5 1 3 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M3 21h18M12 10V7\"/><path d=\"M12 4.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z\"/>", "apple": "<path d=\"M12 7c-1.5-1-5-1.3-6.5 1.5S5 16 7 19s3.5 2.5 5 1.8c1.5.7 3 1.2 5-1.8s3-7.7 1.5-10.5S13.5 6 12 7z\"/><path d=\"M12 7c0-2 1-3.5 3-4\"/>", "fish": "<path d=\"M3 12c3-5 9-6.5 13-4l5-3v14l-5-3c-4 2.5-10 1-13-4z\"/><path d=\"M15.5 11.5h.01\"/>", "meat": "<path d=\"M15.5 4.5a5 5 0 0 1 4 7.5l-6.5 6.5a4 4 0 0 1-6.5-1L5 19l-2-2 1.5-1.5a4 4 0 0 1-1-6.5L10 2.5a5 5 0 0 1 5.5 2z\"/><circle cx=\"14\" cy=\"9\" r=\"2\"/>", "beer": "<path d=\"M5 8h10v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/><path d=\"M15 11h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2M5 8a3 3 0 0 1 3-4 3 3 0 0 1 5 1 2.5 2.5 0 0 1 2 3M9 12v5M12 12v5\"/>", "bike": "<circle cx=\"5.5\" cy=\"17\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17\" r=\"3.5\"/><path d=\"M5.5 17l4-8h6l3 8M9.5 9 8 6H6M12 17l3.5-8\"/>", "fuel": "<path d=\"M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M3 21h13M4 10h11\"/><path d=\"M15 8l3 3v6a1.5 1.5 0 0 0 3 0V9l-3-3\"/>", "parking": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>", "ship": "<path d=\"M3 17l2 4h14l2-4-9-3z\"/><path d=\"M5 15V9h14v6M9 9V5h6v4M12 3v2\"/>", "bed": "<path d=\"M3 20V6M21 20v-6a3 3 0 0 0-3-3H9v6M3 17h18\"/><circle cx=\"6.5\" cy=\"12.5\" r=\"2\"/>", "ticket": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M14 6v2M14 11v2M14 16v2\"/>", "laptop": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 19h20\"/>", "headphones": "<path d=\"M3 15v-3a9 9 0 0 1 18 0v3\"/><rect x=\"2\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/>", "baby": "<circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M10 7.5h.01M14 7.5h.01M10.5 10c.8.6 2.2.6 3 0\"/><path d=\"M7 21v-3a5 5 0 0 1 10 0v3\"/>", "tools": "<path d=\"M14.7 6.3a4 4 0 0 0 5 5L22 9l-2-2-2.3 2.3-2-2L18 5l-2-2-2.3 2.3a4 4 0 0 0 1 1z\"/><path d=\"M15 9 4 20l-1-1L14 8\"/>", "plant": "<path d=\"M7 20h10M12 20v-8\"/><path d=\"M12 12c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5z\"/>", "tooth": "<path d=\"M12 5.5C10 3.5 6 3 4.5 5.5S4 11 5.5 13s1.5 8 3 8 1.5-5 3.5-5 2 5 3.5 5 1.5-6 3-8 2.5-5 1-7.5S14 3.5 12 5.5z\"/>", "glasses": "<circle cx=\"6.5\" cy=\"15\" r=\"3.5\"/><circle cx=\"17.5\" cy=\"15\" r=\"3.5\"/><path d=\"M10 15h4M3 15 5 6h2M21 15l-2-9h-2\"/>", "sofa": "<path d=\"M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3\"/><path d=\"M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zM5 19v2M19 19v2\"/>", "washer": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><circle cx=\"12\" cy=\"13\" r=\"4.5\"/><path d=\"M8 6.5h.01M11 6.5h3\"/>", "flame": "<path d=\"M12 22c4 0 7-2.8 7-6.5 0-3-2-5.5-3.5-7 0 2-1 3.5-2.5 3.5C13 9 13 5 9.5 2c.5 3-1.5 5-3 7S5 12.5 5 15.5C5 19.2 8 22 12 22z\"/>", "piggy": "<path d=\"M19 9.5c1 0 2 .8 2 2M5 11.5C5 7.9 8.1 5 12 5c1.6 0 3.1.5 4.3 1.3L19 5v4c.6.8 1 1.5 1 2.5H21v3h-1.5c-.6 1.3-1.6 2.3-2.9 3V20h-3v-1.6a8 8 0 0 1-3.2 0V20h-3v-2.2C5.9 16.6 5 14.2 5 11.5z\"/><path d=\"M15.5 10h.01M3 10c0 1 .8 2 2 2\"/>", "church": "<path d=\"M12 2v4M10 4h4M6 21V11l6-5 6 5v10M3 21h18M10 21v-4a2 2 0 0 1 4 0v4\"/>", "run": "<circle cx=\"14\" cy=\"4.5\" r=\"2\"/><path d=\"M7 21l3-6 3 2v5M5 12l3-4 4-.5 3 3.5 3 1M10.5 15 9.5 9\"/>", "necessities": "<ellipse cx=\"9\" cy=\"7\" rx=\"5\" ry=\"3\"/><path d=\"M4 7v10c0 1.7 2.2 3 5 3s5-1.3 5-3V7\"/><path d=\"M14 9.5h5.5a.5.5 0 0 1 .5.5v9.5l-1.5-1-1.5 1-1.5-1-1.5 1\"/><circle cx=\"9\" cy=\"7\" r=\"1\"/>", "pot": "<path d=\"M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z\"/><path d=\"M2 11h2M20 11h2M6.5 8h11M12 5.5V8\"/>", "pulse": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/><path d=\"M5.5 12.5h3l1.5-2.5 2 5 1.5-2.5h5\"/>", "plug": "<path d=\"M9 2v5M15 2v5\"/><path d=\"M6 7h12v4a6 6 0 0 1-12 0z\"/><path d=\"M12 17v5\"/>", "key": "<circle cx=\"8\" cy=\"15\" r=\"4.5\"/><path d=\"M11.2 11.8 20 3M16.5 6.5l3 3M14 9l2.5 2.5\"/>", "bill": "<path d=\"M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z\"/><path d=\"M14 2v6h6\"/><path d=\"M12 10.5v8M14.2 12.3h-3a1.6 1.6 0 0 0 0 3.2h1.6a1.6 1.6 0 0 1 0 3.2H9.8\"/>", "voucher": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M9.5 14.5l5-5\"/><circle cx=\"9.5\" cy=\"9.8\" r=\".9\"/><circle cx=\"14.5\" cy=\"14.2\" r=\".9\"/>"};
 window.CAT_ICON_KEYS=["voucher", "bill", "key", "plug", "pulse", "pot", "necessities", "food", "coffee", "drink", "cart", "bag", "car", "bus", "train", "plane", "house", "building", "bolt", "droplet", "phone", "wifi", "heart", "medical", "pill", "film", "gamepad", "music", "gift", "education", "shirt", "dumbbell", "paw", "scissors", "sparkles", "umbrella", "briefcase", "wallet", "coins", "card", "repeat", "noodles", "pizza", "icecream", "bread", "cake", "apple", "fish", "meat", "beer", "bike", "fuel", "parking", "ship", "bed", "ticket", "camera", "laptop", "headphones", "baby", "tools", "plant", "tooth", "glasses", "sofa", "washer", "flame", "trash", "piggy", "church", "run", "tag", "dots"];
 window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="ic'+(cls?' '+cls:'')+'" viewBox="0 0 24 24" aria-hidden="true"'+(style?' style="'+style+'"':'')+'>'+p+'</svg>';};
 </script>
@@ -1420,7 +1502,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
       <svg class="ic ic-o" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg><svg class="ic ic-f" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5 2.5h14a.5.5 0 0 1 .5.5v18.2l-2.8-1.8-2.4 1.6L12 19.4l-2.3 1.6-2.4-1.6-2.8 1.8V3a.5.5 0 0 1 .5-.5zM8.5 7.2v1.6h7V7.2zm0 4v1.6h7v-1.6zm0 4v1.6h4v-1.6z"/></svg>
       Records
     </div>
-    <div class="tab-slot"><button class="tab-scan-btn" id="fab-scan" onclick="openScanReceipt()" aria-label="Scan receipt"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg></button></div>
+    <div class="tab-slot"><button class="tab-scan-btn" id="fab-scan" onclick="openAddMenu()" aria-label="Add"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width:2.3"><path d="M12 5v14M5 12h14"/></svg></button></div>
     <div class="tab" role="button" aria-label="Balance" onclick="switchTab('settle',this)">
       <svg class="ic ic-o" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><rect x="5" y="11" width="3" height="7" rx="1"/><rect x="10.5" y="5" width="3" height="13" rx="1"/><rect x="16" y="8" width="3" height="10" rx="1"/></svg><svg class="ic ic-f" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.6" y="10.5" width="3.8" height="8.5" rx="1.2"/><rect x="10.1" y="4.5" width="3.8" height="14.5" rx="1.2"/><rect x="15.6" y="7.5" width="3.8" height="11.5" rx="1.2"/><rect x="2.5" y="20.2" width="19" height="1.8" rx=".9"/></svg>
       Balance
@@ -1434,6 +1516,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
 
 <button class="fab" id="fab" onclick="openAddFlow(null,true)" aria-label="Add"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true" style="stroke-width:2.4"><path d="M12 5v14M5 12h14"/></svg></button>
 <input type="file" id="scan-photo-input" accept="image/*,application/pdf" style="display:none" onchange="handleScanPhoto(this)">
+<input type="file" id="scan-camera-input" accept="image/*" capture="environment" style="display:none" onchange="handleScanPhoto(this)">
 <input type="file" id="bank-stmt-input" accept="image/*,application/pdf,.csv,text/csv" style="display:none" onchange="handleBankStmt(this)">
 <div class="toast" id="toast"></div>
 <div id="pull-refresh" hidden></div>
@@ -1772,19 +1855,6 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   </div>
 </div>
 
-<div class="overlay" id="sheet-ai-cat-review">
-  <div class="sheet">
-    <div class="sheet-handle"></div>
-    <div class="sheet-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>AI category review</div>
-    <div id="ai-cat-review-body" style="padding:0 16px;overflow-y:auto;max-height:65vh"></div>
-    <div style="padding:12px;display:flex;gap:8px" id="ai-cat-review-actions">
-      <button onclick="closeSheet('sheet-ai-cat-review')" style="flex:1;padding:13px;border-radius:var(--radius-sm);background:rgba(var(--ov),0.077);color:var(--text-2);font-size:15px;font-weight:600">Close</button>
-      <button id="ai-cat-primary-btn" style="flex:2;padding:13px;border-radius:var(--radius-sm);background:var(--accent);color:var(--on-accent);font-size:15px;font-weight:700">Start analysis</button>
-    </div>
-    <div style="height:8px"></div>
-  </div>
-</div>
-
 <!-- Bank Statement Sheet -->
 <div class="overlay" id="sheet-bank-stmt">
   <div class="sheet sheet-wide" style="max-height:96dvh">
@@ -1845,7 +1915,8 @@ import { initializeApp, getApps } from 'https://www.gstatic.com/firebasejs/10.12
 import {
   getFirestore, initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
   collection, doc, addDoc, setDoc, updateDoc, deleteDoc, getDoc,
-  getDocs, onSnapshot, query, orderBy, where, writeBatch, serverTimestamp, limit, runTransaction
+  getDocs, onSnapshot, query, orderBy, where, writeBatch, serverTimestamp, limit, runTransaction,
+  deleteField, FieldPath, documentId
 } from 'https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js';
 
 // ════════════════════════════════════════════════
@@ -2141,34 +2212,76 @@ async function fetchFxYahoo(currency,date){
   }
 }
 
-async function ensureFxRateForDate(currency,date,{force=false,quiet=true}={}){
+// ── Exchange rates ──────────────────────────────────────────────
+// Rates are stored as "1 unit of X = n AUD" per date (cfg.fxRates[date][X]) and cross-computed for other bases.
+// They're shared through Firestore (ledgers/shared-ledger/meta/fx), filled daily by the GitHub job and
+// topped up by any device, so phones rarely need to call a rate service — and never wait long when they do.
+const FX_ANCHOR=SHARED_LEDGER_BASE_CURRENCY; // AUD
+const fxDoc=()=>doc(db,'ledgers',SHARED_LEDGER_ID,'meta','fx');
+let _fxPending={}, _fxPushT=null;
+function queueFxShare(date,cur,rate){
+  ((_fxPending[date]||(_fxPending[date]={})))[cur]=Number(rate);
+  clearTimeout(_fxPushT);
+  _fxPushT=setTimeout(()=>{ if(!db) return; const rates=_fxPending; _fxPending={}; setDoc(fxDoc(),{rates,updatedAt:serverTimestamp()},{merge:true}).catch(e=>console.warn('fx share',e)); },1500);
+}
+// nearest stored AUD rate on or before `date`, at most `maxDays` earlier (covers weekends/holidays)
+function nearRawFx(cur,date,maxDays=5){
+  for(let i=0;i<=maxDays;i++){ const d=isoDate(new Date(new Date(date+'T12:00:00').getTime()-i*864e5)); const r=cfg.fxRates?.[d]?.[cur]; if(r!=null&&Number(r)>0) return Number(r); }
+  return null;
+}
+async function fetchRawFx(cur,date){
+  // X → AUD for this date; Frankfurter first (fast, CORS-friendly), then Yahoo
+  if(frankfurterSupported(cur)){
+    const r=await fetchWithTimeout(`https://api.frankfurter.app/${date}?from=${cur}&to=${FX_ANCHOR}`,{},3000);
+    if(r.ok){ const j=await r.json(); const v=Number(j?.rates?.[FX_ANCHOR]); if(v>0) return {rate:v,source:'frankfurter',sourceDate:j.date||date}; }
+  }
+  const pair=`${yahooCurrency(cur)}${FX_ANCHOR}=X`, t0=Math.floor(new Date(date+'T00:00:00Z').getTime()/1000)-4*86400, t1=t0+6*86400;
+  const url=`https://query1.finance.yahoo.com/v8/finance/chart/${pair}?interval=1d&period1=${t0}&period2=${t1}`;
+  const read=async u=>{ const r=await fetchWithTimeout(u,{},3500); const j=await r.json(); const res=j?.chart?.result?.[0]; const ts=res?.timestamp||[], cl=res?.indicators?.quote?.[0]?.close||[];
+    let best=null; ts.forEach((t,i)=>{ const d=isoDate(new Date(t*1000)); if(cl[i]>0&&d<=date) best={rate:Number(cl[i]),source:'yahoo',sourceDate:d}; }); if(!best) throw 0; return best; };
+  return await Promise.any([read(url),read(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`)]);
+}
+async function ensureRawFx(cur,date,force){
+  if(cur===FX_ANCHOR) return;
+  if(!force&&cfg.fxRates?.[date]?.[cur]!=null) return;
+  // use a recent stored rate straight away for past dates; only today/new dates need a lookup
+  if(!force&&date<isoDate()&&nearRawFx(cur,date,4)!=null) return;
+  try{
+    const out=await fetchRawFx(cur,date);
+    setFxRateForDate(cur,date,out.rate,out); queueFxShare(date,cur,out.rate);
+    cfg.fxLastUpdated=isoDate(); saveCfg();
+  }catch(e){ console.warn('FX lookup failed',cur,date); }
+}
+async function ensureFxRateForDate(currency,date,{force=false,quiet=true,maxWaitMs=2500}={}){
   currency=(currency||baseCur()).toUpperCase();
   date=date||isoDate();
   if(currency===baseCur()) return 1;
-  if(!force && cfg.fxRates?.[date]?.[currency]!=null){
-    const cached=Number(cfg.fxRates[date][currency]);
-    if(Number.isFinite(cached) && cached>0) return cached;
-  }
-
-  try{
-    let out;
-    try{ out=await fetchFxFrankfurter(currency,date); }
-    catch(e){ out=await fetchFxYahoo(currency,date); }
-    const rate=Number(out?.rate);
-    if(!Number.isFinite(rate) || rate<=0) throw new Error('Invalid FX rate');
-    setFxRateForDate(currency,date,rate,out);
-    cfg.fxLastUpdated=isoDate();
-    saveCfg();
-    return rate;
-  }catch(e){
-    console.warn('Dated FX fetch failed',currency,date,e);
-    if(!quiet) showToast('Rate update failed — using saved rates');
-    const fallback=Number(fxRateForDate(currency,date));
-    if(Number.isFinite(fallback) && fallback>0) return fallback;
-    return 1;
-  }
+  const need=[currency,baseCur()].filter(c=>c!==FX_ANCHOR);
+  // never keep the user waiting: give the lookup a short window, then fall back to the nearest stored rate
+  await Promise.race([Promise.all(need.map(c=>ensureRawFx(c,date,force))),new Promise(r=>setTimeout(r,maxWaitMs))]);
+  const rate=Number(fxRateForDate(currency,date));
+  return Number.isFinite(rate)&&rate>0?rate:1;
 }
-
+// Load the shared rate table once (1 read), then make sure today's rates exist (one call for all currencies)
+async function syncFxRates(){
+  if(!db) return;
+  try{
+    const snap=await getDoc(fxDoc());
+    const rates=snap.exists()?(snap.data().rates||{}):{};
+    cfg.fxRates=cfg.fxRates||{};
+    Object.entries(rates).forEach(([d,m])=>{ cfg.fxRates[d]={...(cfg.fxRates[d]||{}),...m}; });
+    saveCfg();
+  }catch(e){ console.warn('fx load',e); }
+  const today=isoDate(), have=c=>nearRawFx(c,today,3)!=null;
+  const fxCurs=CURRENCIES.filter(c=>c!==FX_ANCHOR&&frankfurterSupported(c));
+  if(fxCurs.every(have)) return;
+  try{
+    const r=await fetchWithTimeout(`https://api.frankfurter.app/latest?from=${FX_ANCHOR}&to=${fxCurs.join(',')}`,{},5000);
+    const j=await r.json(); const d=j.date||today;
+    Object.entries(j.rates||{}).forEach(([c,v])=>{ if(Number(v)>0){ const raw=1/Number(v); setFxRateForDate(c,d,raw,{source:'frankfurter',sourceDate:d}); queueFxShare(d,c,raw); } });
+    cfg.fxLastUpdated=today; saveCfg();
+  }catch(e){ console.warn('fx latest',e); }
+}
 
 function toBase(amount, currency, date){
   return amount * fxRateForDate(currency, date);
@@ -2477,6 +2590,7 @@ async function saveSharedMeta(){
 }
 
 function applyRemoteMeta(data={}){
+  if(data.bundlesReady&&typeof data.bundlesReady==='object') cfg.bundlesReady=data.bundlesReady;
   // Firebase meta/config is the only source of truth for people/categories.
   cfg.people = cleanMetaPeople(Array.isArray(data.people) ? data.people : []);
   cfg.categories = cleanMetaCategories(Array.isArray(data.categories) ? data.categories : []);
@@ -2604,6 +2718,7 @@ async function initFb(config){
     setSyncDot(navigator.onLine?'pending':'offline');
     try{ await syncSharedMeta(); }catch(e){ console.warn('Meta sync deferred (offline?)',e); }
     subscribeToMeta();
+    syncFxRates();
     setSyncDot(navigator.onLine?'ok':'offline');
     subscribeToTx();
     return true;
@@ -2621,6 +2736,7 @@ function subscribeToTx(){
   const cached=loadTxLocalCache(ledgerId);
   txs=cached.length ? cached : [];
   renderAll();
+  if(bundlesReady(ledgerId)){ subscribeToBundles(ledgerId); return; }
   const q=query(ledgerCol(), orderBy('date','desc'), limit(TX_LIST_LIMIT));
   unsub=onSnapshot(q, snap=>{
     // Always merge with existing local cache — never drop old records not in this snapshot
@@ -2639,6 +2755,34 @@ function subscribeToTx(){
     renderAll();
     setSyncDot('ok');
   }, err=>{ console.error(err); setSyncDot('err'); });
+}
+
+function subscribeToBundles(ledgerId){
+  const now=new Date(), keys=[-2,-1,0,1,2].map(k=>{ const d=new Date(now.getFullYear(),now.getMonth()+k,1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; });
+  const curKey=keys[2]; let healed=false;
+  const unsubs=keys.map(key=>onSnapshot(bundleRef(ledgerId,key),snap=>{
+    if(ledgerId!==currentLedgerId()) return;
+    // replace this month's records with the bundle's (covers adds, edits and deletes from any device)
+    const fresh=snap.exists()?bundleList(snap,ledgerId):[];
+    txs=sortTxList(mergeTxLists((txs||[]).filter(t=>monthKeyOf(t.date)!==key),fresh));
+    saveTxLocalCache(ledgerId, txs, isLedgerFullyCached(ledgerId));
+    renderAll(); setSyncDot('ok');
+    // self-check: if this month's count disagrees with the stats (e.g. a device on an older app version added a record), rebuild just this month
+    if(key===curKey&&!healed){ healed=true; healBundleMonth(ledgerId,key,fresh); }
+  },err=>{ console.error(err); setSyncDot('err'); }));
+  unsub=()=>unsubs.forEach(f=>f());
+}
+async function healBundleMonth(lid,key,fresh){
+  try{
+    const st=statsForLedger(lid).month?.[key];
+    const n=fresh.filter(t=>t.status==='completed'&&t.type==='expense').length;
+    if(!st||Number(st.count||0)===n) return;
+    const [y,m]=key.split('-').map(Number), end=`${key}-${String(new Date(y,m,0).getDate()).padStart(2,'0')}`;
+    const snap=await getDocs(query(ledgerCol(),where('date','>=',`${key}-01`),where('date','<=',end)));
+    const tx={}; snap.docs.forEach(d=>{ tx[d.id]=bundleRecord({...d.data(),ledgerId:lid}); });
+    await setDoc(bundleRef(lid,key),{tx,builtAt:serverTimestamp()});
+    console.info('bundle repaired',key,snap.size);
+  }catch(e){ console.warn('bundle heal',e); }
 }
 
 const UTILITY_CATEGORY_ID='cat-utility';
@@ -2752,6 +2896,8 @@ function applyTxToStats(tx, sign=1, ledgerId=currentLedgerId()){
       const users=Array.isArray(tx.usedByPersonIds)?tx.usedByPersonIds:[];
       const share=users.length?amt/users.length:0;
       users.forEach(pid=>{ const b=personBucket(scope,pid); if(b) b.used=Number(b.used||0)+share; });
+      // per-person spend by category (powers By person and the budget bars without reading records)
+      if(tx.categoryId&&users.length){ if(!scope.pc) scope.pc={}; users.forEach(pid=>{ if(!scope.pc[pid]) scope.pc[pid]={}; addNum(scope.pc[pid],tx.categoryId,share); }); }
     } else if(tx.type==='transfer'){
       const from=personBucket(scope,tx.fromPersonId); if(from) from.transferOut=Number(from.transferOut||0)+amt;
       const to=personBucket(scope,tx.toPersonId); if(to) to.transferIn=Number(to.transferIn||0)+amt;
@@ -2885,6 +3031,7 @@ function catsByPersonFromList(list){
   return result;
 }
 function catsByPersonForPeriod(){
+  if(statsMode==='month'){ const st=pcFromStats([`${statsPeriod.getFullYear()}-${String(statsPeriod.getMonth()+1).padStart(2,'0')}`]); if(st) return st; }
   const ledgerId=currentLedgerId();
   const prefix=statsMode==='month'
     ?`${statsPeriod.getFullYear()}-${String(statsPeriod.getMonth()+1).padStart(2,'0')}`
@@ -2897,12 +3044,29 @@ function catsByPersonForPeriod(){
   return catsByPersonFromList(list);
 }
 
+// Per-person category totals for these months, straight from the stats document (no record reads).
+// Returns null if the stats were built before these totals existed.
+function pcFromStats(keys){
+  const st=statsForLedger(currentLedgerId()), out={};
+  for(const k of keys){
+    const m=st.month?.[k]; if(!m||!Number(m.count)) continue;
+    if(!m.pc) return null;
+    Object.entries(m.pc).forEach(([pid,cats])=>Object.entries(cats||{}).forEach(([c,v])=>{
+      if(summaryExcludeRent&&c==='cat-rent') return;
+      if(Math.abs(Number(v))<0.005) return;
+      (out[pid]||(out[pid]={}))[c]=(out[pid][c]||0)+Number(v);
+    }));
+  }
+  return out;
+}
 // Budget = each person's average spend per category over the 3 months before monthKey ("YYYY-MM")
 const _budgetLoading=new Set();
 function budgetsForMonth(monthKey){
   if(!monthKey) return null;
   const [y,m]=monthKey.split('-').map(Number);
   const keys=[1,2,3].map(k=>{ const d=new Date(y,m-1-k,1); return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}`; });
+  const fromStats=pcFromStats(keys);
+  if(fromStats){ const out={}; Object.entries(fromStats).forEach(([pid,cats])=>{ out[pid]={}; Object.entries(cats).forEach(([c,v])=>{ out[pid][c]=v/3; }); }); return out; }
   const years=[...new Set(keys.map(k=>k.slice(0,4)))];
   const lid=currentLedgerId();
   const missing=years.filter(yr=>!_yearTxsCache[`${lid}:${yr}`]);
@@ -2962,6 +3126,7 @@ const _yearTxsCache={};
 async function ensureYearTxs(year){
   const key=`${currentLedgerId()}:${year}`;
   if(_yearTxsCache[key]) return _yearTxsCache[key];
+  if(bundlesReady()){ _yearTxsCache[key]=await txsFromBundles(currentLedgerId(),`${year}-01`,`${year}-12`); return _yearTxsCache[key]; }
   const snap=await getDocs(query(ledgerCol(),where('date','>=',`${year}-01-01`),where('date','<=',`${year}-12-31`),orderBy('date','desc')));
   _yearTxsCache[key]=snap.docs.map(d=>({id:d.id,...d.data()}));
   return _yearTxsCache[key];
@@ -2994,6 +3159,70 @@ async function persistStats(){
   fire(updateDoc(sharedMetaDoc(), payload).catch(()=>setDoc(sharedMetaDoc(), payload, {merge:true})),'stats update');
 }
 
+// ════════════════════════════════════════════════
+// MONTHLY BUNDLES — ledgers/shared-ledger/meta/bundle-YYYY-MM = { tx: { recordId: record } }
+// (kept under meta/ because the Firestore rules only allow that folder; only the shared ledger uses bundles —
+//  the trip ledgers are small and keep reading records directly)
+// Every record is also kept here, so the app reads one document per month instead of one per record.
+// The individual records stay the source of truth (Rebuild stats rebuilds the bundles from them).
+// ════════════════════════════════════════════════
+const bundleRef=(lid,key)=>doc(db,'ledgers',lid,'meta','bundle-'+key);
+const BUNDLE_LEDGERS=new Set([SHARED_LEDGER_ID]);
+const usesBundles=lid=>BUNDLE_LEDGERS.has(lid);
+const monthKeyOf=d=>String(d||'').slice(0,7);
+function bundlesReady(lid=currentLedgerId()){ return usesBundles(lid)&&!!cfg.bundlesReady?.[lid]; }
+function bundleRecord(rec){ const r={...rec}; delete r.id; return stripUndefined(r); }
+function bundlePut(lid,id,rec){
+  const key=monthKeyOf(rec.date); if(!usesBundles(lid)||!/^\d{4}-\d{2}$/.test(key)) return;
+  const ref=bundleRef(lid,key), val=bundleRecord(rec);
+  fire(updateDoc(ref,new FieldPath('tx',id),val).catch(()=>setDoc(ref,{tx:{[id]:val}},{merge:true})),'bundle');
+}
+function bundleDel(lid,id,date){
+  const key=monthKeyOf(date); if(!usesBundles(lid)||!/^\d{4}-\d{2}$/.test(key)) return;
+  fire(updateDoc(bundleRef(lid,key),new FieldPath('tx',id),deleteField()).catch(()=>{}),'bundle');
+}
+const bundleList=(snapDoc,lid)=>Object.entries(snapDoc.data()?.tx||{}).map(([id,r])=>({id,...r,ledgerId:lid}));
+// all records for these months, from bundles (one read per month)
+async function txsFromBundles(lid,fromKey,toKey){
+  const q=query(collection(db,'ledgers',lid,'meta'),where(documentId(),'>=','bundle-'+fromKey),where(documentId(),'<=','bundle-'+toKey));
+  const snap=await getDocs(q);
+  return snap.docs.flatMap(d=>bundleList(d,lid));
+}
+// Build every bundle for a ledger from its records (one full read), remove stale months, mark the ledger ready
+async function rebuildBundles(lid,all){
+  const byMonth={};
+  all.forEach(t=>{ const k=monthKeyOf(t.date); if(/^\d{4}-\d{2}$/.test(k)) (byMonth[k]||(byMonth[k]={}))[t.id]=bundleRecord(t); });
+  if(!usesBundles(lid)) return 0;
+  const existing=(await getDocs(query(collection(db,'ledgers',lid,'meta'),where(documentId(),'>=','bundle-0000-00'),where(documentId(),'<=','bundle-9999-99')))).docs.map(d=>d.id.slice(7));
+  let batch=writeBatch(db), n=0;
+  const flush=async()=>{ if(n){ await batch.commit(); batch=writeBatch(db); n=0; } };
+  for(const [k,tx] of Object.entries(byMonth)){ batch.set(bundleRef(lid,k),{tx,builtAt:serverTimestamp()}); if(++n>=200) await flush(); }
+  for(const k of existing) if(!byMonth[k]){ batch.delete(bundleRef(lid,k)); if(++n>=200) await flush(); }
+  await flush();
+  cfg.bundlesReady={...(cfg.bundlesReady||{}),[lid]:Date.now()}; saveCfg();
+  await setDoc(sharedMetaDoc(),{bundlesReady:{[lid]:Date.now()}},{merge:true});
+  return Object.keys(byMonth).length;
+}
+// One-off setup / repair for every ledger: read all records once, rebuild stats (incl. per-person totals) and bundles.
+// check=true only compares the rebuilt stats with the saved ones and writes nothing.
+window.rebuildAllBundles=async function(check=false){
+  const out={};
+  for(const l of cfg.ledgers.filter(x=>x&&x.id)){
+    const snap=await getDocs(collection(db,'ledgers',l.id,'transactions'));
+    const all=snap.docs.map(d=>({id:d.id,...d.data(),ledgerId:l.id}));
+    const old=ledgerStats[l.id]||makeEmptyStats();
+    const fresh=makeEmptyStats(); const keep=ledgerStats[l.id]; ledgerStats[l.id]=fresh;
+    all.forEach(t=>applyTxToStats(t,+1,l.id));
+    const diffs=[...new Set([...Object.keys(old.month||{}),...Object.keys(fresh.month||{})])].filter(k=>Math.abs(Number(old.month?.[k]?.total||0)-Number(fresh.month?.[k]?.total||0))>0.01||Number(old.month?.[k]?.count||0)!==Number(fresh.month?.[k]?.count||0)).map(k=>`${k}: ${Number(old.month?.[k]?.total||0).toFixed(2)}/${old.month?.[k]?.count||0} → ${Number(fresh.month?.[k]?.total||0).toFixed(2)}/${fresh.month?.[k]?.count||0}`);
+    out[l.id]={records:all.length,statDiffs:diffs};
+    if(check){ ledgerStats[l.id]=keep; continue; }
+    fresh.rebuiltAt=isoDate();
+    if(usesBundles(l.id)) out[l.id].months=await rebuildBundles(l.id,all);
+  }
+  if(!check){ await persistStats(); subscribeToTx(); renderAll(); }
+  return out;
+};
+
 async function fbAdd(data){
   if(!db){showToast('Connect Firebase first');return false;}
   if(isLedgerArchived()){ showToast('This ledger is archived — you can’t add transactions'); return false; }
@@ -3002,6 +3231,7 @@ async function fbAdd(data){
   saved._created=serverTimestamp();
   const ref=doc(ledgerCol());
   fire(setDoc(ref,saved),'new record');
+  bundlePut(ledgerId,ref.id,saved);
   const localTx={id:ref.id,...data,ledgerId,_created:Date.now()};
   upsertLocalTx(localTx, ledgerId);
   applyTxToStats(localTx,+1,ledgerId);
@@ -3031,6 +3261,8 @@ async function fbSet(id,data){
   else if(createdMs) saved._created=new Date(createdMs);
   if(old?._imported) saved._imported=true;
   fire(setDoc(ledgerDoc(id),saved),'record edit');
+  if(old&&monthKeyOf(old.date)!==monthKeyOf(saved.date)) bundleDel(ledgerId,id,old.date);
+  bundlePut(ledgerId,id,saved);
   const localTx={id,...data,ledgerId,_updated:Date.now()};
   if(old?._created!=null) localTx._created=old._created;
   if(old?._imported) localTx._imported=true;
@@ -3045,6 +3277,7 @@ async function fbDel(id){
   const ledgerId=currentLedgerId();
   const old=txs.find(t=>t.id===id);
   fire(deleteDoc(ledgerDoc(id)),'delete');
+  if(old) bundleDel(ledgerId,id,old.date);
   if(old){ applyTxToStats(old,-1,ledgerId); await persistStats(); }
   removeLocalTx(id, ledgerId);
   renderHistoryStay();
@@ -3057,8 +3290,14 @@ async function rebuildLedgerStats(mode){
   const ledgerId=currentLedgerId();
   setSyncDot('pending');
   try{
-    const snap=await getDocs(query(ledgerCol(), orderBy('date','desc')));
-    const all=sortTxList(snap.docs.map(d=>({id:d.id,...d.data(),ledgerId})));
+    let all;
+    if(!isRebuild&&bundlesReady(ledgerId)) all=sortTxList(await txsFromBundles(ledgerId,'0000-00','9999-99'));
+    else {
+      const snap=await getDocs(query(ledgerCol(), orderBy('date','desc')));
+      all=sortTxList(snap.docs.map(d=>({id:d.id,...d.data(),ledgerId})));
+      if(isRebuild&&usesBundles(ledgerId)) await rebuildBundles(ledgerId,all);
+    }
+    const snap={size:all.length};
     txs=all;
     saveTxLocalCache(ledgerId, all, true);
     ledgerStats[ledgerId]=makeEmptyStats();
@@ -3675,8 +3914,11 @@ function renderDetailChips(){
     const hint=document.getElementById('d-repeat-hint');
     if(hint){
       const d=document.getElementById('d-date')?.value||flowData.date||isoDate();
-      const endTxt=flowData.repeatEnd==='date'&&document.getElementById('d-repeat-until')?.value?` until ${fmtDate(document.getElementById('d-repeat-until').value)}`:flowData.repeatEnd==='count'?`, ${Math.max(1,Number(document.getElementById('d-repeat-count')?.value)||1)} times in total`:'';
-      hint.innerHTML=flowData.repeat?`Repeats ${RECUR_FREQ[flowData.repeat].toLowerCase()} from ${fmtDate(d)}${endTxt} · next ${fmtDate(addPeriod(d,flowData.repeat))}.`+(flowData.paidById==='__ask'?`<br>You’ll be asked who paid on the Summary page each time it’s due.`:''):'';
+      const z=_zh(), untilV=document.getElementById('d-repeat-until')?.value, cnt=Math.max(1,Number(document.getElementById('d-repeat-count')?.value)||1);
+      const endTxt=flowData.repeatEnd==='date'&&untilV?(z?`，至 ${fmtDate(untilV)}`:` until ${fmtDate(untilV)}`):flowData.repeatEnd==='count'?(z?`，共 ${cnt} 次`:`, ${cnt} times in total`):'';
+      const nextD=fmtDate(addPeriod(d,flowData.repeat));
+      hint.innerHTML=flowData.repeat?(z?`由 ${fmtDate(d)} 起${freqLabel(flowData.repeat)}重複${endTxt} · 下次 ${nextD}。`:`Repeats ${RECUR_FREQ[flowData.repeat].toLowerCase()} from ${fmtDate(d)}${endTxt} · next ${nextD}.`)
+        +(flowData.paidById==='__ask'?(z?'<br>每次到期時，會喺總覽頁問你邊個付款。':'<br>You’ll be asked who paid on the Summary page each time it’s due.'):''):'';
     }
   }
 
@@ -3824,7 +4066,7 @@ window.saveTx=async function(){
   if(btn){ btn.disabled=true; btn.textContent=editTxId?'Updating…':'Saving…'; }
   // any check that stops the save must give the button back
   const fail=msg=>{ if(btn){ btn.disabled=false; btn.textContent=editTxId?'Update':'Save'; } showToast(msg); };
-  let rate=await ensureFxRateForDate(npCur,date,{force:false,quiet:false});
+  let rate=await ensureFxRateForDate(npCur,date);
   rate=Number(rate);
   if(!Number.isFinite(rate) || rate<=0) rate=1;
   const baseAmt=Number((v*rate).toFixed(6));
@@ -4098,8 +4340,10 @@ async function ensureFilteredHistoryLoaded(){
     if(filters.dateTo) parts.push(where('date','<=',filters.dateTo));
     parts.push(orderBy('date','desc'));
     parts.push(limit(1500));
-    const snap=await getDocs(query(ledgerCol(), ...parts));
-    const incoming=snap.docs.map(d=>({id:d.id,...d.data()}));
+    let incoming;
+    if(bundlesReady()) incoming=(await txsFromBundles(currentLedgerId(),filters.dateFrom?monthKeyOf(filters.dateFrom):'0000-00',filters.dateTo?monthKeyOf(filters.dateTo):'9999-99'))
+      .filter(t=>(!filters.dateFrom||t.date>=filters.dateFrom)&&(!filters.dateTo||t.date<=filters.dateTo));
+    else { const snap=await getDocs(query(ledgerCol(), ...parts)); incoming=snap.docs.map(d=>({id:d.id,...d.data()})); }
     const byId=new Map((txs||[]).map(t=>[t.id,t]));
     incoming.forEach(t=>byId.set(t.id,t));
     txs=sortTxList([...byId.values()]);
@@ -4409,7 +4653,7 @@ function renderTxCard(t){
   const createdMs=txMillis(t._created), updatedMs=txMillis(t._updated);
   const badges=[];
   if(t.status==='scheduled') badges.push(`<span class="lbl-badge">${t._virtual?'Upcoming':'Scheduled'}</span>`);
-  if(t.recurringRuleId) badges.push('<span class="lbl-badge blue">Recurring</span>');
+  if(t.recurringRuleId) badges.push('<span class="lbl-badge recur">Recurring</span>');
   if(t._imported) badges.push('<span class="lbl-badge">Imported</span>');
   const hero=badges.length?`<div class="tx-x-badges">${badges.join('')}</div>`:'';
   let rows='';
@@ -4436,7 +4680,7 @@ function renderTxCard(t){
   }
   if(t.shop) rows+=row('bag','Shop',escapeHtml(String(t.shop)));
   if(t.remark) rows+=row('note','Note',escapeHtml(String(t.remark)));
-  if(t.recurringRuleId) rows+=row('repeat','Repeats',(RECUR_FREQ[t.recurringFreq]||'Recurring'));
+  if(t.recurringRuleId) rows+=row('repeat','Repeats',(freqLabel(t.recurringFreq)||(_zh()?'定期':'Recurring')));
   if(!t._virtual) rows+=row('clock','Added',createdMs?fmtStamp(createdMs):'<span class="muted">Not recorded (older entry)</span>');
   if(updatedMs) rows+=row('edit','Edited',fmtStamp(updatedMs));
   const detail=`<div class="tx-expand" id="${expandId}" onclick="event.stopPropagation()">
@@ -4723,9 +4967,12 @@ function ruleCanOccur(r,date,done){
   if(r.endCount && (done||0)>=r.endCount) return false;
   return true;
 }
+const _zh=()=>window.UI_LANG==='zh';
+const FREQ_ZH={weekly:'每週',fortnightly:'每兩週',every28:'每 28 日',monthly:'每月',yearly:'每年'};
+const freqLabel=f=>_zh()?(FREQ_ZH[f]||''):(RECUR_FREQ[f]||'');
 function ruleEndText(r){
-  if(r.endDate) return `until ${fmtDate(r.endDate)}`;
-  if(r.endCount) return `${r.done||0}/${r.endCount} times`;
+  if(r.endDate) return _zh()?`至 ${fmtDate(r.endDate)}`:`until ${fmtDate(r.endDate)}`;
+  if(r.endCount) return _zh()?`${r.done||0}/${r.endCount} 次`:`${r.done||0}/${r.endCount} times`;
   return '';
 }
 async function mutateRecurring(mutator){
@@ -4887,7 +5134,7 @@ function renderDuePanel(){
       return `<div class="due-item">
         <div class="due-top">
           <div class="due-ic" style="background:${col}22;color:${col}">${catIcon(r.categoryId)}</div>
-          <div class="due-main"><div class="due-name">${escapeHtml(r.itemName||'Recurring')}</div><div class="due-sub">${fmtDate(d)} · ${RECUR_FREQ[r.freq]||''}</div></div>
+          <div class="due-main"><div class="due-name">${escapeHtml(r.itemName||'Recurring')}</div><div class="due-sub">${fmtDate(d)} · ${freqLabel(r.freq)}</div></div>
           <div class="due-amt">${r.currency!==baseCur()?r.currency+' ':''}${fmt(r.amount,r.currency)}</div>
         </div>
         ${(()=>{ const key=r.id+'|'+d; const sp=dueSplit[key];
@@ -4930,23 +5177,76 @@ function renderRecurringList(){
   const lid=currentLedgerId();
   const list=recurringRules.filter(r=>r.ledgerId===lid);
   if(!list.length){ box.innerHTML=`<div class="settings-row"><span class="settings-lbl" style="color:var(--text-2)">No recurring expenses yet. Turn on “Repeat” when adding an expense.</span></div>`; return; }
-  box.innerHTML=list.map(r=>{
-    const paused=r.active===false;
-    const payer=r.paidByPersonId?personName(r.paidByPersonId):'Ask when due';
-    const pend=(r.pending||[]).length;
-    return `<div class="rec-row${paused?' paused':''}">
-      <div class="due-ic" style="background:${catColor(r.categoryId)}22;color:${catColor(r.categoryId)}">${catIcon(r.categoryId)}</div>
-      <div class="rec-main"><div class="rec-name">${escapeHtml(r.itemName||'Recurring')}</div>
-        <div class="rec-sub">${RECUR_FREQ[r.freq]||''}${ruleEndText(r)?' · '+ruleEndText(r):''} · ${r.ended?'Ended':paused?'Paused':'Next '+fmtDate(r.nextDue)} · ${escapeHtml(payer)}${pend?` · <span style="color:var(--orange)">${pend} pending</span>`:''}</div></div>
-      <div class="rec-amt">${r.currency!==baseCur()?r.currency+' ':''}${fmt(r.amount,r.currency)}</div>
-      <div class="rec-actions">
-        <button class="entity-mini-btn" style="color:var(--accent)" onclick="openRecurringEdit('${r.id}')">${ic('edit')} Edit</button>
-        <button class="entity-mini-btn" style="color:var(--accent)" onclick="toggleRecurringActive('${r.id}')">${paused?'Resume':'Pause'}</button>
-        <button class="entity-mini-btn" style="color:var(--red)" onclick="deleteRecurring('${r.id}')">Delete</button>
+  const z=_zh();
+  const row=r=>{
+    const off=r.active===false||r.ended;
+    const payer=r.paidByPersonId?personName(r.paidByPersonId):(z?'到期時再問':'Ask when due');
+    const pend=(r.pending||[]).length, col=catColor(r.categoryId);
+    const when=r.ended?(z?'已結束':'Ended'):r.active===false?(z?'已暫停':'Paused'):`${z?'下次':'Next'} ${fmtDate(r.nextDue)}`;
+    const open=_recOpen===r.id;
+    const dl=(k,v)=>`<div class="rcx-dl"><span>${k}</span><b>${v}</b></div>`;
+    const detail=`<div class="rcx-x${open?' open':''}" id="rcx-x-${r.id}" onclick="event.stopPropagation()">
+        ${dl(z?'金額':'Amount',`${r.currency} ${fmt(r.amount,r.currency)}${r.currency!==baseCur()?` <small>≈ ${baseCur()} ${fmtBase(Number(r.amount||0)*Number(fxRateForDate(r.currency,isoDate())||1))}</small>`:''}`)}
+        ${dl(z?'種類':'Category',`${catIcon(r.categoryId,true)} ${escapeHtml(catName(r.categoryId))}`)}
+        ${dl(z?'付款人':'Paid by',escapeHtml(payer))}
+        ${dl(z?'使用者':'Used by',escapeHtml((r.usedByPersonIds||[]).map(personName).join(', ')||'—'))}
+        ${dl(z?'重複':'Repeats',freqLabel(r.freq))}
+        ${dl(z?'下次日期':'Next date',r.ended?'—':fmtDateLong(r.nextDue))}
+        ${dl(z?'結束':'Ends',ruleEndText(r)||(z?'不會結束':'Never'))}
+        ${r.remark?dl(z?'備註':'Note',escapeHtml(r.remark)):''}
+        <div class="rcx-btns">
+          <button class="tx-btn tx-btn-edit" onclick="openRecurringEdit('${r.id}')">${ic('edit')}${z?'編輯':'Edit'}</button>
+          ${r.ended?'':`<button class="tx-btn tx-btn-dup" onclick="toggleRecurringActive('${r.id}')">${r.active===false?(z?'繼續':'Resume'):(z?'暫停':'Pause')}</button>`}
+          <button class="tx-btn tx-btn-del" onclick="deleteRecurring('${r.id}')">${ic('trash')}${z?'刪除':'Delete'}</button>
+        </div>
+      </div>`;
+    return `<div class="rcx-wrap${open?' open':''}"><div class="rcx${off?' off':''}" onclick="toggleRecurringRow('${r.id}')">
+      <div class="rcx-ic" style="background:${col}22;color:${col}">${catIcon(r.categoryId)}</div>
+      <div class="rcx-main">
+        <div class="rcx-top"><span class="rec-name">${escapeHtml(r.itemName||'Recurring')}</span>${pend?`<span class="rcx-pend">${pend} ${z?'待處理':'due'}</span>`:''}</div>
+        <div class="rcx-sub"><span class="rcx-freq">${freqLabel(r.freq)}</span><span>${escapeHtml(payer)}</span>${ruleEndText(r)?`<span>${ruleEndText(r)}</span>`:''}</div>
+        <div class="rcx-when${off?'':' on'}">${when}</div>
       </div>
-    </div>`;
-  }).join('');
+      <div class="rcx-amt">${r.currency!==baseCur()?`<small>${r.currency}</small>`:''}${fmt(r.amount,r.currency)}</div>
+      <svg class="ic rcx-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
+    </div>${detail}</div>`;
+  };
+  const active=list.filter(r=>r.active!==false&&!r.ended).sort((a,b)=>String(a.nextDue).localeCompare(String(b.nextDue)));
+  const off=list.filter(r=>r.active===false||r.ended);
+  // monthly equivalent of everything still running, in the ledger's currency
+  const perMonth={weekly:52/12,fortnightly:26/12,every28:365/28/12,monthly:1,yearly:1/12};
+  const monthly=active.reduce((a,r)=>a+Number(r.amount||0)*(perMonth[r.freq]||1)*Number(fxRateForDate(r.currency||baseCur(),isoDate())||1),0);
+  box.innerHTML=`<div class="rcx-sum"><div><span>${z?'每月約':'About per month'}</span><b>${baseCur()} ${fmtBase(monthly)}</b></div><div><span>${z?'進行中':'Active'}</span><b>${active.length}</b></div></div>`
+    +(active.length?`<div class="rcx-list">${active.map(row).join('')}</div>`:'')
+    +(off.length?`<div class="rcx-hd">${z?'已暫停 / 已結束':'Paused & ended'}</div><div class="rcx-list">${off.map(row).join('')}</div>`:'');
 }
+let _recOpen=null;
+window.toggleRecurringRow=function(id){
+  const prev=_recOpen; _recOpen=prev===id?null:id;
+  const close=pid=>{ const x=document.getElementById('rcx-x-'+pid); if(!x) return; const w=x.parentElement; if(!x.animate||_reduceMotion()){ x.classList.remove('open'); w.classList.remove('open'); return; }
+    const h=x.offsetHeight; x.style.overflow='hidden'; x.animate([{height:h+'px'},{height:'0px',paddingTop:'0px',paddingBottom:'0px'}],{duration:220,easing:'cubic-bezier(.4,0,.2,1)'}).onfinish=()=>{ x.classList.remove('open'); w.classList.remove('open'); x.style.overflow=''; }; };
+  if(prev) close(prev);
+  if(_recOpen){ const x=document.getElementById('rcx-x-'+_recOpen); if(!x) return; x.parentElement.classList.add('open'); x.classList.add('open');
+    if(x.animate&&!_reduceMotion()){ const h=x.offsetHeight, cs=getComputedStyle(x); x.style.overflow='hidden';
+      x.animate([{height:'0px',paddingTop:'0px',paddingBottom:'0px'},{height:h+'px',paddingTop:cs.paddingTop,paddingBottom:cs.paddingBottom}],{duration:340,easing:'cubic-bezier(.32,.72,0,1)'}).onfinish=()=>{ x.style.overflow=''; };
+      [...x.children].forEach((c,i)=>c.animate([{opacity:0,transform:'translateY(5px)'},{opacity:1,transform:'none'}],{duration:280,delay:50+i*20,easing:'cubic-bezier(.32,.72,0,1)',fill:'backwards'})); }
+    if(navigator.vibrate) navigator.vibrate(5);
+  }
+};
+window.recurringActions=function(id){
+  const r=recurringRules.find(x=>x.id===id); if(!r) return;
+  const z=_zh(), paused=r.active===false;
+  const {ov,close}=pickerShell(`<div class="ent-menu"><div class="ent-menu-title">${escapeHtml(r.itemName||'Recurring')}</div>
+    <button data-a="edit"><svg class="ic" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>${z?'編輯':'Edit'}</button>
+    ${r.ended?'':`<button data-a="toggle"><svg class="ic" viewBox="0 0 24 24">${paused?'<path d="M8 5v14l11-7z"/>':'<path d="M8 5v14M16 5v14"/>'}</svg>${paused?(z?'繼續':'Resume'):(z?'暫停':'Pause')}</button>`}
+    <button data-a="del" class="danger"><svg class="ic" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>${z?'刪除':'Delete'}</button>
+    <button data-a="cancel" class="cancel">${z?'取消':'Cancel'}</button></div>`);
+  ov.addEventListener('click',ev=>{ const b=ev.target.closest('[data-a]'); if(!b) return; close(); const a=b.dataset.a;
+    if(a==='edit') setTimeout(()=>openRecurringEdit(id),120);
+    if(a==='toggle') toggleRecurringActive(id);
+    if(a==='del') setTimeout(()=>deleteRecurring(id),120);
+  });
+};
 
 // ── Edit a recurring rule (future occurrences only) ──
 let recEdit=null;
@@ -5410,6 +5710,8 @@ function renderTrend(body){
 }
 window.selectTrendCat=function(id){ keepTrendAnchor(()=>{ trendCat=id; window._trendKeepScroll=true; renderSummary(); }); };
 function trendByPersonHtml(sel){
+  const fromStats=pcFromStats([sel.key]);
+  if(fromStats) return renderByPersonCats(fromStats,sel.key)||`<div class="card" style="padding:16px;text-align:center;color:var(--text-3);font-size:13px">No spending this month</div>`;
   const yk=`${currentLedgerId()}:${sel.y}`;
   if(!_yearTxsCache[yk]){ ensureYearTxs(sel.y).then(()=>{ keepTrendAnchor(()=>{ window._trendKeepScroll=true; renderSummary(); }); }).catch(()=>{}); }
   const list=(_yearTxsCache[yk]||txs||[]).filter(t=>String(t.date||'').startsWith(sel.key));
@@ -5579,7 +5881,7 @@ async function fetchQuote(sym){
     const ts=twelveSymbol(sym);
     const qs=new URLSearchParams({symbol:ts.symbol,apikey:cfg.stockApiKey}); if(ts.exchange) qs.set('exchange',ts.exchange);
     const r=await fetchWithTimeout(`https://api.twelvedata.com/eod?${qs}`,{},8000); const j=await r.json();
-    if(j&&Number(j.close)>0) return {price:Number(j.close),currency:String(j.currency||'USD').toUpperCase(),name:sym,closeDate:j.datetime||'',at:Date.now(),src:'twelvedata'};
+    if(j&&Number(j.close)>0) return {price:Number(j.close),currency:String(j.currency||(ts.symbol.includes('/')?ts.symbol.split('/')[1]:'USD')).toUpperCase(),name:sym,closeDate:j.datetime||'',at:Date.now(),src:'twelvedata'};
     throw new Error(j?.message||'No price for '+sym);
   }
   throw new Error('No price for '+sym);
@@ -5618,10 +5920,10 @@ function renderAssetsSection(){
   const people=ASSET_PEOPLE.filter(id=>cfg.people.some(p=>p.id===id));
   if(!people.length) return '';
   const syms=allAssetSymbols();
-  const dates=syms.map(s=>assetData.prices?.[s]?.closeDate).filter(Boolean).sort();
-  const asOf=dates.length?fmtDateShort(dates[dates.length-1]):'';
   let h=`<div class="sec-label sec-split"><span>Assets</span><span class="asset-cur-pick" onclick="pickAssetCur()">${aCur()} <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></div>`;
-  if(syms.length) h+=`<div class="asset-prices"><span>${_priceBusy?'Updating prices…':asOf?`Closing prices · ${asOf}`:'Prices not loaded yet'}</span><button onclick="refreshAssetPrices(true)" ${_priceBusy?'disabled':''}>${ic('refresh')} Refresh</button></div>`;
+  // when prices were last fetched (GitHub job or this device)
+  const lastAt=Math.max(Number(assetData.pricesAt)||0,...syms.map(x=>Number(assetData.prices?.[x]?.at)||0));
+  if(syms.length&&lastAt) h+=`<div class="asset-prices"><span>Last updated ${new Date(lastAt).toLocaleString(window.UI_LANG==='zh'?'zh-HK':'en-AU',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'})}</span></div>`;
   people.forEach(pid=>{
     const list=assetList(pid), total=list.reduce((s,a)=>s+assetValue(a),0);
     h+=`<div class="card asset-card">
@@ -5804,11 +6106,6 @@ function renderSettings(){
         <span class="settings-lbl" style="flex:1">Reconcile bank statement</span>
         <span class="settings-arrow">›</span>
       </div>
-      <div class="settings-row" onclick="openAiCatReview()" style="cursor:pointer;border-top:.5px solid var(--sep)">
-        <span class="row-ic blue">${ic('search')}</span>
-        <span class="settings-lbl" style="flex:1">AI category review</span>
-        <span class="settings-arrow">›</span>
-      </div>
     </div>
 
     <div class="sec-label">Data</div>
@@ -5821,13 +6118,6 @@ function renderSettings(){
       <div class="settings-row" onclick="rebuildLedgerStats('stats')" style="cursor:pointer"><span class="row-ic orange">${ic('refresh')}</span><span class="settings-lbl" style="flex:1">Rebuild stats</span><span class="settings-arrow">›</span></div>
     </div>
     <input id="excel-import-input" type="file" accept=".xlsx,.xls,.csv" style="display:none" onchange="handleExcelImport(this)">
-
-    <div class="sec-label">Exchange rates</div>
-    <div class="card">
-      <div class="settings-row"><span class="settings-lbl">Rate source</span><span class="settings-val">Frankfurter / Yahoo</span></div>
-      <div class="settings-row"><span class="settings-lbl">Last updated</span><span class="settings-val">${cfg.fxLastUpdated||'Never'}</span></div>
-    </div>
-    <div style="padding:0 0 8px"><button id="fx-update-btn" onclick="downloadFxRates()" class="btn-secondary" style="${btnStyle}">Update rates now</button></div>
 
     <div class="sec-label">Connections</div>
     <div class="card" style="margin-bottom:8px">
@@ -5852,7 +6142,7 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.8.24</div>
+      <div>v1.8.38</div>
       <div>Last updated: 2026-11-13</div>
     </div>
   `;
@@ -6370,10 +6660,12 @@ async function importRows(rows){
   let batch=writeBatch(db), n=0, batchN=0;
   for(const tx of txsToImport){
     const saved={...tx,_created:serverTimestamp(),_imported:true};
-    batch.set(doc(ledgerCol()), saved);
+    const ref=doc(ledgerCol());
+    batch.set(ref, saved);
+    if(usesBundles(currentLedgerId())&&/^\d{4}-\d{2}$/.test(monthKeyOf(saved.date))) batch.set(bundleRef(currentLedgerId(),monthKeyOf(saved.date)),{tx:{[ref.id]:bundleRecord({...saved,ledgerId:currentLedgerId()})}},{merge:true});
     applyTxToStats(saved,+1,currentLedgerId());
-    n++; batchN++;
-    if(batchN>=450){ await batch.commit(); batch=writeBatch(db); batchN=0; }
+    n++; batchN+=2;
+    if(batchN>=440){ await batch.commit(); batch=writeBatch(db); batchN=0; }
   }
   if(batchN) await batch.commit();
   saveCfg(); await persistStats(); await saveSharedMeta(); subscribeToTx(); renderSettings(); renderDetailChips();
@@ -6794,116 +7086,81 @@ Object.assign(window, {
       if(Math.abs(owed.v)<0.005) hi--;
     }
 
-    const f=v=>`${bc} ${fmt(v,bc)}`;
-    // Amount cell: show base currency; if foreign, show "(CUR amount)" after
-    const fxAmt=(t)=>{
-      const base=`${bc} ${fmt(t.baseAmount,bc)}`;
-      return t.currency!==bc ? `${base}<br><span class="fx">(${t.currency} ${fmt(t.amount,t.currency)})</span>` : base;
-    };
-    const dateLabel=`${dateFrom||'—'} → ${dateTo||'—'}`;
-    const generatedAt=new Date().toLocaleString();
+    const f=v=>fmt(v,bc);
+    const esc=escapeHtml;
+    const nice=d=>d?new Date(d+'T00:00:00').toLocaleDateString(window.UI_LANG==='zh'?'zh-HK':'en-AU',{day:'numeric',month:'short',year:'numeric'}):'—';
+    const short=d=>d?new Date(d+'T00:00:00').toLocaleDateString(window.UI_LANG==='zh'?'zh-HK':'en-AU',{day:'2-digit',month:'short'}):'';
+    // totals by person
+    const people=cfg.people.filter(p=>{ const d=personStats[p.id]; return d&&(Math.abs(d.paid)>0.005||Math.abs(d.used)>0.005); });
+    const personRows=people.map(p=>{ const d=personStats[p.id], net=Math.round((d.paid-d.used)*100)/100;
+      return `<tr><td>${esc(p.name)}</td><td class="r">${f(d.paid)}</td><td class="r">${f(d.used)}</td><td class="r b">${net>0?'+':''}${f(net)}</td></tr>`; }).join('');
+    const sumPaid=people.reduce((a,p)=>a+personStats[p.id].paid,0), sumUsed=people.reduce((a,p)=>a+personStats[p.id].used,0);
+    // entries (expenses and transfers), oldest first
+    const entryRows=all.map(t=>{
+      const amt=`${f(t.baseAmount)}${t.currency!==bc?`<span class="fx"> ${t.currency} ${fmt(t.amount,t.currency)}</span>`:''}`;
+      if(t.type==='transfer') return `<tr class="tr"><td>${short(t.date)}</td><td>Transfer${t.remark?' · '+esc(t.remark):''}</td><td>${esc(personName(t.fromPersonId))}</td><td>${esc(personName(t.toPersonId))}</td><td class="r">${amt}</td></tr>`;
+      return `<tr><td>${short(t.date)}</td><td>${esc(t.itemName||'—')}</td><td>${esc(personName(t.paidByPersonId))}</td><td>${esc((t.usedByPersonIds||[]).map(personName).join(', '))}</td><td class="r">${amt}</td></tr>`;
+    }).join('')||'<tr><td colspan="5" class="none">No records in this period</td></tr>';
 
-    const personRows=cfg.people.map(p=>{
-      const d=personStats[p.id]||{paid:0,used:0};
-      const net=Math.round((d.paid-d.used)*100)/100;
-      return `<tr>
-        <td>${p.name}</td>
-        <td class="num">${f(d.paid)}</td>
-        <td class="num">${f(d.used)}</td>
-        <td class="num ${net>0?'pos':net<0?'neg':''}">${net>=0?'+':''}${f(net)}</td>
-      </tr>`;
-    }).join('');
-
-    const settleRows=settlements.length
-      ? settlements.map(s=>`<tr><td>${personName(s.from)}</td><td class="arr">→</td><td>${personName(s.to)}</td><td class="num">${f(s.amount)}</td></tr>`).join('')
-      : `<tr><td colspan="4" class="empty">All settled</td></tr>`;
-
-    const txRows=all.map(t=>{
-      if(t.type==='transfer'){
-        return `<tr>
-          <td>${t.date||''}</td>
-          <td>Transfer</td>
-          <td>${personName(t.fromPersonId)} → ${personName(t.toPersonId)}</td>
-          <td></td>
-          <td>${t.remark||''}</td>
-          <td class="num">${fxAmt(t)}</td>
-        </tr>`;
-      }
-      return `<tr>
-        <td>${t.date||''}</td>
-        <td>${catName(t.categoryId)}</td>
-        <td>${t.itemName||''}</td>
-        <td>${personName(t.paidByPersonId)}</td>
-        <td>${(t.usedByPersonIds||[]).map(personName).join(', ')}${t.remark?`<br><span class="remark">${t.remark}</span>`:''}</td>
-        <td class="num">${fxAmt(t)}</td>
-      </tr>`;
-    }).join('');
-
-    const html=`<!DOCTYPE html><html><head><meta charset="utf-8">
-<title>${ledger.name} — ${dateLabel}</title>
+    const html=`<div class="rp">
 <style>
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:sans-serif;font-size:12px;color:#111;background:#fff;padding:32px}
-  h1{font-size:22px;font-weight:800;margin-bottom:4px}
-  .meta{font-size:11px;color:#888;margin-bottom:24px}
-  h2{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:#555;margin:28px 0 8px;border-bottom:1.5px solid #e0e0e0;padding-bottom:5px}
-  .hero{margin-bottom:24px}
-  .hero-lbl{font-size:11px;color:#888;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
-  .hero-num{font-size:34px;font-weight:800;letter-spacing:-1px}
-  table{width:100%;border-collapse:collapse;font-size:11.5px}
-  th{background:#f5f5f7;font-weight:700;text-align:left;padding:7px 9px;font-size:10.5px;text-transform:uppercase;letter-spacing:.4px;color:#666;border-bottom:1.5px solid #ddd}
-  td{padding:6px 9px;border-bottom:1px solid #f0f0f0;vertical-align:top;line-height:1.4}
-  tr:last-child td{border-bottom:none}
-  .num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
-  .pos{color:#1a8f50;font-weight:700}
-  .neg{color:#d42b2b;font-weight:700}
-  .arr{text-align:center;color:#bbb}
-  .empty{text-align:center;color:#888;padding:12px}
-  .fx{color:#888;font-size:10px}
-  .remark{color:#888;font-size:10px}
-  .page-break{page-break-before:always;margin-top:0}
-  @media print{body{padding:18px}}
-</style></head><body>
-<h1>${ledger.name}</h1>
-<div class="meta">${dateLabel} &nbsp;&nbsp; Generated ${generatedAt}</div>
+.rp,.rp *{box-sizing:border-box;margin:0;padding:0}
+.rp{width:794px;background:#fff;color:#111;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue','PingFang HK','Noto Sans TC',sans-serif;font-size:10.5px;line-height:1.35;padding:28px 34px 24px}
+.rp-hd{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1.5px solid #111;padding-bottom:6px}
+.rp-hd b{font-size:16px;letter-spacing:-.2px}
+.rp-hd span{color:#555}
+.rp h2{font-size:9px;letter-spacing:1.2px;text-transform:uppercase;color:#555;font-weight:700;margin:14px 0 4px}
+.rp table{width:100%;border-collapse:collapse}
+.rp th{font-size:8.5px;letter-spacing:.6px;text-transform:uppercase;color:#666;font-weight:700;text-align:left;padding:3px 5px;border-bottom:1px solid #111}
+.rp td{padding:3px 5px;border-bottom:.5px solid #ddd;vertical-align:top}
+.rp tr{break-inside:avoid;page-break-inside:avoid}
+.rp .r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rp .b{font-weight:700}
+.rp .tot td{border-top:1px solid #111;border-bottom:none;font-weight:700}
+.rp .fx{color:#777;font-size:9px}
+.rp .tr td{color:#666;font-style:italic}
+.rp .none{text-align:center;color:#777;padding:8px}
+.rp-ppl{width:62%!important}
+.rp-ent td:nth-child(1){width:52px;white-space:nowrap;color:#555}
+.rp-ent td:nth-child(3){width:70px}
+.rp-ent td:nth-child(4){width:150px}
+.rp-ft{margin-top:10px;font-size:8.5px;color:#888;display:flex;justify-content:space-between}
+</style>
+<div class="rp-hd"><b>${esc(ledger.name||'Ledger')}</b><span>${esc(nice(dateFrom))} – ${esc(nice(dateTo))} · ${bc}</span></div>
+<h2>Total by person</h2>
+<table class="rp-ppl"><tr><th>Person</th><th class="r">Paid</th><th class="r">Used</th><th class="r">Net</th></tr>${personRows}<tr class="tot"><td>Total</td><td class="r">${f(sumPaid)}</td><td class="r">${f(sumUsed)}</td><td></td></tr></table>
+<h2>Entries · ${all.length}</h2>
+<table class="rp-ent"><tr><th>Date</th><th>Item</th><th>Paid by</th><th>Used by</th><th class="r">Amount</th></tr>${entryRows}<tr class="tot"><td colspan="4">Total spending</td><td class="r">${f(totalExp)}</td></tr></table>
+<div class="rp-ft"><span>${esc(ledger.name||'')}</span><span>Generated ${esc(new Date().toLocaleString(window.UI_LANG==='zh'?'zh-HK':'en-AU'))}</span></div>
+</div>`;
 
-<div class="hero">
-  <div class="hero-lbl">Total Expenses</div>
-  <div class="hero-num">${f(totalExp)}</div>
-</div>
-
-<h2>Summary by Person</h2>
-<table>
-  <thead><tr><th>Name</th><th class="num">Paid</th><th class="num">Used</th><th class="num">Balance</th></tr></thead>
-  <tbody>${personRows}</tbody>
-</table>
-
-<h2>Suggested Payments</h2>
-<table>
-  <thead><tr><th>From</th><th></th><th>To</th><th class="num">Amount</th></tr></thead>
-  <tbody>${settleRows}</tbody>
-</table>
-
-<div class="page-break"></div>
-<h2>Transactions (${all.length})</h2>
-<table>
-  <thead><tr><th>Date</th><th>Category</th><th>Item</th><th>Paid by</th><th>Used by</th><th class="num">Amount (${bc})</th></tr></thead>
-  <tbody>${txRows}</tbody>
-</table>
-
-</body></html>`;
-
-    closeSheet('sheet-pdf-export');
-    let iframe=document.getElementById('pdf-print-frame');
-    if(iframe) iframe.remove();
-    iframe=document.createElement('iframe');
-    iframe.id='pdf-print-frame';
-    iframe.style.cssText='position:fixed;top:-9999px;left:-9999px;width:1px;height:1px;border:none';
-    document.body.appendChild(iframe);
-    const doc=iframe.contentDocument||iframe.contentWindow.document;
-    doc.open(); doc.write(html); doc.close();
-    iframe.contentWindow.focus();
-    iframe.contentWindow.print();
+    // Build a real PDF file (no print dialog): render offscreen, convert with html2pdf, then share or download
+    showToast('Creating PDF…');
+    try{
+      if(!window.html2pdf){
+        await new Promise((res,rej)=>{ const sc=document.createElement('script'); sc.src='https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js'; sc.onload=res; sc.onerror=()=>rej(new Error('Could not load the PDF maker')); document.head.appendChild(sc); });
+      }
+      const holder=document.createElement('div');
+      holder.style.cssText='position:fixed;left:-10000px;top:0;width:794px;background:#fff;z-index:-1';
+      holder.innerHTML=html; document.body.appendChild(holder);
+      const name=`${String(ledger.name||'Ledger').replace(/[\\/:*?"<>|]+/g,'-')} ${dateFrom||''}${dateTo?' to '+dateTo:''}.pdf`.replace(/\s+/g,' ').trim();
+      const blob=await window.html2pdf().set({
+        margin:[6,0,8,0], filename:name, image:{type:'jpeg',quality:0.95},
+        html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff',windowWidth:794},
+        jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+        pagebreak:{mode:['css','legacy'],avoid:['.rp tr']}
+      }).from(holder.firstElementChild).outputPdf('blob');
+      holder.remove();
+      closeSheet('sheet-pdf-export');
+      const file=new File([blob],name,{type:'application/pdf'});
+      if(navigator.canShare&&navigator.canShare({files:[file]})){
+        try{ await navigator.share({files:[file],title:name}); return; }catch(e){ if(e?.name==='AbortError') return; }
+      }
+      const url=URL.createObjectURL(blob), a=document.createElement('a');
+      a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),30000);
+      showToast('PDF saved');
+    }catch(e){ console.error('PDF export',e); showToast('Couldn’t create the PDF: '+(e?.message||e)); }
   };
 
   // ── SCAN RECEIPT ──────────────────────────────
@@ -6912,13 +7169,42 @@ Object.assign(window, {
   let scanSharedPaidById='';
   let scanSharedCurrency=baseCur();
 
-  window.openScanReceipt=function(){
+  // + in the bottom bar → iOS-style menu that rises from the button
+  window.openAddMenu=function(){
+    if(document.getElementById('add-menu')) return closeAddMenu();
+    const z=window.UI_LANG==='zh', btn=document.getElementById('fab-scan'), r=btn.getBoundingClientRect();
+    const ov=document.createElement('div'); ov.id='add-menu'; ov.className='am-ov';
+    const item=(a,ico,t,sub)=>`<button data-a="${a}"><span class="am-ic">${ico}</span><span class="am-tx"><b>${t}</b></span></button>`;
+    ov.innerHTML=`<div class="am" style="left:${Math.round(r.left+r.width/2)}px;bottom:${Math.round(innerHeight-r.top+12)}px">
+      ${item('camera','<svg class="ic" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>',z?'影相':'Take photo',z?'用相機掃描收據':'Scan a receipt with the camera')}
+      ${item('library','<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-9 9"/></svg>',z?'選擇相片':'Choose photo',z?'由相簿或檔案掃描':'Scan from your photos or files')}
+      ${item('manual','<svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',z?'手動新增':'Add manually',z?'輸入金額及詳情':'Type the amount and details')}
+    </div>`;
+    document.body.appendChild(ov);
+    btn.classList.add('am-open');
+    requestAnimationFrame(()=>ov.classList.add('open'));
+    if(navigator.vibrate) navigator.vibrate(6);
+    ov.addEventListener('click',e=>{
+      const b=e.target.closest('[data-a]'); closeAddMenu(); if(!b) return;
+      const a=b.dataset.a;
+      if(a==='camera') openScanReceipt('camera');
+      if(a==='library') openScanReceipt('library');
+      if(a==='manual') setTimeout(()=>openAddFlow(null,true),150);
+    });
+  };
+  window.closeAddMenu=function(){
+    const ov=document.getElementById('add-menu'); if(!ov) return;
+    document.getElementById('fab-scan')?.classList.remove('am-open');
+    ov.classList.remove('open'); setTimeout(()=>ov.remove(),220);
+  };
+  window.openScanReceipt=function(mode){
     const keyFromInput=document.getElementById('gemini-key-input')?.value?.trim();
     if(keyFromInput){ cfg.geminiApiKey=keyFromInput; saveCfg(); }
     if(!cfg.geminiApiKey){ showToast('Add a Gemini API key in Settings first (aistudio.google.com/apikey)'); return; }
-    document.getElementById('scan-photo-input').value='';
+    const inp=document.getElementById(mode==='camera'?'scan-camera-input':'scan-photo-input');
+    inp.value='';
     scanSharedCurrency=baseCur();
-    document.getElementById('scan-photo-input').click();
+    inp.click();
   };
 
   window.handleScanPhoto=async function(input){
@@ -7191,142 +7477,6 @@ Items: ${JSON.stringify(items)}`;
     if(saved) setTimeout(()=>flyToRecords(`${ic('receipt')} ${saved} item${saved>1?'s':''}`,scanFrom),120);
     if(btn){ btn.disabled=false; btn.textContent='Save selected'; }
   };
-
-  // ════════════════════════════════════════════════
-  // AI CATEGORY REVIEW
-  // ════════════════════════════════════════════════
-
-  let aiCatSuggestions=[];
-  let aiCatFetchedTxs=[];
-
-  function aiCatDefaultPeriod(){
-    const now=new Date();
-    const y=now.getFullYear(), m=String(now.getMonth()+1).padStart(2,'0');
-    const last=new Date(y,now.getMonth()+1,0).getDate();
-    return {from:`${y}-${m}-01`, to:`${y}-${m}-${last}`};
-  }
-
-  window.openAiCatReview=function(){
-    if(!cfg.geminiApiKey){ showToast('Add a Gemini API key in Settings first'); return; }
-    if(!db){ showToast('Connect Firebase first'); return; }
-    const {from,to}=aiCatDefaultPeriod();
-    const body=document.getElementById('ai-cat-review-body');
-    const btn=document.getElementById('ai-cat-primary-btn');
-    body.innerHTML=`
-      <div style="padding:12px 0 8px">
-        <div class="form-row" style="padding:0 0 12px">
-          <label class="form-label">Start date</label>
-          <input type="date" id="ai-cat-from" class="form-control" value="${from}" style="text-align:right">
-        </div>
-        <div class="form-row" style="padding:0">
-          <label class="form-label">End date</label>
-          <input type="date" id="ai-cat-to" class="form-control" value="${to}" style="text-align:right">
-        </div>
-      </div>`;
-    btn.textContent='Start analysis';
-    btn.onclick=runAiCatReview;
-    btn.disabled=false;
-    openSheet('sheet-ai-cat-review');
-  };
-
-  async function runAiCatReview(){
-    const fromVal=document.getElementById('ai-cat-from')?.value;
-    const toVal=document.getElementById('ai-cat-to')?.value;
-    if(!fromVal||!toVal){ showToast('Choose a date range'); return; }
-    const body=document.getElementById('ai-cat-review-body');
-    const btn=document.getElementById('ai-cat-primary-btn');
-    body.innerHTML=`<div class="scan-spinner">${ic('loader')}</div><div style="text-align:center;color:var(--text-2);font-size:13px;padding-bottom:16px">Loading data…</div>`;
-    btn.disabled=true;
-    let aiLog='';
-    try{
-      const snap=await getDocs(query(ledgerCol(),where('date','>=',fromVal),where('date','<=',toVal),orderBy('date','desc')));
-      aiCatFetchedTxs=snap.docs.map(d=>({id:d.id,...d.data()})).filter(t=>t.status==='completed'&&t.type==='expense');
-      if(!aiCatFetchedTxs.length){
-        body.innerHTML=`<div class="empty"><div class="empty-icon">${ic('clipboard')}</div>No expenses in this period</div>`;
-        btn.textContent='Start analysis'; btn.onclick=runAiCatReview; btn.disabled=false;
-        return;
-      }
-      body.innerHTML=`<div class="scan-spinner">${ic('loader')}</div><div style="text-align:center;color:var(--text-2);font-size:13px;padding-bottom:16px">AI is analysing ${aiCatFetchedTxs.length} records…</div>`;
-      const catList=cfg.categories.map(c=>c.name).join(', ');
-      const txList=aiCatFetchedTxs.map(t=>({id:t.id,name:t.itemName||'',category:catName(t.categoryId),remark:t.remark||''}));
-      const prompt=`You are a financial categorization assistant. Review these expense transactions and identify any that seem miscategorized.
-Available categories: ${catList}.
-Transactions (JSON): ${JSON.stringify(txList)}
-For each transaction with a WRONG category, suggest the correct one. Only flag transactions where you are confident. Review every transaction in the list. There is no limit on input or output length: include every item, never truncate, summarise or stop early, however long the list is.
-Return ONLY a JSON array (empty [] if all correct): [{"id":"txId","suggestedCategory":"CategoryName"}]`;
-      const resp=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${cfg.geminiApiKey}`,{
-        method:'POST',headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0}})
-      },120000);
-      const respText=await resp.text();
-      aiLog='HTTP '+resp.status+'\n'+respText;
-      if(!resp.ok) throw new Error('Gemini error '+resp.status);
-      const j=JSON.parse(respText);
-      const raw=geminiText(j);
-      const m=raw.match(/\[[\s\S]*\]/);
-      const suggestions=m?JSON.parse(m[0]):[];
-      aiCatSuggestions=suggestions.map(s=>{
-        const tx=aiCatFetchedTxs.find(t=>t.id===s.id);
-        if(!tx) return null;
-        const sugCat=cfg.categories.find(c=>c.name.toLowerCase()===String(s.suggestedCategory||'').toLowerCase());
-        if(!sugCat||sugCat.id===tx.categoryId) return null;
-        return {txId:tx.id,txName:tx.itemName||'',txDate:tx.date||'',currentCatId:tx.categoryId,suggestedCatId:sugCat.id,accepted:true};
-      }).filter(Boolean);
-      renderAiCatReview();
-      btn.textContent='Apply selected changes'; btn.onclick=applyAiCatSuggestions; btn.disabled=false;
-    }catch(e){
-      console.error(e);
-      body.innerHTML=renderAiError('Analysis failed',e,aiLog);
-      btn.textContent='Retry'; btn.onclick=runAiCatReview; btn.disabled=false;
-    }
-  }
-
-  function renderAiCatReview(){
-    const body=document.getElementById('ai-cat-review-body');
-    if(!aiCatSuggestions.length){
-      body.innerHTML=`<div class="empty"><div class="empty-icon" style="color:var(--green)">${ic('checkCircle')}</div><div>Categories look right — nothing to change</div></div>`;
-      return;
-    }
-    body.innerHTML=`<div style="font-size:12px;color:var(--text-2);padding:10px 0 4px">AI suggests ${aiCatSuggestions.length} changes:</div>`+
-      aiCatSuggestions.map((s,i)=>`
-        <div style="background:var(--surface-solid);border-radius:14px;padding:12px 14px;margin-bottom:10px;box-shadow:var(--card-shadow)">
-          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px">
-            <div style="min-width:0;flex:1">
-              <div style="font-size:14px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${escapeHtml(s.txName)||'—'}</div>
-              <div style="font-size:12px;color:var(--text-2);margin-top:2px">${s.txDate}</div>
-            </div>
-            <label class="toggle-switch" style="flex-shrink:0;margin-left:12px">
-              <input type="checkbox" ${s.accepted?'checked':''} onchange="toggleAiCatSuggestion(${i},this.checked)">
-              <span class="toggle-track"></span>
-            </label>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px;font-size:13px;flex-wrap:wrap;margin-top:8px">
-            <span style="padding:4px 10px;border-radius:8px;background:${catColor(s.currentCatId)}18;color:${catColor(s.currentCatId)};font-weight:700">${catIcon(s.currentCatId)} ${catName(s.currentCatId)}</span>
-            <span style="color:var(--text-3)">→</span>
-            <span style="padding:4px 10px;border-radius:8px;background:${catColor(s.suggestedCatId)}18;color:${catColor(s.suggestedCatId)};font-weight:700">${catIcon(s.suggestedCatId)} ${catName(s.suggestedCatId)}</span>
-          </div>
-        </div>`).join('');
-  }
-
-  window.toggleAiCatSuggestion=function(i,accepted){ if(aiCatSuggestions[i]) aiCatSuggestions[i].accepted=accepted; };
-
-  async function applyAiCatSuggestions(){
-    const toApply=aiCatSuggestions.filter(s=>s.accepted);
-    if(!toApply.length){ showToast('No changes selected'); return; }
-    const btn=document.getElementById('ai-cat-primary-btn');
-    if(btn){ btn.disabled=true; btn.textContent='Applying…'; }
-    let applied=0;
-    for(const s of toApply){
-      try{
-        const tx=aiCatFetchedTxs.find(t=>t.id===s.txId);
-        if(!tx) continue;
-        await fbSet(s.txId,{...tx,categoryId:s.suggestedCatId});
-        applied++;
-      }catch(e){ console.error('applyAiCatSuggestions',e); }
-    }
-    closeSheet('sheet-ai-cat-review');
-    showToast(`Updated ${applied} categories`);
-  }
 
   // ════════════════════════════════════════════════
   // BANK STATEMENT RECONCILIATION
