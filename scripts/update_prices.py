@@ -25,6 +25,7 @@ PROJECT = os.environ.get("FIREBASE_PROJECT_ID", "").strip()
 API_KEY = os.environ.get("FIREBASE_API_KEY", "").strip()
 DRY = os.environ.get("DRY_RUN") == "1"
 DOC = "ledgers/shared-ledger/meta/assets"
+CASH = {"AUD", "HKD", "USD", "JPY", "NTD", "TWD", "CNY", "GBP", "EUR", "SGD", "NZD", "CAD", "CHF", "KRW", "MYR", "THB"}
 UA = {"User-Agent": "Mozilla/5.0 (ledger price updater)"}
 
 
@@ -94,7 +95,7 @@ def tickers(doc):
         for a in items or []:
             for h in a.get("holdings") or []:
                 s = norm(h.get("symbol") or h.get("name"))
-                if s:
+                if s and s not in CASH:  # currency codes are cash, valued with FX in the app
                     out.add(s)
     return sorted(out)
 
@@ -111,13 +112,21 @@ def last_close(sym):
     if idx >= 0 and reg and now < reg.get("end", 0) and ts[idx] >= reg.get("start", 0):
         idx = next((i for i in range(idx - 1, -1, -1) if closes[i]), -1)
     price = float(closes[idx]) if idx >= 0 else float(m.get("chartPreviousClose") or 0)
+    tz = m.get("exchangeTimezoneName") or "UTC"
+    # crypto trades 24/7: today's open is yesterday's close (Yahoo sometimes leaves yesterday's bar empty)
+    opens = (r.get("indicators", {}).get("quote") or [{}])[0].get("open") or []
+    if m.get("instrumentType") == "CRYPTOCURRENCY" and ts and reg and ts[-1] >= reg.get("start", 0) and opens and opens[-1]:
+        price = float(opens[-1])
+        idx = len(ts) - 1
+        crypto_date = (dt.datetime.fromtimestamp(ts[-1], ZoneInfo(tz)).date() - dt.timedelta(days=1)).isoformat()
+    else:
+        crypto_date = None
     if price <= 0:
         raise ValueError("no close")
     cur = m.get("currency") or "USD"
     if cur in ("GBp", "GBX"):
         price, cur = price / 100, "GBP"
-    tz = m.get("exchangeTimezoneName") or "UTC"
-    close_date = dt.datetime.fromtimestamp(ts[idx], ZoneInfo(tz)).date().isoformat() if idx >= 0 else ""
+    close_date = crypto_date or (dt.datetime.fromtimestamp(ts[idx], ZoneInfo(tz)).date().isoformat() if idx >= 0 else "")
     return {
         "price": round(price, 6),
         "currency": cur.upper(),
