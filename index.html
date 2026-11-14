@@ -809,7 +809,7 @@ input,textarea,select{caret-color:var(--accent)}
 #sheet-detail .repeat-sub{display:flex;align-items:center;gap:10px;padding:0 16px 14px}
 #sheet-detail .repeat-sub input{flex:1;min-width:0;background:var(--surface-2);border:1px solid rgba(var(--ov),.06);border-radius:10px;padding:9px 12px;color:var(--text);text-align:right;font-family:var(--num)}
 #sheet-detail .repeat-sub label{font-size:13px;color:var(--text-2);white-space:nowrap}
-.detail-actions{position:sticky;bottom:0;display:flex;gap:10px;padding:12px 14px calc(12px + var(--safe-b));background:linear-gradient(to top,rgba(var(--glass-rgb),.98) 70%,rgba(var(--glass-rgb),0))}
+.detail-actions{position:sticky;bottom:0;display:flex;gap:10px;padding:12px 16px calc(14px + var(--safe-b));background:linear-gradient(to top,rgba(var(--glass-rgb),.98) 70%,rgba(var(--glass-rgb),0))}
 /* due split */
 .due-chips .chip.sel{background:var(--accent);color:var(--on-accent)}
 .due-chips .chip.split{background:transparent;color:var(--accent);border:1px dashed rgba(61,220,151,.5)}
@@ -998,7 +998,7 @@ input,textarea,select{caret-color:var(--accent)}
 
 /* ── consistent page headers ── */
 .nav{height:calc(var(--safe-t) + 60px);min-height:0;padding:var(--safe-t) 16px 0 20px!important;display:flex;align-items:center;gap:10px;box-sizing:border-box}
-.nav-title{font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1;display:flex;align-items:center;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.nav-title{font-size:24px;font-weight:800;letter-spacing:-.5px;line-height:1.3;padding:2px 0;display:flex;align-items:center;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .nav-title .ic{font-size:22px;flex-shrink:0}
 .nav-actions{display:flex;align-items:center;gap:8px;flex-shrink:0;min-width:0}
 .nav-btn{width:38px;height:38px;border-radius:12px;padding:0;border:none}
@@ -1452,7 +1452,7 @@ body::after{content:'';display:block;height:1px}
 .ts-chg.down{background:color-mix(in srgb,var(--green) 14%,transparent);color:var(--green)}
 .ts-cnt{background:rgba(var(--ov),.06);color:var(--text-2);font-weight:500}
 /* By-category chips */
-.tc-cats{padding:14px 16px 12px!important;gap:6px!important;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.tc-cats{padding:2px 16px 12px!important;gap:6px!important;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
 .tc-chip{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:500;color:var(--text-2);
   background:rgba(var(--ov),.05);border:1px solid rgba(var(--ov),.07);transition:background .2s,color .2s,border-color .2s}
 .tc-chip .ic{width:14px;height:14px;color:var(--cc)}
@@ -1493,6 +1493,70 @@ body::after{content:'';display:block;height:1px}
 #summary-body .bp-row .cat-name .ic{margin-right:0;flex-shrink:0}
 .bp-row .bud-bar{margin-right:4px}
 .bp-val{min-width:54px!important;font-size:12px!important}
+
+/* settings language/theme: capsule, equal width, liquid thumb */
+.set-seg{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0;width:124px;flex-shrink:0;border-radius:999px;padding:3px}
+.set-seg button{position:relative;z-index:1;border-radius:999px;padding:7px 0;text-align:center;transition:color .25s}
+.set-seg button.on{background:transparent;color:var(--on-accent)}
+.ss-thumb{position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);border-radius:999px;background:var(--accent);z-index:0;pointer-events:none}
+.set-seg[data-i="1"] .ss-thumb{left:50%}
+
+/* tab bar: end tabs sit concentric with the bar's rounded ends (equal gap around the active circle) */
+.tab-bar{justify-content:space-between}
+.tab-bar>.tab,.tab-bar>.tab-slot{flex:0 0 44px!important;min-width:0}
+
+/* add/edit record: date in a grey box, every row the same height */
+#sheet-detail .form-row{padding:6px 16px;min-height:48px}
+#sheet-detail .form-row>.pick-btn,#sheet-detail .utility-period-inputs .pick-btn{background:rgba(var(--ov),.07)!important}
+#sheet-detail .form-row>.pick-btn{flex:0 0 auto;margin-left:auto;border-radius:10px;padding:0 12px;min-height:34px;font-size:14px}
+#sheet-detail .utility-period-inputs .pick-btn{min-height:34px;padding:0 12px;font-size:14px;white-space:nowrap}
+#sheet-detail #d-utility-sub .chip{font-size:11px;font-weight:700;min-height:32px;padding-top:0;padding-bottom:0;display:inline-flex;align-items:center}
+#sheet-detail .utility-period-row{border-top:.5px solid var(--sep)}
+
+/* bottom action pairs: identical widths everywhere (exact 1:2 split, no scrollbar eating the sheet width) */
+.numpad-action.cancel{flex:1 1 0!important;min-width:0}
+.numpad-action.ok{flex:2 1 0!important;min-width:0}
+.sheet{scrollbar-width:none}
+.sheet::-webkit-scrollbar{display:none}
+
+/* add/edit sheet styled like an opened record: light cards, icon + grey label on the left, value on the right, inset hairlines */
+#sheet-detail .sheet-inner .form-row{background:transparent!important;border:none!important;position:relative}
+#sheet-detail .form-row[style*="border-top"]::before,#sheet-detail .utility-period-row::before,#sheet-detail .chip-wrap+.form-row::before,#sheet-detail #d-repeat-end>.form-row:first-child::before{content:'';position:absolute;left:16px;right:16px;top:0;height:1px;background:rgba(var(--ov),.08)}
+#sheet-detail .form-label{display:flex;align-items:center;gap:7px;font-size:13px!important;font-weight:500!important;color:var(--text-2)!important;width:96px}
+#sheet-detail .form-label.wide{width:auto}
+#sheet-detail .form-label>.ic{font-size:15px;color:var(--text-3);flex-shrink:0}
+#sheet-detail .form-row.remark-row .form-label{flex:0 0 96px;width:96px}
+#sheet-detail .form-control{font-size:15px;color:var(--text)}
+#sheet-detail .utility-period-row{grid-template-columns:96px 1fr}
+
+/* numpad currency picker: capsule with a liquid thumb */
+.amount-cur-pick{position:relative;border-radius:999px!important}
+.cur-pill{position:relative;z-index:1;border-radius:999px!important;transition:color .25s!important}
+.cur-pill.active{background:transparent!important;box-shadow:none!important;color:var(--on-accent)!important}
+.cur-thumb{position:absolute;top:5px;bottom:5px;left:5px;width:0;border-radius:999px;background:var(--accent);z-index:0;pointer-events:none}
+
+/* numpad: no FX conversion line */
+#np-fx{display:none!important}
+
+/* recurring sheet: the wrapper must not clip the summary boxes' corners */
+.sheet-inner:has(> .rcx-sum){overflow:visible!important;border-radius:0!important}
+/* recurring: an opened row stays in the page's own (dark) colours */
+:root:not([data-theme="light"]) .rcx-wrap.open{background:rgba(var(--ov),.04)}
+:root:not([data-theme="light"]) .rcx-wrap.open,:root:not([data-theme="light"]) .rcx-wrap.open *{--text:#f4f4f5;--text-2:#8a8a90;--text-3:#5c5c63;--sep:rgba(255,255,255,.08)}
+:root:not([data-theme="light"]) .rcx-wrap.open .rec-name,:root:not([data-theme="light"]) .rcx-wrap.open .rcx-amt,:root:not([data-theme="light"]) .rcx-wrap.open .rcx-freq{color:var(--text)!important}
+:root:not([data-theme="light"]) .rcx-wrap.open .rcx-sub{color:var(--text-2)}
+.rcx-dl{border-bottom-color:rgba(var(--ov),.08)}
+.rcx-btns .tx-btn-dup{background:rgba(var(--ov),.08);color:var(--text-2)}
+
+.rcx-dl span{display:flex;align-items:center;gap:7px}
+.rcx-dl span .ic{font-size:15px;color:var(--text-3);flex-shrink:0}
+
+/* cancel/back button: same single hairline as the number keys */
+:root:not([data-theme="light"]) .numpad-action.cancel{border:1px solid rgba(255,255,255,.05)!important;box-shadow:none!important}
+
+/* add sheet: every card, the type switch and the bottom buttons share one 16px side margin */
+#sheet-detail .sheet-inner,#sheet-detail #type-toggle-wrap{margin-left:16px!important;margin-right:16px!important}
+#sheet-detail .detail-actions{padding-left:16px!important;padding-right:16px!important}
 </style>
 <script>
 window.ICONS={"home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "receipt": "<path d=\"M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "chart": "<path d=\"M3 21h18\"/><rect x=\"5\" y=\"11\" width=\"3\" height=\"7\" rx=\"1\"/><rect x=\"10.5\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/><rect x=\"16\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/>", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "camera": "<path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.5\"/>", "book": "<path d=\"M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3\"/><path d=\"M8 7h8\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "calendarRange": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4M7 14h5M12 17.5h5\"/>", "clipboard": "<path d=\"M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2\"/><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"3\" rx=\"1\"/><path d=\"M9 11h6M9 15h4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "sparkles": "<path d=\"M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z\"/><path d=\"M18.5 14.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z\"/>", "expense": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 15l6-6M10 9h5v5\"/>", "transfer": "<path d=\"M17 3l4 4-4 4\"/><path d=\"M3 7h18\"/><path d=\"M7 21l-4-4 4-4\"/><path d=\"M21 17H3\"/>", "tag": "<path d=\"M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1.2\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "alert": "<path d=\"M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9v4M12 17h.01\"/>", "edit": "<path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\"/>", "refresh": "<path d=\"M21 12a9 9 0 0 1-15.5 6.2L3 16\"/><path d=\"M3 21v-5h5\"/><path d=\"M3 12a9 9 0 0 1 15.5-6.2L21 8\"/><path d=\"M21 3v5h-5\"/>", "bank": "<path d=\"M3 10l9-6 9 6\"/><path d=\"M5 10v8M9.5 10v8M14.5 10v8M19 10v8\"/><path d=\"M3 21h18\"/>", "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>", "checkCircle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7L16 9.8\"/>", "x": "<path d=\"M6 6l12 12M18 6 6 18\"/>", "bulb": "<path d=\"M9 18h6M10 21h4\"/><path d=\"M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/>", "loader": "<path d=\"M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5 6.8 15M17.2 9l2.6-1.5\"/>", "listChecks": "<path d=\"M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17\"/><path d=\"M11 6h10M11 12h10M11 18h10\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "copy": "<rect x=\"8\" y=\"8\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3\"/>", "trash": "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M9 7V4h6v3\"/>", "note": "<path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6M8 13h8M8 17h5\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6\"/>", "repeat": "<path d=\"M17 2l4 4-4 4\"/><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\"/><path d=\"M7 22l-4-4 4-4\"/><path d=\"M21 13v1a4 4 0 0 1-4 4H3\"/>", "download": "<path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\"/>", "deleteLeft": "<path d=\"M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z\"/><path d=\"M12 9l6 6M18 9l-6 6\"/>", "hourglass": "<path d=\"M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9\"/>", "food": "<path d=\"M6 3v6a3 3 0 0 0 6 0V3M9 3v18\"/><path d=\"M18 21V3c-2 1-3 4-3 7v4h3\"/>", "coffee": "<path d=\"M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z\"/><path d=\"M17 10h1.5a2.5 2.5 0 0 1 0 5H17\"/><path d=\"M8 2.5V5M12 2.5V5\"/>", "drink": "<path d=\"M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z\"/><path d=\"M6.5 8h11\"/>", "cart": "<circle cx=\"9\" cy=\"20\" r=\"1.4\"/><circle cx=\"18\" cy=\"20\" r=\"1.4\"/><path d=\"M2.5 3h2.6l2.3 11.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6\"/>", "bag": "<path d=\"M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z\"/><path d=\"M9 10V6a3 3 0 0 1 6 0v4\"/>", "car": "<path d=\"M5 17H3v-5l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 7l2 5v5h-2\"/><path d=\"M3 12h18M9.5 17h5\"/><circle cx=\"7.5\" cy=\"17\" r=\"2\"/><circle cx=\"16.5\" cy=\"17\" r=\"2\"/>", "bus": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"3\"/><path d=\"M4 11h16M8 21v-3M16 21v-3\"/><path d=\"M8 14.5h.01M16 14.5h.01\"/>", "train": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"14\" rx=\"3\"/><path d=\"M5 10h14M12 3v7M8 21l2-4M16 21l-2-4\"/><path d=\"M8.5 13.5h.01M15.5 13.5h.01\"/>", "plane": "<path d=\"M21 12a1.5 1.5 0 0 0-1.5-1.5H15L10.5 3h-2l2 7.5H6L4.5 8H3l1 4-1 4h1.5L6 13.5h4.5l-2 7.5h2l4.5-7.5h4.5A1.5 1.5 0 0 0 21 12z\"/>", "house": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5\"/><path d=\"M10 21v-6h4v6\"/>", "building": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"1\"/><path d=\"M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3\"/>", "bolt": "<path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/>", "droplet": "<path d=\"M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z\"/>", "phone": "<rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>", "wifi": "<path d=\"M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01\"/>", "heart": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/>", "medical": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M12 8v8M8 12h8\"/>", "pill": "<rect x=\"2.5\" y=\"8.25\" width=\"19\" height=\"7.5\" rx=\"3.75\" transform=\"rotate(-45 12 12)\"/><path d=\"M12 8.25v7.5\" transform=\"rotate(-45 12 12)\"/>", "film": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4\"/>", "gamepad": "<path d=\"M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L15 14H9l-.7 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z\"/><path d=\"M7 10.5v3M5.5 12h3M16 11.5h.01M18 13h.01\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "gift": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>", "education": "<path d=\"M22 9 12 4 2 9l10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6\"/>", "shirt": "<path d=\"M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3z\"/>", "dumbbell": "<path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11\"/>", "paw": "<circle cx=\"5.5\" cy=\"10\" r=\"2\"/><circle cx=\"9.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"14.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"10\" r=\"2\"/><path d=\"M12 11c-2.8 0-6 4.2-6 7a2.5 2.5 0 0 0 2.5 2.5c1.3 0 2.2-.7 3.5-.7s2.2.7 3.5.7A2.5 2.5 0 0 0 18 18c0-2.8-3.2-7-6-7z\"/>", "scissors": "<circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/>", "umbrella": "<path d=\"M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z\"/><path d=\"M12 12v6.5a2.5 2.5 0 0 1-5 0\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18\"/>", "wallet": "<path d=\"M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><path d=\"M17 14h.01\"/>", "coins": "<ellipse cx=\"9\" cy=\"7\" rx=\"6\" ry=\"3\"/><path d=\"M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3\"/><ellipse cx=\"17\" cy=\"15\" rx=\"4\" ry=\"2\"/><path d=\"M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3\"/>", "card": "<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 10h19M6 15h4\"/>", "dots": "<path d=\"M5 12h.01M12 12h.01M19 12h.01\"/>", "noodles": "<path d=\"M4 11h16a8 8 0 0 1-16 0z\"/><path d=\"M9 11V4M13 11V3M17 11l2-7\"/><path d=\"M8 19.5h8\"/>", "pizza": "<path d=\"M12 3c3.6 0 6.9 1.4 9 3.7L12 21 3 6.7C5.1 4.4 8.4 3 12 3z\"/><path d=\"M4.6 9.2C6.7 7.8 9.3 7 12 7s5.3.8 7.4 2.2\"/><path d=\"M10 11.5h.01M14 14h.01M11.5 16h.01\"/>", "icecream": "<path d=\"M7 11a5 5 0 0 1 10 0\"/><path d=\"M6.5 11h11L12 22z\"/>", "bread": "<path d=\"M5 10a4 4 0 0 1 2-7.5h10a4 4 0 0 1 2 7.5V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/>", "cake": "<path d=\"M4 21V12a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9\"/><path d=\"M4 15c1.5 1 3 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M3 21h18M12 10V7\"/><path d=\"M12 4.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z\"/>", "apple": "<path d=\"M12 7c-1.5-1-5-1.3-6.5 1.5S5 16 7 19s3.5 2.5 5 1.8c1.5.7 3 1.2 5-1.8s3-7.7 1.5-10.5S13.5 6 12 7z\"/><path d=\"M12 7c0-2 1-3.5 3-4\"/>", "fish": "<path d=\"M3 12c3-5 9-6.5 13-4l5-3v14l-5-3c-4 2.5-10 1-13-4z\"/><path d=\"M15.5 11.5h.01\"/>", "meat": "<path d=\"M15.5 4.5a5 5 0 0 1 4 7.5l-6.5 6.5a4 4 0 0 1-6.5-1L5 19l-2-2 1.5-1.5a4 4 0 0 1-1-6.5L10 2.5a5 5 0 0 1 5.5 2z\"/><circle cx=\"14\" cy=\"9\" r=\"2\"/>", "beer": "<path d=\"M5 8h10v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/><path d=\"M15 11h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2M5 8a3 3 0 0 1 3-4 3 3 0 0 1 5 1 2.5 2.5 0 0 1 2 3M9 12v5M12 12v5\"/>", "bike": "<circle cx=\"5.5\" cy=\"17\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17\" r=\"3.5\"/><path d=\"M5.5 17l4-8h6l3 8M9.5 9 8 6H6M12 17l3.5-8\"/>", "fuel": "<path d=\"M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M3 21h13M4 10h11\"/><path d=\"M15 8l3 3v6a1.5 1.5 0 0 0 3 0V9l-3-3\"/>", "parking": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>", "ship": "<path d=\"M3 17l2 4h14l2-4-9-3z\"/><path d=\"M5 15V9h14v6M9 9V5h6v4M12 3v2\"/>", "bed": "<path d=\"M3 20V6M21 20v-6a3 3 0 0 0-3-3H9v6M3 17h18\"/><circle cx=\"6.5\" cy=\"12.5\" r=\"2\"/>", "ticket": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M14 6v2M14 11v2M14 16v2\"/>", "laptop": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 19h20\"/>", "headphones": "<path d=\"M3 15v-3a9 9 0 0 1 18 0v3\"/><rect x=\"2\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/>", "baby": "<circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M10 7.5h.01M14 7.5h.01M10.5 10c.8.6 2.2.6 3 0\"/><path d=\"M7 21v-3a5 5 0 0 1 10 0v3\"/>", "tools": "<path d=\"M14.7 6.3a4 4 0 0 0 5 5L22 9l-2-2-2.3 2.3-2-2L18 5l-2-2-2.3 2.3a4 4 0 0 0 1 1z\"/><path d=\"M15 9 4 20l-1-1L14 8\"/>", "plant": "<path d=\"M7 20h10M12 20v-8\"/><path d=\"M12 12c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5z\"/>", "tooth": "<path d=\"M12 5.5C10 3.5 6 3 4.5 5.5S4 11 5.5 13s1.5 8 3 8 1.5-5 3.5-5 2 5 3.5 5 1.5-6 3-8 2.5-5 1-7.5S14 3.5 12 5.5z\"/>", "glasses": "<circle cx=\"6.5\" cy=\"15\" r=\"3.5\"/><circle cx=\"17.5\" cy=\"15\" r=\"3.5\"/><path d=\"M10 15h4M3 15 5 6h2M21 15l-2-9h-2\"/>", "sofa": "<path d=\"M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3\"/><path d=\"M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zM5 19v2M19 19v2\"/>", "washer": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><circle cx=\"12\" cy=\"13\" r=\"4.5\"/><path d=\"M8 6.5h.01M11 6.5h3\"/>", "flame": "<path d=\"M12 22c4 0 7-2.8 7-6.5 0-3-2-5.5-3.5-7 0 2-1 3.5-2.5 3.5C13 9 13 5 9.5 2c.5 3-1.5 5-3 7S5 12.5 5 15.5C5 19.2 8 22 12 22z\"/>", "piggy": "<path d=\"M19 9.5c1 0 2 .8 2 2M5 11.5C5 7.9 8.1 5 12 5c1.6 0 3.1.5 4.3 1.3L19 5v4c.6.8 1 1.5 1 2.5H21v3h-1.5c-.6 1.3-1.6 2.3-2.9 3V20h-3v-1.6a8 8 0 0 1-3.2 0V20h-3v-2.2C5.9 16.6 5 14.2 5 11.5z\"/><path d=\"M15.5 10h.01M3 10c0 1 .8 2 2 2\"/>", "church": "<path d=\"M12 2v4M10 4h4M6 21V11l6-5 6 5v10M3 21h18M10 21v-4a2 2 0 0 1 4 0v4\"/>", "run": "<circle cx=\"14\" cy=\"4.5\" r=\"2\"/><path d=\"M7 21l3-6 3 2v5M5 12l3-4 4-.5 3 3.5 3 1M10.5 15 9.5 9\"/>", "necessities": "<ellipse cx=\"9\" cy=\"7\" rx=\"5\" ry=\"3\"/><path d=\"M4 7v10c0 1.7 2.2 3 5 3s5-1.3 5-3V7\"/><path d=\"M14 9.5h5.5a.5.5 0 0 1 .5.5v9.5l-1.5-1-1.5 1-1.5-1-1.5 1\"/><circle cx=\"9\" cy=\"7\" r=\"1\"/>", "pot": "<path d=\"M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z\"/><path d=\"M2 11h2M20 11h2M6.5 8h11M12 5.5V8\"/>", "pulse": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/><path d=\"M5.5 12.5h3l1.5-2.5 2 5 1.5-2.5h5\"/>", "plug": "<path d=\"M9 2v5M15 2v5\"/><path d=\"M6 7h12v4a6 6 0 0 1-12 0z\"/><path d=\"M12 17v5\"/>", "key": "<circle cx=\"8\" cy=\"15\" r=\"4.5\"/><path d=\"M11.2 11.8 20 3M16.5 6.5l3 3M14 9l2.5 2.5\"/>", "bill": "<path d=\"M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z\"/><path d=\"M14 2v6h6\"/><path d=\"M12 10.5v8M14.2 12.3h-3a1.6 1.6 0 0 0 0 3.2h1.6a1.6 1.6 0 0 1 0 3.2H9.8\"/>", "voucher": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M9.5 14.5l5-5\"/><circle cx=\"9.5\" cy=\"9.8\" r=\".9\"/><circle cx=\"14.5\" cy=\"14.2\" r=\".9\"/>"};
@@ -1661,31 +1725,29 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
     </div>
 
     <!-- Type toggle (Expense / Transfer) -->
-    <div class="sheet-inner" id="type-toggle-wrap" style="margin-bottom:10px">
-      <div style="display:flex">
-        <div id="type-expense" class="seg-btn active" style="flex:1;padding:11px 0;border-radius:0;font-size:14px;border-bottom:2px solid var(--accent)" onclick="setTxType('expense')"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg>Expense</div>
-        <div id="type-transfer" class="seg-btn" style="flex:1;padding:11px 0;border-radius:0;font-size:14px;border-bottom:2px solid transparent" onclick="setTxType('transfer')"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3l4 4-4 4"/><path d="M3 7h18"/><path d="M7 21l-4-4 4-4"/><path d="M21 17H3"/></svg>Transfer</div>
-      </div>
+    <div class="seg-ctrl" id="type-toggle-wrap" style="margin-bottom:10px">
+      <div id="type-expense" class="seg-btn active" onclick="setTxType('expense')"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M9 15l6-6M10 9h5v5"/></svg>Expense</div>
+      <div id="type-transfer" class="seg-btn" onclick="setTxType('transfer')"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3l4 4-4 4"/><path d="M3 7h18"/><path d="M7 21l-4-4 4-4"/><path d="M21 17H3"/></svg>Transfer</div>
     </div>
 
     <!-- Expense fields -->
     <div id="expense-fields">
       <div class="sheet-inner">
         <div class="form-row">
-          <label class="form-label">Item</label>
-          <input class="form-control" id="d-name" placeholder="Item name" autocomplete="off" style="text-align:right">
+          <label class="form-label" data-ic="edit">Item</label>
+          <input class="form-control" id="d-name" placeholder="" autocomplete="off" style="text-align:right">
         </div>
         <div class="form-row" style="border-top:.5px solid var(--sep)">
-          <label class="form-label">Date</label>
+          <label class="form-label" data-ic="calendar">Date</label>
           <input type="date" class="form-control" id="d-date" onchange="onTxDateChange('expense')" oninput="onTxDateChange('expense')" style="text-align:right">
         </div>
         <div id="utility-period-wrap" style="display:none">
           <div class="form-row" style="border-top:.5px solid var(--sep);flex-wrap:wrap;gap:8px">
-            <label class="form-label">Bill type</label>
+            <label class="form-label" data-ic="bolt">Bill type</label>
             <div class="chip-wrap" id="d-utility-sub" style="padding:0!important;gap:6px;flex:1;justify-content:flex-end"></div>
           </div>
           <div class="form-row utility-period-row">
-            <label class="form-label">Bill period</label>
+            <label class="form-label" data-ic="calendarRange">Bill period</label>
             <div class="utility-period-inputs">
               <input type="date" class="form-control" id="d-utility-start" onchange="onUtilityPeriodChange()" oninput="onUtilityPeriodChange()">
               <input type="date" class="form-control" id="d-utility-end" onchange="onUtilityPeriodChange()" oninput="onUtilityPeriodChange()">
@@ -1698,28 +1760,28 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
       </div>
       <div class="sheet-inner">
         <div class="form-row" style="padding-bottom:4px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Paid by</label>
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px" data-ic="wallet">Paid by</label>
         </div>
         <div class="chip-wrap" id="d-paidby-chips" style="padding-top:4px;padding-bottom:10px"></div>
         <div class="form-row" style="padding-bottom:4px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Used by</label>
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px" data-ic="users">Used by</label>
         </div>
         <div class="chip-wrap" id="d-usedby-chips" style="padding-top:4px;padding-bottom:10px"></div>
       </div>
       <div class="sheet-inner">
         <div class="form-row remark-row">
-          <label class="form-label">Note</label>
+          <label class="form-label" data-ic="note">Note</label>
           <input class="form-control" id="d-remark" placeholder="Optional" autocomplete="off" style="text-align:right">
         </div>
       </div>
       <div class="sheet-inner" id="repeat-wrap">
         <div class="form-row" style="padding-bottom:4px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Repeat</label>
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px" data-ic="repeat">Repeat</label>
         </div>
         <div class="chip-wrap" id="d-repeat-chips" style="padding-top:4px;padding-bottom:10px"></div>
         <div id="d-repeat-end" style="display:none">
           <div class="form-row" style="padding-bottom:4px">
-            <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">Ends</label>
+            <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px" data-ic="hourglass">Ends</label>
           </div>
           <div class="chip-wrap" id="d-repeat-end-chips" style="padding-top:4px;padding-bottom:10px"></div>
           <div class="repeat-sub" id="d-repeat-until-row" style="display:none"><label for="d-repeat-until">Last date</label><input type="date" id="d-repeat-until" oninput="renderDetailChips()"></div>
@@ -1733,29 +1795,29 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
     <div id="transfer-fields" style="display:none">
       <div class="sheet-inner">
         <div class="form-row" style="padding-bottom:4px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">From</label>
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px" data-ic="user">From</label>
         </div>
         <div class="chip-wrap" id="d-from-chips" style="padding-top:4px;padding-bottom:10px"></div>
         <div class="form-row" style="border-top:.5px solid var(--sep);padding-bottom:4px">
-          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px">To</label>
+          <label class="form-label wide" style="font-weight:700;color:var(--text-2);font-size:13px" data-ic="user">To</label>
         </div>
         <div class="chip-wrap" id="d-to-chips" style="padding-top:4px;padding-bottom:10px"></div>
         <div class="form-row" style="border-top:.5px solid var(--sep)">
-          <label class="form-label">Date</label>
+          <label class="form-label" data-ic="calendar">Date</label>
           <input type="date" class="form-control" id="d-tr-date" onchange="onTxDateChange('transfer')" oninput="onTxDateChange('transfer')">
         </div>
       </div>
       <div class="sheet-inner">
         <div class="form-row remark-row">
-          <label class="form-label">Note</label>
+          <label class="form-label" data-ic="note">Note</label>
           <input class="form-control left" id="d-tr-remark" placeholder="Optional" autocomplete="off">
         </div>
       </div>
     </div>
 
     <div class="detail-actions">
-      <button onclick="backToNumpad()" style="flex:1;padding:14px;border-radius:var(--radius-sm);background:var(--surface-solid);color:var(--text-2);font-size:15px;font-weight:600;box-shadow:var(--card-shadow)">← Back</button>
-      <button onclick="saveTx()" style="flex:2;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:700;box-shadow:none" id="save-tx-btn">Save</button>
+      <button class="numpad-action cancel" onclick="backToNumpad()">← Back</button>
+      <button class="numpad-action ok" onclick="saveTx()" id="save-tx-btn">Save</button>
     </div>
   </div>
 </div>
@@ -3707,12 +3769,30 @@ function refreshNumpad(){
   // currency pills
   const ledger=cfg.ledgers.find(l=>l.id===cfg.currentLedgerId);
   const curs=[ledger?.baseCurrency||'AUD','HKD','JPY','NTD','AUD','USD'].filter((c,i,a)=>a.indexOf(c)===i).slice(0,5);
-  document.getElementById('cur-pills').innerHTML=curs.map(c=>`
+  const wrap=document.getElementById('cur-pills');
+  wrap.innerHTML='<span class="cur-thumb"></span>'+curs.map(c=>`
     <div class="cur-pill${c===npCur?' active':''}" onclick="selectNpCur('${c}')">${c}</div>`).join('');
+  placeCurThumb(false);
   updateNpDisplay();
 }
-
-window.selectNpCur=function(c){ npCur=c; refreshNumpad(); updateFxForCurrentInput(); };
+// currency capsule: a thumb that stretches like liquid from the old currency to the new one
+function placeCurThumb(animate,fromEl){
+  const wrap=document.getElementById('cur-pills'); const th=wrap?.querySelector('.cur-thumb'); const act=wrap?.querySelector('.cur-pill.active');
+  if(!th||!act) return;
+  const x1=act.offsetLeft, w1=act.offsetWidth;
+  th.getAnimations?.().forEach(a=>a.cancel());
+  th.style.left=x1+'px'; th.style.width=w1+'px';
+  if(!w1){ requestAnimationFrame(()=>placeCurThumb(false)); return; }
+  if(!animate||!fromEl||!th.animate||_reduceMotion()) return;
+  const x0=fromEl.offsetLeft, w0=fromEl.offsetWidth, l=Math.min(x0,x1), r=Math.max(x0+w0,x1+w1);
+  th.animate([{left:x0+'px',width:w0+'px'},{left:l+'px',width:(r-l)+'px',offset:.45},{left:x1+'px',width:w1+'px'}],{duration:380,easing:'cubic-bezier(.32,.72,0,1)'});
+}
+window.selectNpCur=function(c){
+  if(c===npCur) return;
+  const wrap=document.getElementById('cur-pills'), prev=wrap.querySelector('.cur-pill.active');
+  const from=prev?{offsetLeft:prev.offsetLeft,offsetWidth:prev.offsetWidth}:null;
+  npCur=c; refreshNumpad(); placeCurThumb(true,from); updateFxForCurrentInput();
+};
 
 function npTouch(el,k){ el.classList.add('pressed'); setTimeout(()=>el.classList.remove('pressed'),120); }
 
@@ -3752,7 +3832,7 @@ function updateNpDisplay(){
   const curEl=document.getElementById('np-cur-lbl'); if(curEl) curEl.textContent=npCur;
   const hasOp=npHasOp();
   if(exprEl) exprEl.textContent=hasOp?npPretty(npVal):'';
-  const shown=hasOp?(isNaN(npEval(npVal))?'—':fmt(val,npCur)):npVal.replace(/^-/, '−');
+  const shown=hasOp?(isNaN(npEval(npVal))?'—':fmt(val,npCur)):npVal.replace(/^(-?)(\d+)/,(m,sg,d)=>sg+d.replace(/\B(?=(\d{3})+(?!\d))/g,',')).replace(/^-/, '−');
   span.textContent=shown;
   span.classList.toggle('small', shown.length>9);
   span.style.color=(val||hasOp)?'':'#8e8e94';
@@ -4038,9 +4118,8 @@ window.setTxType=function(type, silent=false){
     const el=document.getElementById(id);
     const active=id==='type-'+type;
     el.classList.toggle('active',active);
-    el.style.borderBottomColor=active?'var(--accent)':'transparent';
-    el.style.color=active?'var(--accent)':'var(--text-2)';
   });
+  segThumb(document.getElementById('type-toggle-wrap'),!silent);
 };
 
 
@@ -5291,16 +5370,15 @@ function renderRecurringList(){
     const pend=(r.pending||[]).length, col=catColor(r.categoryId);
     const when=r.ended?(z?'已結束':'Ended'):r.active===false?(z?'已暫停':'Paused'):`${z?'下次':'Next'} ${fmtDate(r.nextDue)}`;
     const open=_recOpen===r.id;
-    const dl=(k,v)=>`<div class="rcx-dl"><span>${k}</span><b>${v}</b></div>`;
+    const dl=(icn,k,v)=>`<div class="rcx-dl"><span>${ic(icn)}${k}</span><b>${v}</b></div>`;
     const detail=`<div class="rcx-x${open?' open':''}" id="rcx-x-${r.id}" onclick="event.stopPropagation()">
-        ${dl(z?'金額':'Amount',`${r.currency} ${fmt(r.amount,r.currency)}${r.currency!==baseCur()?` <small>≈ ${baseCur()} ${fmtBase(Number(r.amount||0)*Number(fxRateForDate(r.currency,isoDate())||1))}</small>`:''}`)}
-        ${dl(z?'種類':'Category',`${catIcon(r.categoryId,true)} ${escapeHtml(catName(r.categoryId))}`)}
-        ${dl(z?'付款人':'Paid by',escapeHtml(payer))}
-        ${dl(z?'使用者':'Used by',escapeHtml((r.usedByPersonIds||[]).map(personName).join(', ')||'—'))}
-        ${dl(z?'重複':'Repeats',freqLabel(r.freq))}
-        ${dl(z?'下次日期':'Next date',r.ended?'—':fmtDateLong(r.nextDue))}
-        ${dl(z?'結束':'Ends',ruleEndText(r)||(z?'不會結束':'Never'))}
-        ${r.remark?dl(z?'備註':'Note',escapeHtml(r.remark)):''}
+        ${dl('tag',z?'種類':'Category',`${catIcon(r.categoryId,true)} ${escapeHtml(catName(r.categoryId))}`)}
+        ${dl('wallet',z?'付款人':'Paid by',escapeHtml(payer))}
+        ${dl('users',z?'使用者':'Used by',escapeHtml((r.usedByPersonIds||[]).map(personName).join(', ')||'—'))}
+        ${dl('repeat',z?'重複':'Repeats',freqLabel(r.freq))}
+        ${dl('calendar',z?'下次日期':'Next date',r.ended?'—':fmtDateLong(r.nextDue))}
+        ${dl('hourglass',z?'結束':'Ends',ruleEndText(r)||(z?'不會結束':'Never'))}
+        ${r.remark?dl('note',z?'備註':'Note',escapeHtml(r.remark)):''}
         <div class="rcx-btns">
           <button class="tx-btn tx-btn-edit" onclick="openRecurringEdit('${r.id}')">${ic('edit')}${z?'編輯':'Edit'}</button>
           ${r.ended?'':`<button class="tx-btn tx-btn-dup" onclick="toggleRecurringActive('${r.id}')">${r.active===false?(z?'繼續':'Resume'):(z?'暫停':'Pause')}</button>`}
@@ -6151,7 +6229,19 @@ window.openAssetSheet=function(pid,id){
   });
 };
 
-window.setUiLang=function(l){ try{ localStorage.setItem('ui-lang',l); }catch(e){} location.reload(); };
+// capsule switch: the thumb stretches across like liquid, settles on the new option, then the change applies
+window.segGo=function(btn,fn){
+  const seg=btn.parentElement, th=seg.querySelector('.ss-thumb'), btns=[...seg.querySelectorAll('button')], to=btns.indexOf(btn), from=+seg.dataset.i;
+  if(to===from||seg._busy) return;
+  btns.forEach(b=>b.classList.toggle('on',b===btn));
+  if(!th?.animate||_reduceMotion()){ seg.dataset.i=to; fn(); return; }
+  seg._busy=true;
+  const w=th.offsetWidth, x0=th.offsetLeft, x1=x0+(to-from)*w;
+  seg.dataset.i=to;
+  th.animate([{left:x0+'px',width:w+'px'},{left:Math.min(x0,x1)+'px',width:(w*2)+'px',offset:.45},{left:x1+'px',width:w+'px'}],{duration:380,easing:'cubic-bezier(.32,.72,0,1)'})
+    .onfinish=()=>{ seg._busy=false; fn(); };
+};
+window.setUiLang=function(l){ try{ localStorage.setItem('ui-lang',l); sessionStorage.setItem('ret-tab',JSON.stringify({tab:'settings',y:document.getElementById('page-settings')?.scrollTop||0})); }catch(e){} location.reload(); };
 window.setUiTheme=function(t){ try{ localStorage.setItem('ui-theme',t); }catch(e){} window.UI_THEME=t;
   const light=t==='light'||(t==='system'&&matchMedia('(prefers-color-scheme: light)').matches);
   document.documentElement.setAttribute('data-theme',light?'light':'dark');
@@ -6185,12 +6275,12 @@ function renderSettings(){
       <div class="settings-row">
         <span class="row-ic blue">${ic('book')}</span>
         <span class="settings-lbl" style="flex:1">Language</span>
-        <div class="set-seg"><button class="${window.UI_LANG!=='zh'?'on':''}" onclick="setUiLang('en')">EN</button><button class="${window.UI_LANG==='zh'?'on':''}" onclick="setUiLang('zh')">中文</button></div>
+        <div class="set-seg" data-i="${window.UI_LANG==='zh'?1:0}"><span class="ss-thumb"></span><button class="${window.UI_LANG!=='zh'?'on':''}" onclick="segGo(this,()=>setUiLang('en'))">EN</button><button class="${window.UI_LANG==='zh'?'on':''}" onclick="segGo(this,()=>setUiLang('zh'))">中文</button></div>
       </div>
       <div class="settings-row" style="border-top:.5px solid var(--sep)">
         <span class="row-ic purple">${ic('sparkles')}</span>
         <span class="settings-lbl" style="flex:1">Theme</span>
-        <div class="set-seg">${[['dark','Dark'],['light','Light']].map(([v,l])=>`<button class="${(window.UI_THEME||'dark')===v?'on':''}" onclick="setUiTheme('${v}')">${l}</button>`).join('')}</div>
+        <div class="set-seg" data-i="${(window.UI_THEME||'dark')==='light'?1:0}"><span class="ss-thumb"></span>${[['dark','Dark'],['light','Light']].map(([v,l])=>`<button class="${(window.UI_THEME||'dark')===v?'on':''}" onclick="segGo(this,()=>setUiTheme('${v}'))">${l}</button>`).join('')}</div>
       </div>
     </div>
 
@@ -6269,8 +6359,8 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.8.57</div>
-      <div>Last updated: 2026-11-14</div>
+      <div>v1.8.75</div>
+      <div>Last updated: 2026-11-15</div>
     </div>
   `;
   makeSortable(document.getElementById('ledger-sort'),ids=>{
@@ -6306,7 +6396,15 @@ function makeSortable(box,onDrop){
   }));
 }
 // on = active, off = archived; re-render afterwards so a cancelled confirm puts the switch back
-window.ledgerArchiveToggle=async function(id){ try{ await toggleLedgerArchive(id); } finally { renderSettings(); } };
+// switches: the knob stretches toward the other side like liquid, then settles; the list redraws after it lands
+const _swWait=()=>new Promise(r=>setTimeout(r,_reduceMotion()?0:340));
+document.addEventListener('change',e=>{
+  const inp=e.target; if(!inp.matches?.('.toggle-switch input')) return;
+  const tr=inp.nextElementSibling; if(!tr?.animate||_reduceMotion()) return;
+  const on=inp.checked, a=on?0:18, b=on?18:0;
+  try{ tr.animate([{transform:`translateX(${a}px)`,width:'20px'},{transform:`translateX(${Math.min(a,b)}px)`,width:'32px',offset:.45},{transform:`translateX(${b}px)`,width:'20px'}],{duration:340,easing:'cubic-bezier(.32,.72,0,1)',pseudoElement:'::after'}); }catch(_){}
+},true);
+window.ledgerArchiveToggle=async function(id){ await _swWait(); try{ await toggleLedgerArchive(id); } finally { renderSettings(); } };
 window.ledgerActions=function(id){
   const l=cfg.ledgers.find(x=>x.id===id); if(!l) return;
   const isCur=id===currentLedgerId();
@@ -6323,6 +6421,7 @@ window.ledgerActions=function(id){
 };
 
 window.togglePersonVisibility=async function(id, visible){
+  await _swWait();
   if(db){
     await mutateEntityList('person', list=>{
       const p=list.find(x=>x.id===id);
@@ -6922,7 +7021,7 @@ function pickLabel(inp){
   if(!v) return `<span class="pk-empty">${inp.type==='time'?(zh?'選擇時間':'Set time'):(zh?'選擇日期':'Set date')}</span>`;
   if(inp.type==='time') return v.slice(0,5);
   const d=new Date(v+'T00:00:00'); if(isNaN(d)) return v;
-  return d.toLocaleDateString(zh?'zh-HK':'en-AU',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+  return d.toLocaleDateString(zh?'zh-HK':'en-AU',{day:'numeric',month:'short',year:'numeric'});
 }
 function enhancePicker(inp){
   if(inp._pk) return; inp._pk=true;
@@ -7038,6 +7137,15 @@ function updateOfflineBanner(){
 window.addEventListener('offline',()=>{ setSyncDot('offline'); updateOfflineBanner(); });
 window.addEventListener('online',()=>{ setSyncDot(db?'ok':'err'); updateOfflineBanner(); if(pendingWrites) showToast('Back online — syncing'); });
 document.addEventListener('DOMContentLoaded',updateOfflineBanner);
+// add/edit sheet: an icon in front of each label, like the rows of an opened record
+document.querySelectorAll('#sheet-detail .form-label[data-ic]').forEach(l=>{ if(!l.querySelector('.ic')) l.insertAdjacentHTML('afterbegin',ic(l.dataset.ic)); });
+
+// after a language change reloads the app, come back to Settings where you were
+(function(){ let r=null; try{ r=JSON.parse(sessionStorage.getItem('ret-tab')||'null'); sessionStorage.removeItem('ret-tab'); }catch(e){}
+  if(!r) return;
+  const go=()=>{ const t=document.querySelector(`[onclick*="switchTab('${r.tab}'"]`); if(!t) return setTimeout(go,50); switchTab(r.tab,t); requestAnimationFrame(()=>{ const pg=document.getElementById('page-'+r.tab); if(pg) pg.scrollTop=r.y||0; }); };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',go); else go();
+})();
 if('serviceWorker' in navigator && location.protocol!=='file:'){
   window.addEventListener('load',()=>{ navigator.serviceWorker.register('sw.js').catch(e=>console.warn('SW register failed',e)); });
 }
