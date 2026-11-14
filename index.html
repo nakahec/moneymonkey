@@ -29,7 +29,7 @@
 <script>
 (function(){
   if(window.UI_LANG!=='zh') return;
-  var D={"Creating PDF…":"製作 PDF 中…","PDF saved":"已儲存 PDF","Rename / base currency":"改名 / 基本貨幣","Archive":"封存","Unarchive":"取消封存","Drag to reorder":"拖動排序"," · Archived":" · 已封存","Icon & colour":"圖示及顏色","Move up":"上移","Move down":"下移","More":"更多","Show assets in":"資產顯示貨幣","Ticker":"代號","Add at least one holding":"請加入最少一項持倉","Enter the number of units for each holding":"請輸入每項持倉嘅數量","Price not loaded yet — it will update automatically":"未有價格，會自動更新","Stock prices":"股票價格","Yahoo only":"只用 Yahoo","Closing prices · ":"收市價 · ","No price found — check the ticker or enter the value":"搵唔到價格，請檢查代號或輸入市值","Currency":"貨幣","Refresh":"更新","Updating prices…":"更新價格中…","Prices not loaded yet":"未載入價格","Ticker or name":"股票代號或名稱","Looking up…":"搜尋中…","No live price — enter the value":"搵唔到即時價格，請輸入市值","Assets":"資產","Net worth":"淨資產","Bank":"銀行","Credit card":"信用卡","Investment":"投資","Add asset":"新增資產","Edit asset":"編輯資產","Holdings":"持倉","Add holding":"新增持倉","Or total value":"或輸入總值","Amount owing":"欠款","Balance":"結餘","Units":"數量","Value":"市值","Enter a name":"請輸入名稱","This asset will be removed.":"呢項資產會被刪除。","Remove holding":"移除持倉","Electricity":"電費","Gas":"煤氣","Broadband":"上網","Other bills":"其他帳單","Bill type":"帳單類型","Choose the bill type":"請揀帳單類型","Projected":"預計","Possible duplicate":"可能重複","Save anyway":"仍然儲存","Save this one anyway?":"仍要儲存呢筆？","You already have this record:":"已經有呢筆記錄：","You already have these records:":"已經有以下記錄：","Recurring changes need an internet connection":"定期支出改動需要網絡","Back online — syncing":"已重新連線 — 同步中","Offline · changes will sync when you’re back online":"離線 · 恢復網絡後會自動同步","All time":"全部時間","This month":"本月","Last month":"上月","Last 3 months":"近 3 個月","This year":"今年","Custom":"自訂","Everyone":"所有人","Reset":"重設","Show results":"顯示結果","Minimum amount":"最低金額","Maximum amount":"最高金額","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
+  var D={"Twelve Data API key":"Twelve Data API Key","Gemini API key":"Gemini API Key","Optional":"選填","Firebase config JSON":"Firebase 設定 JSON","Connect Firebase":"連接 Firebase","Creating PDF…":"製作 PDF 中…","PDF saved":"已儲存 PDF","Rename / base currency":"改名 / 基本貨幣","Archive":"封存","Unarchive":"取消封存","Drag to reorder":"拖動排序"," · Archived":" · 已封存","Icon & colour":"圖示及顏色","Move up":"上移","Move down":"下移","More":"更多","Show assets in":"資產顯示貨幣","Ticker":"代號","Add at least one holding":"請加入最少一項持倉","Enter the number of units for each holding":"請輸入每項持倉嘅數量","Price not loaded yet — it will update automatically":"未有價格，會自動更新","Stock prices":"股票價格","Yahoo only":"只用 Yahoo","Closing prices · ":"收市價 · ","No price found — check the ticker or enter the value":"搵唔到價格，請檢查代號或輸入市值","Currency":"貨幣","Refresh":"更新","Updating prices…":"更新價格中…","Prices not loaded yet":"未載入價格","Ticker or name":"股票代號或名稱","Looking up…":"搜尋中…","No live price — enter the value":"搵唔到即時價格，請輸入市值","Assets":"資產","Net worth":"淨資產","Bank":"銀行","Credit card":"信用卡","Investment":"投資","Add asset":"新增資產","Edit asset":"編輯資產","Holdings":"持倉","Add holding":"新增持倉","Or total value":"或輸入總值","Amount owing":"欠款","Balance":"結餘","Units":"數量","Value":"市值","Enter a name":"請輸入名稱","This asset will be removed.":"呢項資產會被刪除。","Remove holding":"移除持倉","Electricity":"電費","Gas":"煤氣","Broadband":"上網","Other bills":"其他帳單","Bill type":"帳單類型","Choose the bill type":"請揀帳單類型","Projected":"預計","Possible duplicate":"可能重複","Save anyway":"仍然儲存","Save this one anyway?":"仍要儲存呢筆？","You already have this record:":"已經有呢筆記錄：","You already have these records:":"已經有以下記錄：","Recurring changes need an internet connection":"定期支出改動需要網絡","Back online — syncing":"已重新連線 — 同步中","Offline · changes will sync when you’re back online":"離線 · 恢復網絡後會自動同步","All time":"全部時間","This month":"本月","Last month":"上月","Last 3 months":"近 3 個月","This year":"今年","Custom":"自訂","Everyone":"所有人","Reset":"重設","Show results":"顯示結果","Minimum amount":"最低金額","Maximum amount":"最高金額","Every 28 days":"每 28 日","Edit recurring":"編輯定期支出","Next date":"下次日期","Changes apply to future occurrences only. Past records stay as they are.":"只會影響之後嘅項目，已有記錄唔會改。","Recurring expense updated":"已更新定期支出","Choose a next date from today on":"下次日期要係今日或之後","Clear filters and search":"清除篩選及搜尋","Switch ledger":"切換帳薄","Items":"項目","Receipt":"收據","Set time":"選擇時間","Set date":"選擇日期","Time":"時間","Shop":"商店","Shop name":"商店名稱","Add a Gemini API key in Settings first (aistudio.google.com/apikey)": "請先在設定輸入 Gemini API Key (aistudio.google.com/apikey)", "Add a Gemini API key in Settings first": "請先在設定輸入 Gemini API Key", "Load all records? This reads every record in this ledger, caches it on this device and rebuilds the summary.": "載入全部記錄會讀取目前帳薄全部舊記錄，存到本機，並重建 Summary。繼續？", "Archive this ledger? You can still view records but can't add new ones.": "封存後仍可查看記錄，但不能新增交易。確定封存？", "Export reads every transaction in this ledger once. Continue?": "匯出目前帳薄會讀取此帳薄所有交易一次。繼續？", "Add failed — check your Firestore rules": "新增失敗：請檢查 Firestore Rules", "Reloaded people and categories": "已重新載入 Firebase 人名 / 種類", "Rate update failed — using saved rates": "匯率更新失敗，暫用已儲存匯率", "Too many records to cache fully on this device": "本機記錄太多，未能完整儲存", "✗ Connection failed — check the config": "✗ 連接失敗，請檢查 Config", "Import failed — check the spreadsheet columns": "匯入失敗，請檢查 Excel 欄位", "This ledger is archived — you can't add transactions": "帳薄已封存，不能新增交易", "This ledger is archived — you can't import": "帳薄已封存，不能匯入", "2. Add a Web App → copy the config JSON": "2. 新增 Web App → 複製 Config JSON", "3. Firestore → Create → Test mode": "3. Firestore → 建立 → Test mode", "4. Paste it below → Connect": "4. 貼入下方 → 連接", "→ Create a project": "→ 建立專案", "Last 12 months": "近 12 個月", "Spending": "本期支出", "Monthly spending": "每月支出", "Amount": "金額", "not recorded (older entry)": "時間未有記錄（舊資料）", "Categories look right — nothing to change": "種類分類正確，無需更改", "Rename / change base currency": "改名 / 改基礎貨幣", "Sender and receiver can't be the same": "付款人與收款人不能相同", "Choose who sent and who received": "請選擇付款人和收款人", "Export this ledger as PDF": "匯出目前帳薄 PDF 報告", "Import transactions (Excel / CSV)": "匯入交易 Excel / CSV", "Export this ledger as CSV": "匯出目前帳薄 CSV", "Export all ledgers as CSV": "匯出全部帳薄 CSV", "Downloading all ledger CSVs": "已開始下載所有帳薄 CSV", "Firebase config JSON": "Firebase 設定 JSON", "No upcoming transactions": "沒有計劃中的交易", "No expenses in this period": "該時段沒有支出記錄", "Nothing to add": "沒有需要新增的項目", "No spending this month": "呢個月未有支出", "No importable rows found": "搵唔到可匯入資料", "Could not load people or categories": "載入人名/種類失敗", "Could not load filtered records": "載入篩選記錄失敗", "(leave blank to keep)": "（留空則不更改）", "No changes selected": "沒有選擇任何更改", "Firebase connected": "Firebase 已連接", "Loaded latest 100": "已載入最近 100 筆", "Fill in both bill period dates": "請填完整帳單期", "Bill period ends before it starts": "帳單期日期錯誤", "Enter an item name": "請輸入項目名稱", "AI category review": "AI 審查種類分類", "Reconcile bank statement": "對帳銀行結單", "Check bank statement": "核對銀行結單", "Category style updated": "已更新種類樣式", "Apply to selected": "套用到已選項目", "Apply selected changes": "套用已選更改", "Save selected": "儲存已選交易", "Save ledger": "儲存帳薄設定", "Edit current ledger": "編輯目前帳薄", "＋ New ledger": "＋ 新增帳薄", "Update rates now": "立即更新匯率", "Choose a date range": "請選擇日期範圍", "No ledgers to export": "沒有帳薄可匯出", "Nothing selected": "未選擇任何交易", "Pick an icon and colour": "揀圖示同顏色", "Enter new items": "輸入新增項目", "All settled up": "已全部結清", "Untitled ledger": "未命名帳薄", "Delete this record?": "刪除此記錄？", "Connect Firebase first": "請先連接 Firebase", "Firebase not connected": "未連接 Firebase", "Connect Firebase": "連接 Firebase", "Loading records": "正在載入記錄", "Load all records": "載入全部記錄", "Loading data…": "載入資料中…", "View month →": "查看該月 →", "‹ swipe ›": "‹ 左右滑動 ›", "Avg / month": "每月平均", "Hide matched": "隱藏已匹配", "Names completed": "名稱已補全", "That name already exists": "名稱已存在", "Exchange rates": "匯率", "Rate source": "匯率來源", "Last updated": "最後更新", "Download sample CSV": "下載範例 CSV", "Export PDF report": "匯出 PDF 報告", "Refresh failed": "重新整理失敗", "Invalid JSON": "JSON 格式錯誤", "AI analysing…": "AI 分析中…", "AI settings": "AI 設定", "AI tools": "AI 工具", "Setup steps": "設定步驟", "Manage people": "管理人員", "Manage categories": "管理種類", "Rebuild stats": "重建統計", "Suggested payments": "建議付款", "Excl. rent": "不計租金", "Year total": "全年總額", "Monthly avg": "每月平均", "Utilities": "水電雜費", "No records found": "找不到記錄", "Category summary": "種類摘要", "Category style": "種類樣式", "Ledger settings": "帳薄設定", "New ledger": "新增帳薄", "Ledger updated": "帳薄已更新", "Ledger created": "帳薄已建立", "Item name": "項目名稱", "Category name": "種類名稱", "Records": "記錄", "Recently added": "最近新增", "Scan receipt": "掃描收據", "Scan failed": "掃描失敗", "Analysis failed": "分析失敗", "Could not read the statement": "解析失敗", "Completing…": "補全中…", "Could not complete names": "補全失敗", "Complete names": "補全名稱", "Start analysis": "開始分析", "Start date": "開始日期", "End date": "結束日期", "Create PDF": "產生 PDF", "View records": "查看記錄", "New expense": "新增支出", "New transaction": "新增交易", "Edit transaction": "編輯交易", "Edit amount": "修改金額", "Edit ›": "修改 ›", "Continue →": "繼續 →", "Next →": "下一步 →", "← Back": "← 返回", "Invalid calculation": "算式無效", "Enter an amount": "請輸入金額", "Enter a name": "請輸入名稱", "Invalid amount": "金額無效", "Choose a date": "請選擇日期", "Choose a category": "請選擇種類", "Choose who paid": "請選擇付款人", "Choose who it was for": "請選擇使用者", "Select items first": "請先選擇項目", "Save failed:": "儲存失敗：", "Saving…": "儲存中…", "Updating…": "更新中…", "Applying…": "套用中…", "Connecting…": "連接中…", "Loading…": "載入中…", "Reconciliation done": "已完成核對", "Loading failed": "載入失敗", "Export failed": "匯出失敗", "Reorder failed": "排序失敗", "Rename failed": "改名失敗", "Remove failed": "移除失敗", "Update failed": "更新失敗", "Renamed to": "已改名為 ", "Added": "新增", "Removed": "已移除 ", "Unarchive": "取消封存", "Archived": "已封存", "Archive": "封存", "e.g. Daily, Travel": "例：日常、旅行", "Base currency": "基礎貨幣", "Search names…": "搜尋名稱…", "Search…": "搜尋…", "Uncategorised": "未分類", "(untitled)": "(未命名)", "Untitled": "未命名", "No ledgers yet": "未有帳薄", "No categories yet": "未有種類", "No people yet": "未有人員", "No records": "未有記錄", "Connected": "已連接", "Not connected": "未連接", "Set": "已設定", "Not set": "未設定", "In use": "使用中", "Previous year": "上一年", "Next year": "下一年", "Never": "永不", "just now": "啱啱", "Today": "今天", "Yesterday": "昨天", "Scheduled": "計劃中", "Recurring": "定期", "Select all": "全選", "Exists": "已有", "＋Add": "＋新增", "−Skip": "−略過", "Bank": "銀行", "Ledger": "帳薄", "Applied": "已套用", "Updated": "已更新", "Saved": "已儲存", "Deleted": "已刪除", "Bill period": "帳單期", "From": "由", "To": "至", "Used by": "使用者", "By person": "按人", "Month": "月份", "Trend": "走勢", "Past": "過去", "Upcoming": "未來", "Clear": "清除", "Summary": "總覽", "Balance": "結餘", "Data": "資料", "Settings": "設定", "Sync": "同步", "Add": "新增", "Delete": "刪除", "Cancel": "取消", "Details": "詳情", "Expense": "支出", "Transfer": "轉帳", "Item": "項目", "Date": "日期", "Note": "備註", "Optional": "選填", "Save": "儲存", "Select": "選擇", "Name": "名稱", "Connect": "連接", "Done": "完成", "Manage": "管理", "Category": "種類", "Filter": "篩選", "All": "全部", "Person": "人員", "Type": "類型", "Currency": "貨幣", "Apply": "套用", "Close": "關閉", "Retry": "重試", "Rename": "改名", "Style": "樣式", "Remove": "移除", "Show": "顯示", "Hide": "隱藏", "Edit": "編輯", "Duplicate": "複製", "Update": "更新", "Current": "目前", "Import": "匯入", "Export": "匯出", "Paid by": "付款人", "Ledgers": "帳薄", "People": "人員", "Categories": "種類", "avg in view": "可見平均", "projected": "預計", "By category": "按種類", "Bills": "帳單", "12-mo total": "12 個月總額", "Due · who paid?": "到期 · 邊個付？", "Who paid this one?": "今次邊個付？", "Who paid? Pick everyone who chipped in": "邊個付？揀晒有夾錢嘅人", "Split": "夾錢", "Cancel split": "取消夾錢", "Save split": "儲存夾錢", "Skip": "略過", "Pick at least two people": "最少揀兩個人", "Each pays": "每人付", "Repeat": "重複", "Off": "關", "Weekly": "每週", "Fortnightly": "每兩週", "Monthly": "每月", "Yearly": "每年", "Ends": "結束", "On date": "指定日期", "After": "次數後", "Last date": "最後日期", "Number of times": "次數", "Ask when due": "到期時再問", "Ask payer when due": "到期時再問付款人", "Recurring expenses": "定期支出", "Repeats": "重複", "Manage recurring": "管理定期支出", "Pause": "暫停", "Resume": "恢復", "Ended": "已結束", "Paused": "已暫停", "Total": "總計", "Edited": "修改", "estimated": "估算", "Not recorded (older entry)": "未有記錄（舊資料）", "Imported": "匯入", "Upcoming ": "未來", "Appearance": "外觀", "Language": "語言", "Theme": "主題", "Dark": "深色", "Light": "淺色", "Auto": "跟隨系統", "Tools": "工具", "Connections": "連接", "Rebuild stats?": "重建統計？", "Rebuild": "重建", "Load all": "全部載入", "Load all records?": "載入全部記錄？", "This reads every record in this ledger once and recalculates the totals.": "會讀取此帳薄所有記錄一次並重新計算總數。", "This reads every record in this ledger, caches it on this device and rebuilds the summary.": "會讀取此帳薄所有記錄，存到本機並重建總覽。", "This can’t be undone.": "此操作無法復原。", "Skip this occurrence?": "略過今次？", "It won’t be recorded.": "今次唔會記錄。", "Past records stay.": "舊記錄會保留。", "Archive ledger": "封存帳薄", "Archive this ledger? You can still view records but can’t add new ones.": "封存後仍可查看記錄，但不能新增交易。", "New people and categories will be added and synced to all devices.": "新出現的人名/種類會自動加入並同步到所有裝置。", "Old transactions keep its ID but may show “?”.": "舊交易仍會保留 ID，但可能顯示問號。", "OK": "確定", "Rebuilding stats…": "重建統計中…", "Loading all records…": "載入全部記錄中…", "Recurring expense saved": "已儲存定期支出", "Recurring expense saved — assign the payer on Summary": "已儲存定期支出 — 請在總覽指定付款人", "Recurring expense deleted": "已刪除定期支出", "Already handled on another device": "已在其他裝置處理", "Could not save": "儲存失敗", "Could not skip": "略過失敗", "Delete failed": "刪除失敗", "Choose the last date": "請選擇最後日期", "The last date is before the first one": "最後日期早於開始日期", "No category data yet.": "未有種類資料。", "No recurring expenses yet. Turn on “Repeat” when adding an expense.": "未有定期支出。新增支出時開啟「重複」即可。", "AI": "AI", "Firebase": "Firebase", "so far": "至今"};
   var P=[["^Show ([\\d,]+) records?$", "顯示 $1 筆記錄"], ["^Items · (\\d+)$", "項目 · $1"], ["^Paid by (.+)$", "$1 付款"], ["^([\\d,]+) records$", "$1 筆記錄"], ["^Avg / month (.+)$", "平均每月 $1"], ["^Loaded all ([\\d,]+) records$", "已載入全部 $1 筆"], ["^Stats rebuilt from ([\\d,]+) records$", "已用 $1 筆記錄重建統計"], ["^Saved ([\\d,]+) transactions$", "已儲存 $1 筆交易"], ["^Saved · paid by (.+)$", "已儲存 · $1 付款"], ["^Saved · split between (.+)$", "已儲存 · 由 $1 夾錢"], ["^Found ([\\d,]+) items — check them, then save:$", "找到 $1 項，請確認後儲存："], ["^([\\d,]+) of ([\\d,]+) items · (.+)$", "$1/$2 項 · $3"], ["^([\\d,]+) pending$", "$1 項待處理"], ["^(\\d+) min ago$", "$1 分鐘前"], ["^(\\d+) h ago$", "$1 小時前"], ["^(\\d+) d ago$", "$1 日前"], ["^(\\d+) mo ago$", "$1 個月前"], ["^(\\d+) y ago$", "$1 年前"], ["^Each (.+)$", "每人 $1"], ["^([▲▼]) (\\d+)% vs (\\w+) · ([\\d,]+) records$", "$1 $2% 對比 $3 · $4 筆記錄"], ["^Added ([\\d,]+) recurring expenses?$", "已新增 $1 筆定期支出"], ["^(\\d+) days · (.+)/day( · estimated)?$", "$1 日 · 每日 $2$3"], ["^(.+) · so far$", "$1 · 至今"], ["^Next (.+)$", "下次 $1"], ["^(\\d+)/(\\d+) times$", "$1/$2 次"], ["^Rename “(.+)”$", "將「$1」改名"], ["^Delete “(.+)”\\?$", "刪除「$1」？"], ["^Remove “(.+)”\\?$", "移除「$1」？"], ["^Import ([\\d,]+) transactions\\?$", "匯入 $1 筆交易？"], ["^Updated ([\\d,]+) categories$", "已更新 $1 筆交易種類"], ["^Exported ([\\d,]+) transactions$", "已匯出 $1 筆交易"], ["^Imported ([\\d,]+) transactions$", "已匯入 $1 筆交易"], ["^Added (.+)$", "已加入 $1"], ["^Removed (.+)$", "已移除 $1"], ["^Renamed to (.+)$", "已改名為 $1"], ["^Balance \\((.+)\\)$", "結餘（$1）"], ["^(.+) style$", "$1 樣式"], ["^Save failed: (.+)$", "儲存失敗：$1"], ["^Repeats (weekly|fortnightly|every 28 days|monthly|yearly) from (.+?)( until .+?)?(, \\d+ times in total)? · next (.+)\\.$", "由 $2 起$3$4重複（$1）· 下次 $5。"], ["^You’ll be asked who paid on the Summary page each time it’s due\\.$", "每次到期時會喺總覽問你邊個付款。"]].map(function(p){ return [new RegExp(p[0]), p[1]]; });
   var W={weekly:'每週',fortnightly:'每兩週','every 28 days':'每 28 日',monthly:'每月',yearly:'每年'};
   function tr(str){
@@ -1229,7 +1229,8 @@ body,:root[data-theme="light"] body{background:var(--bg)!important}
 
 /* assets on Balance */
 .asset-card{padding:4px 0 6px}
-.asset-head{display:flex;align-items:center;gap:10px;padding:12px 16px 10px;border-bottom:1px solid var(--sep)}
+.asset-head{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid var(--sep)}
+.asset-head .asset-total{line-height:1}
 .asset-pname{font-size:15px;font-weight:700}
 .asset-sub{font-size:11.5px;color:var(--text-3);margin-top:1px}
 .asset-total{font-family:var(--num);font-size:20px;font-weight:700;letter-spacing:-.03em}
@@ -1405,6 +1406,74 @@ body::after{content:'';display:block;height:1px}
 .tab-scan-btn.am-open .ic{transform:rotate(45deg)}
 /* the floating + is replaced by the bottom-bar + */
 #fab{display:none!important}
+
+/* page-title icons: solid, like the selected tab */
+.nav-title .nav-fill{fill:currentColor;stroke:none}
+/* solid top bar (no see-through blur) */
+.nav{background:var(--bg)!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+
+/* category / budget bars grow in from the left */
+.bud-fill{transform-origin:0 50%}
+#summary-body.bars-anim .bud-fill{animation:budGrow .75s cubic-bezier(.32,.72,0,1) both}
+#summary-body.bars-anim .bud-over{animation:budFade .4s ease .45s both}
+#summary-body.bars-anim .bud-mark{animation:budFade .3s ease .55s both}
+#summary-body.bars-anim .bp-row:nth-child(2) .bud-fill{animation-delay:.03s}.bp-row:nth-child(3) .bud-fill{animation-delay:.06s}.bp-row:nth-child(4) .bud-fill{animation-delay:.09s}
+#summary-body.bars-anim .bp-row:nth-child(5) .bud-fill{animation-delay:.12s}.bp-row:nth-child(6) .bud-fill{animation-delay:.15s}.bp-row:nth-child(n+7) .bud-fill{animation-delay:.18s}
+@keyframes budGrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes budFade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion: reduce){.bud-fill,.bud-over,.bud-mark{animation:none}}
+
+/* Trend: no legend, no "avg" label (the dashed average line stays) */
+.trend-key{display:none!important}
+.trend-svg .t-avg-bg,.trend-svg .t-avg-lbl{display:none}
+/* Trend: draw-in animation when the view opens */
+.trend-svg.anim .t-draw{stroke-dasharray:1;stroke-dashoffset:1;animation:tDraw 1.1s cubic-bezier(.32,.72,0,1) .05s forwards}
+.trend-svg.anim .t-areaf{animation:tFade .9s ease .35s both}
+.trend-svg.anim circle,.trend-svg.anim .t-val{animation:tFade .4s ease .8s both}
+.trend-svg.anim .t-proj{animation:tFade .4s ease 1s both}
+.trend-svg.anim .t-barg{transform-box:fill-box;transform-origin:50% 100%;animation:tGrow .75s cubic-bezier(.32,.72,0,1) both}
+@keyframes tDraw{to{stroke-dashoffset:0}}
+@keyframes tFade{from{opacity:0}to{opacity:1}}
+@keyframes tGrow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@media (prefers-reduced-motion: reduce){.trend-svg.anim *{animation:none!important;stroke-dashoffset:0!important}}
+
+/* Month/Trend and Past/Upcoming switches: identical look */
+.seg-ctrl,.future-tabs{margin:12px 16px 10px!important;box-shadow:inset 0 0 0 1px rgba(var(--ov),.06)!important}
+:root[data-theme="light"] .seg-ctrl,:root[data-theme="light"] .future-tabs{box-shadow:none!important}
+.seg-ctrl .seg-btn.active,.future-tabs .future-tab.active{color:var(--text)!important}
+.seg-ctrl .seg-btn.active .ic,.future-tabs .future-tab.active .ic{color:var(--accent)!important}
+:root[data-theme="light"] .seg-ctrl .seg-btn.active .ic,:root[data-theme="light"] .future-tabs .future-tab.active .ic{color:#9a7417!important}
+.seg-ctrl .seg-btn:not(.active),.future-tabs .future-tab:not(.active){color:var(--text-2)!important}
+.seg-ctrl .seg-btn:not(.active) .ic,.future-tabs .future-tab:not(.active) .ic{color:var(--text-3)!important}
+
+/* selected-month comparison */
+.ts-meta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:6px}
+.ts-chg,.ts-cnt{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;font-variant-numeric:tabular-nums}
+.ts-chg em{font-style:normal;font-weight:500;opacity:.8;margin-right:3px}
+.ts-chg.up{background:color-mix(in srgb,var(--red) 14%,transparent);color:var(--red)}
+.ts-chg.down{background:color-mix(in srgb,var(--green) 14%,transparent);color:var(--green)}
+.ts-cnt{background:rgba(var(--ov),.06);color:var(--text-2);font-weight:500}
+/* By-category chips */
+.tc-cats{padding:14px 16px 12px!important;gap:6px!important;-webkit-mask-image:linear-gradient(90deg,#000 88%,transparent);mask-image:linear-gradient(90deg,#000 88%,transparent)}
+.tc-chip{flex-shrink:0;display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:999px;font-size:13px;font-weight:500;color:var(--text-2);
+  background:rgba(var(--ov),.05);border:1px solid rgba(var(--ov),.07);transition:background .2s,color .2s,border-color .2s}
+.tc-chip .ic{width:14px;height:14px;color:var(--cc)}
+.tc-chip.sel{background:color-mix(in srgb,var(--cc) 16%,transparent);border-color:color-mix(in srgb,var(--cc) 45%,transparent);color:var(--text);font-weight:600}
+
+/* connection sheets (Firebase / Stock prices / AI) */
+.key-sheet{padding:0 16px calc(16px + var(--safe-b))}
+.key-hd{display:flex;align-items:center;gap:12px;margin:2px 2px 16px}
+.key-hd .sheet-title{padding:0!important;font-size:20px}
+.key-ic{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--accent-light);color:var(--accent);flex-shrink:0}
+.key-ic .ic{width:19px;height:19px}
+:root[data-theme="light"] .key-ic{color:#9a7417}
+.key-field{display:block;background:var(--surface-solid);border:1px solid rgba(var(--ov),.08);border-radius:16px;padding:12px 14px}
+.key-field>span{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--text-3);margin-bottom:8px}
+.key-field input,.key-field textarea{width:100%;box-sizing:border-box;background:var(--surface-2);border:1px solid rgba(var(--ov),.06);border-radius:10px;padding:11px 12px;color:var(--text);
+  font-family:var(--mono);font-size:13px!important;line-height:1.5;outline:none;resize:none}
+.key-field input:focus,.key-field textarea:focus{border-color:color-mix(in srgb,var(--accent) 60%,transparent)}
+.key-status{min-height:18px;text-align:center;font-size:12px;color:var(--text-2);margin:8px 0 2px}
+.key-btn{display:block;width:100%;margin-top:12px;padding:14px;border-radius:14px;background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:700}
 </style>
 <script>
 window.ICONS={"home": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5\"/>", "receipt": "<path d=\"M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z\"/><path d=\"M9 8h6M9 12h6M9 16h3\"/>", "chart": "<path d=\"M3 21h18\"/><rect x=\"5\" y=\"11\" width=\"3\" height=\"7\" rx=\"1\"/><rect x=\"10.5\" y=\"5\" width=\"3\" height=\"13\" rx=\"1\"/><rect x=\"16\" y=\"8\" width=\"3\" height=\"10\" rx=\"1\"/>", "settings": "<path d=\"M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z\"/><circle cx=\"12\" cy=\"12\" r=\"3\"/>", "camera": "<path d=\"M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z\"/><circle cx=\"12\" cy=\"13.5\" r=\"3.5\"/>", "book": "<path d=\"M4 19.5v-15A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zm0 0A1.5 1.5 0 0 0 5.5 21H20v-3\"/><path d=\"M8 7h8\"/>", "calendar": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4\"/>", "calendarRange": "<rect x=\"3\" y=\"5\" width=\"18\" height=\"16\" rx=\"2\"/><path d=\"M3 10h18M8 3v4M16 3v4M7 14h5M12 17.5h5\"/>", "clipboard": "<path d=\"M9 4H7a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-2\"/><rect x=\"9\" y=\"2.5\" width=\"6\" height=\"3\" rx=\"1\"/><path d=\"M9 11h6M9 15h4\"/>", "clock": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M12 7v5l3 2\"/>", "sparkles": "<path d=\"M11 3l1.8 4.7 4.7 1.8-4.7 1.8L11 16l-1.8-4.7L4.5 9.5l4.7-1.8z\"/><path d=\"M18.5 14.5l.8 1.9 1.9.8-1.9.8-.8 1.9-.8-1.9-1.9-.8 1.9-.8z\"/>", "expense": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M9 15l6-6M10 9h5v5\"/>", "transfer": "<path d=\"M17 3l4 4-4 4\"/><path d=\"M3 7h18\"/><path d=\"M7 21l-4-4 4-4\"/><path d=\"M21 17H3\"/>", "tag": "<path d=\"M12.6 2.6A2 2 0 0 0 11.2 2H4a2 2 0 0 0-2 2v7.2a2 2 0 0 0 .6 1.4l8.7 8.7a2.4 2.4 0 0 0 3.4 0l6.6-6.6a2.4 2.4 0 0 0 0-3.4z\"/><circle cx=\"7.5\" cy=\"7.5\" r=\"1.2\"/>", "search": "<circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"M20 20l-4-4\"/>", "alert": "<path d=\"M10.3 3.9 2.4 18a2 2 0 0 0 1.7 3h15.8a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z\"/><path d=\"M12 9v4M12 17h.01\"/>", "edit": "<path d=\"M12 20h9\"/><path d=\"M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z\"/>", "refresh": "<path d=\"M21 12a9 9 0 0 1-15.5 6.2L3 16\"/><path d=\"M3 21v-5h5\"/><path d=\"M3 12a9 9 0 0 1 15.5-6.2L21 8\"/><path d=\"M21 3v5h-5\"/>", "bank": "<path d=\"M3 10l9-6 9 6\"/><path d=\"M5 10v8M9.5 10v8M14.5 10v8M19 10v8\"/><path d=\"M3 21h18\"/>", "check": "<path d=\"M5 12.5l4.5 4.5L19 7.5\"/>", "checkCircle": "<circle cx=\"12\" cy=\"12\" r=\"9\"/><path d=\"M8 12.5l2.7 2.7L16 9.8\"/>", "x": "<path d=\"M6 6l12 12M18 6 6 18\"/>", "bulb": "<path d=\"M9 18h6M10 21h4\"/><path d=\"M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z\"/>", "loader": "<path d=\"M12 3v3M12 18v3M4.2 7.5l2.6 1.5M17.2 15l2.6 1.5M4.2 16.5 6.8 15M17.2 9l2.6-1.5\"/>", "listChecks": "<path d=\"M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17\"/><path d=\"M11 6h10M11 12h10M11 18h10\"/>", "plus": "<path d=\"M12 5v14M5 12h14\"/>", "copy": "<rect x=\"8\" y=\"8\" width=\"13\" height=\"13\" rx=\"2\"/><path d=\"M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3\"/>", "trash": "<path d=\"M4 7h16M10 11v6M14 11v6M6 7l1 13a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1l1-13M9 7V4h6v3\"/>", "note": "<path d=\"M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z\"/><path d=\"M14 3v6h6M8 13h8M8 17h5\"/>", "user": "<circle cx=\"12\" cy=\"8\" r=\"4\"/><path d=\"M4 21a8 8 0 0 1 16 0\"/>", "users": "<circle cx=\"9\" cy=\"8\" r=\"3.5\"/><path d=\"M2.5 20a6.5 6.5 0 0 1 13 0\"/><path d=\"M16 4.5a3.5 3.5 0 0 1 0 7M18 14a6.5 6.5 0 0 1 3.5 6\"/>", "repeat": "<path d=\"M17 2l4 4-4 4\"/><path d=\"M3 11v-1a4 4 0 0 1 4-4h14\"/><path d=\"M7 22l-4-4 4-4\"/><path d=\"M21 13v1a4 4 0 0 1-4 4H3\"/>", "download": "<path d=\"M12 3v12M7 10l5 5 5-5M5 21h14\"/>", "deleteLeft": "<path d=\"M21 5H9l-6 7 6 7h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1z\"/><path d=\"M12 9l6 6M18 9l-6 6\"/>", "hourglass": "<path d=\"M6 3h12M6 21h12M7 3c0 5 10 5 10 9s-10 4-10 9M17 3c0 5-10 5-10 9s10 4 10 9\"/>", "food": "<path d=\"M6 3v6a3 3 0 0 0 6 0V3M9 3v18\"/><path d=\"M18 21V3c-2 1-3 4-3 7v4h3\"/>", "coffee": "<path d=\"M4 8h13v6a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z\"/><path d=\"M17 10h1.5a2.5 2.5 0 0 1 0 5H17\"/><path d=\"M8 2.5V5M12 2.5V5\"/>", "drink": "<path d=\"M6 3h12l-1.5 17a1 1 0 0 1-1 1h-7a1 1 0 0 1-1-1z\"/><path d=\"M6.5 8h11\"/>", "cart": "<circle cx=\"9\" cy=\"20\" r=\"1.4\"/><circle cx=\"18\" cy=\"20\" r=\"1.4\"/><path d=\"M2.5 3h2.6l2.3 11.2a1.5 1.5 0 0 0 1.5 1.3h8.4a1.5 1.5 0 0 0 1.5-1.2L20.5 7H6\"/>", "bag": "<path d=\"M5 8h14l-1 12a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1z\"/><path d=\"M9 10V6a3 3 0 0 1 6 0v4\"/>", "car": "<path d=\"M5 17H3v-5l2-5a2 2 0 0 1 1.9-1.3h10.2A2 2 0 0 1 19 7l2 5v5h-2\"/><path d=\"M3 12h18M9.5 17h5\"/><circle cx=\"7.5\" cy=\"17\" r=\"2\"/><circle cx=\"16.5\" cy=\"17\" r=\"2\"/>", "bus": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"15\" rx=\"3\"/><path d=\"M4 11h16M8 21v-3M16 21v-3\"/><path d=\"M8 14.5h.01M16 14.5h.01\"/>", "train": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"14\" rx=\"3\"/><path d=\"M5 10h14M12 3v7M8 21l2-4M16 21l-2-4\"/><path d=\"M8.5 13.5h.01M15.5 13.5h.01\"/>", "plane": "<path d=\"M21 12a1.5 1.5 0 0 0-1.5-1.5H15L10.5 3h-2l2 7.5H6L4.5 8H3l1 4-1 4h1.5L6 13.5h4.5l-2 7.5h2l4.5-7.5h4.5A1.5 1.5 0 0 0 21 12z\"/>", "house": "<path d=\"M3 10.5 12 3l9 7.5\"/><path d=\"M5 9.5V20a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5\"/><path d=\"M10 21v-6h4v6\"/>", "building": "<rect x=\"5\" y=\"3\" width=\"14\" height=\"18\" rx=\"1\"/><path d=\"M9 7h2M13 7h2M9 11h2M13 11h2M9 15h2M13 15h2M10 21v-3h4v3\"/>", "bolt": "<path d=\"M13 2 4 14h7l-1 8 9-12h-7z\"/>", "droplet": "<path d=\"M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z\"/>", "phone": "<rect x=\"7\" y=\"2.5\" width=\"10\" height=\"19\" rx=\"2.5\"/><path d=\"M11 18.5h2\"/>", "wifi": "<path d=\"M2 8.8a15 15 0 0 1 20 0M5 12.5a10 10 0 0 1 14 0M8.5 16a5 5 0 0 1 7 0M12 19.5h.01\"/>", "heart": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/>", "medical": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M12 8v8M8 12h8\"/>", "pill": "<rect x=\"2.5\" y=\"8.25\" width=\"19\" height=\"7.5\" rx=\"3.75\" transform=\"rotate(-45 12 12)\"/><path d=\"M12 8.25v7.5\" transform=\"rotate(-45 12 12)\"/>", "film": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"2\"/><path d=\"M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4\"/>", "gamepad": "<path d=\"M6 8h12a4 4 0 0 1 4 4v1a3.5 3.5 0 0 1-6.3 2.1L15 14H9l-.7 1.1A3.5 3.5 0 0 1 2 13v-1a4 4 0 0 1 4-4z\"/><path d=\"M7 10.5v3M5.5 12h3M16 11.5h.01M18 13h.01\"/>", "music": "<path d=\"M9 18V5l12-2v13\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><circle cx=\"18\" cy=\"16\" r=\"3\"/>", "gift": "<rect x=\"3\" y=\"8\" width=\"18\" height=\"4\" rx=\"1\"/><path d=\"M12 8v13M19 12v8a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8\"/><path d=\"M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5\"/>", "education": "<path d=\"M22 9 12 4 2 9l10 5z\"/><path d=\"M6 11v5c3 2.5 9 2.5 12 0v-5M22 9v6\"/>", "shirt": "<path d=\"M8 3 3 6l2 4 2-1v12h10V9l2 1 2-4-5-3c0 1.7-1.8 3-4 3S8 4.7 8 3z\"/>", "dumbbell": "<path d=\"M6.5 6.5v11M17.5 6.5v11M3.5 9v6M20.5 9v6M6.5 12h11\"/>", "paw": "<circle cx=\"5.5\" cy=\"10\" r=\"2\"/><circle cx=\"9.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"14.5\" cy=\"5.5\" r=\"2\"/><circle cx=\"18.5\" cy=\"10\" r=\"2\"/><path d=\"M12 11c-2.8 0-6 4.2-6 7a2.5 2.5 0 0 0 2.5 2.5c1.3 0 2.2-.7 3.5-.7s2.2.7 3.5.7A2.5 2.5 0 0 0 18 18c0-2.8-3.2-7-6-7z\"/>", "scissors": "<circle cx=\"6\" cy=\"6\" r=\"3\"/><circle cx=\"6\" cy=\"18\" r=\"3\"/><path d=\"M20 4 8.1 15.9M14.5 14.5 20 20M8.1 8.1 12 12\"/>", "umbrella": "<path d=\"M12 3a9 9 0 0 1 9 9H3a9 9 0 0 1 9-9z\"/><path d=\"M12 12v6.5a2.5 2.5 0 0 1-5 0\"/>", "briefcase": "<rect x=\"3\" y=\"7\" width=\"18\" height=\"13\" rx=\"2\"/><path d=\"M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18\"/>", "wallet": "<path d=\"M19 7V5a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a2 2 0 0 1-2-2V6\"/><path d=\"M17 14h.01\"/>", "coins": "<ellipse cx=\"9\" cy=\"7\" rx=\"6\" ry=\"3\"/><path d=\"M3 7v4c0 1.7 2.7 3 6 3s6-1.3 6-3V7M3 11v4c0 1.7 2.7 3 6 3 .9 0 1.7-.1 2.5-.3\"/><ellipse cx=\"17\" cy=\"15\" rx=\"4\" ry=\"2\"/><path d=\"M13 15v3c0 1.1 1.8 2 4 2s4-.9 4-2v-3\"/>", "card": "<rect x=\"2.5\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\"/><path d=\"M2.5 10h19M6 15h4\"/>", "dots": "<path d=\"M5 12h.01M12 12h.01M19 12h.01\"/>", "noodles": "<path d=\"M4 11h16a8 8 0 0 1-16 0z\"/><path d=\"M9 11V4M13 11V3M17 11l2-7\"/><path d=\"M8 19.5h8\"/>", "pizza": "<path d=\"M12 3c3.6 0 6.9 1.4 9 3.7L12 21 3 6.7C5.1 4.4 8.4 3 12 3z\"/><path d=\"M4.6 9.2C6.7 7.8 9.3 7 12 7s5.3.8 7.4 2.2\"/><path d=\"M10 11.5h.01M14 14h.01M11.5 16h.01\"/>", "icecream": "<path d=\"M7 11a5 5 0 0 1 10 0\"/><path d=\"M6.5 11h11L12 22z\"/>", "bread": "<path d=\"M5 10a4 4 0 0 1 2-7.5h10a4 4 0 0 1 2 7.5V20a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/>", "cake": "<path d=\"M4 21V12a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v9\"/><path d=\"M4 15c1.5 1 3 1 4 0s2.5-1 4 0 2.5 1 4 0 2.5-1 4 0M3 21h18M12 10V7\"/><path d=\"M12 4.5c.8-.8.8-1.7 0-2.5-.8.8-.8 1.7 0 2.5z\"/>", "apple": "<path d=\"M12 7c-1.5-1-5-1.3-6.5 1.5S5 16 7 19s3.5 2.5 5 1.8c1.5.7 3 1.2 5-1.8s3-7.7 1.5-10.5S13.5 6 12 7z\"/><path d=\"M12 7c0-2 1-3.5 3-4\"/>", "fish": "<path d=\"M3 12c3-5 9-6.5 13-4l5-3v14l-5-3c-4 2.5-10 1-13-4z\"/><path d=\"M15.5 11.5h.01\"/>", "meat": "<path d=\"M15.5 4.5a5 5 0 0 1 4 7.5l-6.5 6.5a4 4 0 0 1-6.5-1L5 19l-2-2 1.5-1.5a4 4 0 0 1-1-6.5L10 2.5a5 5 0 0 1 5.5 2z\"/><circle cx=\"14\" cy=\"9\" r=\"2\"/>", "beer": "<path d=\"M5 8h10v12a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1z\"/><path d=\"M15 11h2a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2M5 8a3 3 0 0 1 3-4 3 3 0 0 1 5 1 2.5 2.5 0 0 1 2 3M9 12v5M12 12v5\"/>", "bike": "<circle cx=\"5.5\" cy=\"17\" r=\"3.5\"/><circle cx=\"18.5\" cy=\"17\" r=\"3.5\"/><path d=\"M5.5 17l4-8h6l3 8M9.5 9 8 6H6M12 17l3.5-8\"/>", "fuel": "<path d=\"M4 21V5a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v16M3 21h13M4 10h11\"/><path d=\"M15 8l3 3v6a1.5 1.5 0 0 0 3 0V9l-3-3\"/>", "parking": "<rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"4\"/><path d=\"M9 17V7h4a3 3 0 0 1 0 6H9\"/>", "ship": "<path d=\"M3 17l2 4h14l2-4-9-3z\"/><path d=\"M5 15V9h14v6M9 9V5h6v4M12 3v2\"/>", "bed": "<path d=\"M3 20V6M21 20v-6a3 3 0 0 0-3-3H9v6M3 17h18\"/><circle cx=\"6.5\" cy=\"12.5\" r=\"2\"/>", "ticket": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M14 6v2M14 11v2M14 16v2\"/>", "laptop": "<rect x=\"4\" y=\"5\" width=\"16\" height=\"11\" rx=\"1.5\"/><path d=\"M2 19h20\"/>", "headphones": "<path d=\"M3 15v-3a9 9 0 0 1 18 0v3\"/><rect x=\"2\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/><rect x=\"17\" y=\"14\" width=\"5\" height=\"7\" rx=\"1.5\"/>", "baby": "<circle cx=\"12\" cy=\"8\" r=\"5\"/><path d=\"M10 7.5h.01M14 7.5h.01M10.5 10c.8.6 2.2.6 3 0\"/><path d=\"M7 21v-3a5 5 0 0 1 10 0v3\"/>", "tools": "<path d=\"M14.7 6.3a4 4 0 0 0 5 5L22 9l-2-2-2.3 2.3-2-2L18 5l-2-2-2.3 2.3a4 4 0 0 0 1 1z\"/><path d=\"M15 9 4 20l-1-1L14 8\"/>", "plant": "<path d=\"M7 20h10M12 20v-8\"/><path d=\"M12 12c0-4 3-7 8-7 0 5-3 7-8 7zM12 14c0-3-2.5-5.5-7-5.5 0 4 2.5 5.5 7 5.5z\"/>", "tooth": "<path d=\"M12 5.5C10 3.5 6 3 4.5 5.5S4 11 5.5 13s1.5 8 3 8 1.5-5 3.5-5 2 5 3.5 5 1.5-6 3-8 2.5-5 1-7.5S14 3.5 12 5.5z\"/>", "glasses": "<circle cx=\"6.5\" cy=\"15\" r=\"3.5\"/><circle cx=\"17.5\" cy=\"15\" r=\"3.5\"/><path d=\"M10 15h4M3 15 5 6h2M21 15l-2-9h-2\"/>", "sofa": "<path d=\"M4 11V8a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v3\"/><path d=\"M2 13a2 2 0 0 1 4 0v2h12v-2a2 2 0 0 1 4 0v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zM5 19v2M19 19v2\"/>", "washer": "<rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><circle cx=\"12\" cy=\"13\" r=\"4.5\"/><path d=\"M8 6.5h.01M11 6.5h3\"/>", "flame": "<path d=\"M12 22c4 0 7-2.8 7-6.5 0-3-2-5.5-3.5-7 0 2-1 3.5-2.5 3.5C13 9 13 5 9.5 2c.5 3-1.5 5-3 7S5 12.5 5 15.5C5 19.2 8 22 12 22z\"/>", "piggy": "<path d=\"M19 9.5c1 0 2 .8 2 2M5 11.5C5 7.9 8.1 5 12 5c1.6 0 3.1.5 4.3 1.3L19 5v4c.6.8 1 1.5 1 2.5H21v3h-1.5c-.6 1.3-1.6 2.3-2.9 3V20h-3v-1.6a8 8 0 0 1-3.2 0V20h-3v-2.2C5.9 16.6 5 14.2 5 11.5z\"/><path d=\"M15.5 10h.01M3 10c0 1 .8 2 2 2\"/>", "church": "<path d=\"M12 2v4M10 4h4M6 21V11l6-5 6 5v10M3 21h18M10 21v-4a2 2 0 0 1 4 0v4\"/>", "run": "<circle cx=\"14\" cy=\"4.5\" r=\"2\"/><path d=\"M7 21l3-6 3 2v5M5 12l3-4 4-.5 3 3.5 3 1M10.5 15 9.5 9\"/>", "necessities": "<ellipse cx=\"9\" cy=\"7\" rx=\"5\" ry=\"3\"/><path d=\"M4 7v10c0 1.7 2.2 3 5 3s5-1.3 5-3V7\"/><path d=\"M14 9.5h5.5a.5.5 0 0 1 .5.5v9.5l-1.5-1-1.5 1-1.5-1-1.5 1\"/><circle cx=\"9\" cy=\"7\" r=\"1\"/>", "pot": "<path d=\"M4 11h16v5a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4z\"/><path d=\"M2 11h2M20 11h2M6.5 8h11M12 5.5V8\"/>", "pulse": "<path d=\"M12 20s-7.5-4.6-9.2-9.2A4.8 4.8 0 0 1 12 6.6a4.8 4.8 0 0 1 9.2 4.2C19.5 15.4 12 20 12 20z\"/><path d=\"M5.5 12.5h3l1.5-2.5 2 5 1.5-2.5h5\"/>", "plug": "<path d=\"M9 2v5M15 2v5\"/><path d=\"M6 7h12v4a6 6 0 0 1-12 0z\"/><path d=\"M12 17v5\"/>", "key": "<circle cx=\"8\" cy=\"15\" r=\"4.5\"/><path d=\"M11.2 11.8 20 3M16.5 6.5l3 3M14 9l2.5 2.5\"/>", "bill": "<path d=\"M6 2h9l5 5v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1z\"/><path d=\"M14 2v6h6\"/><path d=\"M12 10.5v8M14.2 12.3h-3a1.6 1.6 0 0 0 0 3.2h1.6a1.6 1.6 0 0 1 0 3.2H9.8\"/>", "voucher": "<path d=\"M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z\"/><path d=\"M9.5 14.5l5-5\"/><circle cx=\"9.5\" cy=\"9.8\" r=\".9\"/><circle cx=\"14.5\" cy=\"14.2\" r=\".9\"/>"};
@@ -1425,7 +1494,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   <!-- ══ SUMMARY ══ -->
   <div id="page-summary" class="page active">
     <div class="nav">
-      <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20a1 1 0 0 0 1 1h4v-6h4v6h4a1 1 0 0 0 1-1V9.5"/></svg>Summary</span>
+      <span class="nav-title"><svg class="ic lead nav-fill" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.6 2.7 10.4a1 1 0 0 0 1.3 1.53l.5-.42V20a1.5 1.5 0 0 0 1.5 1.5H10V15.5h4v6h4a1.5 1.5 0 0 0 1.5-1.5v-8.5l.5.42a1 1 0 0 0 1.3-1.53z"/></svg>Summary</span>
       <div class="nav-actions">
         <button class="ledger-chip ledger-tab" onclick="openLedgerSheet()" aria-label="Switch ledger">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12v18l-6-4.5L6 21z"/></svg>
@@ -1451,7 +1520,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   <!-- ══ HISTORY ══ -->
   <div id="page-history" class="page">
     <div class="nav">
-      <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h14v18l-2.3-1.5L14.3 21 12 19.5 9.7 21l-2.4-1.5L5 21z"/><path d="M9 8h6M9 12h6M9 16h3"/></svg>Records</span>
+      <span class="nav-title"><svg class="ic lead nav-fill" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M5 2.5h14a.5.5 0 0 1 .5.5v18.2l-2.8-1.8-2.4 1.6L12 19.4l-2.3 1.6-2.4-1.6-2.8 1.8V3a.5.5 0 0 1 .5-.5zM8.5 7.2v1.6h7V7.2zm0 4v1.6h7v-1.6zm0 4v1.6h4v-1.6z"/></svg>Records</span>
       <div class="nav-actions">
         <button class="nav-btn nav-erase" onclick="clearFilters()" title="Clear filters and search" aria-label="Clear filters and search"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h13l-5 6.5V18l-3 2v-9.5z"/><path d="m16 13 5 5M21 13l-5 5"/></svg></button>
         <div class="nav-btn" onclick="openFilterSheet()">
@@ -1478,7 +1547,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   <!-- ══ STATS ══ -->
   <div id="page-settle" class="page">
     <div class="nav">
-      <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18"/><rect x="5" y="11" width="3" height="7" rx="1"/><rect x="10.5" y="5" width="3" height="13" rx="1"/><rect x="16" y="8" width="3" height="10" rx="1"/></svg>Balance</span>
+      <span class="nav-title"><svg class="ic lead nav-fill" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.6" y="10.5" width="3.8" height="8.5" rx="1.2"/><rect x="10.1" y="4.5" width="3.8" height="14.5" rx="1.2"/><rect x="15.6" y="7.5" width="3.8" height="11.5" rx="1.2"/><rect x="2.5" y="20.2" width="19" height="1.8" rx=".9"/></svg>Balance</span>
     </div>
     <div class="page-body" id="settle-body"></div>
   </div>
@@ -1486,7 +1555,7 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
   <!-- ══ SETTINGS ══ -->
   <div id="page-settings" class="page">
     <div class="nav">
-      <span class="nav-title"><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>Settings</span>
+      <span class="nav-title"><svg class="ic lead nav-fill" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z M15 12a3 3 0 1 0-6 0 3 3 0 0 0 6 0z"/></svg>Settings</span>
     </div>
     <div class="page-body" id="settings-body"></div>
   </div>
@@ -1725,47 +1794,35 @@ window.ic=function(n,cls,style){const p=ICONS[n]||ICONS.tag;return '<svg class="
 
 <!-- Settings Sheets (Firebase) -->
 <div class="overlay" id="sheet-firebase">
-  <div class="sheet">
+  <div class="sheet key-sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title">Connect Firebase</div>
-    <div class="setup-card" style="margin:0 12px 12px">
-      <h3><svg class="ic lead" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/><path d="M11 6h10M11 12h10M11 18h10"/></svg>Setup steps</h3>
-      <p>
-        1. Go to <strong>console.firebase.google.com</strong> → Create a project<br>
-        2. Add a Web App → copy the config JSON<br>
-        3. Firestore → Create → Test mode<br>
-        4. Paste it below → Connect
-      </p>
-    </div>
-    <div class="sheet-inner">
-      <div class="form-row" style="flex-direction:column;align-items:flex-start;gap:8px">
-        <label class="form-label wide" style="width:auto">Firebase config JSON</label>
-        <textarea class="form-control left" id="fb-config-input" rows="6" placeholder='{"apiKey":"...","authDomain":"...","projectId":"..."}' style="font-size:12px;font-family:ui-monospace,monospace;line-height:1.5;width:100%;padding:0"></textarea>
-      </div>
-    </div>
-    <div id="fb-connect-status" style="text-align:center;font-size:12px;color:var(--text-2);padding:4px 0"></div>
-    <div style="padding:12px">
-      <button onclick="connectFirebase()" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:700">Connect</button>
-    </div>
-    <div style="height:8px"></div>
+    <div class="key-hd"><span class="key-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg></span><span class="sheet-title">Connect Firebase</span></div>
+    <label class="key-field"><span>Firebase config JSON</span>
+      <textarea id="fb-config-input" rows="7" spellcheck="false" placeholder='{"apiKey":"…","projectId":"…"}'></textarea></label>
+    <div id="fb-connect-status" class="key-status"></div>
+    <button class="key-btn" onclick="connectFirebase()">Connect</button>
   </div>
 </div>
 
 <!-- Gemini AI Sheet -->
 <div class="overlay" id="sheet-gemini">
-  <div class="sheet">
+  <div class="sheet key-sheet">
     <div class="sheet-handle"></div>
-    <div class="sheet-title">AI settings</div>
-    <div class="sheet-inner">
-      <div class="form-row" style="flex-direction:column;align-items:flex-start;gap:8px">
-        <label class="form-label wide" style="width:auto">Gemini API Key</label>
-        <input id="gemini-key-input" type="text" placeholder="AIza…" class="form-control left" style="font-size:13px;font-family:ui-monospace,monospace" oninput="setGeminiKey(this.value)">
-      </div>
-    </div>
-    <div style="padding:12px">
-      <button onclick="closeSheet('sheet-gemini')" style="width:100%;padding:14px;border-radius:var(--radius-sm);background:var(--accent);color:var(--on-accent);font-size:16px;font-weight:700">Done</button>
-    </div>
-    <div style="height:8px"></div>
+    <div class="key-hd"><span class="key-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></span><span class="sheet-title">AI</span></div>
+    <label class="key-field"><span>Gemini API key</span>
+      <input id="gemini-key-input" type="text" spellcheck="false" autocomplete="off" placeholder="AIza…" oninput="setGeminiKey(this.value)"></label>
+    <button class="key-btn" onclick="closeSheet('sheet-gemini')">Done</button>
+  </div>
+</div>
+
+<!-- Stock prices key Sheet -->
+<div class="overlay" id="sheet-stock">
+  <div class="sheet key-sheet">
+    <div class="sheet-handle"></div>
+    <div class="key-hd"><span class="key-ic"><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 19l5-6 4 3 7-9"/><path d="M15 7h5v5"/></svg></span><span class="sheet-title">Stock prices</span></div>
+    <label class="key-field"><span>Twelve Data API key</span>
+      <input id="stock-key-input" type="text" spellcheck="false" autocomplete="off" placeholder="Optional"></label>
+    <button class="key-btn" onclick="saveStockKey()">Save</button>
   </div>
 </div>
 
@@ -3002,12 +3059,12 @@ function displayScopeForCurrentPeriod(){
   }
   return scopeForCurrentPeriod();
 }
-window.toggleSummaryExcludeRent=function(){
+window.toggleSummaryExcludeRent=function(){ window._barsAnim=true;
   summaryExcludeRent=!summaryExcludeRent;
   localStorage.setItem('summary-exclude-rent', summaryExcludeRent?'1':'0');
   renderSummary();
 };
-window.toggleSummaryCatByPerson=function(){
+window.toggleSummaryCatByPerson=function(){ window._barsAnim=true;
   summaryCatByPerson=!summaryCatByPerson;
   localStorage.setItem('summary-cat-by-person', summaryCatByPerson?'1':'0');
   renderSummary();
@@ -3391,7 +3448,7 @@ function switchTab(name,el){
   el.classList.add('active');
   moveTabIndicator(true);
   requestAnimationFrame(()=>{ document.querySelectorAll('.page.active .seg-ctrl,.page.active .future-tabs').forEach(c=>segThumb(c,false)); });
-  if(name==='summary'){ renderSummary(); flipHeroIntro(); }
+  if(name==='summary'){ if(statsMode==='year') window._trendAnim=true; window._heroIntro=true; window._barsAnim=true; renderSummary(); flipHeroIntro(); }
   if(name==='history') renderHistory();
   if(name==='settle') renderSettle();
   if(name==='settings') renderSettings();
@@ -3414,10 +3471,10 @@ window.openFirebaseSheet=function(){
 };
 window.setGeminiKey=function(v){ cfg.geminiApiKey=v.trim(); saveCfg(); };
 // Optional Twelve Data key (free at twelvedata.com) — backup source for closing prices when Yahoo can't be reached
-window.setStockApiKey=async function(){
-  const v=await uiPrompt('Twelve Data API key (optional backup for stock prices — free at twelvedata.com)',cfg.stockApiKey||'');
-  if(v==null) return; cfg.stockApiKey=String(v).trim(); saveCfg(); renderSettings();
-  if(cfg.stockApiKey){ showToast('Saved — updating prices'); refreshAssetPrices(true); }
+window.setStockApiKey=function(){ const el=document.getElementById('stock-key-input'); if(el) el.value=cfg.stockApiKey||''; openSheet('sheet-stock'); };
+window.saveStockKey=function(){
+  cfg.stockApiKey=String(document.getElementById('stock-key-input')?.value||'').trim(); saveCfg(); closeSheet('sheet-stock'); renderSettings();
+  if(cfg.stockApiKey) refreshAssetPrices(true);
 };
 window.openGeminiSheet=function(){
   const el=document.getElementById('gemini-key-input');
@@ -4205,8 +4262,23 @@ window.duplicateTx=function(id){
   openSheet('sheet-detail');
 };
 
+// the record card (and its open details) shrinks, fades and closes the gap before it's removed
+function popOutTx(id){
+  return new Promise(res=>{
+    const exp=document.getElementById('exp-'+id), card=exp?.previousElementSibling;
+    if(!card||!card.animate||_reduceMotion()) return res();
+    const wrap=document.createElement('div'); wrap.style.overflow='hidden';
+    card.parentNode.insertBefore(wrap,card); wrap.appendChild(card); wrap.appendChild(exp);
+    const h=wrap.offsetHeight;
+    card.animate([{transform:'scale(1)',opacity:1},{transform:'scale(1.03)',opacity:1,offset:.25},{transform:'scale(.85)',opacity:0}],{duration:260,easing:'cubic-bezier(.4,0,.2,1)',fill:'forwards'});
+    exp.animate([{opacity:1},{opacity:0}],{duration:200,fill:'forwards'});
+    wrap.animate([{height:h+'px'},{height:'0px'}],{duration:260,delay:180,easing:'cubic-bezier(.32,.72,0,1)',fill:'forwards'}).onfinish=res;
+    if(navigator.vibrate) navigator.vibrate(8);
+  });
+}
 window.deleteTx=async function(id){
   if(!await uiConfirm('This can’t be undone.',{ok:'Delete',danger:true,title:'Delete this record?'})) return;
+  await popOutTx(id);
   await fbDel(id);
   showToast('Deleted');
 };
@@ -4770,6 +4842,8 @@ function setStatsMode(mode,el){
   moveSegThumb(true);
   if(prev===mode){ renderSummary(); return; }
   const oldNum=document.querySelector('#summary-body .hero-num')?.textContent;
+  if(mode==='year') window._trendAnim=true;
+  window._barsAnim=true;
   const go=()=>{
     renderSummary();
     flipHeroIntro(oldNum);
@@ -4790,6 +4864,7 @@ window.goMonthFromYearView=function(year,monthIndex){
   setStatsMode('month', btns[0]);
 };
 function changePeriod(dir){
+  window._barsAnim=true;
   const old=document.querySelector('#summary-body .hero-num')?.textContent;
   if(statsMode==='month') statsPeriod.setMonth(statsPeriod.getMonth()+dir);
   else statsYear+=dir;
@@ -4809,18 +4884,37 @@ function allLedgerTxs(){
 
 // Summary hero number: when the total changes in place (e.g. a new transaction), flip the changed digits like a split-flap counter
 const _heroPrev={};
-function flipHeroNum(body,key){
-  const el=body.querySelector('.hero-num'); if(!el) return;
-  const now=el.textContent, old=_heroPrev[key];
-  _heroPrev[key]=now;
-  if(old==null||old===now||_reduceMotion()) return;
-  runHeroFlip(el,old,now);
+// _heroSeen = the total the user last actually saw for each view, so a change made elsewhere
+// (e.g. a new record saved from the add sheet) still rolls from the old number when it becomes visible
+const _heroSeen={};
+function whenSheetsClosed(fn){
+  const open=()=>document.querySelector('.overlay.open,.pk-ov,.am-ov');
+  if(!open()) return fn();
+  const t=setInterval(()=>{ if(!open()){ clearInterval(t); setTimeout(fn,180); } },150);
+  setTimeout(()=>clearInterval(t),20000);
 }
-// Opening Summary / switching Month↔Trend: the same digit flip, from the previous number (or 0s) to the new total
-function flipHeroIntro(old){
-  const el=document.querySelector('#summary-body .hero-num'); if(!el||_reduceMotion()) return;
+function flipHeroNum(body,key){
+  window._heroKey=key;
+  const el=body.querySelector('.hero-num'); if(!el) return;
   const now=el.textContent;
-  runHeroFlip(el,old&&old!==now?old:now.replace(/\d/g,'0'),now,true);
+  _heroPrev[key]=now;
+  if(window._heroIntro||!document.getElementById('page-summary')?.classList.contains('active')) return;
+  const seen=_heroSeen[key];
+  if(seen==null){ _heroSeen[key]=now; return; }
+  if(seen===now||_reduceMotion()) return;
+  _heroSeen[key]=now;
+  // wait until the add/edit sheet is closed so the roll is actually seen
+  whenSheetsClosed(()=>{ const e=document.querySelector('#summary-body .hero-num'); if(e&&e.textContent===now) runHeroFlip(e,seen,now); });
+}
+// Opening Summary / switching Month↔Trend: roll from what you last saw here (or from 0s) to the current total
+function flipHeroIntro(old){
+  window._heroIntro=false;
+  const el=document.querySelector('#summary-body .hero-num'); if(!el) return;
+  const now=el.textContent, key=window._heroKey, seen=key?_heroSeen[key]:null;
+  if(key) _heroSeen[key]=now;
+  if(_reduceMotion()) return;
+  const from=old&&old!==now?old:(seen&&seen!==now?seen:now.replace(/\d/g,'0'));
+  runHeroFlip(el,from,now,true);
 }
 function runHeroFlip(el,old,now,all=false){
   // vertical odometer: each changed digit rolls upward from its old value to the new one
@@ -4858,6 +4952,7 @@ function runHeroFlip(el,old,now,all=false){
   },{passive:true});
 })();
 function renderSummary(){
+  { const b=document.getElementById('summary-body'); if(b){ b.classList.toggle('bars-anim',!!window._barsAnim); } window._barsAnim=false; }
   const bc=baseCur();
   let label;
   if(statsMode==='month'){
@@ -5363,6 +5458,7 @@ window.deleteRecurring=async function(id){
 // RENDER — TREND (continuous monthly line chart)
 // ════════════════════════════════════════════════
 let trendSel=null;
+const monYr=(m,y)=>window.UI_LANG==='zh'?`${y}年${m+1}月`:`${MON[m]} ${y}`;
 const MON=window.UI_LANG==='zh'?['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 function trendMonths(){
   const st=statsForLedger(currentLedgerId());
@@ -5420,7 +5516,7 @@ function lineChart(id, months, series, opts={}){
   const yOf=v=>+(TOP+(1-(Number(v)||0)/max)*(H-TOP-BOT)).toFixed(1);
   const xOf=i=>PADX+i*COL;
   const gid='g-'+id;
-  let svg=`<svg class="trend-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  let svg=`<svg class="trend-svg${window._trendAnim?' anim':''}" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
     <defs>${series.filter(s=>s.area).map((s,k)=>`<linearGradient id="${gid}-${k}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${s.color}" stop-opacity=".26"/><stop offset="1" stop-color="${s.color}" stop-opacity="0"/></linearGradient>`).join('')}</defs>
     <line class="t-grid" x1="0" x2="${W}" y1="${H-BOT}" y2="${H-BOT}"/>`;
   months.forEach((x,i)=>{ if(x.key===trendSel) svg+=`<rect class="t-sel-bar" x="${xOf(i)-COL/2+4}" y="8" width="${COL-8}" height="${H-16}" rx="14"/>`; });
@@ -5429,8 +5525,8 @@ function lineChart(id, months, series, opts={}){
   series.forEach((s,k)=>{
     const pts=s.vals.map((v,i)=>[xOf(i),yOf(v)]);
     const line=smoothPath(pts);
-    if(s.area) svg+=`<path d="${line} L${pts[pts.length-1][0]},${H-BOT} L${pts[0][0]},${H-BOT} Z" fill="url(#${gid}-${series.filter(z=>z.area).indexOf(s)})"/>`;
-    svg+=`<path d="${line}" fill="none" stroke="${s.color}" stroke-width="${s.w||2.2}" stroke-linejoin="round" stroke-linecap="round" ${s.dash?`stroke-dasharray="${s.dash}"`:''} opacity="${s.op||1}"/>`;
+    if(s.area) svg+=`<path class="t-areaf" d="${line} L${pts[pts.length-1][0]},${H-BOT} L${pts[0][0]},${H-BOT} Z" fill="url(#${gid}-${series.filter(z=>z.area).indexOf(s)})"/>`;
+    svg+=`<path ${s.dash?'':'class="t-draw" pathLength="1"'} d="${line}" fill="none" stroke="${s.color}" stroke-width="${s.w||2.2}" stroke-linejoin="round" stroke-linecap="round" ${s.dash?`stroke-dasharray="${s.dash}"`:''} opacity="${s.op||1}"/>`;
     if(s.points!==false) s.vals.forEach((v,i)=>{
       const sel=months[i].key===trendSel;
       svg+=`<circle cx="${xOf(i)}" cy="${yOf(v)}" r="${sel?5:3.2}" fill="${sel?s.color:'var(--bg)'}" stroke="${sel?'var(--bg)':s.color}" stroke-width="2"/>`;
@@ -5440,10 +5536,10 @@ function lineChart(id, months, series, opts={}){
   if(proj&&months.length>1){
     const i=months.length-1, base=series[0];
     const x0=xOf(i-1), y0=yOf(base.vals[i-1]), x1=xOf(i), y1=yOf(proj.val), yc=yOf(base.vals[i]);
-    svg+=`<path d="M${x0},${y0} L${x1},${y1}" fill="none" stroke="${base.color}" stroke-width="1.8" stroke-dasharray="3 5" stroke-linecap="round" opacity=".9"/>
+    svg+=`<g class="t-proj"><path d="M${x0},${y0} L${x1},${y1}" fill="none" stroke="${base.color}" stroke-width="1.8" stroke-dasharray="3 5" stroke-linecap="round" opacity=".9"/>
       <line x1="${x1}" x2="${x1}" y1="${yc}" y2="${y1}" stroke="${base.color}" stroke-width="1" stroke-dasharray="2 4" opacity=".5"/>
       <circle cx="${x1}" cy="${y1}" r="4" fill="var(--bg)" stroke="${base.color}" stroke-width="1.6" stroke-dasharray="2 2"/>
-      <text class="t-val" x="${x1}" y="${y1-10}" text-anchor="middle" style="fill:${base.color}">~${shortNum(proj.val)}</text>`;
+      <text class="t-val" x="${x1}" y="${y1-10}" text-anchor="middle" style="fill:${base.color}">~${shortNum(proj.val)}</text></g>`;
   }
   months.forEach((x,i)=>{
     const sel=x.key===trendSel;
@@ -5494,7 +5590,7 @@ function billBarChart(id, months, items){
   const max=Math.max(1,...tot)*1.12;
   const hOf=v=>(Number(v)||0)/max*(H-TOP-BOT);
   const xOf=i=>PADX+i*COL;
-  let svg=`<svg class="trend-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><defs>${items.map((it,k)=>`<pattern id="${id}-h${k}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="${it.color}" opacity=".28"/><rect width="2.4" height="6" fill="${it.color}" opacity=".85"/></pattern>`).join('')}</defs><line class="t-grid" x1="0" x2="${W}" y1="${H-BOT}" y2="${H-BOT}"/>`;
+  let svg=`<svg class="trend-svg${window._trendAnim?' anim':''}" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><defs>${items.map((it,k)=>`<pattern id="${id}-h${k}" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="${it.color}" opacity=".28"/><rect width="2.4" height="6" fill="${it.color}" opacity=".85"/></pattern>`).join('')}</defs><line class="t-grid" x1="0" x2="${W}" y1="${H-BOT}" y2="${H-BOT}"/>`;
   months.forEach((x,i)=>{ if(x.key===trendSel) svg+=`<rect class="t-sel-bar" x="${xOf(i)-COL/2+4}" y="8" width="${COL-8}" height="${H-16}" rx="14"/>`; });
   months.forEach((x,i)=>{
     const cx=xOf(i), sel=x.key===trendSel;
@@ -5507,7 +5603,7 @@ function billBarChart(id, months, items){
     const totH=segs.reduce((a,z)=>a+z.h,0);
     if(totH>0.3){
       let y=H-BOT;
-      svg+=`<clipPath id="${id}-c${i}"><rect x="${cx-BW/2}" y="${(H-BOT-totH).toFixed(1)}" width="${BW}" height="${(totH+8).toFixed(1)}" rx="7"/></clipPath><g clip-path="url(#${id}-c${i})" opacity="${sel?1:.85}">`;
+      svg+=`<clipPath id="${id}-c${i}"><rect x="${cx-BW/2}" y="${(H-BOT-totH).toFixed(1)}" width="${BW}" height="${(totH+8).toFixed(1)}" rx="7"/></clipPath><g class="t-barg" style="animation-delay:${(i%12)*25}ms" clip-path="url(#${id}-c${i})" opacity="${sel?1:.85}">`;
       segs.forEach(z=>{ y-=z.h; svg+=`<rect x="${cx-BW/2}" y="${y.toFixed(1)}" width="${BW}" height="${(z.h+.5).toFixed(1)}" fill="${z.fill}"/>`; });
       svg+=`</g><rect x="${cx-BW/2}" y="${H-BOT}" width="${BW}" height="8" fill="var(--surface-solid)"/>`;
       const pr=segs.some(z=>z.proj);
@@ -5530,7 +5626,7 @@ function stackBarChart(id, months, items, totals, opts={}){
   const hOf=v=>(Number(v)||0)/max*(H-TOP-BOT);
   const xOf=i=>PADX+i*COL;
   const BW=24;
-  let svg=`<svg class="trend-svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><line class="t-grid" x1="0" x2="${W}" y1="${H-BOT}" y2="${H-BOT}"/>`;
+  let svg=`<svg class="trend-svg${window._trendAnim?' anim':''}" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"><line class="t-grid" x1="0" x2="${W}" y1="${H-BOT}" y2="${H-BOT}"/>`;
   months.forEach((x,i)=>{ if(x.key===trendSel) svg+=`<rect class="t-sel-bar" x="${xOf(i)-COL/2+4}" y="8" width="${COL-8}" height="${H-16}" rx="14"/>`; });
   svg+=`<g class="t-avg" id="${id}-avg"><line x1="0" x2="${W}" y1="0" y2="0" style="stroke:rgba(var(--ov),.28)" stroke-dasharray="2 5" stroke-width="1.2"/><rect class="t-avg-bg" x="0" y="0" width="0" height="16" rx="8"/><text class="t-avg-lbl" x="0" y="-6" text-anchor="middle"></text></g>`;
   months.forEach((x,i)=>{
@@ -5608,6 +5704,8 @@ function renderTrend(body){
   const cw=(body.clientWidth||375)-parseFloat(bcs.paddingLeft||0)-parseFloat(bcs.paddingRight||0)-2;
   TC.COL=Math.max(44,(cw-2*TC.PADX)/5);
   const months=trendMonths();
+  // opening Trend always starts on the latest month (selected and scrolled into view)
+  if(window._trendAnim){ trendSel=null; window._trendKeepScroll=false; }
   if(trendSel==null||!months.some(x=>x.key===trendSel)) trendSel=months[months.length-1].key;
   const st=statsForLedger(currentLedgerId());
   const curKey=months[months.length-1].key;
@@ -5640,8 +5738,8 @@ function renderTrend(body){
     const cSel=cv[selIdx]||0;
     const c12=cv.slice(-12).reduce((a,b)=>a+b,0);
     const cAct=cv.slice(-12).filter(v=>v>0).length;
-    catHtml=`<div class="trend-chips">${catList.map(id=>`<button class="chip${id===trendCat?' sel':''}" onclick="selectTrendCat('${id}')" style="${id===trendCat?`background:${catColor(id)};color:#0b0b0c`:''}">${catIcon(id)} ${escapeHtml(catName(id))}</button>`).join('')}</div>
-      <div class="trend-12"><div><span class="k">12-mo total</span><span class="n">${fmtBase(c12)}</span></div><div><span class="k">Avg / month</span><span class="n">${fmtBase(cAct?c12/cAct:0)}</span></div><div><span class="k">${MON[sel.m]} ${sel.y}</span><span class="n" style="color:${col}">${fmtBase(cSel)}</span></div></div>
+    catHtml=`<div class="trend-chips tc-cats">${catList.map(id=>`<button class="tc-chip${id===trendCat?' sel':''}" onclick="selectTrendCat('${id}')" style="--cc:${catColor(id)}">${catIcon(id)}<span>${escapeHtml(catName(id))}</span></button>`).join('')}</div>
+      <div class="trend-12"><div><span class="k">12-mo total</span><span class="n">${fmtBase(c12)}</span></div><div><span class="k">Avg / month</span><span class="n">${fmtBase(cAct?c12/cAct:0)}</span></div><div><span class="k">${monYr(sel.m,sel.y)}</span><span class="n" style="color:${col}">${fmtBase(cSel)}</span></div></div>
       <div class="trend-scroll" data-chart="tc-cat">${snapMarks(months.length)}${lineChart('tc-cat',months,[{vals:cv,color:col,area:true,labels:true}],{proj:cp?{val:cp}:null,avg:cv.map((v,i)=>i===months.length-1?null:v)})}</div>`;
   }
 
@@ -5664,7 +5762,7 @@ function renderTrend(body){
     const bSel=billTotals[selIdx]||0;
     const b12=billTotals.slice(-12).reduce((a,b)=>a+b,0);
     const bAct=billTotals.slice(-12).filter(v=>v>0).length;
-    billHtml=`<div class="trend-12"><div><span class="k">12-mo total</span><span class="n">${fmtBase(b12)}</span></div><div><span class="k">Avg / month</span><span class="n">${fmtBase(bAct?b12/bAct:0)}</span></div><div><span class="k">${MON[sel.m]} ${sel.y}</span><span class="n">${anyProj(selIdx)?`~${fmtBase(dispTotals[selIdx])}`:fmtBase(bSel)}</span></div></div>
+    billHtml=`<div class="trend-12"><div><span class="k">12-mo total</span><span class="n">${fmtBase(b12)}</span></div><div><span class="k">Avg / month</span><span class="n">${fmtBase(bAct?b12/bAct:0)}</span></div><div><span class="k">${monYr(sel.m,sel.y)}</span><span class="n">${anyProj(selIdx)?`~${fmtBase(dispTotals[selIdx])}`:fmtBase(bSel)}</span></div></div>
       <div class="trend-head" style="padding-top:2px"><span></span><span class="trend-key"><span><i class="k-hatch"></i>projected</span></span></div>
       <div class="trend-scroll" data-chart="tc-bill">${snapMarks(months.length)}${billBarChart('tc-bill',months,items)}</div>
       <div class="trend-legend grid" id="tc-bill-legend">${items.map((it,k)=>`<span data-item="${k}"><i style="background:${it.color}"></i><em class="tr-ok">${escapeHtml(it.name)}</em><b>${it.proj?.[selIdx]!=null?'~':''}${fmtBase(it.disp[selIdx]||0)}</b></span>`).join('')}</div>`;
@@ -5684,8 +5782,8 @@ function renderTrend(body){
   </div>
   <div class="card">
     <div class="trend-sel">
-      <div><div class="m">${MON[sel.m]} ${sel.y}${isCur?' · so far':''}</div><div class="v">${fmtBase(sel.total)}</div>
-      <div class="d" style="color:${diff==null?'var(--text-3)':diff>0?'var(--red)':'var(--green)'}">${diff==null?`${sel.count} records`:`${diff>0?'▲':'▼'} ${Math.abs(diff).toFixed(0)}% vs ${MON[prev.m]} · ${sel.count} records`}</div>
+      <div><div class="m">${monYr(sel.m,sel.y)}${isCur?' · so far':''}</div><div class="v">${fmtBase(sel.total)}</div>
+      <div class="ts-meta">${diff==null?'':`<span class="ts-chg ${diff>0?'up':'down'}"><em>${_zh()?'較':'vs'} ${MON[prev.m]}</em>${diff>0?'▲':'▼'} ${Math.abs(diff).toFixed(0)}%</span>`}<span class="ts-cnt">${sel.count} ${_zh()?'筆記錄':'records'}</span></div>
 </div>
       <button class="trend-go" onclick="goMonthFromYearView(${sel.y},${sel.m})">View month →</button>
     </div>
@@ -5697,6 +5795,7 @@ function renderTrend(body){
   <div class="sec-label">Bills</div>
   <div class="card trend-card">${billHtml}</div>`;
   body.innerHTML=html;
+  window._trendAnim=false;
   flipHeroNum(body,`${currentLedgerId()}|trend|${summaryExcludeRent}`);
   const scs=[...document.querySelectorAll('.trend-scroll')];
   const {COL,PADX}=TC;
@@ -5793,12 +5892,12 @@ function renderSettle(){
 // Stored in ledgers/shared-ledger/meta/assets as { people: { personId: [item, …] } }
 // ════════════════════════════════════════════════
 const ASSET_PEOPLE=['person-charlie','person-ivan'];
-const ASSET_CURS=['AUD','HKD','USD','JPY','NTD','CNY','GBP','EUR','SGD'];
+const ASSET_CURS=['AUD','HKD','USD','JPY','NTD','CNY'];
 const ASSET_TYPES=[
-  {id:'bank',label:'Bank',icon:'<path d="M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18M12 3l9 5H3z"/>'},
-  {id:'credit',label:'Credit card',icon:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>'},
-  {id:'investment',label:'Investment',icon:'<path d="M4 19l5-6 4 3 7-9"/><path d="M15 7h5v5"/>'},
-  {id:'other',label:'Other',icon:'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>'}
+  {id:'bank',label:'Bank',zh:'銀行',icon:'<path d="M3 10h18M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18M12 3l9 5H3z"/>'},
+  {id:'credit',label:'Credit card',zh:'信用卡',icon:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3 10h18M7 15h4"/>'},
+  {id:'investment',label:'Investment',zh:'投資',icon:'<path d="M4 19l5-6 4 3 7-9"/><path d="M15 7h5v5"/>'},
+  {id:'other',label:'Other',zh:'其他',icon:'<circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/>'}
 ];
 let assetData={people:{},prices:{}}, assetsUnsub=null, _priceTimer=null, _priceBusy=false;
 function assetsDoc(){ return doc(db,'ledgers',SHARED_LEDGER_ID,'meta','assets'); }
@@ -5923,7 +6022,7 @@ function renderAssetsSection(){
   let h=`<div class="sec-label sec-split"><span>Assets</span><span class="asset-cur-pick" onclick="pickAssetCur()">${aCur()} <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></span></div>`;
   // when prices were last fetched (GitHub job or this device)
   const lastAt=Math.max(Number(assetData.pricesAt)||0,...syms.map(x=>Number(assetData.prices?.[x]?.at)||0));
-  if(syms.length&&lastAt) h+=`<div class="asset-prices"><span>Last updated ${new Date(lastAt).toLocaleString(window.UI_LANG==='zh'?'zh-HK':'en-AU',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'})}</span></div>`;
+  if(syms.length&&lastAt) h+=`<div class="asset-prices"><span>${_zh()?'最後更新':'Last updated'} ${new Date(lastAt).toLocaleString(window.UI_LANG==='zh'?'zh-HK':'en-AU',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'})}</span></div>`;
   people.forEach(pid=>{
     const list=assetList(pid), total=list.reduce((s,a)=>s+assetValue(a),0);
     h+=`<div class="card asset-card">
@@ -5932,11 +6031,8 @@ function renderAssetsSection(){
         <div class="asset-total${total<0?' neg':''}">${fmtA(total)}</div></div>`;
     list.forEach(a=>{
       const v=assetValue(a), n=Array.isArray(a.holdings)?a.holdings.length:0, cur=a.currency||baseCur();
-      let sub=(ASSET_TYPES.find(t=>t.id===a.type)||ASSET_TYPES[3]).label;
-      if(a.type==='investment'&&n){ sub+=` · ${n} holding${n>1?'s':''}`; const miss=a.holdings.filter(h=>!isCash(hSym(h))&&!quoteFor(hSym(h))).length; if(miss) sub+=` · ${miss} price${miss>1?'s':''} pending`; }
-      if(cur!==baseCur()&&!(a.type==='investment'&&n)) sub+=` · ${cur} ${fmt(Number(a.amount)||0,cur)}`;
       h+=`<div class="asset-row" onclick="openAssetSheet('${pid}','${a.id}')"><span class="asset-ic t-${a.type}">${assetIcon(a.type)}</span>
-        <div style="flex:1;min-width:0"><div class="asset-name">${escapeHtml(a.name||'Untitled')}</div><div class="asset-sub">${sub}</div></div>
+        <div style="flex:1;min-width:0"><div class="asset-name">${escapeHtml(a.name||'Untitled')}</div></div>
         <div class="asset-amt${v<0?' neg':''}">${fmtA(v)}</div><span class="settings-arrow">›</span></div>`;
     });
     h+=`<div class="asset-add" onclick="openAssetSheet('${pid}')">${ic('plus')} Add asset</div></div>`;
@@ -5949,28 +6045,43 @@ async function saveAssetList(pid,list){
   try{ await setDoc(assetsDoc(),{people:{[pid]:stripUndefined(list)},updatedAt:serverTimestamp()},{merge:true}); return true; }
   catch(e){ console.error('save assets',e); showToast('Couldn’t save: '+(e?.code||e?.message||e)); return false; }
 }
+// thousands separators in amount fields: 12,345.67 while typing, plain number when saved
+const numVal=v=>Number(String(v??'').replace(/,/g,''))||0;
+function groupNum(v){
+  const t=String(v??'').replace(/,/g,''); if(t===''||t==='-') return t;
+  const neg=t.startsWith('-'), [i,f]=t.replace('-','').split('.');
+  return (neg?'-':'')+(i||'0').replace(/^0+(?=\d)/,'').replace(/\B(?=(\d{3})+(?!\d))/g,',')+(f!==undefined?'.'+f:'');
+}
+function groupInput(el){
+  const raw=el.value, pos=el.selectionStart??raw.length;
+  const before=raw.slice(0,pos).replace(/[^\d.-]/g,'').length;
+  const clean=raw.replace(/[^\d.-]/g,'').replace(/(?!^)-/g,'').replace(/(\..*)\./g,'$1');
+  const out=groupNum(clean); el.value=out;
+  let n=0,k=0; while(k<out.length&&n<before){ if(/[\d.-]/.test(out[k])) n++; k++; }
+  try{ el.setSelectionRange(k,k); }catch(e){}
+}
 window.openAssetSheet=function(pid,id){
   const orig=assetList(pid).find(a=>a.id===id);
   const d=orig?JSON.parse(JSON.stringify(orig)):{id:'as-'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),type:'bank',name:'',amount:'',currency:baseCur(),holdings:[]};
   if(!Array.isArray(d.holdings)) d.holdings=[];
   if(!d.currency) d.currency=baseCur();
-  const {ov,close}=pickerShell(`<div class="asset-sheet"><div class="sheet-title" style="padding:0 4px 12px">${orig?'Edit asset':'Add asset'} · ${escapeHtml(personName(pid))}</div><div class="asset-form"></div></div>`);
+  const {ov,close}=pickerShell(`<div class="asset-sheet"><div class="sheet-title" style="padding:0 4px 12px">${_zh()?(orig?'編輯資產':'新增資產'):(orig?'Edit asset':'Add asset')} · ${escapeHtml(personName(pid))}</div><div class="asset-form"></div></div>`);
   const box=ov.querySelector('.asset-form');
   const holdTotal=()=>d.holdings.reduce((s,h)=>s+holdingBase(h),0);
   const liveText=h=>{ if(isCash(hSym(h))){ const c=hSym(h), u=Number(h.units); return `Cash · ${c}${c!==baseCur()?` · 1 ${c} = ${baseCur()} ${fxNow(c).toFixed(4)}`:''}${u?` · ${fmtBase(holdingBase(h))}`:''}`; } const q=h.symbol?quoteFor(h.symbol):null, u=Number(h.units); return q?`${escapeHtml(q.name)} · close ${q.closeDate?fmtDateShort(q.closeDate)+' ':''}${q.currency} ${fmt(q.price,q.currency)}${u?` × ${u} = ${fmtBase(holdingBase(h))}`:''}`:(h.symbol?(h._looking?'Looking up…':'Price not loaded yet — it will update automatically'):''); };
   const draw=()=>{
     const inv=d.type==='investment';
-    box.innerHTML=`<div class="chip-wrap" style="padding:0 0 10px">${ASSET_TYPES.map(t=>`<div class="chip${d.type===t.id?' sel':''}" data-t="${t.id}">${t.label}</div>`).join('')}</div>
+    box.innerHTML=`<div class="chip-wrap" style="padding:0 0 10px">${ASSET_TYPES.map(t=>`<div class="chip${d.type===t.id?' sel':''}" data-t="${t.id}">${_zh()?t.zh:t.label}</div>`).join('')}</div>
       <label class="asset-lbl">Name</label><input class="form-control asset-in" data-f="name" placeholder="${inv?'CommSec, Super…':d.type==='credit'?'CBA credit card…':'CBA Smart Access…'}" value="${escapeHtml(d.name||'')}">
       ${inv?'':`<label class="asset-lbl">Currency</label>`}<div class="chip-wrap asset-curs" style="padding:0;${inv?'display:none':''}">${ASSET_CURS.map(c=>`<div class="chip${d.currency===c?' sel':''}" data-c="${c}">${c}</div>`).join('')}</div>
       ${inv?`<label class="asset-lbl" style="display:flex;justify-content:space-between"><span>Holdings</span><b class="asset-hold-total">${fmtBase(holdTotal())}</b></label>
         <div class="asset-hold-hd"><span>Ticker</span><span>Units</span><span></span></div>
-        <div class="asset-holds">${d.holdings.map((x,i)=>`<div class="asset-hold"><input class="form-control" data-h="${i}" data-k="symbol" placeholder="VAS.AX, AAPL, USD" value="${escapeHtml(x.symbol||x.name||'')}" autocapitalize="characters"><input class="form-control num" data-h="${i}" data-k="units" inputmode="decimal" placeholder="0" value="${x.units??''}"><button class="asset-x" data-del="${i}" aria-label="Remove holding">×</button><div class="asset-live" data-live="${i}">${liveText(x)}</div></div>`).join('')}</div>
+        <div class="asset-holds">${d.holdings.map((x,i)=>`<div class="asset-hold"><input class="form-control" data-h="${i}" data-k="symbol" placeholder="VAS.AX, AAPL, USD" value="${escapeHtml(x.symbol||x.name||'')}" autocapitalize="characters"><input class="form-control num" data-h="${i}" data-k="units" inputmode="decimal" placeholder="0" value="${x.units??''}"><button class="asset-x" data-del="${i}" aria-label="Remove holding">×</button></div>`).join('')}</div>
         <div class="asset-add" data-addh style="margin:2px 0 4px">${ic('plus')} Add holding</div>
-        <div class="asset-hint">Use Yahoo Finance tickers: ASX shares end in .AX (VAS.AX), Hong Kong in .HK (0700.HK), crypto like BTC-AUD. For cash, type the currency (USD, HKD…) and the amount as units. Values use the last closing price, updated daily.</div>
+        <div class="asset-hint">${_zh()?'使用 Yahoo Finance 代號：澳洲股票加 .AX（例如 VAS.AX），香港股票加 .HK（例如 0700.HK），加密貨幣例如 BTC-AUD。現金請輸入貨幣代號（USD、HKD…），數量填金額。價格每日以收市價更新。':`Use Yahoo Finance tickers: ASX shares end in .AX (VAS.AX), Hong Kong in .HK (0700.HK), crypto like BTC-AUD. For cash, type the currency (USD, HKD…) and the amount as units. Values use the last closing price, updated daily.`}</div>
 `
-      :`<label class="asset-lbl">${d.type==='credit'?'Amount owing':'Balance'} (${d.currency})</label><input class="form-control asset-in num" data-f="amount" inputmode="decimal" placeholder="0.00" value="${d.amount??''}">
-        ${d.currency!==baseCur()?`<div class="asset-hint asset-conv">≈ ${baseCur()} ${fmtBase((Number(d.amount)||0)*fxNow(d.currency))}</div>`:''}`}
+      :`<label class="asset-lbl">${d.type==='credit'?(_zh()?'欠款':'Amount owing'):(_zh()?'結餘':'Balance')}</label><input class="form-control asset-in num" data-f="amount" inputmode="decimal" placeholder="0.00" value="${groupNum(d.amount)}">
+        ${d.currency!==baseCur()?`<div class="asset-hint asset-conv">≈ ${baseCur()} ${fmtBase(numVal(d.amount)*fxNow(d.currency))}</div>`:''}`}
       <div class="asset-btns">${orig?'<button class="asset-btn del" data-act="del">Delete</button>':''}<button class="asset-btn" data-act="cancel">Cancel</button><button class="asset-btn pri" data-act="save">Save</button></div>`;
   };
   draw();
@@ -5987,7 +6098,8 @@ window.openAssetSheet=function(pid,id){
   };
   box.addEventListener('input',e=>{
     const t=e.target;
-    if(t.dataset.f){ d[t.dataset.f]=t.value; const cv=box.querySelector('.asset-conv'); if(cv) cv.textContent=`≈ ${baseCur()} ${fmtBase((Number(d.amount)||0)*fxNow(d.currency))}`; }
+    if(t.dataset.f==='amount') groupInput(t);
+    if(t.dataset.f){ d[t.dataset.f]=t.value; const cv=box.querySelector('.asset-conv'); if(cv) cv.textContent=`≈ ${baseCur()} ${fmtBase(numVal(d.amount)*fxNow(d.currency))}`; }
     if(t.dataset.h!=null){
       const i=+t.dataset.h; d.holdings[i][t.dataset.k]=t.value;
       if(t.dataset.k==='symbol'){ d.holdings[i].name=''; lookup(i); }
@@ -6001,7 +6113,7 @@ window.openAssetSheet=function(pid,id){
     if(c.dataset.c){
       // switch instantly using the saved rate; fetch today's rate in the background and update the ≈ line when it arrives
       d.currency=c.dataset.c; draw();
-      if(d.currency!==baseCur()){ const cur=d.currency; ensureFxRateForDate(cur,isoDate()).then(()=>{ const cv=box.querySelector('.asset-conv'); if(cv&&d.currency===cur) cv.textContent=`≈ ${baseCur()} ${fmtBase((Number(d.amount)||0)*fxNow(cur))}`; }).catch(()=>{}); }
+      if(d.currency!==baseCur()){ const cur=d.currency; ensureFxRateForDate(cur,isoDate()).then(()=>{ const cv=box.querySelector('.asset-conv'); if(cv&&d.currency===cur) cv.textContent=`≈ ${baseCur()} ${fmtBase(numVal(d.amount)*fxNow(cur))}`; }).catch(()=>{}); }
       return;
     }
     if(c.dataset.del!=null){ d.holdings.splice(+c.dataset.del,1); draw(); return; }
@@ -6142,7 +6254,7 @@ function renderSettings(){
     </div>
 
     <div style="padding:24px 0 8px;text-align:center;font-size:11px;color:var(--text-2);line-height:1.8">
-      <div>v1.8.38</div>
+      <div>v1.8.46</div>
       <div>Last updated: 2026-11-13</div>
     </div>
   `;
@@ -7024,6 +7136,7 @@ Object.assign(window, {
   // Show app immediately with local cache — do not wait for Firebase
   const cached=loadTxLocalCache(currentLedgerId());
   if(cached.length) txs=cached;
+  window._barsAnim=true;
   showApp();
   renderAll();
   requestAnimationFrame(()=>{ moveTabIndicator(false); moveSegThumb(false); });
@@ -7176,8 +7289,7 @@ Object.assign(window, {
     const ov=document.createElement('div'); ov.id='add-menu'; ov.className='am-ov';
     const item=(a,ico,t,sub)=>`<button data-a="${a}"><span class="am-ic">${ico}</span><span class="am-tx"><b>${t}</b></span></button>`;
     ov.innerHTML=`<div class="am" style="left:${Math.round(r.left+r.width/2)}px;bottom:${Math.round(innerHeight-r.top+12)}px">
-      ${item('camera','<svg class="ic" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>',z?'影相':'Take photo',z?'用相機掃描收據':'Scan a receipt with the camera')}
-      ${item('library','<svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"/><circle cx="9" cy="10" r="1.6"/><path d="M21 16l-5-5-9 9"/></svg>',z?'選擇相片':'Choose photo',z?'由相簿或檔案掃描':'Scan from your photos or files')}
+      ${item('library','<svg class="ic" viewBox="0 0 24 24"><path d="M4 8h3l2-3h6l2 3h3a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13.5" r="3.5"/></svg>',z?'掃描收據':'Scan receipt','')}
       ${item('manual','<svg class="ic" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>',z?'手動新增':'Add manually',z?'輸入金額及詳情':'Type the amount and details')}
     </div>`;
     document.body.appendChild(ov);
